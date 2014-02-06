@@ -1,2 +1,6 @@
 Sailfish Hardware Adaptation Development Kit
 --------------------------------------------
+
+Build-dependencies on Debian:
+
+    apt-get install python-sphinx
