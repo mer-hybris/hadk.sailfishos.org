@@ -4,11 +4,36 @@ Porting the Android HAL
 Setting up an Android Build Environment
 ---------------------------------------
 
+* `Install repo`_
+
+.. _Install repo: http://source.android.com/source/downloading.html#installing-repo
+
 Checking out CyanogenMod Source
 -------------------------------
 
+.. code-block:: bash
+
+    mkdir -p $ANDROID_ROOT
+    cd $ANDROID_ROOT
+    repo init -u git://github.com/mer-hybris/android.git -b hybris-10.1
+
+Now you also need to clone ``droid-hal-device`` into ``rpm/``:
+
+.. code-block:: bash
+
+    git clone git://example.com/droid-hal-device.git rpm
+
+And download the prebuilt toolchain:
+
+.. code-block:: bash
+
+    cd $ANDROID_ROOT/vendor/cm
+    ./get-prebuilts
+
 For Existing Devices
 ````````````````````
+
+See :doc:`devices` for a list of supported devices.
 
 For New Devices
 ```````````````
@@ -85,6 +110,16 @@ configuration.
 
 Building Relevant Bits of CyanogenMod
 -------------------------------------
+
+In the Android build tree, run the following in a ``bash`` shell (if you
+are using e.g. ``zsh``, you need to run these commands in a ``bash`` shell
+for this to work due to the Android Build System dependency on ``bash``):
+
+.. code-block:: bash
+
+    source build/envsetup.sh
+    breakfast $DEVICE
+    mka hybris-boot hybris-recovery linker init libc adb adbd libEGL libGLESv2 bootimage
 
 Configuring and Compiling the Kernel
 ------------------------------------

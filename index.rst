@@ -19,6 +19,7 @@ Contents:
    mic
    installer
    repos
+   devices
 
 Indices and tables
 ==================
