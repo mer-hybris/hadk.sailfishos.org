@@ -18,6 +18,7 @@ Contents:
    droid-hal
    mic
    installer
+   repos
 
 Indices and tables
 ==================
