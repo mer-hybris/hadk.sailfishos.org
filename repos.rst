@@ -28,3 +28,10 @@ List of Repositories
     Qt 5 Platform Abstraction Plugin that allows fullscreen
     rendering to the Droid-based hardware abstraction. It
     utilizes libhybris and the Android hwcomposer module.
+
+**mer-kernel-check**
+    A script that checks if the kernel configuration is suitable
+    for Sailfish OS. Some features must be enabled, as they are
+    needed on Sailfish OS (e.g. to support ``systemd``), other
+    features must be disabled, as they conflict with Sailfish OS
+    (e.g. ``CONFIG_ANDROID_PARANOID_NETWORK``) at the moment.
