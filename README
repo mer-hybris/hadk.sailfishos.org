@@ -4,3 +4,9 @@ Sailfish Hardware Adaptation Development Kit
 Build-dependencies on Debian:
 
     apt-get install python-sphinx
+
+Markup help:
+
+    http://pythonhosted.org/an_example_pypi_project/sphinx.html
+    http://docutils.sourceforge.net/docs/ref/rst/restructuredtext.html
+
