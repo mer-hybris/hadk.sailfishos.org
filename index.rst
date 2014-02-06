@@ -3,20 +3,25 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to Sailfish Hardware Adaptation Developer Kit's documentation!
-======================================================================
+Nemo Porting Guide
+==================
 
 Contents:
 
 .. toctree::
    :maxdepth: 2
 
-
+   prerequisites
+   preparing
+   getting-in
+   android
+   droid-hal
+   mic
+   installer
 
 Indices and tables
 ==================
 
 * :ref:`genindex`
-* :ref:`modindex`
 * :ref:`search`
 
