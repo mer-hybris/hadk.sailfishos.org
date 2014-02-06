@@ -17,12 +17,6 @@ Checking out CyanogenMod Source
     cd $ANDROID_ROOT
     repo init -u git://github.com/mer-hybris/android.git -b hybris-10.1
 
-Now you also need to clone ``droid-hal-device`` into ``rpm/``:
-
-.. code-block:: bash
-
-    git clone git://example.com/droid-hal-device.git rpm
-
 And download the prebuilt toolchain:
 
 .. code-block:: bash
