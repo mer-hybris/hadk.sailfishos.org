@@ -17,13 +17,6 @@ Checking out CyanogenMod Source
     cd $ANDROID_ROOT
     repo init -u git://github.com/mer-hybris/android.git -b hybris-10.1
 
-And download the prebuilt toolchain:
-
-.. code-block:: bash
-
-    cd $ANDROID_ROOT/vendor/cm
-    ./get-prebuilts
-
 For Existing Devices
 ````````````````````
 
