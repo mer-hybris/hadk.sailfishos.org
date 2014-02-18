@@ -107,7 +107,7 @@ for this to work due to the Android Build System dependency on ``bash``):
 
     source build/envsetup.sh
     breakfast $DEVICE
-    mka hybris-boot hybris-recovery linker init libc adb adbd libEGL libGLESv2 bootimage
+    mka hybris-hal
 
 Configuring and Compiling the Kernel
 ------------------------------------
