@@ -18,6 +18,12 @@ Checking out CyanogenMod Source
     repo init -u git://github.com/mer-hybris/android.git -b hybris-10.1
     repo sync
 
+This will download the source code for the subset of Android we need
+to build the HAL.
+
+The expected disk usage for the source tree after ``repo sync``
+is **9.4 GB** (as of 2014-02-18).
+
 For Existing Devices
 ````````````````````
 
