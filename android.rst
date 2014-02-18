@@ -115,9 +115,49 @@ for this to work due to the Android Build System dependency on ``bash``):
     breakfast $DEVICE
     mka hybris-hal
 
+In some cases (with parallel builds), the build can fail, in this case, use
+``mka hybris-hal -j1`` to retry with a non-parallel build and see the error
+message without output from parallel jobs. The build usually ends with:
+
+.. code-block:: console
+
+    ...
+    Install: .../out/target/product/$DEVICE/hybris-recovery.img
+    ...
+    Install: .../out/target/product/$DEVICE/hybris-boot.img
+    ...
+    Made boot image: .../out/target/product/$DEVICE/boot.img
+
+The relevant output bits will be in ``out/target/product/$DEVICE/``, in
+particular:
+
+* ``out/target/product/$DEVICE/hybris-boot.img``: Kernel and initrd
+
+* ``out/target/product/$DEVICE/hybris-recovery.img``: Recovery boot image
+
+* ``out/target/product/$DEVICE/system/``: HAL system libraries and binaries
+
+The expected disk usage for the source and binaries after ``mka hybris-hal``
+is **16 GB** (as of 2014-02-18).
+
 Configuring and Compiling the Kernel
 ------------------------------------
 
+For supported devices, the kernel is built as part of ``mka hybris-hal``
+with the right configuration.
+
+*TODO: Describe procedure for new devices.*
+
 Packaging ``hybris-boot`` and the Kernel
 ----------------------------------------
+
+XXX: Remove this section? (hybris-boot and the kernel are packaged as part
+of the Android build now).
+
+Common Pitfalls
+---------------
+
+* If ``repo sync`` fails with a message like *fatal: duplicate path
+  device/samsung/smdk4412-common in /home/nemo/android/.repo/manifest.xml*,
+  remove the local manifest with ``rm .repo/local_manifests/roomservice.xml``
 
