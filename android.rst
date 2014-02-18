@@ -16,6 +16,7 @@ Checking out CyanogenMod Source
     mkdir -p $ANDROID_ROOT
     cd $ANDROID_ROOT
     repo init -u git://github.com/mer-hybris/android.git -b hybris-10.1
+    repo sync
 
 For Existing Devices
 ````````````````````
