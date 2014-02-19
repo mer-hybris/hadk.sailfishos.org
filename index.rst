@@ -27,6 +27,7 @@ OS'es to devices running CyanogenMod.
    droid-hal
    mic
    installer
+   manual-install
    repos
    devices
 
