@@ -50,9 +50,7 @@ connectivity to connect to the Internet and download updates:
     mount -o bind /dev /data/.stowaways/sailfishos/dev
     mount -o bind /proc /data/.stowaways/sailfishos/proc
     mount -o bind /sys /data/.stowaways/sailfishos/sys
-    chroot /data/.stowaways/sailfishos/ /bin/sh
-    export PATH=/bin:/sbin:/usr/bin:/usr/sbin
-    export HOME=/root/
+    chroot /data/.stowaways/sailfishos/ /bin/su -
     echo "nameserver 8.8.8.8" >/etc/resolv.conf
     ...
 
