@@ -35,9 +35,34 @@ This should leave you with several RPM packages in ``$ANDROID_ROOT/RPMS/``.
 For New Devices
 ```````````````
 
-1. Create ``rpm/droid-hal-$DEVICE.spec`` and fill in the metadata
+1. Create ``rpm/droid-hal-$DEVICE.spec`` and fill in the metadata:
 
-2. Customize TODO
+.. code-block:: bash
+
+    $ cat > rpm/droid-hal-$DEVICE.spec << EOF
+    %define device $DEVICE
+    %define vendor $VENDOR
+
+    %include rpm/droid-hal-device.inc
+    EOF
+
+2. Create ``rpm/device-$VENDOR-$DEVICE-configs``:
+
+.. code-block:: bash
+
+    $ mkdir rpm/device-$VENDOR-$DEVICE-configs
+
+3. Customize device configs
+
+.. code-block:: bash
+
+    $ cd rpm/droid-$VENDOR-$DEVICE-configs
+    $ mkdir -p var/lib/environment/compositor
+    $ cat > var/lib/environment/compositor/droid-hal-device.conf << EOF
+    HYBRIS_EGLPLATFORM=fbdev
+    QT_QPA_PLATFORM=hwcomposer
+    LIPSTICK_OPTIONS=-plugin evdevtouch:/dev/input/event0
+    EOF
 
 Uploading ``droid-hal-device`` to OBS
 -------------------------------------
