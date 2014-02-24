@@ -32,6 +32,13 @@ See :doc:`devices` for a list of supported devices.
 For New Devices
 ```````````````
 
+First, try building a full CyanogenMod build for your device and deploy it to
+see if you got the right sources. Once you got that, you can try building only
+the Android HAL that is used for Sailfish OS.
+
+* Device: Make sure you got all the right repositories added (that includes
+  the device configuration repository as well as hardware support bits)
+
 Mer Modifications to CyanogenMod
 --------------------------------
 
@@ -146,13 +153,9 @@ Configuring and Compiling the Kernel
 For supported devices, the kernel is built as part of ``mka hybris-hal``
 with the right configuration.
 
-*TODO: Describe procedure for new devices.*
-
-Packaging ``hybris-boot`` and the Kernel
-----------------------------------------
-
-XXX: Remove this section? (hybris-boot and the kernel are packaged as part
-of the Android build now).
+For new devices, you have to make sure to get the right kernel configuration
+included in the repository. For this, clone the kernel repository for the
+device into **mer-hybris** and configure the kernel using ``mer-kernel-check``.
 
 Common Pitfalls
 ---------------

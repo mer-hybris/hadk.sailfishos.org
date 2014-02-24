@@ -4,6 +4,18 @@ Getting In
 Boot and Flashing Process
 -------------------------
 
+This varies from device to device. There are a few different boot loaders and
+flashing mechanisms used for Android devices:
+
+* **fastboot**: Used by most Nexus devices
+
+* **odin**: Used by most Samsung devices
+
+For flashing fastboot-based devices, use ``fastboot`` (available in the
+Android SDK Tools package), for odin-based devices, use `Heimdall`_.
+
+.. _Heimdall: http://glassechidna.com.au/heimdall/
+
 Operating Blind on an Existing Device
 -------------------------------------
 
@@ -30,6 +42,14 @@ a Sailfish OS system.
 Splitting and Re-Assembling Boot Images
 ---------------------------------------
 
-Telnet Boot Image
------------------
+A **boot.img** file is basically a combination of a Linux kernel and an
+initramfs as ``cpio`` archive. The Android SDK Tools offer the ``mkbootimg``
+to build a boot image from a kernel and cpio archive. To split the boot
+image, use `split_bootimg.pl`_.
 
+.. _split_bootimg.pl: http://www.enck.org/tools/split_bootimg_pl.txt
+
+In the CyanogenMod-based Sailfish OS port, a boot image with Sailfish OS-
+specific scripts will be built automatically. These boot images are then
+available as ``hybris-boot.img`` (for booting into Sailfish OS) and
+``hybris-recovery.img`` (for debugging via telnet and test-booting).
