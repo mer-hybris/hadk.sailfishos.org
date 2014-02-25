@@ -4,6 +4,8 @@ Porting the Android HAL
 Setting up an Android Build Environment
 ---------------------------------------
 
+*TODO: unpacking and ubu-chroot into a ubuntu rootfs here?*
+
 * `Install repo`_
 
 .. _Install repo: http://source.android.com/source/downloading.html#installing-repo
@@ -24,19 +26,19 @@ to build the HAL.
 The expected disk usage for the source tree after ``repo sync``
 is **9.4 GB** (as of 2014-02-18).
 
-For Existing Devices
-````````````````````
+For Supported Devices
+`````````````````````
 
-See :doc:`devices` for a list of supported devices.
+See :doc:`devices` for a list of devices supported by HADK.
 
 For New Devices
 ```````````````
 
 First, try building a full CyanogenMod build for your device and deploy it to
 see if you got the right sources. Once you got that, you can try building only
-the Android HAL that is used for Sailfish OS.
+the Android HAL that is used for Sailfish OS (``mka hybris-hal``).
 
-* Device: Make sure you got all the right repositories added (that includes
+* Ensure you got all the right mer-hybris repositories added (that includes
   the device configuration repository as well as hardware support bits)
 
 Mer Modifications to CyanogenMod
@@ -45,9 +47,9 @@ Mer Modifications to CyanogenMod
 Our modifications are kept in two places:
 
 * **repo manifest**: This tracks all hybris-specific branches of
-  the Droid system that we have modified (see below).
+  the Droid system that we have modified (see below)
 * **Kernel repositories**: The patched kernel configuration for
-  each device is kept in a modified kernel repository.
+  each device is kept in a modified kernel repository
 
 Droid System
 ````````````
@@ -57,7 +59,7 @@ Android need to be modified:
 
 * **bionic/**
  * Pass ``errno`` from bionic to libhybris (``libdsyscalls.so``)
- * ``/dev/log/`` to ``/dev/alog/`` renaming
+ * Rename ``/dev/log/`` to ``/dev/alog/``
  * TLS slots need to be re-assigned to not conflict with glibc
  * Support for ``HYBRIS_LD_LIBRARY_PATH`` in the linker
  * Add ``/usr/libexec/droid-hybris/system/lib`` to the linker search path
@@ -78,13 +80,13 @@ Android need to be modified:
 * **libcore/**
  * Don't include ``JavaLibrary.mk``, as Java won't be available
 
-All these modifications are already done in the **mer-hybris** Git
-repository forks from the original CyanogenMod sources. If the hybris
+All these modifications have already been done in the **mer-hybris** Git
+collection of forks from the original CyanogenMod sources. If the hybris
 repo manifest is used, these changes will be included automatically.
 
 In addition to these generic modifications, for some devices and SoCs
 we also maintain a set of patches on top of CyanogenMod to fix issues
-with drivers that only happen in Sailfish OS:
+with drivers that only happen in Sailfish OS, for example:
 
 * **hardware/samsung/**
  * SEC hwcomposer: Avoid segfault if ``registerProcs`` was never called
@@ -94,7 +96,10 @@ Kernel
 
 For the Kernel, some configuration options must be enabled to support
 ``systemd`` features, and some configuration options must be disabled,
-because they conflict or block some features of Sailfish OS.
+because they conflict or block certain features of Sailfish OS.
+
+*FIXME: CONFIGS_ are in two other places: kernel checker and ``initramfs/init``.
+I suggest we direct them to one of those*
 
 * **Required Configuration Options**
  * TODO
@@ -106,42 +111,47 @@ because they conflict or block some features of Sailfish OS.
    in the group with ID 3003.
  * ...
 
-See ``mer-kernel-check`` for a tool that can be used to verify the kernel
-configuration.
+See ``$ANDROID_ROOT/hybris/mer-kernel-check`` for a tool that can be used to
+verify the kernel configuration.
 
 Building Relevant Bits of CyanogenMod
 -------------------------------------
 
+Throughout the documentation we shall use $DEVICE variable denoting the code name
+of your device. It can be obtained from http://wiki.cyanogenmod.org/w/Devices .
+
 In the Android build tree, run the following in a ``bash`` shell (if you
-are using e.g. ``zsh``, you need to run these commands in a ``bash`` shell
-for this to work due to the Android Build System dependency on ``bash``):
+are using e.g. ``zsh``, you need to run these commands in a ``bash`` shell):
 
 .. code-block:: bash
 
     source build/envsetup.sh
+    export USE_CCACHE=1
+
+*TODO: can this bit below be automated?*
+
+Edit ``build/core/main.mk`` and add include ``hybris/Android.mk`` to the
+subdir_makefiles variable.
+
+.. code-block:: bash
+
     breakfast $DEVICE
+
+*XXX: [thp]: For i9305 the ``breakfast`` results in duplicate repos for me? Had to
+use "lunch cm_$DEVICE-eng" instead (because we have modified repos for that device
+in our default.xml) [sl]: There is no cm_mako among options, and I just ignored
+the duplicate error - all went ahead fine. Play with roomservice is welcomed though,
+thanks*
+
+.. code-block:: bash
+
     mka hybris-hal
-
-In some cases (with parallel builds), the build can fail, in this case, use
-``mka hybris-hal -j1`` to retry with a non-parallel build and see the error
-message without output from parallel jobs. The build usually ends with:
-
-.. code-block:: console
-
-    ...
-    Install: .../out/target/product/$DEVICE/hybris-recovery.img
-    ...
-    Install: .../out/target/product/$DEVICE/hybris-boot.img
-    ...
-    Made boot image: .../out/target/product/$DEVICE/boot.img
 
 The relevant output bits will be in ``out/target/product/$DEVICE/``, in
 particular:
 
 * ``out/target/product/$DEVICE/hybris-boot.img``: Kernel and initrd
-
 * ``out/target/product/$DEVICE/hybris-recovery.img``: Recovery boot image
-
 * ``out/target/product/$DEVICE/system/``: HAL system libraries and binaries
 
 The expected disk usage for the source and binaries after ``mka hybris-hal``
@@ -155,7 +165,9 @@ with the right configuration.
 
 For new devices, you have to make sure to get the right kernel configuration
 included in the repository. For this, clone the kernel repository for the
-device into **mer-hybris** and configure the kernel using ``mer-kernel-check``.
+device into **mer-hybris** and configure the kernel using ``hybris/mer-kernel-check``.
+
+*TODO: Document how to adjust ``fixup-mountpoints``*
 
 Common Pitfalls
 ---------------
@@ -163,4 +175,16 @@ Common Pitfalls
 * If ``repo sync`` fails with a message like *fatal: duplicate path
   device/samsung/smdk4412-common in /home/nemo/android/.repo/manifest.xml*,
   remove the local manifest with ``rm .repo/local_manifests/roomservice.xml``
+* In some cases (with parallel builds), the build can fail, in this case, use
+``mka hybris-hal -j1`` to retry with a non-parallel build and see the error
+message without output from parallel jobs. The build usually ends with:
+
+.. code-block:: console
+
+    ...
+    Install: .../out/target/product/$DEVICE/hybris-recovery.img
+    ...
+    Install: .../out/target/product/$DEVICE/hybris-boot.img
+    ...
+    Made boot image: .../out/target/product/$DEVICE/boot.img
 
