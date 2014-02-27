@@ -28,6 +28,7 @@ Now run the following commands substituting the obtained information where indic
 
 .. code-block:: bash
 
+  export ANDROID_ROOT="/srv/mer/android/droid"
   export VENDOR="[MANUFACTURER]"
   export DEVICE="[CODENAME]"
 
@@ -40,7 +41,8 @@ The following commands download the required projects and also our officially su
 
 .. code-block:: bash
 
-    mkdir -p $ANDROID_ROOT
+    sudo mkdir -p $ANDROID_ROOT
+    sudo chown -R $USER $ANDROID_ROOT
     cd $ANDROID_ROOT
     repo init -u git://github.com/mer-hybris/android.git -b hybris-10.1
     repo sync
