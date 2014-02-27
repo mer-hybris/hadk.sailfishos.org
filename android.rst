@@ -4,6 +4,11 @@ Porting the Android HAL
 Setting up an Android Build Environment
 ---------------------------------------
 
+Downloading and Unpacking Ubuntu Chroot
+```````````````````````````````````````
+
+In order to maintain build stability, we use an *Ubuntu GNU/Linux* chroot environment from within the *Mer SDK* to build our Android source tree.
+
 *TODO: unpacking and ubu-chroot into a ubuntu rootfs here?*
 
 * `Installing repo`_
