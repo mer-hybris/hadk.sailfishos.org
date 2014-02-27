@@ -6,9 +6,25 @@ Setting up an Android Build Environment
 
 *TODO: unpacking and ubu-chroot into a ubuntu rootfs here?*
 
-* `Install repo`_
+* `Installing repo`_
 
-.. _Install repo: http://source.android.com/source/downloading.html#installing-repo
+.. _Installing repo: http://source.android.com/source/downloading.html#installing-repo
+
+Setting up required environment variables
+`````````````````````````````````````````
+
+Throughout this guide we will be referencing your device vendor and device codename, both in scripts and configuration files. 
+
+To get this information if you're not sure, find your device here: `CyanogenMod Devices`_, note down the "Manufacturer" and "Codename" values, which are displayed in the side bar on the right.
+
+Now run the following commands substituting the obtained information where indicated.
+
+.. _CyanogenMod Devices: http://wiki.cyanogenmod.org/w/Devices
+
+.. code-block:: bash
+
+  export VENDOR="[MANUFACTURER]"
+  export DEVICE="[CODENAME]"
 
 Checking out CyanogenMod Source
 -------------------------------
