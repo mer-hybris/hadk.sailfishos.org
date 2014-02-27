@@ -23,9 +23,9 @@ Build Machine
 
 * `Mer Platform SDK`_
 
-* At least 20 GiB of free disk space (13 GiB source download + more for building)
+* At least 16 GiB of free disk space (10 GiB source download + more for building)
 
-* At least 2 GB of RAM (the more the better)
+* At least 4 GiB of RAM (the more the better)
 
 .. _Mer Platform SDK: http://wiki.merproject.org/wiki/Platform_SDK
 
