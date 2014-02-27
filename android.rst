@@ -15,7 +15,7 @@ Setting up required environment variables
 
 Throughout this guide we will be referencing your device vendor and device codename, both in scripts and configuration files. 
 
-To get this information if you're not sure, find your device here: `CyanogenMod Devices`_, note down the "Manufacturer" and "Codename" values, which are displayed in the side bar on the right.
+To get this information if you're not sure, find your device here: `CyanogenMod Devices`_, note down the "*Manufacturer*" and "*Codename*" values, which are displayed in the side bar on the right.
 
 Now run the following commands substituting the obtained information where indicated.
 
@@ -29,6 +29,10 @@ Now run the following commands substituting the obtained information where indic
 Checking out CyanogenMod Source
 -------------------------------
 
+Our build process is based around the *CyanogenMod* projects source tree, but when required we've forked some projects, in order to apply patches required to make *libhybris* function correctly and to build hybris based hardware adaptations.
+
+The following commands download the required projects and also our officially supported device profiles for building libhybris based *Mer* device hardware adaptations.
+
 .. code-block:: bash
 
     mkdir -p $ANDROID_ROOT
@@ -36,11 +40,10 @@ Checking out CyanogenMod Source
     repo init -u git://github.com/mer-hybris/android.git -b hybris-10.1
     repo sync
 
-This will download the source code for the subset of Android we need
-to build the HAL.
-
 The expected disk usage for the source tree after ``repo sync``
 is **9.4 GB** (as of 2014-02-18).
+
+This may take some time.
 
 For Supported Devices
 `````````````````````
