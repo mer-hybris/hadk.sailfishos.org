@@ -61,7 +61,7 @@ This may take some time.
 For Supported Devices
 `````````````````````
 
-See :doc:`devices` for a list of devices supported by HADK.
+See :doc:`devices` for a list of devices supported by HADK. Supported devices are automatically downloaded as part of the HADK android build environment.
 
 For New Devices
 ```````````````
@@ -76,12 +76,7 @@ the Android HAL that is used for Sailfish OS (``mka hybris-hal``).
 Mer Modifications to CyanogenMod
 --------------------------------
 
-Our modifications are kept in two places:
-
-* **repo manifest**: This tracks all hybris-specific branches of
-  the Droid system that we have modified (see below)
-* **Kernel repositories**: The patched kernel configuration for
-  each device is kept in a modified kernel repository
+Our modifications are tracked by our own hybris-specific repo manifest file, currently at version *hybris-10.1* which is based on the *CyanogenMod* 10.1.x releases. The below sections outline our modifications to these sources for developing *libhybris* based adaptations.
 
 Droid System
 ````````````
@@ -148,9 +143,6 @@ verify the kernel configuration.
 
 Building Relevant Bits of CyanogenMod
 -------------------------------------
-
-Throughout the documentation we shall use $DEVICE variable denoting the code name
-of your device. It can be obtained from http://wiki.cyanogenmod.org/w/Devices .
 
 In the Android build tree, run the following in a ``bash`` shell (if you
 are using e.g. ``zsh``, you need to run these commands in a ``bash`` shell):
