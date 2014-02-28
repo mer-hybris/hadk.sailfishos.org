@@ -7,13 +7,13 @@ Setting up an Android Build Environment
 Downloading and Unpacking Ubuntu Chroot
 ```````````````````````````````````````
 
-In order to maintain build stability, we use an *Ubuntu GNU/Linux* chroot environment from within the *Mer SDK* to build our Android source tree.
+In order to maintain build stability, we use an *Ubuntu GNU/Linux* chroot environment from within the *Mer SDK* to build our Android source tree. The following commands download and unpack the rootfs to the appropriate location.
 
-*TODO: unpacking and ubu-chroot into a ubuntu rootfs here?*
+.. code-block:: bash
 
-* `Installing repo`_
-
-.. _Installing repo: http://source.android.com/source/downloading.html#installing-repo
+  curl -O https://img.merproject.org/images/mer-hybris/ubu/ubuntu-lucid-android-rootfs.tar.bz2
+  mkdir -p /srv/mer/android/ubuntu
+  tar --numeric-owner -xvjf ubuntu-lucid-android-rootfs.tar.bz2 -C /srv/mer/android/ubuntu
 
 Setting up required environment variables
 `````````````````````````````````````````
@@ -37,7 +37,13 @@ Checking out CyanogenMod Source
 
 Our build process is based around the *CyanogenMod* projects source tree, but when required we've forked some projects, in order to apply patches required to make *libhybris* function correctly and to build hybris based hardware adaptations.
 
-The following commands download the required projects and also our officially supported device profiles for building libhybris based *Mer* device hardware adaptations.
+Firstly you need to install the *repo* command from the AOSP source code repositories, the instructions can be found from the below link:
+
+* `Installing repo`_
+
+.. _Installing repo: http://source.android.com/source/downloading.html#installing-repo
+
+After you've installed the *repo* command, the following set of commands, download the required projects and also our officially supported device profiles, for building libhybris based *Mer* device hardware adaptations.
 
 .. code-block:: bash
 
