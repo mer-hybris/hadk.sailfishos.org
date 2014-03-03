@@ -3,11 +3,11 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Nemo Porting Guide
-==================
+Sailfish OS Hardware Adaptation Development Kit
+===============================================
 
-This is a guide to help you understand how you can port Nemo and Nemo-based
-OS'es to devices running CyanogenMod.
+This is a guide to help you understand how you can port Sailfish OS
+to devices running CyanogenMod.
 
 .. warning::
 
