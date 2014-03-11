@@ -12,8 +12,8 @@ In order to maintain build stability, we use an *Ubuntu GNU/Linux* chroot enviro
 .. code-block:: bash
 
   curl -O https://img.merproject.org/images/mer-hybris/ubu/ubuntu-lucid-android-rootfs.tar.bz2
-  mkdir -p /srv/mer/android/ubuntu
-  tar --numeric-owner -xvjf ubuntu-lucid-android-rootfs.tar.bz2 -C /srv/mer/android/ubuntu
+  sudo mkdir -p /srv/mer/android/ubuntu
+  sudo tar --numeric-owner -xvjf ubuntu-lucid-android-rootfs.tar.bz2 -C /srv/mer/android/ubuntu
 
 Setting up required environment variables
 `````````````````````````````````````````
