@@ -20,6 +20,7 @@ to devices running CyanogenMod.
 .. toctree::
    :maxdepth: 2
 
+   overview
    prerequisites
    preparing
    getting-in

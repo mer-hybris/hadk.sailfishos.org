@@ -1,6 +1,10 @@
 Sailfish Hardware Adaptation Development Kit
 --------------------------------------------
 
+Build-dependencies in Mer SDK (mer-tools) :
+
+    zypper in python-sphinx
+
 Build-dependencies on Debian:
 
     apt-get install python-sphinx
