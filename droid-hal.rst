@@ -28,7 +28,7 @@ The next step has to be carried out in a Mer SDK chroot:
 .. code-block:: bash
 
     cd $ANDROID_ROOT
-    mb2 -s rpm/droid-hal-$DEVICE.spec build
+    mb2 -t $VENDOR-$DEVICE-armv7hl -s rpm/droid-hal-$DEVICE.spec build
 
 This should leave you with several RPM packages in ``$ANDROID_ROOT/RPMS/``.
 
