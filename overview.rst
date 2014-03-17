@@ -4,11 +4,11 @@ Overview
 Goal
 ====
 
-What we're aiming for is a Mer-core based linux system that will run on an android device.
+What we're aiming for is a Mer-core based Linux system that will run on an android device.
 
 This consists of:
 
-* Mer core : The linux userspace core
+* Mer core : The Linux userspace core
 * Android Hardware Adaptation : (also called an HA) this consists of
 
  * a device specific Android kernel
@@ -31,7 +31,7 @@ The development environment uses:
 
 * Android build chroot (a minimal Ubuntu chroot required to build the Android src)
 
-During the HA development you'll typically have one window where you build/hack on android code and another where you assemble the Mer glue packages.
+During the HA development you'll typically have one window where you build/hack on Android code and another where you assemble the Mer glue packages.
 
 The approach is to build the following components in the Android build chroot:
 
@@ -39,7 +39,7 @@ The approach is to build the following components in the Android build chroot:
 * a hacking friendly initrd which supports various boot options
 * boot and recovery images
 * a minimal 'standard' /system
-* some 'libhybris-ised' packages for /system (like bionic, logcat and android's init)
+* some 'libhybris-ised' packages for /system (like bionic, logcat and Android's init)
 
 Then in the Mer SDK we build:
 
