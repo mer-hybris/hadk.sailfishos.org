@@ -21,7 +21,9 @@ Build Machine
 
 * A 64-bit X86 machine with a 64-bit Linux kernel
 
-* `Mer Platform SDK`_
+* `Mer Platform SDK`_ with the android-tools package installed (run `sudo zypper in android-tools` )
+
+* `Sailfish Target`_
 
 * At least 16 GiB of free disk space (10 GiB source download + more for building)
 
@@ -29,3 +31,4 @@ Build Machine
 
 .. _Mer Platform SDK: http://wiki.merproject.org/wiki/Platform_SDK
 
+.. _Sailfish Target: http://releases.sailfishos.org/sdk/latest/targets/
