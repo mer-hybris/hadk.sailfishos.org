@@ -22,3 +22,6 @@ Configuring the Kickstart File
 Building the Image with MIC
 ---------------------------
 
+Building a rootfs using remote repos:
+
+  sudo mic create fs --arch armv7hl --tokenmap=RELEASE:latest,ARCH:armv7hl sfa-${DEVICE}.ks --record-pkgs=name,url
