@@ -1,5 +1,36 @@
-Porting the Android HAL
-=======================
+Building the Android HAL
+========================
+
+Setting up required environment variables
+-----------------------------------------
+
+Throughout this guide we will be referencing the installed location of
+your SDK, targets and src; your device vendor and device codename,
+both in scripts and configuration files.
+
+To get this information if you're not sure, find your device here:
+`CyanogenMod Devices`_, note down the "*Manufacturer*" and
+"*Codename*" values, which are displayed in the side bar on the right.
+
+Now run the following commands substituting the obtained information
+where indicated.
+
+.. _CyanogenMod Devices: http://wiki.cyanogenmod.org/w/Devices
+
+.. code-block:: bash
+
+  cat <<EOF > $HOME/.mersdkubu.profile
+  export MER_ROOT="$HOME/mer"
+  export ANDROID_ROOT="$MER_ROOT/android/droid"
+  export VENDOR="[MANUFACTURER]"
+  export DEVICE="[CODENAME]"
+  EOF
+
+This ensures that the environment is setup correctly when you use the
+`ubu-chroot` command to enter the android sdk.
+
+FIXME: This depends on lbt's updates to android-tools. Verify this
+works by entering...
 
 Setting up an Android Build Environment
 ---------------------------------------
@@ -7,46 +38,49 @@ Setting up an Android Build Environment
 Downloading and Unpacking Ubuntu Chroot
 ```````````````````````````````````````
 
-In order to maintain build stability, we use an *Ubuntu GNU/Linux* chroot environment from within the *Mer SDK* to build our Android source tree. The following commands download and unpack the rootfs to the appropriate location.
+In order to maintain build stability, we use an *Ubuntu GNU/Linux*
+chroot environment from within the *Mer SDK* to build our Android
+source tree. The following commands download and unpack the rootfs to
+the appropriate location.
 
 .. code-block:: bash
 
-  curl -O http://img.merproject.org/images/mer-hybris/ubu/ubuntu-lucid-android-rootfs.tar.bz2
-  sudo mkdir -p /parentroot/srv/mer/targets/ubuntu
-  sudo tar --numeric-owner -xvjf ubuntu-lucid-android-rootfs.tar.bz2 -C /parentroot/srv/mer/targets/ubuntu
+  
+  cd $HOME; curl -O http://img.merproject.org/images/mer-hybris/ubu/ubuntu-lucid-android-rootfs.tar.bz2
+  sudo mkdir -p /parentroot/$MER_ROOT/targets/ubuntu
+  sudo tar --numeric-owner -xvjf $HOME/ubuntu-lucid-android-rootfs.tar.bz2 -C /parentroot/$MER_ROOT/targets/ubuntu
 
-Setting up required environment variables
-`````````````````````````````````````````
+WARNING: ^^ tarball extracts to /parentroot/$MER_ROOT/targets/ubuntu/unbuntu/*
 
-Throughout this guide we will be referencing your device vendor and device codename, both in scripts and configuration files. 
-
-To get this information if you're not sure, find your device here: `CyanogenMod Devices`_, note down the "*Manufacturer*" and "*Codename*" values, which are displayed in the side bar on the right.
-
-Now run the following commands substituting the obtained information where indicated.
-
-.. _CyanogenMod Devices: http://wiki.cyanogenmod.org/w/Devices
-
-.. code-block:: bash
-
-  export ANDROID_ROOT="/srv/mer/android/droid"
-  export VENDOR="[MANUFACTURER]"
-  export DEVICE="[CODENAME]"
 
 Checking out CyanogenMod Source
 -------------------------------
 
-Our build process is based around the *CyanogenMod* projects source tree, but when required we've forked some projects, in order to apply patches required to make *libhybris* function correctly and to build hybris based hardware adaptations.
+Our build process is based around the *CyanogenMod* projects source
+tree, but when required we've forked some projects, in order to apply
+patches required to make *libhybris* function correctly and to build
+hybris based hardware adaptations.
 
-Firstly you need to install the *repo* command from the AOSP source code repositories, the instructions can be found from the below link:
+Firstly you need to install the *repo* command from the AOSP source
+code repositories, the instructions can be found from the below link:
 
 * `Installing repo`_
 
 .. _Installing repo: http://source.android.com/source/downloading.html#installing-repo
 
-After you've installed the *repo* command, the following set of commands, download the required projects and also our officially supported device profiles, for building libhybris based *Mer* device hardware adaptations.
+After you've installed the *repo* command, the following set of
+commands, download the required projects and also our officially
+supported device profiles, for building libhybris based *Mer* device
+hardware adaptations.
+
+Ensure you have done `git config --global user.email
+"you@example.com"` and `git config --global user.name "Your Name"`.
 
 .. code-block:: bash
 
+    ANDROID_SDK $
+
+    . $HOME/.mersdkubu.profile
     sudo mkdir -p $ANDROID_ROOT
     sudo chown -R $USER $ANDROID_ROOT
     cd $ANDROID_ROOT
@@ -56,90 +90,7 @@ After you've installed the *repo* command, the following set of commands, downlo
 The expected disk usage for the source tree after ``repo sync``
 is **9.4 GB** (as of 2014-02-18).
 
-This may take some time.
-
-For Supported Devices
-`````````````````````
-
-See :doc:`devices` for a list of devices supported by HADK. Supported devices are automatically downloaded as part of the HADK android build environment.
-
-For New Devices
-```````````````
-
-First, try building a full CyanogenMod build for your device and deploy it to
-see if you got the right sources. Once you got that, you can try building only
-the Android HAL that is used for Sailfish OS (``mka hybris-hal``).
-
-* Ensure you got all the right mer-hybris repositories added (that includes
-  the device configuration repository as well as hardware support bits)
-
-Mer Modifications to CyanogenMod
---------------------------------
-
-Our modifications are tracked by our own hybris-specific repo manifest file, currently at version *hybris-10.1* which is based on the *CyanogenMod* 10.1.x releases. The below sections outline our modifications to these sources for developing *libhybris* based adaptations.
-
-Droid System
-````````````
-
-In order to work with ``libhybris``, some parts of the lower levels of
-Android need to be modified:
-
-* **bionic/**
- * Pass ``errno`` from bionic to libhybris (``libdsyscalls.so``)
- * Rename ``/dev/log/`` to ``/dev/alog/``
- * TLS slots need to be re-assigned to not conflict with glibc
- * Support for ``HYBRIS_LD_LIBRARY_PATH`` in the linker
- * Add ``/usr/libexec/droid-hybris/system/lib`` to the linker search path
-* **external/busybox/**
- * Busybox is used in the normal and recovery boot images. We need
-   some additional features like ``mdev`` and ``udhcpd``.
-* **system/core/**
- * Make ``cutils`` and ``logcat`` aware of the new log location
-   (``/dev/alog/``)
- * Add ``/usr/libexec/droid-hybris/lib-dev-alog/``
-   to the ``LD_LIBRARY_PATH``
- * Force SELINUX off since mer doesn't support it
- * Remove various ``init`` and ``init.rc`` settings and operations that
-   are handled by ``systemd`` / Mer on a Sailfish OS system.
-* **frameworks/base/**
- * Only build ``servicemanager``, ``bootanimation`` and ``androidfw``
-   to make the minimal Droid HAL build smaller (no Java content)
-* **libcore/**
- * Don't include ``JavaLibrary.mk``, as Java won't be available
-
-All these modifications have already been done in the **mer-hybris** Git
-collection of forks from the original CyanogenMod sources. If the hybris
-repo manifest is used, these changes will be included automatically.
-
-In addition to these generic modifications, for some devices and SoCs
-we also maintain a set of patches on top of CyanogenMod to fix issues
-with drivers that only happen in Sailfish OS, for example:
-
-* **hardware/samsung/**
- * SEC hwcomposer: Avoid segfault if ``registerProcs`` was never called
-
-Kernel
-``````
-
-For the Kernel, some configuration options must be enabled to support
-``systemd`` features, and some configuration options must be disabled,
-because they conflict or block certain features of Sailfish OS.
-
-*FIXME: CONFIGS_ are in two other places: kernel checker and ``initramfs/init``.
-I suggest we direct them to one of those*
-
-* **Required Configuration Options**
- * TODO
- * TODO2
- * ...
-* **Conflicting Configuration Options**
- * **CONFIG_ANDROID_PARANOID_NETWORK**:
-   This would make all network connections fail if the user is not
-   in the group with ID 3003.
- * ...
-
-See ``$ANDROID_ROOT/hybris/mer-kernel-check`` for a tool that can be used to
-verify the kernel configuration.
+This may take some time(!)
 
 Building Relevant Bits of CyanogenMod
 -------------------------------------
@@ -152,14 +103,12 @@ are using e.g. ``zsh``, you need to run these commands in a ``bash`` shell):
     source build/envsetup.sh
     export USE_CCACHE=1
 
-*TODO: can this bit below be automated?*
-
-Edit ``build/core/main.mk`` and add include ``hybris/Android.mk`` to the
-subdir_makefiles variable.
-
 .. code-block:: bash
 
     breakfast $DEVICE
+
+    # [lbt] This works for me
+    rm .repo/local_manifests/roomservice.xml
 
 *XXX: [thp]: For i9305 the ``breakfast`` results in duplicate repos for me? Had to
 use "lunch cm_$DEVICE-eng" instead (because we have modified repos for that device
@@ -174,78 +123,19 @@ thanks*
 The relevant output bits will be in ``out/target/product/$DEVICE/``, in
 particular:
 
-* ``out/target/product/$DEVICE/hybris-boot.img``: Kernel and initrd
-* ``out/target/product/$DEVICE/hybris-recovery.img``: Recovery boot image
-* ``out/target/product/$DEVICE/system/``: HAL system libraries and binaries
+* ``hybris-boot.img``: Kernel and initrd
+* ``hybris-recovery.img``: Recovery boot image
+* ``system/`` and ``root/``: HAL system libraries and binaries
 
 The expected disk usage for the source and binaries after ``mka hybris-hal``
 is **16 GB** (as of 2014-02-18).
 
-Configuring and Compiling the Kernel
-------------------------------------
+For Supported Devices
+`````````````````````
 
-For supported devices, the kernel is built as part of ``mka hybris-hal``
-with the right configuration.
-
-For new devices, you have to make sure to get the right kernel configuration
-included in the repository. For this, clone the kernel repository for the
-device into **mer-hybris** and configure the kernel using ``hybris/mer-kernel-check``.
-
-*TODO: Document how to adjust ``fixup-mountpoints``*
-
-Setting up Scratchbox2 Target
------------------------------
-
-It is necessary to setup a scratchbox2 target to use for packaging your
-hardware adaptation packages in the next section. Download and create your
-scratchbox2 target from within the Mer SDK with the following commands.
-
-.. code-block:: console
-
-    export SFFE_SB2_TARGET=/parentroot/srv/sb2/targets/$VENDOR-$DEVICE-armv7hl
-    
-    curl -O http://releases.sailfishos.org/sdk/latest/targets/Jolla-latest-Sailfish_SDK_Target-armv7hl.tar.bz2
-    
-    sudo mkdir -p $SFFE_SB2_TARGET
-    sudo tar --numeric-owner -pxvjf Jolla-latest-Sailfish_SDK_Target-armv7hl.tar.bz2 -C $SFFE_SB2_TARGET
-    
-    sudo chown -R $USER $SFFE_SB2_TARGET
-    
-    cd $SFFE_SB2_TARGET
-    grep :$(id -u): /etc/passwd >> etc/passwd
-    grep :$(id -g): /etc/group >> etc/group
-    
-    sb2-init -d -L "--sysroot=/" -C "--sysroot=/" -c /usr/bin/qemu-arm-dynamic -m sdk-build -n -N -t / $VENDOR-$DEVICE-armv7hl /opt/cross/bin/armv7hl-meego-linux-gnueabi-gcc
-    
-    sb2 -t $VENDOR-$DEVICE-armv7hl -m sdk-install -R rpm --rebuilddb
-    sb2 -t $VENDOR-$DEVICE-armv7hl -m sdk-install -R zypper ref --force
-
-
-Do a sanity check on scratchbox2 target:
-
-.. code-block:: console
-
-    cat > main.c << EOF
-    #include <stdlib.h>
-    #include <stdio.h>
-    
-    int main(void) {
-      printf("Hello, world!\n");
-      RETURN EXIT_SUCCESS;
-    }
-    EOF
-
-    sb2 -t $VENDOR-$DEVICE-armv7hl gcc main.c -o test
-
-If the compilation was successful you can test the executable by running the
-following command.
-
-.. code-block:: console
-
-    sb2 -t $VENDOR-$DEVICE-armv7hl ./test
-
-The above command should output "Hello, world" on the console, this proves
-that the target can compile binaries and execute them for your architecture.
+See :doc:`devices` for a list of devices supported by HADK. Supported
+devices are automatically downloaded as part of the HADK android build
+environment.
 
 Common Pitfalls
 ---------------

@@ -27,11 +27,13 @@ The development environment uses:
 
 * Mer Platform SDK with
 
- * Architecture specific 'target' (typically a rootfs with non-x86 headers/libs)
+ * device specific 'target' (typically a rootfs with non-x86 headers/libs including device specific headers)
 
 * Android build chroot (a minimal Ubuntu chroot required to build the Android src)
 
 During the HA development you'll typically have one window where you build/hack on Android code and another where you assemble the Mer glue packages.
+
+In these docs we use the `$MER_ROOT` environment variable to point to the base of the SDK storage/build area. Typically this is set to some area with lots of space so something like: `export MER_ROOT=/srv/mer` or `export MER_ROOT=$HOME/mer`
 
 The approach is to build the following components in the Android build chroot:
 

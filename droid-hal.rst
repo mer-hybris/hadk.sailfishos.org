@@ -2,7 +2,7 @@ Packaging Droid HAL
 ===================
 
 In this chapter, we will package the build results of :doc:`android`
-as RPM packages and upload them to OBS. From there, it can be
+as RPM packages and upload them to OBS. From there, they can be
 used to build libhybris and the QPA plugin.
 
 Packaging ``droid-hal-device``
@@ -13,12 +13,13 @@ This step requires:
 * A populated ``$ANDROID_ROOT`` from :doc:`android`
 * A Mer Platform SDK installation (chroot) for RPM building
 
-Inside your ``$ANDROID_ROOT``, clone ``droid-hal-device`` into ``rpm/``:
+Inside your ``$ANDROID_ROOT``, there is a copy of ``droid-hal-device``
+in the ``rpm/`` directory (since it appears in the manifest). 
 
-.. code-block:: bash
+The master git repo for the packaging is here:  https://github.com/mer-hybris/droid-hal-device
 
-    cd $ANDROID_ROOT
-    git clone git://example.com/droid-hal-device.git rpm
+This rpm/ dir contains some rather spooky spec file packaging to make
+a set of rpms.
 
 For Supported Devices
 `````````````````````
@@ -28,6 +29,11 @@ The next step has to be carried out in a Mer SDK chroot:
 .. code-block:: bash
 
     cd $ANDROID_ROOT
+    #FIXME: this revolting workaround is needed since mb2 doesn't parse %include and
+    #       rpmspec --query --buildrequires fails since some macros provided by the BRs
+    #       aren't present ... catch22
+    mb2 -t $VENDOR-$DEVICE-armv7hl -s rpm/droid-hal-device.inc build
+
     mb2 -t $VENDOR-$DEVICE-armv7hl -s rpm/droid-hal-$DEVICE.spec build
 
 This should leave you with several RPM packages in ``$ANDROID_ROOT/RPMS/``.

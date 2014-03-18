@@ -23,13 +23,15 @@ to devices running CyanogenMod.
    overview
    prerequisites
    preparing
-   getting-in
    android
+   scratchbox2
    droid-hal
    mic
+   getting-in
    flashing
    manual-install
    repos
+   modifications
    devices
 
 Indices and tables
