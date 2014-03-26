@@ -33,6 +33,7 @@ to devices running CyanogenMod.
    repos
    modifications
    devices
+   setupsdk
 
 Indices and tables
 ==================

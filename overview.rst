@@ -23,17 +23,43 @@ This consists of:
 Development
 ===========
 
+What's Needed
+`````````````
+
 The development environment uses:
 
 * Mer Platform SDK with
 
- * device specific 'target' (typically a rootfs with non-x86 headers/libs including device specific headers)
+ * one or more device specific 'target's (a rootfs with non-x86 headers/libs including device specific headers)
 
-* Android build chroot (a minimal Ubuntu chroot required to build the Android src)
+ * Android build chroot (a minimal Ubuntu chroot required to build the Android src)
 
-During the HA development you'll typically have one window where you build/hack on Android code and another where you assemble the Mer glue packages.
+During the HA development you'll typically have one window/terminal using the Android chroot where you build/hack on Android code. We'll indicate this like this:
 
+.. code-block:: console
+
+  ANDROID_SDK $
+
+  echo "run this command in the android chroot terminal"
+
+
+and another using the Mer SDK chroot where you assemble the Mer glue packages:
+
+.. code-block:: console
+
+  MER_SDK $
+
+  echo "run this command in the Mer SDK terminal"
+
+
+There's more info in :doc:`setupsdk`
+
+Where is it installed
+`````````````````````
 In these docs we use the `$MER_ROOT` environment variable to point to the base of the SDK storage/build area. Typically this is set to some area with lots of space so something like: `export MER_ROOT=/srv/mer` or `export MER_ROOT=$HOME/mer`
+
+What's built  and where?
+````````````````````````
 
 The approach is to build the following components in the Android build chroot:
 
@@ -51,7 +77,7 @@ Then in the Mer SDK we build:
 The rpms are then put into an HA specific repository and we can make full system images using mic or IMG. This is also done in the Mer SDK.
 
 Deployment 
-==========
+===========
 
 The kernel and initrd are flashed to the device and the rootfs is placed in the data partition alongside the unmodified Android system.
 

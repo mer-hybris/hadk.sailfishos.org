@@ -2,8 +2,9 @@ Packaging Droid HAL
 ===================
 
 In this chapter, we will package the build results of :doc:`android`
-as RPM packages and upload them to OBS. From there, they can be
-used to build libhybris and the QPA plugin.
+as RPM packages and create a local rpm repository. From there, they
+can be added to a local target and used to build libhybris and the QPA
+plugin. They can also be used to build the rootfs.
 
 Packaging ``droid-hal-device``
 ------------------------------
@@ -21,12 +22,14 @@ The master git repo for the packaging is here:  https://github.com/mer-hybris/dr
 This rpm/ dir contains some rather spooky spec file packaging to make
 a set of rpms.
 
-For Supported Devices
-`````````````````````
+Create the rpms
+```````````````
 
 The next step has to be carried out in a Mer SDK chroot:
 
-.. code-block:: bash
+.. code-block:: console
+
+    MER_SDK $
 
     cd $ANDROID_ROOT
     #FIXME: this revolting workaround is needed since mb2 doesn't parse %include and
@@ -38,52 +41,20 @@ The next step has to be carried out in a Mer SDK chroot:
 
 This should leave you with several RPM packages in ``$ANDROID_ROOT/RPMS/``.
 
-For New Devices
-```````````````
+Create a local repo
+```````````````````
 
-1. Create ``rpm/droid-hal-$DEVICE.spec`` and fill in the metadata:
+Now we create a local repository that can be used to make images or to
+update Targets with the devel headers to enable device specific
+packages to be built (like libhybris or pulseaudio)
 
-.. code-block:: bash
+.. code-block:: console
 
-    $ cat > rpm/droid-hal-$DEVICE.spec << EOF
-    %define device $DEVICE
-    %define vendor $VENDOR
+    MER_SDK $
 
-    %include rpm/droid-hal-device.inc
-    EOF
+    mkdir -p $ANDROID_ROOT/droid-local-repo/$DEVICE
 
-2. Create ``rpm/device-$VENDOR-$DEVICE-configs``:
+    rm -f $ANDROID_ROOT/droid-local-repo/$DEVICE/droid-hal-*rpm
+    mv RPMS/*${DEVICE}* $ANDROID_ROOT/droid-local-repo/$DEVICE
 
-.. code-block:: bash
-
-    $ mkdir rpm/device-$VENDOR-$DEVICE-configs
-
-3. Customize device configs
-
-.. code-block:: bash
-
-    $ cd rpm/droid-$VENDOR-$DEVICE-configs
-    $ mkdir -p var/lib/environment/compositor
-    $ cat > var/lib/environment/compositor/droid-hal-device.conf << EOF
-    HYBRIS_EGLPLATFORM=fbdev
-    QT_QPA_PLATFORM=hwcomposer
-    LIPSTICK_OPTIONS=-plugin evdevtouch:/dev/input/event0
-    EOF
-
-Uploading ``droid-hal-device`` to OBS
--------------------------------------
-
-For now, we upload the locally-built ``droid-hal-device`` packages to
-OBS as binary packages:
-
-.. code-block:: bash
-
-    cd $ANDROID_ROOT/rpm/obs-upload
-    make
-
-Packaging and Building ``libhybris`` in OBS
--------------------------------------------
-
-Packaging and Building ``qt5-qpa-hwcomposer-plugin`` in OBS
-------------------------------------------------------------
-
+    createrepo  $ANDROID_ROOT/droid-local-repo/$DEVICE

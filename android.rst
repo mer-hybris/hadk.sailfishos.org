@@ -17,7 +17,9 @@ where indicated.
 
 .. _CyanogenMod Devices: http://wiki.cyanogenmod.org/w/Devices
 
-.. code-block:: bash
+.. code-block:: console
+
+  ANDROID_SDK $
 
   cat <<EOF > $HOME/.mersdkubu.profile
   export MER_ROOT="$HOME/mer"
@@ -43,8 +45,9 @@ chroot environment from within the *Mer SDK* to build our Android
 source tree. The following commands download and unpack the rootfs to
 the appropriate location.
 
-.. code-block:: bash
+.. code-block:: console
 
+  ANDROID_SDK $
   
   cd $HOME; curl -O http://img.merproject.org/images/mer-hybris/ubu/ubuntu-lucid-android-rootfs.tar.bz2
   sudo mkdir -p /parentroot/$MER_ROOT/targets/ubuntu
@@ -58,8 +61,9 @@ Checking out CyanogenMod Source
 
 Our build process is based around the *CyanogenMod* projects source
 tree, but when required we've forked some projects, in order to apply
-patches required to make *libhybris* function correctly and to build
-hybris based hardware adaptations.
+patches required to make *libhybris* function correctly, to build
+hybris based hardware adaptations and to minimise the actions and
+services in the .rc files.
 
 Firstly you need to install the *repo* command from the AOSP source
 code repositories, the instructions can be found from the below link:
@@ -76,7 +80,7 @@ hardware adaptations.
 Ensure you have done `git config --global user.email
 "you@example.com"` and `git config --global user.name "Your Name"`.
 
-.. code-block:: bash
+.. code-block:: console
 
     ANDROID_SDK $
 
@@ -98,17 +102,21 @@ Building Relevant Bits of CyanogenMod
 In the Android build tree, run the following in a ``bash`` shell (if you
 are using e.g. ``zsh``, you need to run these commands in a ``bash`` shell):
 
-.. code-block:: bash
+.. code-block:: console
 
-    source build/envsetup.sh
-    export USE_CCACHE=1
+  ANDROID_SDK $
 
-.. code-block:: bash
+  source build/envsetup.sh
+  export USE_CCACHE=1
 
-    breakfast $DEVICE
+.. code-block:: console
 
-    # [lbt] This works for me
-    rm .repo/local_manifests/roomservice.xml
+  ANDROID_SDK $
+
+  breakfast $DEVICE
+
+  # [lbt] This works for me
+  rm .repo/local_manifests/roomservice.xml
 
 *XXX: [thp]: For i9305 the ``breakfast`` results in duplicate repos for me? Had to
 use "lunch cm_$DEVICE-eng" instead (because we have modified repos for that device
@@ -116,9 +124,11 @@ in our default.xml) [sl]: There is no cm_mako among options, and I just ignored
 the duplicate error - all went ahead fine. Play with roomservice is welcomed though,
 thanks*
 
-.. code-block:: bash
+.. code-block:: console
 
-    mka hybris-hal
+  ANDROID_SDK $
+
+  mka hybris-hal
 
 The relevant output bits will be in ``out/target/product/$DEVICE/``, in
 particular:
@@ -144,15 +154,17 @@ Common Pitfalls
   device/samsung/smdk4412-common in /home/nemo/android/.repo/manifest.xml*,
   remove the local manifest with ``rm .repo/local_manifests/roomservice.xml``
 * In some cases (with parallel builds), the build can fail, in this case, use
-``mka hybris-hal -j1`` to retry with a non-parallel build and see the error
-message without output from parallel jobs. The build usually ends with:
+  ``mka hybris-hal -j1`` to retry with a non-parallel build and see the error
+  message without output from parallel jobs. The build usually ends with:
 
 .. code-block:: console
 
-    ...
-    Install: .../out/target/product/$DEVICE/hybris-recovery.img
-    ...
-    Install: .../out/target/product/$DEVICE/hybris-boot.img
-    ...
-    Made boot image: .../out/target/product/$DEVICE/boot.img
+  ANDROID_SDK $
+
+  ...
+  Install: .../out/target/product/$DEVICE/hybris-recovery.img
+  ...
+  Install: .../out/target/product/$DEVICE/hybris-boot.img
+  ...
+  Made boot image: .../out/target/product/$DEVICE/boot.img
 

@@ -15,12 +15,14 @@ Replace ``i9305-devel.tar.gz`` with the name of your rootfs tarball:
 
 .. code-block:: bash
 
-    adb push i9305-devel.tar.gz /sdcard/
-    adb shell
-    su
-    mkdir -p /data/.stowaways/sailfishos
-    tar --numeric-owner -xvzf /sdcard/i9305-devel.tar.gz \
-        -C /data/.stowaways/sailfishos
+  MER_SDK $
+
+  adb push i9305-devel.tar.gz /sdcard/
+  adb shell
+  su
+  mkdir -p /data/.stowaways/sailfishos
+  tar --numeric-owner -xvzf /sdcard/i9305-devel.tar.gz \
+      -C /data/.stowaways/sailfishos
 
 Flashing the boot image via adb
 -------------------------------
@@ -28,12 +30,14 @@ Flashing the boot image via adb
 The following example is for ``i9305``, for other devices the output
 partition and filename is obviously different:
 
-.. code-block:: bash
+.. code-block:: console
 
-    adb push out/target/product/i9305/hybris-boot.img /sdcard/
-    adb shell
-    su
-    dd if=/sdcard/hybris-boot.img of=/dev/block/mmcblk0p8
+  MER_SDK $
+
+  adb push out/target/product/i9305/hybris-boot.img /sdcard/
+  adb shell
+  su
+  dd if=/sdcard/hybris-boot.img of=/dev/block/mmcblk0p8
 
 Interacting with the rootfs via adb from Android
 ------------------------------------------------
@@ -43,14 +47,16 @@ files, installing packages, etc..) when booted into an Android system. You have
 to have your rootfs already installed/extracted. You can use Android's WIFI
 connectivity to connect to the Internet and download updates:
 
-.. code-block:: bash
+.. code-block:: console
 
-    adb shell
-    su
-    mount -o bind /dev /data/.stowaways/sailfishos/dev
-    mount -o bind /proc /data/.stowaways/sailfishos/proc
-    mount -o bind /sys /data/.stowaways/sailfishos/sys
-    chroot /data/.stowaways/sailfishos/ /bin/su -
-    echo "nameserver 8.8.8.8" >/etc/resolv.conf
-    ...
+  MER_SDK $
+
+  adb shell
+  su
+  mount -o bind /dev /data/.stowaways/sailfishos/dev
+  mount -o bind /proc /data/.stowaways/sailfishos/proc
+  mount -o bind /sys /data/.stowaways/sailfishos/sys
+  chroot /data/.stowaways/sailfishos/ /bin/su -
+  echo "nameserver 8.8.8.8" >/etc/resolv.conf
+  ...
 
