@@ -35,6 +35,10 @@ See the `ClockWorkMod Instructions`_ for additional instructions.
 Flash and Test CyanogenMod
 --------------------------
 
+Official flashing instructions can be found from `Cyanogenmod wiki page`_.
+
+.. _Cyanogenmod wiki page: http://wiki.cyanogenmod.org/w/Devices
+
 You may want to verify the CM build for your device is fully
 functional to avoid wasting time with known not working hardware
 adaptation. Also, the device you have might have some hardware
