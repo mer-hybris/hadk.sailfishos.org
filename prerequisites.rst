@@ -6,7 +6,7 @@ Prerequisites
 Mobile Device
 -------------
 
-* An ARMv7 Android device supported by CyanogenMod 10.1
+* An ARMv7 Android device supported by CyanogenMod 10.1.x
 
  * See http://wiki.cyanogenmod.org/w/Devices for a list of compatible devices
 
