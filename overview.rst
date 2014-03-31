@@ -51,7 +51,6 @@ and another using the Mer SDK chroot where you assemble the Mer glue packages:
 
   echo "run this command in the Mer SDK terminal"
 
-
 This is covered in :doc:`setupsdk`
 
 Where is it installed

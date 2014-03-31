@@ -11,14 +11,14 @@ both in scripts and configuration files.
 (Refer to :doc:`devices` for information on obtaining the $DEVICE and
 $VENDOR values.)
 
-Now run the following commands substituting the obtained information
-where indicated.
+Now run the following commands on your host operating system substituting
+the obtained information where indicated.
 
 .. _CyanogenMod Devices: http://wiki.cyanogenmod.org/w/Devices
 
 .. code-block:: console
 
-  ANDROID_SDK $
+  HOST $
 
   cat <<EOF > $HOME/.hadk.env
   export MER_ROOT="$HOME/mer"
@@ -60,7 +60,7 @@ You'll need some tools which are not installed into the Mer SDK by default:
 
 .. code-block:: console
 
-  MER_SDK$
+  MER_SDK $
 
   sudo zypper in createrepo zip
 
@@ -81,12 +81,11 @@ the appropriate location.
 
 .. code-block:: console
 
-  ANDROID_SDK $
- 
+  MER_SDK $
+
   cd $HOME; curl -O http://img.merproject.org/images/mer-hybris/ubu/ubuntu-lucid-android-rootfs.tar.bz2
   sudo mkdir -p /parentroot/$MER_ROOT/sdks/ubuntu
   sudo tar --numeric-owner -xvjf $HOME/ubuntu-lucid-android-rootfs.tar.bz2 -C /parentroot/$MER_ROOT/sdks/ubuntu
 
-**WARNING:** ^^ tarball extracts to /parentroot/$MER_ROOT/sdks/ubuntu/unbuntu/*
-
+**WARNING:** ^^ tarball extracts to /parentroot/$HOME/mer/sdks/ubuntu/ubuntu/*
 
