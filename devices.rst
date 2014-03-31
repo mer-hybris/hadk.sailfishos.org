@@ -28,6 +28,7 @@ note down the "*Manufacturer*" and "*Codename*" values, which are
 displayed in the side bar on the right. The Codename is the DEVICE and
 the Manufacturer is the VENDOR.
 
+.. _CyanogenMod Devices: http://wiki.cyanogenmod.org/w/Devices
 
 For New Devices
 ---------------
