@@ -23,6 +23,7 @@ to devices running CyanogenMod.
    overview
    prerequisites
    preparing
+   setupsdk
    android
    scratchbox2
    droid-hal
@@ -33,7 +34,6 @@ to devices running CyanogenMod.
    repos
    modifications
    devices
-   setupsdk
 
 Indices and tables
 ==================

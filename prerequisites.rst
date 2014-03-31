@@ -1,6 +1,8 @@
 Prerequisites
 =============
 
+.. _supported_devices:
+ 
 Mobile Device
 -------------
 
@@ -29,6 +31,6 @@ Build Machine
 
 * At least 4 GiB of RAM (the more the better)
 
-.. _Mer Platform SDK: http://wiki.merproject.org/wiki/Platform_SDK
+ .. _Mer Platform SDK: http://wiki.merproject.org/wiki/Platform_SDK
 
 .. _Sailfish Target: http://releases.sailfishos.org/sdk/latest/targets/

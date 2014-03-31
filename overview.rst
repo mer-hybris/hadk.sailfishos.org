@@ -52,7 +52,7 @@ and another using the Mer SDK chroot where you assemble the Mer glue packages:
   echo "run this command in the Mer SDK terminal"
 
 
-There's more info in :doc:`setupsdk`
+This is covered in :doc:`setupsdk`
 
 Where is it installed
 `````````````````````

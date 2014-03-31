@@ -44,8 +44,12 @@ the usb device serial number and model. So 'dmesg' on the host could
 produce::
 
  [1094634.238136] usb 2-2: Manufacturer: Mer Boat Loader
- [1094634.238143] usb 2-2: SerialNumber: Mer Debug telnet on port 23 on rndis0 192.168.2.1 - also running udhcpd
+ [1094634.238143] usb 2-2: SerialNumber: Mer Debug setting up (DONE_SWITCH=no)
 
+However dmesg doesn't report all changes in the usb subsystem and the init script will attempt to update the iSerial field with information so also do::
+
+  $ lsusb -v | grep iSerial
+   iSerial    3 Mer Debug telnet on port 23 on rndis0 192.168.2.1 - also running udhcpd
 
 Splitting and Re-Assembling Boot Images
 ---------------------------------------

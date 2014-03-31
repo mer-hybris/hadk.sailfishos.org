@@ -9,7 +9,8 @@ scratchbox2 target from *within the Mer SDK* with the following commands.
 
   MERSDK $
 
-  . $HOME/.mersdkubu.profile
+  hadk
+
   cd $HOME
 
   export SFFE_SB2_TARGET=/parentroot/$MER_ROOT/targets/$VENDOR-$DEVICE-armv7hl
@@ -30,12 +31,12 @@ scratchbox2 target from *within the Mer SDK* with the following commands.
   sb2 -t $VENDOR-$DEVICE-armv7hl -m sdk-install -R rpm --rebuilddb
   sb2 -t $VENDOR-$DEVICE-armv7hl -m sdk-install -R zypper ref --force
 
-We also need to add a tools repo to the target::
+We also need to add a tools repo to the target
 
 .. code-block:: console
 
   MER_SDK $
-
+  
   sb2 -t $VENDOR-$DEVICE-armv7hl -m sdk-install -R zypper ar -G http://repo.merproject.org/obs/mer-tools:/testing/latest_i486/ mer-tools-testing
   # FIXME: This should be mer-tools and use rolling repo
   sb2 -t $VENDOR-$DEVICE-armv7hl -m sdk-install -R zypper ref

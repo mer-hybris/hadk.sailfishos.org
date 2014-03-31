@@ -1,61 +1,6 @@
 Building the Android HAL
 ========================
 
-Setting up required environment variables
------------------------------------------
-
-Throughout this guide we will be referencing the installed location of
-your SDK, targets and src; your device vendor and device codename,
-both in scripts and configuration files.
-
-To get this information if you're not sure, find your device here:
-`CyanogenMod Devices`_, note down the "*Manufacturer*" and
-"*Codename*" values, which are displayed in the side bar on the right.
-
-Now run the following commands substituting the obtained information
-where indicated.
-
-.. _CyanogenMod Devices: http://wiki.cyanogenmod.org/w/Devices
-
-.. code-block:: console
-
-  ANDROID_SDK $
-
-  cat <<EOF > $HOME/.mersdkubu.profile
-  export MER_ROOT="$HOME/mer"
-  export ANDROID_ROOT="$MER_ROOT/android/droid"
-  export VENDOR="[MANUFACTURER]"
-  export DEVICE="[CODENAME]"
-  EOF
-
-This ensures that the environment is setup correctly when you use the
-`ubu-chroot` command to enter the android sdk.
-
-FIXME: This depends on lbt's updates to android-tools. Verify this
-works by entering...
-
-Setting up an Android Build Environment
----------------------------------------
-
-Downloading and Unpacking Ubuntu Chroot
-```````````````````````````````````````
-
-In order to maintain build stability, we use an *Ubuntu GNU/Linux*
-chroot environment from within the *Mer SDK* to build our Android
-source tree. The following commands download and unpack the rootfs to
-the appropriate location.
-
-.. code-block:: console
-
-  ANDROID_SDK $
-  
-  cd $HOME; curl -O http://img.merproject.org/images/mer-hybris/ubu/ubuntu-lucid-android-rootfs.tar.bz2
-  sudo mkdir -p /parentroot/$MER_ROOT/targets/ubuntu
-  sudo tar --numeric-owner -xvjf $HOME/ubuntu-lucid-android-rootfs.tar.bz2 -C /parentroot/$MER_ROOT/targets/ubuntu
-
-WARNING: ^^ tarball extracts to /parentroot/$MER_ROOT/targets/ubuntu/unbuntu/*
-
-
 Checking out CyanogenMod Source
 -------------------------------
 
@@ -82,14 +27,15 @@ Ensure you have done `git config --global user.email
 
 .. code-block:: console
 
-    ANDROID_SDK $
+  ANDROID_SDK $
 
-    . $HOME/.mersdkubu.profile
-    sudo mkdir -p $ANDROID_ROOT
-    sudo chown -R $USER $ANDROID_ROOT
-    cd $ANDROID_ROOT
-    repo init -u git://github.com/mer-hybris/android.git -b hybris-10.1
-    repo sync
+  hadk
+
+  sudo mkdir -p $ANDROID_ROOT
+  sudo chown -R $USER $ANDROID_ROOT
+  cd $ANDROID_ROOT
+  repo init -u git://github.com/mer-hybris/android.git -b hybris-10.1
+  repo sync
 
 The expected disk usage for the source tree after ``repo sync``
 is **9.4 GB** (as of 2014-02-18).
@@ -105,6 +51,8 @@ are using e.g. ``zsh``, you need to run these commands in a ``bash`` shell):
 .. code-block:: console
 
   ANDROID_SDK $
+
+  hadk
 
   source build/envsetup.sh
   export USE_CCACHE=1
