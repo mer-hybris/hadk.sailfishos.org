@@ -7,9 +7,9 @@ Devices currently supported by HADK (with $DEVICE/$VENDOR in brackets)
 
 * **Nexus 4** (mako/lge)
 
-* **Nexus 7 2012 GSM** (tilapia/lge)
+* **Nexus 7 2012 GSM** (tilapia/asus)
 
-* **Nexus 7 2012 WIFI** (grouper/lge)
+* **Nexus 7 2012 WIFI** (grouper/asus)
 
 * **Sony Xperia Z** (yuga/sony)
 
