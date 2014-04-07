@@ -96,48 +96,4 @@ For new devices, you have to make sure to get the right kernel configuration
 included in the repository. For this, clone the kernel repository for the
 device into **mer-hybris** and configure the kernel using ``hybris/mer-kernel-check``.
 
-*TODO: Document how to adjust ``fixup-mountpoints``*
 
-
-Packaging Droid HAL
--------------------
-
-Following on ...
-
-For New Devices
-```````````````
-
-1. Create ``rpm/droid-hal-$DEVICE.spec`` and fill in the metadata:
-
-.. code-block:: console
-
-  MER_SDK $
-
-  cat > rpm/droid-hal-$DEVICE.spec << EOF
-  %define device $DEVICE
-  %define vendor $VENDOR
-
-  %include rpm/droid-hal-device.inc
-  EOF
-
-2. Create ``rpm/device-$VENDOR-$DEVICE-configs``:
-
-.. code-block:: console
-
-  MER_SDK $
-
-  mkdir rpm/device-$VENDOR-$DEVICE-configs
-
-3. Customize device configs
-
-.. code-block:: console
-
-  MER_SDK $
-
-  cd rpm/droid-$VENDOR-$DEVICE-configs
-  mkdir -p var/lib/environment/compositor
-  cat > var/lib/environment/compositor/droid-hal-device.conf << EOF
-  HYBRIS_EGLPLATFORM=fbdev
-  QT_QPA_PLATFORM=hwcomposer
-  LIPSTICK_OPTIONS=-plugin evdevtouch:/dev/input/event0
-  EOF

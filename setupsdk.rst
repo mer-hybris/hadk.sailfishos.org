@@ -50,6 +50,8 @@ Setup the Mer SDK
 
 The Mer SDK setup is described on `the Mer wiki`_.
 
+Ensure you are able to enter the Mer SDK before moving on.
+
 .. _the Mer wiki: http://wiki.merproject.org/wiki/Platform_SDK
 
 Preparing the Mer SDK
@@ -83,9 +85,23 @@ the appropriate location.
 
   MER_SDK $
 
+  hadk
+
   cd $HOME; curl -O http://img.merproject.org/images/mer-hybris/ubu/ubuntu-lucid-android-rootfs.tar.bz2
   sudo mkdir -p /parentroot/$MER_ROOT/sdks/ubuntu
   sudo tar --numeric-owner -xvjf $HOME/ubuntu-lucid-android-rootfs.tar.bz2 -C /parentroot/$MER_ROOT/sdks/ubuntu
 
 **WARNING:** ^^ tarball extracts to /parentroot/$HOME/mer/sdks/ubuntu/ubuntu/*
+
+
+You can now enter the ubuntu chroot like this:
+
+.. code-block:: console
+
+  MER_SDK $
+
+  hadk
+
+  ubu-chroot -r /$MER_ROOT/sdks/ubuntu
+
 
