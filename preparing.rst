@@ -14,7 +14,7 @@ the CM release for the first time, as getting the stock image might be hard for
 some vendors (e.g. having to extract it from some windows .exe, or it simply
 does not exist at all).
 
-Use a Android/CyanogenMod Recovery to:
+Use an Android/CyanogenMod Recovery to:
 
 1. Backup to SD card: system, data, boot and recovery partitions
 
@@ -28,20 +28,20 @@ Use a Android/CyanogenMod Recovery to:
     without SD card slots), it's better to also copy the backup data to
     your development machine (e.g. via ``adb pull`` in recovery).
 
-See the `ClockWorkMod Instructions`_ for additional instructions.
+See the `ClockworkMod Instructions`_ for additional instructions.
 
-.. _ClockWorkMod Instructions: http://wiki.cyanogenmod.org/w/ClockWorkMod_Instructions
+.. _ClockworkMod Instructions: http://wiki.cyanogenmod.org/w/ClockWorkMod_Instructions
 
 Flash and Test CyanogenMod
 --------------------------
 
-Official flashing instructions can be found from `Cyanogenmod wiki page`_.
+Official flashing instructions can be found on this `CyanogenMod wiki page`_.
 
-.. _Cyanogenmod wiki page: http://wiki.cyanogenmod.org/w/Devices
+.. _CyanogenMod wiki page: http://wiki.cyanogenmod.org/w/Devices
 
-You may want to verify the CM build for your device is fully
-functional to avoid wasting time with known not working hardware
-adaptation. Also, the device you have might have some hardware
+You may also want to verify that the CM build for your device is fully
+functional, to avoid wasting time with known not working hardware
+adaptations. Also, the device you have might have some hardware
 defects - testing in Android verifies that all components are
 working correctly.
 
