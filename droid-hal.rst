@@ -58,3 +58,37 @@ packages to be built (like libhybris or pulseaudio)
     mv RPMS/*${DEVICE}* $ANDROID_ROOT/droid-local-repo/$DEVICE
 
     createrepo  $ANDROID_ROOT/droid-local-repo/$DEVICE
+
+The ``/etc/hw-release`` file
+----------------------------
+
+Sailfish Hardware Adaptations use the file ``/etc/hw-release`` to store
+variables related to the device adaptation. This file is read by different
+middleware components to determine which adaptation repositories to enable
+and which device-specific tweaks to apply.
+
+The format of this file is a line-based ``KEY=value`` format. The ``KEY`` is a
+non-empty string consisting of only upper case characters (``A-Z``) and the
+underscore (``_``), it must not begin with an underscore (or in other words, it
+must match the regular expression ``[A-Z][A-Z_]*``). Lines starting with ``#``
+are considered comments and are ignored. Lines must not have any leading or
+trailing whitespace (any such whitespace is stripped when the file is parsed),
+and the ``=`` character must also not be surrounded by any whitespace. Values
+can contain any valid UTF-8 character (but no newline character).
+
+An example file could look like this:
+
+.. code-block:: text
+
+    # This is a comment
+    MER_HA_DEVICE=mako
+    MER_HA_VENDOR=lge
+
+As far as Droid-based hardware adaptations are concerned, the following keys
+are mandatory and specified:
+
+* ``MER_HA_DEVICE``: Must be set to the device name, e.g. ``mako``
+* ``MER_HA_VENDOR``: Must be set to the device vendor, e.g. ``lge``
+
+All other keys are not yet specified, and should not be used; parsers should
+ignore all lines that don't start with a known key.
