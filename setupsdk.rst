@@ -66,9 +66,11 @@ You'll need some tools which are not installed into the Mer SDK by default:
 
   sudo zypper in android-tools createrepo zip
 
-createrepo is needed to build repos if you want/need to update local targets
+android-tools contains tools and utilities needed for working with Android SDK.
 
-zip is needed to create the final installer
+createrepo is needed to build repos if you want/need to update local targets.
+
+zip is needed to create the final installer.
 
 Setting up an Android Build Environment
 ---------------------------------------
