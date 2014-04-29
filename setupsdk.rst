@@ -64,7 +64,7 @@ You'll need some tools which are not installed into the Mer SDK by default:
 
   MER_SDK $
 
-  sudo zypper in createrepo zip
+  sudo zypper in android-tools createrepo zip
 
 createrepo is needed to build repos if you want/need to update local targets
 

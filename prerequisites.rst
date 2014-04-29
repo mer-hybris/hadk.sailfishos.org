@@ -19,7 +19,7 @@ Build Machine
 
 * A 64-bit X86 machine with a 64-bit Linux kernel
 
-* `Mer Platform SDK`_ with the android-tools package installed (run `sudo zypper in android-tools` )
+* `Mer Platform SDK`_
 
 * `Sailfish Target`_
 
