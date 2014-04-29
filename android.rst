@@ -37,6 +37,8 @@ Ensure you have done `git config --global user.email
   repo init -u git://github.com/mer-hybris/android.git -b hybris-10.1
   repo sync
 
+  # [MSameer] I had to use repo init --no-repo-verify
+
 The expected disk usage for the source tree after ``repo sync``
 is **9.4 GB** (as of 2014-02-18).
 
