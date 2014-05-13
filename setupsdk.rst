@@ -42,9 +42,6 @@ This ensures that the environment is setup correctly when you use the
 
 You can also now simply type **hadk** when you work on a different DEVICE/VENDOR.
 
-FIXME: This depends on lbt's updates to android-tools. Verify this
-works by entering...
-
 Setup the Mer SDK
 -----------------
 
