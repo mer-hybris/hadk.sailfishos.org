@@ -11,8 +11,6 @@ Devices currently supported by HADK (with $DEVICE/$VENDOR in brackets)
 
 * **Nexus 7 2012 WIFI** (grouper/asus)
 
-* **Sony Xperia Z** (yuga/sony)
-
 * **Samsung Galaxy SIII LTE** (i9305/samsung)
 
 For an up-to-date list of supported features for each device, see
