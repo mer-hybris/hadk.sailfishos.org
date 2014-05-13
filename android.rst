@@ -76,7 +76,7 @@ thanks*
 
   ANDROID_SDK $
 
-  mka hybris-hal
+  make -j4 hybris-hal
 
 The relevant output bits will be in ``out/target/product/$DEVICE/``, in
 particular:
@@ -85,7 +85,7 @@ particular:
 * ``hybris-recovery.img``: Recovery boot image
 * ``system/`` and ``root/``: HAL system libraries and binaries
 
-The expected disk usage for the source and binaries after ``mka hybris-hal``
+The expected disk usage for the source and binaries after ``make hybris-hal``
 is **16 GB** (as of 2014-02-18).
 
 For Supported Devices
@@ -102,7 +102,7 @@ Common Pitfalls
   device/samsung/smdk4412-common in /home/nemo/android/.repo/manifest.xml*,
   remove the local manifest with ``rm .repo/local_manifests/roomservice.xml``
 * In some cases (with parallel builds), the build can fail, in this case, use
-  ``mka hybris-hal -j1`` to retry with a non-parallel build and see the error
+  ``make -j1 hybris-hal`` to retry with a non-parallel build and see the error
   message without output from parallel jobs. The build usually ends with:
 
 .. code-block:: console
