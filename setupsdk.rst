@@ -89,12 +89,9 @@ the appropriate location.
 
   hadk
 
-  cd $HOME; curl -O http://img.merproject.org/images/mer-hybris/ubu/ubuntu-lucid-android-rootfs.tar.bz2
+  cd $HOME; curl -O http://img.merproject.org/images/mer-hybris/ubu/ubuntu-quantal-android-rootfs.tar.bz2
   sudo mkdir -p /parentroot/$MER_ROOT/sdks/ubuntu
   sudo tar --numeric-owner -xvjf $HOME/ubuntu-lucid-android-rootfs.tar.bz2 -C /parentroot/$MER_ROOT/sdks/ubuntu
-
-**WARNING:** ^^ tarball extracts to /parentroot/$HOME/mer/sdks/ubuntu/ubuntu/*
-
 
 You can now enter the ubuntu chroot like this:
 
