@@ -185,13 +185,24 @@ htmlhelp_basename = 'SailfishHardwareAdaptationDeveloperKitdoc'
 
 latex_elements = {
 # The paper size ('letterpaper' or 'a4paper').
-#'papersize': 'letterpaper',
+'papersize': 'a4paper',
 
 # The font size ('10pt', '11pt' or '12pt').
-#'pointsize': '10pt',
+'pointsize': '11pt',
 
 # Additional stuff for the LaTeX preamble.
-#'preamble': '',
+'preamble': r"""
+\makeatletter
+\fancypagestyle{normal} {
+\fancyhf{}
+\fancyfoot[LO,RE]{{Copyright 2014 Jolla Ltd. | Content licensed under CC-BY-NC-SA 3.0 Unported}}
+\fancyfoot[RO,LE]{{\py@HeaderFamily \thepage}}
+\fancyhead[LE,RO]{{\py@HeaderFamily \@title}}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+\makeatother
+}
+""",
 }
 
 # Grouping the document tree into LaTeX files. List of tuples
