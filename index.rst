@@ -33,6 +33,7 @@ to devices running the CyanogenMod flavour of Android.
    manual-install
    repos
    modifications
+   middleware
    new-device-build
    devices
 
