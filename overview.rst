@@ -4,20 +4,20 @@ Overview
 Goal
 ====
 
-What we're aiming for is a Mer-core based Linux system that will run on an android device.
+What we're aiming for is a Mer-core based Linux system that will run on an Android device.
 
 This consists of:
 
 * Mer core : The Linux userspace core
-* Android Hardware Adaptation : (also called an HA) this consists of
+* Android Hardware Adaptation : (also called an HA or HAL) this consists of:
 
- * a device specific Android kernel
- * binary device drivers taken from an Android or CM distribution
- * the libhybris interface built for the device
- * Mer HA dependent packages built for the device
+ * a device specific Android kernel.
+ * binary device drivers taken from an Android or CM distribution.
+ * the libhybris interface built for the device.
+ * Mer HA dependent packages built for the device.
 
-* Qt/Wayland (using a suitable platform plugin such as eglfs or hwcomposer)
-* Sailfish (or a.n.other UI)
+* Qt/Wayland using a suitable platform plugin such as eglfs or hwcomposer.
+* Sailfish OS components.
 
 
 Development
@@ -73,10 +73,10 @@ Then in the Mer SDK we build:
 * rpms containing all the built binaries and extracted configs
 * hardware specific packages or plugins eg: Qt/Wayland, Pulseaudio
 
-The rpms are then put into an HA specific repository and we can make full system images using mic or IMG. This is also done in the Mer SDK.
+The rpms are then put into an HA specific repository and we can make full system images using mic or IMG which is also performed from within the Mer SDK
 
 Deployment 
 ===========
 
-The kernel and initrd are flashed to the device and the rootfs is placed in the data partition alongside the unmodified Android system.
+The kernel and initrd are flashed to the device and the rootfs is placed in the data partition alongside the unmodified currently installed Android system.
 

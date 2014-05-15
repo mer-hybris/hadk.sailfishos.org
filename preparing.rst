@@ -28,14 +28,14 @@ Use an Android/CyanogenMod Recovery to:
     without SD card slots), it's better to also copy the backup data to
     your development machine (e.g. via ``adb pull`` in recovery).
 
-See the `ClockworkMod Instructions`_ for additional instructions.
+See the `ClockworkMod Instructions`_ for additional help.
 
 .. _ClockworkMod Instructions: http://wiki.cyanogenmod.org/w/ClockWorkMod_Instructions
 
 Flash and Test CyanogenMod
 --------------------------
 
-Official flashing instructions can be found on this `CyanogenMod wiki page`_.
+The official CyanogenMod flashing instructions can be found on this `CyanogenMod wiki page`_.
 
 .. _CyanogenMod wiki page: http://wiki.cyanogenmod.org/w/Devices
 

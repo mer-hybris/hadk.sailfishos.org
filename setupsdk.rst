@@ -29,6 +29,7 @@ the obtained information where indicated.
 
   cat <<EOF >> $HOME/.mersdkubu.profile
   alias hadk='source $HOME/.hadk.env'
+  export PS1="Android SDK $PS1"
   hadk
   EOF
 
