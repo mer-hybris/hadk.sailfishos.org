@@ -172,7 +172,7 @@ Device Specific Target
 
 Setup a device-specific target. This step is generally only needed when working with the HA layer because the target will contain device-specific information that is not usually needed in a target.
 
-Setup a device target: file:///mer/mer/devel/mer-hybris/sailfish-hadk-doc/_build/html/scratchbox2.html
+Setup a device target: :doc:`scratchbox2`
 
 Create a simple TEMPLATED spec file
 
@@ -214,7 +214,7 @@ Build the HAL
 
 Then:
 
-  file:///mer/mer/devel/mer-hybris/sailfish-hadk-doc/_build/html/droid-hal.html
+  :doc:`droid-hal`
 
 Iterate over:
 
