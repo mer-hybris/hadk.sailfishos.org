@@ -4,37 +4,42 @@ Overview
 Goal
 ====
 
-What we're aiming for is a Mer-core based Linux system that will run on an Android device.
+By following this guide you can set up a Mer-core based Linux system that
+will run on an Android device, on top of the existing Android Hardware
+Adaptation kernel and drivers.
 
 This consists of:
 
-* Mer core : The Linux userspace core
-* Android Hardware Adaptation : (also called an HA or HAL) this consists of:
-
- * a device specific Android kernel.
- * binary device drivers taken from an Android or CM distribution.
- * the libhybris interface built for the device.
- * Mer HA dependent packages built for the device.
-
-* Qt/Wayland using a suitable platform plugin such as eglfs or hwcomposer.
-* Sailfish OS components.
+* **Mer core**: The Linux userspace core
+* **Android Hardware Adaptation** (HA/HAL), consisting of:
+ * Device-specific **Android Kernel**
+ * **Binary device drivers** taken from an Android ROM (e.g. CyanogenMod)
+ * The **libhybris interface** built against the binary drivers
+ * **Middleware packages** depending on hardware-specific plugins
+ * A Qt/Wayland **QPA plugin** utilizing the Android ``hwcomposer``
+* **Sailfish OS** components
 
 
 Development
 ===========
 
-What's Needed
-`````````````
+Requirements
+````````````
 
-The development environment uses:
+The development environment uses the Mer Platform SDK, with:
 
-* Mer Platform SDK with
+* one or more device specific **targets** (a rootfs with device-specific
+  headers and libraries)
 
- * one or more device specific 'target's (a rootfs with non-x86 headers/libs including device specific headers)
+* an Android build **chroot** (a minimal Ubuntu chroot required to build
+  the Android sources)
 
- * Android build chroot (a minimal Ubuntu chroot required to build the Android src)
+During the HA development you'll typically have one window/terminal using the
+Android chroot where you build and work on Android code and another session
+using the Mer SDK chroot where you build RPMs for the hardware adaptation.
 
-During the HA development you'll typically have one window/terminal using the Android chroot where you build/hack on Android code. We'll indicate this like this:
+Commands and output from the Android session are indicated using
+``ANDROID_SDK $`` at the top of the code block, like this:
 
 .. code-block:: console
 
@@ -42,8 +47,8 @@ During the HA development you'll typically have one window/terminal using the An
 
   echo "run this command in the android chroot terminal"
 
-
-and another using the Mer SDK chroot where you assemble the Mer glue packages:
+Commands and output from the Mer SDK session are indicated using
+``MER_SDK $`` at the top of the code block, like this:
 
 .. code-block:: console
 
@@ -51,32 +56,41 @@ and another using the Mer SDK chroot where you assemble the Mer glue packages:
 
   echo "run this command in the Mer SDK terminal"
 
-This is covered in :doc:`setupsdk`
+How to set up the Mer Platform SDK, as well as the device-specific targets
+and the Ubuntu chroot for building Android is described in :doc:`setupsdk`.
 
-Where is it installed
-`````````````````````
-In these docs we use the `$MER_ROOT` environment variable to point to the base of the SDK storage/build area. Typically this is set to some area with lots of space so something like: `export MER_ROOT=/srv/mer` or `export MER_ROOT=$HOME/mer`
+The build area root directory
+`````````````````````````````
 
-What's built  and where?
-````````````````````````
+In this guide, we refer to the base of the SDK storage/build area with the
+environment variable ``$MER_ROOT``. You need several gigabytes of space in
+this area, we suggest the following paths:
 
-The approach is to build the following components in the Android build chroot:
+* ``export MER_ROOT=/srv/mer/`` for a system-wide installation
+* ``export MER_ROOT=$HOME/mer/`` for a user-specific installation
 
-* a kernel
-* a hacking friendly initrd which supports various boot options
-* boot and recovery images
-* a minimal 'standard' /system
-* some 'libhybris-ised' packages for /system (like bionic, logcat and Android's init)
+Build components
+````````````````
 
-Then in the Mer SDK we build:
+* In the **Android build chroot**
+ * a kernel
+ * a hacking friendly initrd which supports various boot options
+ * ``boot.img`` and ``recovery.img`` (for booting and debugging)
+ * a minimal Android ``/system/`` tree
+ * modified Android parts for compatibility with libhybris and Sailfish OS
+   (e.g. Bionic libc, ``logcat``, ``init``, ...)
 
-* rpms containing all the built binaries and extracted configs
-* hardware specific packages or plugins eg: Qt/Wayland, Pulseaudio
+* In the **Mer SDK**
+ * RPM packages containing all the built binaries and extracted configs
+ * Hardware-specific middleware and plugins (e.g. Qt QPA plugins, PulseAudio)
 
-The rpms are then put into an HA specific repository and we can make full system images using mic or IMG which is also performed from within the Mer SDK
+For distribution, RPM packages are uploaded to a HA-specific repository. With
+this repository, full system images using the ``mic`` utility. The ``mic``
+utility is usually also run inside the Mer SDK.
 
 Deployment 
-===========
+==========
 
-The kernel and initrd are flashed to the device and the rootfs is placed in the data partition alongside the unmodified currently installed Android system.
-
+The ``boot.img`` (containing both the kernel and our custom initrd) is flashed
+to the device, while the Sailfish OS rootfs is placed in a subdirectory of
+the ``/data/`` partition alongside an existing, unmodified Android system.

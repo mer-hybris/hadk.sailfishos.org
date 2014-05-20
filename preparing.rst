@@ -1,18 +1,23 @@
 Preparing Your Device
 =====================
 
-Verify that you can restore your device and that you understand device
-recovery options. This may be useful for deciding how to transfer WiP
-images to your device.
+Verify that you can backup and restore your device and that you understand
+device recovery options. This is not only useful when flashing images you
+build with this guide, but also in case you want to reset your device to
+its factory state with stock Android (note that not all Android vendors
+provide factory images for download, so you might need to create a full
+backup of your running Android system and store it in a safe place before
+starting to erase and reflash the device with your custom builds).
 
 
 Backup and Verify Your Device
 -----------------------------
 
-For some devices, it might be helpful to backup the stock image before flashing
-the CM release for the first time, as getting the stock image might be hard for
-some vendors (e.g. having to extract it from some windows .exe, or it simply
-does not exist at all).
+As mentioned above, it might be helpful to backup the stock image before
+flashing the CM release for the first time, as getting the stock image might
+be hard for some vendors (e.g. some stock images are only available as
+self-extracting .exe package for Windows) or impossible (some vendors do not
+provide stock images for download).
 
 Use an Android/CyanogenMod Recovery to:
 
@@ -26,7 +31,9 @@ Use an Android/CyanogenMod Recovery to:
     devices, if during porting you end up overwriting that partition,
     your backups will be gone. In that case (and in case of devices
     without SD card slots), it's better to also copy the backup data to
-    your development machine (e.g. via ``adb pull`` in recovery).
+    your development machine (e.g. via ``adb pull`` in recovery). Recent
+    versions of ``adb`` support full-device backups to a host computer
+    using the ``adb backup`` feature.
 
 See the `ClockworkMod Instructions`_ for additional help.
 
@@ -40,10 +47,10 @@ The official CyanogenMod flashing instructions can be found on this `CyanogenMod
 .. _CyanogenMod wiki page: http://wiki.cyanogenmod.org/w/Devices
 
 You may also want to verify that the CM build for your device is fully
-functional, to avoid wasting time with known not working hardware
-adaptations. Also, the device you have might have some hardware
-defects - testing in Android verifies that all components are
-working correctly.
+functional, to avoid wasting time with hardware adaptations that have
+known issues. Also, your device might have some hardware defects - testing
+in Android verifies that all components are working correctly, so you have
+a functionality baseline to compare your build results with.
 
 You should at least check the following features:
 
@@ -58,14 +65,17 @@ You should at least check the following features:
 * **Audio**:
   Headset detection, earpiece speaker, loudspeakers, etc.
 
-* **Bluetooth**
+* **Bluetooth**:
+  Connect to bluetooth headsets, verify discoverability, send files.
 
-* **NFC**
+* **NFC**:
+  Check if NFC tags can be detected, read and/or written by the device.
 
-* **SD/MicroSD**
+* **SD/MicroSD**:
+  Use a file manager app to see if inserted SD cards can be detected.
 
 * **USB**:
-  MTP, mass storage (if available) and ADB access.
+  MTP, mass storage (if available) and ``adb`` access.
 
 * **Telephony**:
   2G/3G/LTE calls + data connectivity.
@@ -74,25 +84,29 @@ You should at least check the following features:
   Using `GPSTest`_, check GLONASS too; typical time to fix; AGPS.
 
 * **Sensors**:
-  Using `AndroSensor`_: Accelerometer, Proximeter, ALS, Gyroscope, Compass.
+  Using `AndroSensor`_: Accelerometer, Proximity Sensor, Ambient Light
+  Sensor, Gyroscope, Magnetometer (Compass).
 
-* **LEDs**
+* **LEDs**:
+  If your device has notification LEDs or keypad backlights.
 
 * **Camera** (front and back):
   Also test functionality of zoom, flash, etc..
 
-* **Buttons**
+* **Buttons**:
   Volume up, volume down, power, camera shutter, etc..
 
-* **Video out** (HDMI, S-Video)
+* **Video out**:
+  HDMI / MHL connectivity if you have the necessary adapters. TV out.
 
-* **Screen blanking**:
-  Suspend and backlight control
+* **Screen backlight**:
+  Suspend and backlight control, minimum and maximum brightness.
 
 * **Battery meter**:
-  Charge level, battery health, charging via USB
+  Charge level, battery health, charging via USB (wall charger and host PC).
 
-* **Vibrator**
+* **Vibration motor**:
+  Intensity, patterns.
 
 * **HW composer version**:
   check ``dumpsys surfaceflinger`` through ADB (see `SF Layer Debugging`_).

@@ -12,7 +12,8 @@ Mobile Device
 
  * See :doc:`devices` for a list of devices already supported by HADK
 
-* SD card or another way to do a backup of your device partitions, data and get these off the device
+* Means to do backup and restore of the device contents (e.g. SD card or USB
+  cable to host computer), as well as flash recovery images to the device
 
 Build Machine
 -------------
@@ -23,7 +24,9 @@ Build Machine
 
 * `Sailfish Target`_
 
-* At least 16 GiB of free disk space (10 GiB source download + more for building)
+* At least 16 GiB of free disk space (10 GiB source download + more for
+  building) for a complete Android build; a minimal download and HADK build
+  (only hardware adaptation-related components) requires slightly less space
 
 * At least 4 GiB of RAM (the more the better)
 

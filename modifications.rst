@@ -1,5 +1,5 @@
-Tweaks and Patches
-==================
+Modifications and Patches
+=========================
 
 Running SailfishOS using libhybris and Mer requires a few
 modifications to a standard Android/CM system. We maintain forks of
@@ -69,21 +69,16 @@ For the Kernel, some configuration options must be enabled to support
 ``systemd`` features, and some configuration options must be disabled,
 because they conflict or block certain features of Sailfish OS.
 
-*FIXME: CONFIGS_ are in two other places: kernel checker and ``initramfs/init``.
-I suggest we direct them to one of those*
-
 * **Required Configuration Options**
- * TODO
- * TODO2
- * ...
+ * See ``initramfs/init`` for a list of required kernel options
 * **Conflicting Configuration Options**
  * **CONFIG_ANDROID_PARANOID_NETWORK**:
    This would make all network connections fail if the user is not
    in the group with ID 3003.
- * ...
 
-See ``$ANDROID_ROOT/hybris/mer-kernel-check`` for a tool that can be used to
-verify the kernel configuration.
+As an alternative to checking the kernel options in the initramfs, the
+script ``$ANDROID_ROOT/hybris/mer-kernel-check`` can also be used to
+verify if all required configuration options have been enabled.
 
 
 Configuring and Compiling the Kernel

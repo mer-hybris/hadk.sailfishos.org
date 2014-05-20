@@ -4,26 +4,28 @@ Building the Android HAL
 Checking out CyanogenMod Source
 -------------------------------
 
-Our build process is based around the *CyanogenMod* projects source
-tree, but when required we've forked some projects, in order to apply
-patches required to make *libhybris* function correctly, to build
-hybris based hardware adaptations and to minimise the actions and
-services in the .rc files.
+Our build process is based around the CyanogenMod projects source
+tree, but when required we've modified some projects, in order to apply
+patches required to make libhybris function correctly, and
+to minimise the built-in actions and services in the ``init.*.rc`` files.
 
-Firstly you need to install the *repo* command from the AOSP source
-code repositories, the instructions can be found from the below link:
+Ensure you have setup your name and e-mail address in your Git configuration:
 
-* `Installing repo`_
+.. code-block:: console
+
+  MER_SDK $
+
+  git config --global user.name "Your Name"
+  git config --global user.email "you@example.com"
+
+You also need to install the ``repo`` command from the AOSP source
+code repositories, see `Installing repo`_.
 
 .. _Installing repo: http://source.android.com/source/downloading.html#installing-repo
 
-After you've installed the *repo* command, the following set of
-commands, download the required projects and also our officially
-supported device profiles, for building libhybris based *Mer* device
-hardware adaptations.
-
-Ensure you have done `git config --global user.email
-"you@example.com"` and `git config --global user.name "Your Name"`.
+After you've installed the ``repo`` command, the following set of
+commands download the required projects for building the modified parts
+of Android used in libhybris-based Mer device hardware adaptations.
 
 .. code-block:: console
 
@@ -38,15 +40,16 @@ Ensure you have done `git config --global user.email
   repo sync
 
 The expected disk usage for the source tree after ``repo sync``
-is **9.4 GB** (as of 2014-02-18).
-
-This may take some time(!)
+is **9.4 GB** (as of 2014-02-18). Depending on your connection, this
+might take some time. In the mean time, make yourself familiar with the
+rest of this guide.
 
 Building Relevant Bits of CyanogenMod
 -------------------------------------
 
 In the Android build tree, run the following in a ``bash`` shell (if you
-are using e.g. ``zsh``, you need to run these commands in a ``bash`` shell):
+are using e.g. ``zsh``, you need to run these commands in a ``bash`` shell,
+as the Android build scripts are assuming you are running ``bash``):
 
 .. code-block:: console
 
@@ -57,20 +60,15 @@ are using e.g. ``zsh``, you need to run these commands in a ``bash`` shell):
   source build/envsetup.sh
   export USE_CCACHE=1
 
-.. code-block:: console
-
-  ANDROID_SDK $
-
   breakfast $DEVICE
 
-  # [lbt] This works for me
   rm .repo/local_manifests/roomservice.xml
 
-*XXX: [thp]: For i9305 the ``breakfast`` results in duplicate repos for me? Had to
-use "lunch cm_$DEVICE-eng" instead (because we have modified repos for that device
-in our default.xml) [sl]: There is no cm_mako among options, and I just ignored
-the duplicate error - all went ahead fine. Play with roomservice is welcomed though,
-thanks*
+The last command removes the CyanogenMod "roomservice" repository list,
+which contains any additional device-specific repositories you need. In our
+case, the ``hybris-10.1`` manifest file already contains device-specific
+repositories, and the repositories added by roomservice would conflict with
+those.
 
 .. code-block:: console
 
@@ -103,7 +101,8 @@ Common Pitfalls
   remove the local manifest with ``rm .repo/local_manifests/roomservice.xml``
 * In some cases (with parallel builds), the build can fail, in this case, use
   ``make -j1 hybris-hal`` to retry with a non-parallel build and see the error
-  message without output from parallel jobs. The build usually ends with:
+  message without output from parallel jobs. The build usually ends with
+  the following output:
 
 .. code-block:: console
 

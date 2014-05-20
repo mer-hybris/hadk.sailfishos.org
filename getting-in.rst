@@ -35,18 +35,16 @@ Android's USB gadget is built in to most kernel configurations. It is possible
 then for the ramdisk to set up working USB networking on most devices and then
 open up a telnet daemon.
 
-The **hybris-boot** repository contains such a initrd with convenient
-USB networking, DHCP and telnet server, plus the ability to boot into
-a Sailfish OS system.
-
-The init system in the initrd will attempt to write information via
-the usb device serial number and model. So 'dmesg' on the host could
-produce::
+The **hybris-boot** repository contains such an initrd with convenient USB
+networking, DHCP and telnet server, plus the ability to boot into a Sailfish
+OS system. The init system in the hybris-boot initrd will attempt to write
+information via the USB device serial number and model. So ``dmesg`` on the
+host could produce::
 
  [1094634.238136] usb 2-2: Manufacturer: Mer Boat Loader
  [1094634.238143] usb 2-2: SerialNumber: Mer Debug setting up (DONE_SWITCH=no)
 
-However dmesg doesn't report all changes in the usb subsystem and the init script will attempt to update the iSerial field with information so also do::
+However ``dmesg`` doesn't report all changes in the USB subsystem and the init script will attempt to update the iSerial field with information so also do::
 
   $ lsusb -v | grep iSerial
    iSerial    3 Mer Debug telnet on port 23 on rndis0 192.168.2.1 - also running udhcpd

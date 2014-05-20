@@ -44,7 +44,7 @@ Interacting with the rootfs via adb from Android
 
 You can interact with the Sailfish OS rootfs and carry out maintenance (editing
 files, installing packages, etc..) when booted into an Android system. You have
-to have your rootfs already installed/extracted. You can use Android's WIFI
+to have your rootfs already installed/extracted. You can use Android's WLAN
 connectivity to connect to the Internet and download updates:
 
 .. code-block:: console

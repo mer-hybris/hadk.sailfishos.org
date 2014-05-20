@@ -2,9 +2,9 @@ Packaging Droid HAL
 ===================
 
 In this chapter, we will package the build results of :doc:`android`
-as RPM packages and create a local rpm repository. From there, they
-can be added to a local target and used to build libhybris and the QPA
-plugin. They can also be used to build the rootfs.
+as RPM packages and create a local RPM repository. From there, the RPM
+packages can be added to a local target and used to build libhybris and the
+QPA plugin. They can also be used to build the rootfs.
 
 Packaging ``droid-hal-device``
 ------------------------------
@@ -19,11 +19,14 @@ in the ``rpm/`` directory (since it appears in the manifest).
 
 The master git repo for the packaging is here:  https://github.com/mer-hybris/droid-hal-device
 
-This rpm/ dir contains some rather spooky spec file packaging to make
-a set of rpms.
+This ``rpm/`` dir contains the necessary ``.spec`` files to make a set of RPM
+packages that form the core Droid hardware adaptation part and configuration
+file setup of the hardware adaptation. It also builds a development package
+that contains libraries and headers, which are used when building middleware
+components (see :doc:`middleware`).
 
-Create the rpms
-```````````````
+Building the RPM packages
+`````````````````````````
 
 The next step has to be carried out in a Mer SDK chroot:
 
@@ -32,21 +35,22 @@ The next step has to be carried out in a Mer SDK chroot:
     MER_SDK $
 
     cd $ANDROID_ROOT
-    #FIXME: this revolting workaround is needed since mb2 doesn't parse %include and
-    #       rpmspec --query --buildrequires fails since some macros provided by the BRs
-    #       aren't present ... catch22
+
+    # Force installing of build-requirements by specifying the .inc file
+    # directly - the build will fail, but build-dependencies will be pulled
+    # in via zypper, so that the next step has all macro definitions loaded
     mb2 -t $VENDOR-$DEVICE-armv7hl -s rpm/droid-hal-device.inc build
 
     mb2 -t $VENDOR-$DEVICE-armv7hl -s rpm/droid-hal-$DEVICE.spec build
 
 This should leave you with several RPM packages in ``$ANDROID_ROOT/RPMS/``.
 
-Create a local repo
-```````````````````
+Create a local RPM repository
+`````````````````````````````
 
-Now we create a local repository that can be used to make images or to
-update Targets with the devel headers to enable device specific
-packages to be built (like libhybris or pulseaudio)
+Now we create a local repository that can be used to create images using
+``mic`` or to install the development headers into our ``sb2`` target for
+building middleware components:
 
 .. code-block:: console
 

@@ -20,10 +20,10 @@ Flashing back to Stock Android
 ------------------------------
 
 It is important that you start with a fresh stock image that matches the
-Android version of the CM release you are going to flash (which in turn
-is dictated by the Sailfish OS image you are going to flash).
+Android version of the CyanogenMod release you are going to flash (which in
+turn is dictated by the Sailfish OS image you are going to flash).
 
-While the CM .zip contains all files in /system/ (e.g. libraries and
+While the CM .zip contains all files in ``/system/`` (e.g. libraries and
 libhardware modules), the stock image also contains firmware parts and
 flashables for partitions that are not included in the CM .zip.
 
@@ -40,6 +40,12 @@ there might be some issues when booting into Sailfish OS:
 
 * WLAN, sensors, audio and other hardware not working
 
+If you experience such issues, please make sure you first flash the
+stock system, ROM, followed by a Recovery image and CyanogenMod, and
+finally the Sailfish OS update. Please also note that you can't just
+take the latest stock ROM and/or CyanogenMod ROM - both versions have
+to match the Sailfish OS version you are going to install, as the
+Sailfish OS parts are built against a specific version of the HA.
 
 Flashing using Android Recovery
 -------------------------------

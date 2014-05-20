@@ -31,11 +31,11 @@ to devices running the CyanogenMod flavour of Android.
    getting-in
    flashing
    manual-install
-   repos
    modifications
    middleware
    new-device-build
    devices
+   repos
 
 License
 =======

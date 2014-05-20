@@ -1,16 +1,15 @@
-Building a new Device
-=====================
+Porting Sailfish OS to a New Device
+===================================
 
 Find Device Info
 ----------------
 
 See :doc:`prerequisites` for sourcing information about your device.
 
-This example has snippets based on the Encore_
+This example has snippets based on the Encore_. The CyanogenMod base
+ROM has been downloaded using:
 
 .. _Encore: http://wiki.cyanogenmod.org/w/Encore_Info
-
-So the base CM came from:
 
 .. code-block:: console
 
@@ -18,19 +17,22 @@ So the base CM came from:
 
   curl -L -O http://download.cyanogenmod.org/get/jenkins/51847/cm-10.1.3.2-encore.zip
 
-and was installed using the `Encore install guide`_
+Installation of the ROM is described in the `Encore install guide`_.
 
 .. _`Encore install guide`: http://wiki.cyanogenmod.org/w/Install_CM_for_encore
 
 Prepare Environment
 -------------------
 
-Make sure all the commands work on the correct DEVICE/VENDOR by updating your ~/.hadk.env with DEVICE=encore VENDOR=bn
+Make sure all the commands use the correct ``$DEVICE`` and ``$VENDOR`` by
+updating your ``~/.hadk.env`` (in this example, ``DEVICE=encore`` and
+``VENDOR=bn``).
 
 Build Android
 -------------
 
-This section is (obviously!) done in the Android SDK. Ensure the environment is correct:
+Building Android is done inside the Android SDK. Ensure the environment
+variables are set up correctly by executing ``hadk`` inside the Android SDK:
 
 .. code-block:: console
 
@@ -43,12 +45,16 @@ Device Repos
 
 You'll need a new local manifest. The example given below is for encore. Modify it appropriately.
 
-The entries will vary per-device but you'll need the device and kernel repos as a minimum. Depending on any build issues that arise you may need additional `hardware/` and/or `external/` repos (the example ones probably won't be needed for your device). You'll need to fork the kernel repo in order to update the default config. Doing this locally requires additional repo setup.
+The entries will vary per-device but you'll need the device and kernel repos
+as a minimum. Depending on any build issues that arise you may need additional
+``hardware/`` and/or ``external/`` repositories (the example ones probably
+won't be needed for your device). You'll need to fork the kernel repository in
+order to update the default config:
 
-FIXME: Avoid forking the kernel repo by adding support for a 'local config' ?
+.. FIXME: Avoid forking the kernel repo by adding support for a 'local config'
 
-* device/$VENDOR/$DEVICE
-* kernel/$VENDOR/$DEVICE
+* ``device/$VENDOR/$DEVICE``
+* ``kernel/$VENDOR/$DEVICE``
 
 .. code-block:: console
 
@@ -65,7 +71,7 @@ FIXME: Avoid forking the kernel repo by adding support for a 'local config' ?
   </manifest>
   EOF
 
-Once you have a local manifest you can sync the repos:
+Once you have a local manifest you can sync the Git repositories:
 
 .. code-block:: console
 
@@ -74,15 +80,19 @@ Once you have a local manifest you can sync the repos:
   repo sync
   breakfast $DEVICE
 
-This may report issues with missing repos
-
-If you get errors about duplicate repos check and remove .repo/local_manifests/roomservice.xml
-Report this problem too.
+If you get errors about duplicate repositories, see the "Common Pitfalls"
+section in :doc:`android`.
 
 Configure Mountpoint informatiion
 `````````````````````````````````
 
-Until systemd is updated we need to patch hybris/hybris-boot/fixup-mountpoints for the DEVICE. The idea here is to ensure the udev-less initrd mounts the correct /boot and /data partition. If you're lucky the device will simply use /dev/block/<somedev> and you can use the i9305 approach. If not then look in the recovery fstab for the right mapping. The build log will have provided feedback like:
+Until ``systemd`` is updated we need to patch
+``hybris/hybris-boot/fixup-mountpoints`` for the device. The idea here is to
+ensure the udev-less initrd mounts the correct ``/boot`` and ``/data``
+partition. If you're lucky the device will simply use
+``/dev/block/<somedev>`` and you can use the i9305 approach.
+If not then look in the recovery ``fstab`` for the
+right mapping. The build log will have provided feedback like:
 
 .. code-block:: console
 
@@ -92,13 +102,16 @@ Until systemd is updated we need to patch hybris/hybris-boot/fixup-mountpoints f
   hybris/hybris-boot/Android.mk:49: ********************* /data should live on /dev/block/platform/msm_sdcc.1/by-name/userdata
 
 
-Note that subsequent repo sync will reset this unless you update your
-.repo/local_manifests/encore.xml to point to a fork of the hybris-boot repo.
+Note that a subsequent ``repo sync`` will reset this unless you update your
+``.repo/local_manifests/encore.xml`` to point to a fork of the hybris-boot
+repo.
 
 Additional packages
 ```````````````````
 
-It's possible you'll need additional tools. Eg for U-Boot based devices the mkimage command is not present and needs installing:
+Additional tools can be downloaded inside the Android Ubuntu chroot. For
+example, devices based on the U-Boot bootloader require the ``mkimage``
+utility, which can be installed with the following command:
 
 .. code-block:: console
 
@@ -110,7 +123,8 @@ It's possible you'll need additional tools. Eg for U-Boot based devices the mkim
 Do a build
 ``````````
 
-You'll probably need to iterate this a few times to spot missing repos, tools, configs etc:
+You'll probably need to iterate this a few times to spot missing repositories,
+tools, configuration files and others:
 
 .. code-block:: console
 
@@ -118,13 +132,16 @@ You'll probably need to iterate this a few times to spot missing repos, tools, c
 
   mka hybris-hal
 
-Eg An error about : hardware/ti/wlan/mac80211/compat_wl12xx leads us to check the .repo/manifests/cm-10.1.3.xml file and find a likely looking project; you can see in the example above it was added to .repo/local_manifests/encore.xml
+For example, an error about ``hardware/ti/wlan/mac80211/compat_wl12xx`` leads
+us to check ``.repo/manifests/cm-10.1.3.xml`` and find a likely looking
+project; you can see in the example above it was added to
+``.repo/local_manifests/encore.xml``.
 
-If you're building for encore, try removing it from the local manifest and removing the hardware/ti directory to see the errors.
-
-Repeat this for other local projects you may find.
-
-Also note that you may have to run mka hybris-hal multiple times; please report a bug if that happens as something will be wrong with dependencies
+If you're building for encore, try removing it from the local manifest and
+removing the ``hardware/ti`` directory to see the errors. Repeat this for
+other local projects you may find. Also note that you may have to run ``mka
+hybris-hal`` multiple times; please report a bug if that happens as something
+will be wrong with dependencies.
 
 If you hit any other issues then please report them too.
 
@@ -139,14 +156,13 @@ Once the kernel has built you can check the kernel config. You can use the Mer k
 
   tmp/mer_verify_kernel_config ./out/target/product/$DEVICE/obj/KERNEL_OBJ/.config
 
-Look for a file like: kernel/$VENDOR/$DEVICE/arch/arm/configs/$DEVICE_cm10.1_defconfig and modify it in your kernel repo fork.
+Look for a file like: ``arch/arm/configs/$DEVICE_cm10.1_defconfig`` in ``kernel/$VENDOR/$DEVICE/`` and modify it in your kernel repo fork.
 
 
 Success
 ```````
 
-You've finished this section when your build finishes with :
-
+You've finished this section when your build finishes with:
 
 .. code-block:: console
 
@@ -174,7 +190,8 @@ Setup a device-specific target. This step is generally only needed when working 
 
 Setup a device target: :doc:`scratchbox2`
 
-Create a simple TEMPLATED spec file
+Create a simple ``.spec`` file that sets the correct variables and then
+includes ``droid-hal-device.inc``, which contains the RPM building logic:
 
 .. code-block:: console
 
@@ -212,11 +229,7 @@ You'll need as a minimum:
 Build the HAL
 `````````````
 
-Then:
-
-  :doc:`droid-hal`
-
-Iterate over:
+See :doc:`droid-hal`. To build a local repository for installing packages:
 
 .. code-block:: console
 
@@ -230,7 +243,7 @@ Iterate over:
   mv RPMS/*${DEVICE}* $MER_ROOT/android/droid-local-repo/$DEVICE/$PKG
   createrepo  $MER_ROOT/android/droid-local-repo/$DEVICE
 
-Each time this is changed you'll need to update the target
+You will need to update the target every time to build new RPMs.
 
 
 HAL specific packages
@@ -242,34 +255,40 @@ Target setup
 Setup to use droid headers
 
 As a one off (per device-target) we need to add the local repo to our target:
+
 .. code-block:: console
 
   MER_SDK $
 
-   sb2 -t  $VENDOR-$DEVICE-armv7hl -R -msdk-install ssu ar local file://$MER_ROOT/android/droid-local-repo/$DEVICE
+  sb2 -t $VENDOR-$DEVICE-armv7hl -R -msdk-install \
+      ssu ar local file://$MER_ROOT/android/droid-local-repo/$DEVICE
 
 Check it's there:
+
 .. code-block:: console
 
   MER_SDK $
 
-  sb2 -t  $VENDOR-$DEVICE-armv7hl -R -msdk-install ssu lr
+  sb2 -t $VENDOR-$DEVICE-armv7hl -R -msdk-install ssu lr
 
 Now set the SDK target to use an up-to-date repo:
+
 .. code-block:: console
 
   MER_SDK $
 
-  sb2 -t  $VENDOR-$DEVICE-armv7hl -R -msdk-install ssu domain sales
-  sb2 -t  $VENDOR-$DEVICE-armv7hl -R -msdk-install ssu dr sdk
+  sb2 -t $VENDOR-$DEVICE-armv7hl -R -msdk-install ssu domain sales
+  sb2 -t $VENDOR-$DEVICE-armv7hl -R -msdk-install ssu dr sdk
 
 And install the droid-hal-device headers:
+
 .. code-block:: console
 
   MER_SDK $
 
-  sb2 -t  $VENDOR-$DEVICE-armv7hl -R -msdk-install zypper ref
-  sb2 -t  $VENDOR-$DEVICE-armv7hl -R -msdk-install zypper install droid-hal-$DEVICE-devel
+  sb2 -t $VENDOR-$DEVICE-armv7hl -R -msdk-install zypper ref
+  sb2 -t $VENDOR-$DEVICE-armv7hl -R -msdk-install \
+      zypper install droid-hal-$DEVICE-devel
 
 If you rebuild the droid-side then you'll need to repeat the two commands above.
 
@@ -292,7 +311,7 @@ Packages
 libhybris
 ~~~~~~~~~
 
-First clone the src:
+Check out the libhybris source code from Git:
 
 .. code-block:: console
 
@@ -312,7 +331,11 @@ Some packages will use submodules:
   git submodule update  
   cd libhybris
 
-Now use the mb2 command to build the package. This essentially runs a slightly modified rpmbuild using the scratchbox2 target. It also pulls in BuildRequire'd packages into the target (note that this makes the target 'dirty' and you may miss build dependencies. This should be caught during clean builds.)
+Now use ``mb2`` to build the package. This essentially runs a slightly
+modified ``rpmbuild`` using the Scratchbox2 target. It also pulls in
+build requirements into the target. Note that this makes the target
+'dirty' and you may miss build dependencies. This should be caught during
+clean builds.
 
 .. code-block:: console
 
@@ -332,9 +355,12 @@ Now add the packages you just built to the local repo and refresh the repo cache
   createrepo  $MER_ROOT/android/droid-local-repo/$DEVICE
   sb2 -t  $VENDOR-$DEVICE-armv7hl -R -msdk-install zypper ref
 
-Note that all tar_git packaged RPMS built locally will be Version 0 Release 1
+Note that all repositories that are in ``tar_git`` format (for use with OBS)
+will have their RPM packages built locally might not always have the right
+release and version set.
 
 At this point, and for the libhybris package only, you can remove the mesa-llvmpipe packages from the target:
+
 .. code-block:: console
 
   MER_SDK $

@@ -4,15 +4,14 @@ Setting up the SDKs
 Setting up required environment variables
 -----------------------------------------
 
-Throughout this guide we will be referencing the installed location of
-your SDK, targets and src; your device vendor and device codename,
-both in scripts and configuration files.
-
-(Refer to :doc:`devices` for information on obtaining the $DEVICE and
-$VENDOR values.)
+Throughout this guide we will be referencing the location of your SDK,
+targets and source code. As is customary with Android hardware adaptations,
+the device vendor (``$VENDOR``) and device codename (``$DEVICE``) are also
+used, both in scripts and configuration files. For a list of vendor and
+device names, refer to :doc:`devices`.
 
 Now run the following commands on your host operating system substituting
-the obtained information where indicated.
+the obtained information where indicated with ``<>``:
 
 .. _CyanogenMod Devices: http://wiki.cyanogenmod.org/w/Devices
 
@@ -22,9 +21,9 @@ the obtained information where indicated.
 
   cat <<EOF > $HOME/.hadk.env
   export MER_ROOT="$HOME/mer"
-  export ANDROID_ROOT="\$MER_ROOT/android/droid"
-  export VENDOR="[MANUFACTURER]"
-  export DEVICE="[CODENAME]"
+  export ANDROID_ROOT="$MER_ROOT/android/droid"
+  export VENDOR="<insert vendor name here>"
+  export DEVICE="<insert device codename here>"
   EOF
 
   cat <<EOF >> $HOME/.mersdkubu.profile
@@ -39,16 +38,17 @@ the obtained information where indicated.
   EOF
 
 This ensures that the environment is setup correctly when you use the
-`ubu-chroot` command to enter the android sdk.
+``ubu-chroot`` command to enter the Android SDK.
 
-You can also now simply type **hadk** when you work on a different DEVICE/VENDOR.
+It also creates an alias ``hadk`` that you can use to reset the environment
+variables in case you temporarily set it to some other values.
 
 Setup the Mer SDK
 -----------------
 
 The Mer SDK setup is described on `the Mer wiki`_.
 
-Ensure you are able to enter the Mer SDK before moving on.
+Ensure you are able to open a shell in the Mer SDK before moving on.
 
 .. _the Mer wiki: http://wiki.merproject.org/wiki/Platform_SDK
 
@@ -57,18 +57,19 @@ Preparing the Mer SDK
 
 You'll need some tools which are not installed into the Mer SDK by default:
 
+* **android-tools** contains tools and utilities needed for working with
+  the Android SDK
+* **createrepo** is needed to build repositories locally if you want to
+  create or update local RPM repositories
+* **zip** is needed to pack the final updater package into an .zip file
+
+You can install those tools with the following command:
 
 .. code-block:: console
 
   MER_SDK $
 
   sudo zypper in android-tools createrepo zip
-
-android-tools contains tools and utilities needed for working with Android SDK.
-
-createrepo is needed to build repos if you want/need to update local targets.
-
-zip is needed to create the final installer.
 
 Setting up an Android Build Environment
 ---------------------------------------
@@ -77,9 +78,9 @@ Downloading and Unpacking Ubuntu Chroot
 ```````````````````````````````````````
 
 In order to maintain build stability, we use an *Ubuntu GNU/Linux*
-chroot environment from within the *Mer SDK* to build our Android
+``chroot`` environment from within the Mer SDK to build our Android
 source tree. The following commands download and unpack the rootfs to
-the appropriate location.
+the appropriate location:
 
 .. code-block:: console
 
@@ -87,9 +88,11 @@ the appropriate location.
 
   hadk
 
-  cd $HOME; curl -O http://img.merproject.org/images/mer-hybris/ubu/ubuntu-quantal-android-rootfs.tar.bz2
-  sudo mkdir -p /parentroot/$MER_ROOT/sdks/ubuntu
-  sudo tar --numeric-owner -xvjf $HOME/ubuntu-lucid-android-rootfs.tar.bz2 -C /parentroot/$MER_ROOT/sdks/ubuntu
+  TARBALL=ubuntu-quantal-android-rootfs.tar.bz2
+  curl -O http://img.merproject.org/images/mer-hybris/ubu/$TARBALL
+  UBUNTU_CHROOT=/parentroot/$MER_ROOT/sdks/ubuntu
+  sudo mkdir -p $UBUNTU_CHROOT
+  sudo tar --numeric-owner -xvjf $TARBALL -C $UBUNTU_CHROOT
 
 You can now enter the ubuntu chroot like this:
 
