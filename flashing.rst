@@ -10,9 +10,36 @@ Prerequisites
 
 * Android Recovery flashed to your device
 
+* The stock firmware image (for your version and device)
+
 * The vanilla CM release (for your version and device)
 
 * A SailfishOS rootfs update .zip, created by ``mic``
+
+Flashing back to Stock Android
+------------------------------
+
+It is important that you start with a fresh stock image that matches the
+Android version of the CM release you are going to flash (which in turn
+is dictated by the Sailfish OS image you are going to flash).
+
+While the CM .zip contains all files in /system/ (e.g. libraries and
+libhardware modules), the stock image also contains firmware parts and
+flashables for partitions that are not included in the CM .zip.
+
+For example, if you are running stock 4.4.2 on a Nexus 4 (mako), and you
+are going to flash CM 10.1.3 and Sailfish OS to it, you have to first
+flash the stock 4.2.2 (note that this is 4.2, not 4.4) first, so that
+the firmware bits are matching the CM version.
+
+If you do not flash the right stock version (and therefore firmware),
+there might be some issues when booting into Sailfish OS:
+
+* Problems accessing ``/sdcard/`` in recovery (e.g. ``adb push`` does
+  not work)
+
+* WLAN, sensors, audio and other hardware not working
+
 
 Flashing using Android Recovery
 -------------------------------
