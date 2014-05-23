@@ -15,8 +15,8 @@ Scratchbox2 target with the following commands:
 
   SFFE_SB2_TARGET=/parentroot/$MER_ROOT/targets/$VENDOR-$DEVICE-armv7hl
 
-  TARBALL=Jolla-latest-Sailfish_SDK_Target-armv7hl.tar.bz2
-  curl -O http://releases.sailfishos.org/sdk/latest/targets/$TARBALL
+  TARBALL=$(curl http://releases.sailfishos.org/sdk/latest/targets/targets.json | grep 'armv7hl.tar.bz2' | cut -d\" -f4)
+  curl -O $TARBALL
     
   sudo mkdir -p $SFFE_SB2_TARGET
   sudo tar --numeric-owner -pxjf $TARBALL -C $SFFE_SB2_TARGET
