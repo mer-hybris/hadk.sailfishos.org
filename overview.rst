@@ -59,6 +59,8 @@ Commands and output from the Mer SDK session are indicated using
 How to set up the Mer Platform SDK, as well as the device-specific targets
 and the Ubuntu chroot for building Android is described in :doc:`setupsdk`.
 
+.. _mer-root:
+
 The build area root directory
 `````````````````````````````
 
@@ -88,9 +90,10 @@ For distribution, RPM packages are uploaded to a HA-specific repository. With
 this repository, full system images using the ``mic`` utility. The ``mic``
 utility is usually also run inside the Mer SDK.
 
-Deployment 
+Deployment
 ==========
 
 The ``boot.img`` (containing both the kernel and our custom initrd) is flashed
 to the device, while the Sailfish OS rootfs is placed in a subdirectory of
 the ``/data/`` partition alongside an existing, unmodified Android system.
+

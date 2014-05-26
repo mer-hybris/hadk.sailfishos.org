@@ -11,7 +11,8 @@ used, both in scripts and configuration files. For a list of vendor and
 device names, refer to :doc:`devices`.
 
 Now run the following commands on your host operating system substituting
-the obtained information where indicated with ``<>``:
+the obtained information where indicated with ``<>`` (MER_ROOT value from
+:ref:`mer-root`):
 
 .. _CyanogenMod Devices: http://wiki.cyanogenmod.org/w/Devices
 
@@ -20,7 +21,7 @@ the obtained information where indicated with ``<>``:
   HOST $
 
   cat <<EOF > $HOME/.hadk.env
-  export MER_ROOT="$HOME/mer"
+  export MER_ROOT="<insert value of your choosing>"
   export ANDROID_ROOT="$MER_ROOT/android/droid"
   export VENDOR="<insert vendor name here>"
   export DEVICE="<insert device codename here>"
