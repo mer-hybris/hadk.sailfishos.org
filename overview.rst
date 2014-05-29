@@ -77,7 +77,7 @@ Build components
 * In the **HA build SDK**
  * a kernel
  * a hacking friendly initrd which supports various boot options
- * ``boot.img`` and ``recovery.img`` (for booting and debugging)
+ * ``hybris-boot.img`` and ``hybris-recovery.img`` (for booting and debugging)
  * a minimal Android ``/system/`` tree
  * modified Android parts for compatibility with libhybris and Sailfish OS
    (e.g. Bionic libc, ``logcat``, ``init``, ...)
@@ -93,7 +93,7 @@ utility is usually also run inside the Mer SDK.
 Deployment
 ==========
 
-The ``boot.img`` (containing both the kernel and our custom initrd) is flashed
+The ``hybris-boot.img`` (containing both the kernel and our custom initrd) is flashed
 to the device, while the Sailfish OS rootfs is placed in a subdirectory of
 the ``/data/`` partition alongside an existing, unmodified Android system.
 
