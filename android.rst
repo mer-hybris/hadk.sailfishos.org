@@ -29,7 +29,7 @@ of Android used in libhybris-based Mer device hardware adaptations.
 
 .. code-block:: console
 
-  ANDROID_SDK $
+  HABUILD_SDK $
 
   hadk
 
@@ -53,7 +53,7 @@ as the Android build scripts are assuming you are running ``bash``):
 
 .. code-block:: console
 
-  ANDROID_SDK $
+  HABUILD_SDK $
 
   hadk
 
@@ -72,7 +72,7 @@ those.
 
 .. code-block:: console
 
-  ANDROID_SDK $
+  HABUILD_SDK $
 
   make -j4 hybris-hal
 
@@ -106,7 +106,7 @@ Common Pitfalls
 
 .. code-block:: console
 
-  ANDROID_SDK $
+  HABUILD_SDK $
 
   ...
   Install: .../out/target/product/$DEVICE/hybris-recovery.img

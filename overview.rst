@@ -31,21 +31,21 @@ The development environment uses the Mer Platform SDK, with:
 * one or more device specific **targets** (a rootfs with device-specific
   headers and libraries)
 
-* an Android build **chroot** (a minimal Ubuntu chroot required to build
+* a HA build SDK (a minimal Ubuntu chroot required to build
   the Android sources)
 
 During the HA development you'll typically have one window/terminal using the
-Android chroot where you build and work on Android code and another session
-using the Mer SDK chroot where you build RPMs for the hardware adaptation.
+HA build SDK where you build and work on Android code and another session
+using the Mer SDK where you build RPMs for the hardware adaptation.
 
-Commands and output from the Android session are indicated using
-``ANDROID_SDK $`` at the top of the code block, like this:
+Commands and output from the HA build session are indicated using
+``HABUILD_SDK $`` at the top of the code block, like this:
 
 .. code-block:: console
 
-  ANDROID_SDK $
+  HABUILD_SDK $
 
-  echo "run this command in the android chroot terminal"
+  echo "run this command in the Ubuntu HA build SDK terminal"
 
 Commands and output from the Mer SDK session are indicated using
 ``MER_SDK $`` at the top of the code block, like this:
@@ -56,8 +56,8 @@ Commands and output from the Mer SDK session are indicated using
 
   echo "run this command in the Mer SDK terminal"
 
-How to set up the Mer Platform SDK, as well as the device-specific targets
-and the Ubuntu chroot for building Android is described in :doc:`setupsdk`.
+Setting up the Mer Platform SDK, as well as the device-specific targets
+and the Ubuntu HA build chroot is described in :doc:`setupsdk`.
 
 .. _mer-root:
 
@@ -74,7 +74,7 @@ this area, we suggest the following paths:
 Build components
 ````````````````
 
-* In the **Android build chroot**
+* In the **HA build SDK**
  * a kernel
  * a hacking friendly initrd which supports various boot options
  * ``boot.img`` and ``recovery.img`` (for booting and debugging)

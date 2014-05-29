@@ -36,7 +36,7 @@ variables are set up correctly by executing ``hadk`` inside the Android SDK:
 
 .. code-block:: console
 
-  ANDROID_SDK $
+  HABUILD_SDK $
 
   hadk
 
@@ -58,7 +58,7 @@ order to update the default config:
 
 .. code-block:: console
 
-  ANDROID_SDK $
+  HABUILD_SDK $
 
   mkdir .repo/local_manifests/
   cat <<EOF > .repo/local_manifests/encore.xml
@@ -75,7 +75,7 @@ Once you have a local manifest you can sync the Git repositories:
 
 .. code-block:: console
 
-  ANDROID_SDK $
+  HABUILD_SDK $
 
   repo sync
   breakfast $DEVICE
@@ -96,7 +96,7 @@ right mapping. The build log will have provided feedback like:
 
 .. code-block:: console
 
-  ANDROID_SDK $
+  HABUILD_SDK $
 
   hybris/hybris-boot/Android.mk:48: ********************* /boot should live on /dev/block/platform/msm_sdcc.1/by-name/boot
   hybris/hybris-boot/Android.mk:49: ********************* /data should live on /dev/block/platform/msm_sdcc.1/by-name/userdata
@@ -115,7 +115,7 @@ utility, which can be installed with the following command:
 
 .. code-block:: console
 
-  ANDROID_SDK $
+  HABUILD_SDK $
 
   sudo apt-get install uboot-mkimage
 
@@ -128,7 +128,7 @@ tools, configuration files and others:
 
 .. code-block:: console
 
-  ANDROID_SDK $
+  HABUILD_SDK $
 
   mka hybris-hal
 
@@ -152,7 +152,7 @@ Once the kernel has built you can check the kernel config. You can use the Mer k
 
 .. code-block:: console
 
-  ANDROID_SDK $
+  HABUILD_SDK $
 
   tmp/mer_verify_kernel_config ./out/target/product/$DEVICE/obj/KERNEL_OBJ/.config
 
@@ -166,7 +166,7 @@ You've finished this section when your build finishes with:
 
 .. code-block:: console
 
-  ANDROID_SDK $
+  HABUILD_SDK $
 
   Install: $MER_ROOT/android/droid/out/target/product/$DEVICE/hybris-recovery.img
   Install: $MER_ROOT/android/droid/out/target/product/$DEVICE/hybris-boot.img
