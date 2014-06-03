@@ -36,6 +36,7 @@ to devices running the CyanogenMod flavour of Android.
    new-device-build
    devices
    repos
+   naming
 
 License
 =======
