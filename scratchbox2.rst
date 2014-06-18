@@ -42,6 +42,8 @@ Scratchbox2 target with the following commands:
   # FIXME: This should be mer-tools and use rolling repo
   sb2 -t $VENDOR-$DEVICE-armv7hl -m sdk-install -R zypper ref
 
+The "collect2: cannot find 'ld'" error/warning after executing sb2-init can be ignored.
+
 To verify the correct installation of the Scratchbox2 target, cross-compile
 a simple "Hello, World!" C application with ``sb2``:
 
