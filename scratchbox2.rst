@@ -19,7 +19,7 @@ Scratchbox2 target with the following commands:
   curl -O $TARBALL
     
   sudo mkdir -p $SFFE_SB2_TARGET
-  sudo tar --numeric-owner -pxjf $TARBALL -C $SFFE_SB2_TARGET
+  sudo tar --numeric-owner -pxjf $(basename $TARBALL) -C $SFFE_SB2_TARGET
     
   sudo chown -R $USER $SFFE_SB2_TARGET
     
