@@ -25,6 +25,8 @@ file setup of the hardware adaptation. It also builds a development package
 that contains libraries and headers, which are used when building middleware
 components (see :doc:`middleware`).
 
+.. _build-rpms:
+
 Building the RPM packages
 `````````````````````````
 
@@ -45,6 +47,8 @@ The next step has to be carried out in a Mer SDK chroot:
     mb2 -t $VENDOR-$DEVICE-armv7hl -s rpm/droid-hal-$DEVICE.spec build
 
 This should leave you with several RPM packages in ``$ANDROID_ROOT/RPMS/``.
+
+.. _createrepo:
 
 Create a local RPM repository
 `````````````````````````````
