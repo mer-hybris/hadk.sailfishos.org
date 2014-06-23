@@ -70,6 +70,9 @@ The error:
 
 can safely be ignored.
 
+If you ever require to reset/update patterns, run
+``rpm/helpers/add_new_device.sh``
+
 .. _mic:
 
 Building the Image with MIC
