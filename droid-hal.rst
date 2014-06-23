@@ -15,7 +15,7 @@ This step requires:
 * A Mer Platform SDK installation (chroot) for RPM building
 
 Inside your ``$ANDROID_ROOT``, there is a copy of ``droid-hal-device``
-in the ``rpm/`` directory (since it appears in the manifest). 
+in the ``rpm/`` directory (since it appears in the manifest).
 
 The master git repo for the packaging is here:  https://github.com/mer-hybris/droid-hal-device
 

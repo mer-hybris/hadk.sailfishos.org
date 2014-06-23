@@ -40,7 +40,7 @@ variables are set up correctly by executing ``hadk`` inside the Android SDK:
 
   hadk
 
-Device Repos
+Device repos
 ````````````
 
 You'll need a new local manifest. The example given below is for encore. Modify it appropriately.
@@ -83,7 +83,7 @@ Once you have a local manifest you can sync the Git repositories:
 If you get errors about duplicate repositories, see the "Common Pitfalls"
 section in :doc:`android`.
 
-Configure Mountpoint informatiion
+Configure mountpoint information
 `````````````````````````````````
 
 Until ``systemd`` is updated we need to patch
@@ -145,7 +145,7 @@ will be wrong with dependencies.
 
 If you hit any other issues then please report them too.
 
-Kernel Config
+Kernel config
 `````````````
 
 Once the kernel has built you can check the kernel config. You can use the Mer kernel config checker:
@@ -183,7 +183,7 @@ As you may expect this section is done in the Mer SDK. Again, ensure the environ
 
   hadk
 
-Device Specific Target
+Device specific target
 ``````````````````````
 
 Setup a device-specific target. This step is generally only needed when working with the HA layer because the target will contain device-specific information that is not usually needed in a target.
@@ -208,7 +208,7 @@ includes ``droid-hal-device.inc``, which contains the RPM building logic:
   %include rpm/droid-hal-device.inc
   EOF
 
-Device Specific Config
+Device specific config
 ``````````````````````
 
 You'll need as a minimum:
