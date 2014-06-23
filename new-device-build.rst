@@ -230,22 +230,7 @@ You'll need as a minimum:
 Build the HAL
 `````````````
 
-See :doc:`droid-hal`. To build a local repository for installing packages:
-
-.. code-block:: console
-
-  MER_SDK $
-
-  PKG=droid-hal-device
-  rm RPMS/*
-  mb2 -t $VENDOR-$DEVICE-armv7hl -s rpm/droid-hal-$DEVICE.spec build
-  mkdir -p $ANDROID_ROOT/droid-local-repo/$DEVICE/$PKG/
-  rm -f $ANDROID_ROOT/droid-local-repo/$DEVICE/$PKG/*.rpm
-  mv RPMS/*${DEVICE}* $ANDROID_ROOT/droid-local-repo/$DEVICE/$PKG
-  createrepo  $ANDROID_ROOT/droid-local-repo/$DEVICE
-
-You will need to update the target every time to build new RPMs.
-
+See :doc:`droid-hal`.
 
 HAL specific packages
 `````````````````````
