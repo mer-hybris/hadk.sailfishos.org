@@ -7,7 +7,7 @@ Additional Packages for Hardware Adaptation
 Some additional packages are used to allow access to device features. These
 middleware packages are usually built against droid-headers / libhybris, and
 therefore need to be built separately for each target device. To build,
-clone the repository via Git from either ``mer-hybris`` on Github.
+clone the repository from ``mer-hybris`` on Github.
 See :doc:`middleware` for a list of all middleware components (not
 all middleware components are used for all device adaptations).
 
@@ -122,8 +122,8 @@ patterns. A quick in-place solution:
   is not present
 
  * Edit .ks file by having ``%packages`` section consisting only of single
-   ``droid-hal-mako-pulseaudio-settings`` (note there is not @ at the beginning
-   of the line, since it's a package, not a pattern) -- another mic run error
+   ``droid-hal-mako-pulseaudio-settings`` (note there is no @ at the beginning
+   of the line, since it's a package, not a pattern) -- another ``mic`` run error
    will show that the offending package is actually ``pulseaudio-modules-droid``
 
 Now you're ready to proceed to the :ref:`missing-package` section.
