@@ -27,22 +27,23 @@ the obtained information where indicated with ``[]`` (MER_ROOT value from
   export DEVICE="[insert device codename here]"
   EOF
 
-  cat <<EOF >> $HOME/.mersdkubu.profile
-  alias hadk='source $HOME/.hadk.env'
-  export PS1="Android SDK $PS1"
+  cat <<'EOF' >> $HOME/.mersdkubu.profile
+  function hadk() { source $HOME/.hadk.env${1:+.$1}; echo "Env setup for $DEVICE"; }
+  export PS1="HABUILD_SDK [\${DEVICE}] $PS1"
   hadk
   EOF
 
-  cat <<EOF >> $HOME/.mersdk.profile
-  alias hadk='source $HOME/.hadk.env'
+  cat <<'EOF' >> $HOME/.mersdk.profile
+  function hadk() { source $HOME/.hadk.env${1:+.$1}; echo "Env setup for $DEVICE"; }
   hadk
   EOF
 
 This ensures that the environment is setup correctly when you use the
 ``ubu-chroot`` command to enter the Android SDK.
 
-It also creates an alias ``hadk`` that you can use to reset the environment
-variables in case you temporarily set it to some other values.
+It also creates a function ``hadk`` that you can use to set or reset the environment
+variables. As you can see it also supports ~/.hadk.env.<name> to allow you to work on
+multiple devices in different sessions.
 
 Setup the Mer SDK
 -----------------
@@ -64,7 +65,8 @@ You'll need some tools which are not installed into the Mer SDK by default:
   create or update local RPM repositories
 * **zip** is needed to pack the final updater package into an .zip file
 
-You can install those tools with the following command:
+The latest SDK tarballs should include these but if not you can
+install those tools with the following command:
 
 .. code-block:: console
 
