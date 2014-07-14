@@ -73,6 +73,8 @@ this area, we suggest the following paths:
 
 Build components
 ````````````````
+There are a number of components to build; the lower level and Android related
+components are built in the HA build SDK; the rest are built in the Mer SDK.
 
 * In the **HA build SDK**
  * a kernel
@@ -96,4 +98,6 @@ Deployment
 The ``hybris-boot.img`` (containing both the kernel and our custom initrd) is flashed
 to the device, while the Sailfish OS rootfs is placed in a subdirectory of
 the ``/data/`` partition alongside an existing, unmodified Android system.
+
+The Sailfish OS rootfs is then used as a switchroot target with /data bind-mounted inside it for shared access to any user data.
 
