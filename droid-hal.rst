@@ -68,6 +68,14 @@ building middleware components:
 
     createrepo  $ANDROID_ROOT/droid-local-repo/$DEVICE
 
+Now add the repo to the Target to allow build dependencies to be met from locally built packages:
+
+.. code-block:: console
+
+    MER_SDK $
+
+    sb2 -t $VENDOR-$DEVICE-armv7hl -R -m sdk-install zypper ar $ANDROID_ROOT/droid-local-repo/$DEVICE local-$DEVICE-hal
+
 The ``/etc/hw-release`` file
 ----------------------------
 
