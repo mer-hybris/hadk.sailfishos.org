@@ -36,6 +36,12 @@ Ensure you have done the steps to :ref:`createrepo`.
 
   HA_REPO="repo --name=adaptation0-$DEVICE-@RELEASE@"
   sed -i -e "s|^$HA_REPO.*$|$HA_REPO --baseurl=file://$ANDROID_ROOT/droid-local-repo/$DEVICE|" \
+    $ANDROID_ROOT/installroot/usr/share/kickstarts/Jolla-@RELEASE@-$DEVICE-@ARCH@.ks
+
+If you only want to rebuild some of the packages locally (and are confident that there are no changes that require custom rebuilds) then you can use the public build if there is one; we'll use sed to find (//) the HA_REPO and then 'a'ppend a new line with the OBS repo url:
+
+  HA_REPO="repo --name=adaptation0-$DEVICE-@RELEASE@"
+  sed -i -e "|^$HA_REPO.*$|prepo --name=adaptation1-$DEVICE-@RELEASE@ --baseurl=http://repo.merproject.org/obs/sailfishos:/devel:/hw:/$DEVICE/sailfish_latest_@ARCH@/" \
       $ANDROID_ROOT/installroot/usr/share/kickstarts/Jolla-@RELEASE@-$DEVICE-@ARCH@.ks
 
 .. _patterns:
