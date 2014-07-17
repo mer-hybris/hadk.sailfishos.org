@@ -115,3 +115,5 @@ You should at least check the following features:
 .. _GPSTest: https://play.google.com/store/apps/details?id=com.chartcross.gpstest
 .. _AndroSensor: https://play.google.com/store/apps/details?id=com.fivasim.androsenso
 .. _SF Layer Debugging: http://bamboopuppy.com/dumpsys-surfaceflinger-layer-debugging/
+
+We recommend that you write down the results of these tests, so you can always remember them.
