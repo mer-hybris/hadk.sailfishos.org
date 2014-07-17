@@ -27,8 +27,8 @@ components (see :doc:`middleware`).
 
 .. _build-rpms:
 
-Building the RPM packages
-`````````````````````````
+Building the droid-hal-device packages
+``````````````````````````````````````
 
 The next step has to be carried out in a Mer SDK chroot:
 
@@ -47,6 +47,21 @@ The next step has to be carried out in a Mer SDK chroot:
     mb2 -t $VENDOR-$DEVICE-armv7hl -s rpm/droid-hal-$DEVICE.spec build
 
 This should leave you with several RPM packages in ``$ANDROID_ROOT/RPMS/``.
+
+The device specific configuration
+`````````````````````````````````
+
+Now build the droid-hal-configs file. This is split into its own package to make supporting multiple devices easier.
+
+.. code-block:: console
+
+  MER_SDK $
+
+  hadk
+
+  cd $ANDROID_ROOT
+  mb2 -t $VENDOR-$DEVICE-armv7hl -s hybris/droid-hal-configs/rpm/droid-hal-configs.spec build
+
 
 .. _createrepo:
 
