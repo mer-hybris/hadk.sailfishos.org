@@ -22,7 +22,7 @@ Build Machine
 
 * `Mer Platform SDK`_
 
-* `Sailfish Target`_
+* `Sailfish OS Target`_
 
 * At least 16 GiB of free disk space (10 GiB source download + more for
   building) for a complete Android build; a minimal download and HADK build
@@ -32,4 +32,4 @@ Build Machine
 
 .. _Mer Platform SDK: http://wiki.merproject.org/wiki/Platform_SDK
 
-.. _Sailfish Target: http://releases.sailfishos.org/sdk/latest/targets/
+.. _Sailfish OS Target: http://releases.sailfishos.org/sdk/latest/targets/

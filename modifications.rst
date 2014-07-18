@@ -1,7 +1,7 @@
 Modifications and Patches
 =========================
 
-Running SailfishOS using libhybris and Mer requires a few
+Running Sailfish OS using libhybris and Mer requires a few
 modifications to a standard Android/CM system. We maintain forks of
 some repos with those patches aplied.
 

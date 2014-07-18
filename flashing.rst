@@ -14,7 +14,7 @@ Prerequisites
 
 * The vanilla CM release (for your version and device)
 
-* A SailfishOS rootfs update .zip, created by ``mic``
+* A Sailfish OS rootfs update .zip, created by ``mic``
 
 Flashing back to Stock Android
 ------------------------------

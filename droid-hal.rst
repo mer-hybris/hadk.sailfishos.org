@@ -94,7 +94,7 @@ Now add the repo to the Target to allow build dependencies to be met from locall
 The ``/etc/hw-release`` file
 ----------------------------
 
-Sailfish Hardware Adaptations use the file ``/etc/hw-release`` to store
+Sailfish OS Hardware Adaptations use the file ``/etc/hw-release`` to store
 variables related to the device adaptation. This file is read by different
 middleware components to determine which adaptation repositories to enable
 and which device-specific tweaks to apply.

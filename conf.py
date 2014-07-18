@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# Sailfish Hardware Adaptation Developer Kit documentation build configuration file, created by
+# Sailfish OS Hardware Adaptation Developer Kit documentation build configuration file, created by
 # sphinx-quickstart on Thu Feb  6 13:56:32 2014.
 #
 # This file is execfile()d with the current directory set to its
@@ -45,7 +45,7 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
-project = u'Sailfish Hardware Adaptation Developer Kit'
+project = u'Sailfish OS Hardware Adaptation Developer Kit'
 copyright = u'2014, Jolla Ltd.'
 
 # The version info for the project you're documenting, acts as replacement for
@@ -178,7 +178,7 @@ html_static_path = ['_static']
 #html_file_suffix = None
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'SailfishHardwareAdaptationDeveloperKitdoc'
+htmlhelp_basename = 'SailfishOSHardwareAdaptationDeveloperKitdoc'
 
 
 # -- Options for LaTeX output ---------------------------------------------
@@ -209,7 +209,7 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-  ('index', 'SailfishHardwareAdaptationDeveloperKit.tex', u'Sailfish Hardware Adaptation Developer Kit Documentation',
+  ('index', 'SailfishOSHardwareAdaptationDeveloperKit.tex', u'Sailfish OS Hardware Adaptation Developer Kit Documentation',
    u'Jolla Ltd.', 'manual'),
 ]
 
@@ -239,7 +239,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    ('index', 'sailfishhardwareadaptationdeveloperkit', u'Sailfish Hardware Adaptation Developer Kit Documentation',
+    ('index', 'sailfishoshardwareadaptationdeveloperkit', u'Sailfish OS Hardware Adaptation Developer Kit Documentation',
      [u'Jolla Ltd.'], 1)
 ]
 
@@ -253,8 +253,8 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-  ('index', 'SailfishHardwareAdaptationDeveloperKit', u'Sailfish Hardware Adaptation Developer Kit Documentation',
-   u'Jolla Ltd.', 'SailfishHardwareAdaptationDeveloperKit', 'One line description of project.',
+  ('index', 'SailfishOSHardwareAdaptationDeveloperKit', u'Sailfish OS Hardware Adaptation Developer Kit Documentation',
+   u'Jolla Ltd.', 'SailfishOSHardwareAdaptationDeveloperKit', 'One line description of project.',
    'Miscellaneous'),
 ]
 
