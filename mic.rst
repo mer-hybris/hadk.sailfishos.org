@@ -103,6 +103,9 @@ Building a rootfs using RPM repositories and a kickstart file:
       --pack-to=sfa-mako-ea-$RELEASE$EXTRA_NAME.tar.bz2 \
       $ANDROID_ROOT/tmp/Jolla-@RELEASE@-$DEVICE-@ARCH@.ks
 
+Once obtained the ``.zip`` file, proceed installation as per instructions to
+Early Adopters Release Notes.
+
 If creation fails due to absence of a package required by pattern, note down
 the package name and proceed to :ref:`missing-package`.
 
