@@ -60,7 +60,9 @@ Now build the droid-hal-configs file. This is split into its own package to make
   hadk
 
   cd $ANDROID_ROOT
-  mb2 -t $VENDOR-$DEVICE-armv7hl -s hybris/droid-hal-configs/rpm/droid-hal-configs.spec build
+  mb2 -t $VENDOR-$DEVICE-armv7hl \
+    -s hybris/droid-hal-configs/rpm/droid-hal-configs.spec \
+    build
 
 
 .. _createrepo:
@@ -89,7 +91,8 @@ Now add the repo to the Target to allow build dependencies to be met from locall
 
     MER_SDK $
 
-    sb2 -t $VENDOR-$DEVICE-armv7hl -R -m sdk-install zypper ar $ANDROID_ROOT/droid-local-repo/$DEVICE local-$DEVICE-hal
+    sb2 -t $VENDOR-$DEVICE-armv7hl -R -m sdk-install \
+      zypper ar $ANDROID_ROOT/droid-local-repo/$DEVICE local-$DEVICE-hal
 
 The ``/etc/hw-release`` file
 ----------------------------
