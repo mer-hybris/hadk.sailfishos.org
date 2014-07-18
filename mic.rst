@@ -77,8 +77,8 @@ The error:
 
 can safely be ignored.
 
-If you ever require to reset/update patterns, run
-``rpm/helpers/add_new_device.sh``
+To modify a pattern, edit its respective template under ``rpm/patterns/{common,hybris,templates}``
+and then run ``rpm/helpers/add_new_device.sh``. Take care and always use ``git status/stash`` commands.
 
 .. _mic:
 
