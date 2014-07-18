@@ -28,15 +28,20 @@ Ensure you have done the steps to :ref:`createrepo`.
 
   MER_SDK $
 
-  hadk
-
   cd $ANDROID_ROOT
-  git clone https://github.com/mer-hybris/droid-hal-configs hybris/droid-hal-configs
-  mb2 -t $VENDOR-$DEVICE-armv7hl -s hybris/droid-hal-configs/rpm/droid-hal-configs.spec build
+  mkdir -p tmp
 
   HA_REPO="repo --name=adaptation0-$DEVICE-@RELEASE@"
-  sed -i -e "s|^$HA_REPO.*$|$HA_REPO --baseurl=file://$ANDROID_ROOT/droid-local-repo/$DEVICE|" \
-      $ANDROID_ROOT/installroot/usr/share/kickstarts/Jolla-@RELEASE@-$DEVICE-@ARCH@.ks
+  sed -e "s|^$HA_REPO.*$|$HA_REPO --baseurl=file://$ANDROID_ROOT/droid-local-repo/$DEVICE|" \
+    $ANDROID_ROOT/installroot/usr/share/kickstarts/Jolla-@RELEASE@-$DEVICE-@ARCH@.ks > tmp/Jolla-@RELEASE@-$DEVICE-@ARCH@.ks
+
+If you only want to rebuild some of the packages locally (and are confident that there are no changes that require custom rebuilds) then you can use the public build if there is one; we'll use sed to find (//) the HA_REPO and then 'a'ppend a new line with the OBS repo url:
+
+.. code-block:: console
+
+  HA_REPO="repo --name=adaptation0-$DEVICE-@RELEASE@"
+  sed -i -e "/^$HA_REPO.*$/arepo --name=adaptation1-$DEVICE-@RELEASE@ --baseurl=http://repo.merproject.org/obs/sailfishos:/devel:/hw:/$DEVICE/sailfish_latest_@ARCH@/" \
+      tmp/Jolla-@RELEASE@-$DEVICE-@ARCH@.ks
 
 .. _patterns:
 
@@ -95,7 +100,7 @@ Building a rootfs using RPM repositories and a kickstart file:
       --record-pkgs=name,url \
       --outdir=sfa-mako-ea-$RELEASE$EXTRA_NAME \
       --pack-to=sfa-mako-ea-$RELEASE$EXTRA_NAME.tar.bz2 \
-      $ANDROID_ROOT/installroot/usr/share/kickstarts/Jolla-@RELEASE@-$DEVICE-@ARCH@.ks
+      $ANDROID_ROOT/tmp/Jolla-@RELEASE@-$DEVICE-@ARCH@.ks
 
 If creation fails due to absence of a package required by pattern, note down
 the package name and proceed to :ref:`missing-package`.

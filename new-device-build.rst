@@ -26,7 +26,7 @@ Prepare Environment
 
 Make sure all the commands use the correct ``$DEVICE`` and ``$VENDOR`` by
 updating your ``~/.hadk.env`` (in this example, ``DEVICE=encore`` and
-``VENDOR=bn``).
+``VENDOR=bn``) or creating a new one ``~/.hadk.env.encore`` and using ``hadk encore``.
 
 Create needed folders and a default set of patterns:
 
