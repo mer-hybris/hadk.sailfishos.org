@@ -85,17 +85,17 @@ qthelp:
 	@echo
 	@echo "Build finished; now you can run "qcollectiongenerator" with the" \
 	      ".qhcp project file in $(BUILDDIR)/qthelp, like this:"
-	@echo "# qcollectiongenerator $(BUILDDIR)/qthelp/SailfishHardwareAdaptationDeveloperKit.qhcp"
+	@echo "# qcollectiongenerator $(BUILDDIR)/qthelp/SailfishHardwareAdaptationDevelopmentKit.qhcp"
 	@echo "To view the help file:"
-	@echo "# assistant -collectionFile $(BUILDDIR)/qthelp/SailfishHardwareAdaptationDeveloperKit.qhc"
+	@echo "# assistant -collectionFile $(BUILDDIR)/qthelp/SailfishHardwareAdaptationDevelopmentKit.qhc"
 
 devhelp:
 	$(SPHINXBUILD) -b devhelp $(ALLSPHINXOPTS) $(BUILDDIR)/devhelp
 	@echo
 	@echo "Build finished."
 	@echo "To view the help file:"
-	@echo "# mkdir -p $$HOME/.local/share/devhelp/SailfishHardwareAdaptationDeveloperKit"
-	@echo "# ln -s $(BUILDDIR)/devhelp $$HOME/.local/share/devhelp/SailfishHardwareAdaptationDeveloperKit"
+	@echo "# mkdir -p $$HOME/.local/share/devhelp/SailfishHardwareAdaptationDevelopmentKit"
+	@echo "# ln -s $(BUILDDIR)/devhelp $$HOME/.local/share/devhelp/SailfishHardwareAdaptationDevelopmentKit"
 	@echo "# devhelp"
 
 epub:

@@ -1,4 +1,4 @@
-.. Sailfish OS Hardware Adaptation Developer Kit documentation master file, created by
+.. Sailfish OS Hardware Adaptation Development Kit documentation master file, created by
    sphinx-quickstart on Thu Feb  6 13:56:32 2014.
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
