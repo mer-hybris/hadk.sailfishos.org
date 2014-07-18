@@ -43,6 +43,8 @@ If you only want to rebuild some of the packages locally (and are confident that
   sed -i -e "/^$HA_REPO.*$/arepo --name=adaptation1-$DEVICE-@RELEASE@ --baseurl=http://repo.merproject.org/obs/sailfishos:/devel:/hw:/$DEVICE/sailfish_latest_@ARCH@/" \
       tmp/Jolla-@RELEASE@-$DEVICE-@ARCH@.ks
 
+Feel free to replace ``sailfishos:/devel:/hw:/...`` with path to any appropriate repo within Mer OBS.
+
 .. _patterns:
 
 Patterns
