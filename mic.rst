@@ -92,7 +92,8 @@ Building a rootfs using RPM repositories and a kickstart file:
 
   MER_SDK $
 
-  RELEASE=1.0.7.16
+  # always aim for the latest:
+  RELEASE=1.0.8.19
   # WARNING: EXTRA_NAME currently does not support '.' dots in it!
   EXTRA_NAME=-my1
   sudo mic create fs --arch armv7hl \
