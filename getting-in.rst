@@ -47,7 +47,7 @@ host could produce::
 However ``dmesg`` doesn't report all changes in the USB subsystem and the init script will attempt to update the iSerial field with information so also do::
 
   $ lsusb -v | grep iSerial
-   iSerial    3 Mer Debug telnet on port 23 on rndis0 192.168.2.1 - also running udhcpd
+   iSerial    3 Mer Debug telnet on port 23 on rndis0 192.168.2.15 - also running udhcpd
 
 Splitting and Re-Assembling Boot Images
 ---------------------------------------
