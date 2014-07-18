@@ -35,13 +35,15 @@ Ensure you have done the steps to :ref:`createrepo`.
   sed -e "s|^$HA_REPO.*$|$HA_REPO --baseurl=file://$ANDROID_ROOT/droid-local-repo/$DEVICE|" \
     $ANDROID_ROOT/installroot/usr/share/kickstarts/Jolla-@RELEASE@-$DEVICE-@ARCH@.ks > tmp/Jolla-@RELEASE@-$DEVICE-@ARCH@.ks
 
-If you only want to rebuild some of the packages locally (and are confident that there are no changes that require custom rebuilds) then you can use the public build if there is one; we'll use sed to find (//) the HA_REPO and then 'a'ppend a new line with the OBS repo url:
+If you only want to rebuild some of the packages locally (and are confident that there are no changes that require custom rebuilds) then you can use the public build if there is one; we'll use ``sed`` to find (//) the HA_REPO and then 'a'ppend a new line with the OBS repo url:
 
 .. code-block:: console
 
   HA_REPO="repo --name=adaptation0-$DEVICE-@RELEASE@"
   sed -i -e "/^$HA_REPO.*$/arepo --name=adaptation1-$DEVICE-@RELEASE@ --baseurl=http://repo.merproject.org/obs/sailfishos:/devel:/hw:/$DEVICE/sailfish_latest_@ARCH@/" \
       tmp/Jolla-@RELEASE@-$DEVICE-@ARCH@.ks
+
+Feel free to replace ``sailfishos:/devel:/hw:/...`` with path to any appropriate repo within Mer OBS.
 
 .. _patterns:
 
@@ -55,7 +57,7 @@ adaptation.
 
 Ensure you have done the steps to :ref:`createrepo`.
 
-Add/update metadata about patterns using this script:
+Add/update metadata about patterns using this script (NB: it will fail with a non-critical error):
 
 .. code-block:: console
 
@@ -66,17 +68,15 @@ Add/update metadata about patterns using this script:
     cd $ANDROID_ROOT
     rpm/helpers/process_patterns.sh
 
-The error:
+As mentioned above, safely ignore the following error:
 
 .. code-block:: console
 
   Exception AttributeError: "'NoneType' object has no attribute
     'px_proxy_factory_free'"...
 
-can safely be ignored.
-
-If you ever require to reset/update patterns, run
-``rpm/helpers/add_new_device.sh``
+To modify a pattern, edit its respective template under ``rpm/patterns/{common,hybris,templates}``
+and then run ``rpm/helpers/add_new_device.sh``. Take care and always use ``git status/stash`` commands.
 
 .. _mic:
 
@@ -92,7 +92,8 @@ Building a rootfs using RPM repositories and a kickstart file:
 
   MER_SDK $
 
-  RELEASE=1.0.7.16
+  # always aim for the latest:
+  RELEASE=1.0.8.19
   # WARNING: EXTRA_NAME currently does not support '.' dots in it!
   EXTRA_NAME=-my1
   sudo mic create fs --arch armv7hl \
@@ -101,6 +102,11 @@ Building a rootfs using RPM repositories and a kickstart file:
       --outdir=sfa-mako-ea-$RELEASE$EXTRA_NAME \
       --pack-to=sfa-mako-ea-$RELEASE$EXTRA_NAME.tar.bz2 \
       $ANDROID_ROOT/tmp/Jolla-@RELEASE@-$DEVICE-@ARCH@.ks
+
+Once obtained the ``.zip`` file, proceed installation as per instructions to
+Early Adopters Release Notes.
+
+Currently HADK does not support creating images with Jolla Store functionality.
 
 If creation fails due to absence of a package required by pattern, note down
 the package name and proceed to :ref:`missing-package`.
@@ -118,7 +124,7 @@ This means a package dependency cannot be satisfied down the hierarchy of
 patterns. A quick in-place solution:
 
 * Substitute the line ``@Jolla Configuration $DEVICE`` with
-  ``@jolla-hw-adaptatation-$DEVICE`` in your .ks
+  ``@jolla-hw-adaptation-$DEVICE`` in your .ks
 
 * Rebuild .ks
 
