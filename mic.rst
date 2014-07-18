@@ -35,7 +35,7 @@ Ensure you have done the steps to :ref:`createrepo`.
   sed -e "s|^$HA_REPO.*$|$HA_REPO --baseurl=file://$ANDROID_ROOT/droid-local-repo/$DEVICE|" \
     $ANDROID_ROOT/installroot/usr/share/kickstarts/Jolla-@RELEASE@-$DEVICE-@ARCH@.ks > tmp/Jolla-@RELEASE@-$DEVICE-@ARCH@.ks
 
-If you only want to rebuild some of the packages locally (and are confident that there are no changes that require custom rebuilds) then you can use the public build if there is one; we'll use sed to find (//) the HA_REPO and then 'a'ppend a new line with the OBS repo url:
+If you only want to rebuild some of the packages locally (and are confident that there are no changes that require custom rebuilds) then you can use the public build if there is one; we'll use ``sed`` to find (//) the HA_REPO and then 'a'ppend a new line with the OBS repo url:
 
 .. code-block:: console
 
@@ -118,7 +118,7 @@ This means a package dependency cannot be satisfied down the hierarchy of
 patterns. A quick in-place solution:
 
 * Substitute the line ``@Jolla Configuration $DEVICE`` with
-  ``@jolla-hw-adaptatation-$DEVICE`` in your .ks
+  ``@jolla-hw-adaptation-$DEVICE`` in your .ks
 
 * Rebuild .ks
 
