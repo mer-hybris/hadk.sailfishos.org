@@ -57,7 +57,7 @@ adaptation.
 
 Ensure you have done the steps to :ref:`createrepo`.
 
-Add/update metadata about patterns using this script:
+Add/update metadata about patterns using this script (NB: it will fail with a non-critical error):
 
 .. code-block:: console
 
@@ -68,14 +68,12 @@ Add/update metadata about patterns using this script:
     cd $ANDROID_ROOT
     rpm/helpers/process_patterns.sh
 
-The error:
+As mentioned above, safely ignore the following error:
 
 .. code-block:: console
 
   Exception AttributeError: "'NoneType' object has no attribute
     'px_proxy_factory_free'"...
-
-can safely be ignored.
 
 To modify a pattern, edit its respective template under ``rpm/patterns/{common,hybris,templates}``
 and then run ``rpm/helpers/add_new_device.sh``. Take care and always use ``git status/stash`` commands.
