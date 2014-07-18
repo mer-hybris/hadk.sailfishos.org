@@ -106,6 +106,8 @@ Building a rootfs using RPM repositories and a kickstart file:
 Once obtained the ``.zip`` file, proceed installation as per instructions to
 Early Adopters Release Notes.
 
+Currently HADK does not support creating images with Jolla Store functionality.
+
 If creation fails due to absence of a package required by pattern, note down
 the package name and proceed to :ref:`missing-package`.
 
