@@ -163,6 +163,8 @@ will be wrong with dependencies.
 
 If you hit any other issues then please report them too.
 
+.. _kernel-config:
+
 Kernel config
 `````````````
 

@@ -48,6 +48,8 @@ The next step has to be carried out in a Mer SDK chroot:
 
 This should leave you with several RPM packages in ``$ANDROID_ROOT/RPMS/``.
 
+If the second ``mb2`` fails by writing out inconsistencies in kernel ``CONFIG_``
+flags, refer to the kernel verifier section: :ref:`kernel-config`.
 
 .. _createrepo:
 
