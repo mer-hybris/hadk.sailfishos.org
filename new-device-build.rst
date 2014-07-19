@@ -176,8 +176,18 @@ Once the kernel has built you can check the kernel config. You can use the Mer k
 
   tmp/mer_verify_kernel_config ./out/target/product/$DEVICE/obj/KERNEL_OBJ/.config
 
-Look for a file like: ``arch/arm/configs/$DEVICE_cm10.1_defconfig`` in ``kernel/$VENDOR/$DEVICE/`` and modify it in your kernel repo fork.
+Apply listed modifications to the defconfig file that CM is using. Which one?
+It's different for every device:
 
+* Check CM kernel's commit history of the ``arch/arm/configs`` folder, look for defconfig
+
+* Double-check which defconfig is taken when you're building kernel
+
+* Check it's name under $ANDROID_ROOT/device/$VENDOR/\*/BoardConfigCommon.mk
+
+After you'll have applied the needed changes, re-run ``mka hybris-boot`` and
+re-verify. Lather, rinse, repeat :) Run also ``mka hybris-recovery`` in the end
+when no more errors.
 
 Success
 ```````
