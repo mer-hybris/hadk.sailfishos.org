@@ -15,7 +15,8 @@ ROM has been downloaded using:
 
   MER_SDK $
 
-  curl -L -O http://download.cyanogenmod.org/get/jenkins/51847/cm-10.1.3.2-encore.zip
+  curl -L -O \
+    http://download.cyanogenmod.org/get/jenkins/51847/cm-10.1.3.2-encore.zip
 
 Installation of the ROM is described in the `Encore install guide`_.
 
@@ -74,10 +75,15 @@ order to update the default config:
   cat <<EOF > .repo/local_manifests/encore.xml
   <?xml version="1.0" encoding="UTF-8"?>
   <manifest>
-    <project path="device/bn/encore" name="CyanogenMod/android_device_bn_encore" revision="cm-10.1" />
-    <project path="kernel/bn/encore" name="lbt/android_kernel_bn_encore" revision="cm-10.1-staging" />
-    <project path="hardware/ti/wlan" name="CyanogenMod/android_hardware_ti_wlan" revision="cm-10.1" />
-    <project path="external/wpa_supplicant_8" name="CyanogenMod/android_external_wpa_supplicant_8" revision="cm-10.1" />
+    <project path="device/bn/encore" name="CyanogenMod/android_device_bn_encore"
+      revision="cm-10.1" />
+    <project path="kernel/bn/encore" name="lbt/android_kernel_bn_encore"
+      revision="cm-10.1-staging" />
+    <project path="hardware/ti/wlan" name="CyanogenMod/android_hardware_ti_wlan"
+      revision="cm-10.1" />
+    <project path="external/wpa_supplicant_8"
+      name="CyanogenMod/android_external_wpa_supplicant_8"
+      revision="cm-10.1" />
   </manifest>
   EOF
 
@@ -108,8 +114,10 @@ right mapping. The build log will have provided feedback like:
 
   HABUILD_SDK $
 
-  hybris/hybris-boot/Android.mk:48: ********************* /boot should live on /dev/block/platform/msm_sdcc.1/by-name/boot
-  hybris/hybris-boot/Android.mk:49: ********************* /data should live on /dev/block/platform/msm_sdcc.1/by-name/userdata
+  hybris/hybris-boot/Android.mk:48: ********************* /boot should \
+    live on /dev/block/platform/msm_sdcc.1/by-name/boot
+  hybris/hybris-boot/Android.mk:49: ********************* /data should \
+    live on /dev/block/platform/msm_sdcc.1/by-name/userdata
 
 
 Note that a subsequent ``repo sync`` will reset this unless you update your
@@ -227,13 +235,14 @@ You'll need as a minimum:
 
   MER_SDK $
 
-  COMPOSITOR_CONFIGS_DIR=rpm/device-$VENDOR-$DEVICE-configs/var/lib/environment/compositor
-  mkdir -p $COMPOSITOR_CONFIGS_DIR
+  COMPOSITOR_CONFIGS=rpm/device-$VENDOR-$DEVICE-configs/var/lib/environment/compositor
+  mkdir -p $COMPOSITOR_CONFIGS
   cat <<EOF >$COMPOSITOR_CONFIGS/droid-hal-device.conf
   # Config for $VENDOR/$DEVICE
   HYBRIS_EGLPLATFORM=fbdev
   QT_QPA_PLATFORM=hwcomposer
-  LIPSTICK_OPTIONS=-plugin evdevtouch:/dev/input/event0 -plugin evdevkeyboard:keymap=/usr/share/qt5/keymaps/droid.qmap
+  LIPSTICK_OPTIONS=-plugin evdevtouch:/dev/input/event0 \
+    -plugin evdevkeyboard:keymap=/usr/share/qt5/keymaps/droid.qmap
   EOF
 
 
