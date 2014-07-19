@@ -102,7 +102,13 @@ ensure the udev-less initrd mounts the correct ``/boot`` and ``/data``
 partition. If you're lucky the device will simply use
 ``/dev/block/<somedev>`` and you can use the i9305 approach.
 If not then look in the recovery ``fstab`` for the
-right mapping. The build log will have provided feedback like:
+right mapping.
+
+To double check, you can boot to CM and `adb shell` to examine
+``/dev/block*`` and ``/dev/mmc*`` (udev-full) contents. Also boot into
+ClockworkMod Recovery, to check those (udev-less) paths there too.
+
+The build log will also have provided feedback like:
 
 .. code-block:: console
 
