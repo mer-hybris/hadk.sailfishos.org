@@ -238,6 +238,16 @@ includes ``droid-hal-device.inc``, which contains the RPM building logic:
   %include rpm/droid-hal-device.inc
   EOF
 
+And generate device folder structure and patterns:
+
+.. code-block:: console
+
+  MER_SDK $
+
+  cd $ANDROID_ROOT
+
+  rpm/helpers/add_new_device.sh
+
 Device specific config
 ``````````````````````
 
