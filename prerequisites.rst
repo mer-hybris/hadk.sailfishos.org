@@ -38,7 +38,7 @@ Want to Port to a New Device?
 -----------------------------
 
 If you cannot find your gadget among the :doc:`devices`, from now on please
-scrupuluosly follow :doc:`new-device-build`, clicking on all referenced chapters
+scrupulously follow :doc:`new-device-build`, clicking on all referenced chapters
 as you go, and backtracking to where you left off when each chapter is finished.
 
 The guide you are reading is supported-device-centric, hence its layout. We kindly
