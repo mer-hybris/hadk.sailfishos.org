@@ -132,23 +132,8 @@ Target setup
 
 Setup to use droid headers
 
-As a one-off (per device-target) we need to add the local repo to our target
-(safe to ignore warnings about connman or DBus):
-
-.. code-block:: console
-
-  MER_SDK $
-
-  sb2 -t $VENDOR-$DEVICE-armv7hl -R -msdk-install \
-      ssu ar local file://$ANDROID_ROOT/droid-local-repo/$DEVICE
-
-Check it's there:
-
-.. code-block:: console
-
-  MER_SDK $
-
-  sb2 -t $VENDOR-$DEVICE-armv7hl -R -msdk-install ssu lr
+If not done already, as a one-off (per device-target) we need to add the local
+repo to our target, as indicated in :ref:`add-local-repo`.
 
 Now set the SDK target to use an up-to-date repo:
 

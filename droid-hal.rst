@@ -71,7 +71,12 @@ building middleware components:
 
     createrepo  $ANDROID_ROOT/droid-local-repo/$DEVICE
 
-Now add the repo to the Target to allow build dependencies to be met from locally built packages:
+.. _add-local-repo:
+
+Add local RPM repo to Target
+````````````````````````````
+
+This will allow build dependencies to be met from locally built packages:
 
 .. code-block:: console
 
@@ -80,6 +85,15 @@ Now add the repo to the Target to allow build dependencies to be met from locall
     sb2 -t $VENDOR-$DEVICE-armv7hl -R -m sdk-install \
       ssu ar local-$DEVICE-hal file://$ANDROID_ROOT/droid-local-repo/$DEVICE
 
+(safe to ignore warnings about connman or DBus):
+
+Check it's there:
+
+.. code-block:: console
+
+  MER_SDK $
+
+  sb2 -t $VENDOR-$DEVICE-armv7hl -R -msdk-install ssu lr
 
 The device specific configuration
 `````````````````````````````````
