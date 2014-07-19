@@ -90,8 +90,9 @@ Once you have a local manifest you can sync the Git repositories:
   repo sync
   breakfast $DEVICE
 
-If you get errors about duplicate repositories, see the "Common Pitfalls"
-section in :doc:`android`.
+If you get errors about duplicate repositories or github starts saying
+"Forbidden ...", see the :ref:`common-pitfalls` section (from :doc:`android`
+chapter).
 
 Configure mountpoint information
 `````````````````````````````````
