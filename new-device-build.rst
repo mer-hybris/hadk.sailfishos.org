@@ -6,6 +6,13 @@ Find Device Info
 
 See :doc:`prerequisites` for sourcing information about your device.
 
+Go through :doc:`preparing`.
+
+Ensure your device boots CM, and if you are extra fluent (or you get stuck in
+later stages), come back to build the whole CM on your own in a separate folder
+following its instructions on CM device wiki, to be sure your environment can
+reproduce a working CM kernel and rootfs images.
+
 This example has snippets based on the Encore_. The CyanogenMod base
 ROM has been downloaded using:
 
