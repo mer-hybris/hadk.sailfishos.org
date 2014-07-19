@@ -44,6 +44,8 @@ is **9.4 GB** (as of 2014-02-18). Depending on your connection, this
 might take some time. In the mean time, make yourself familiar with the
 rest of this guide.
 
+.. _build-cm-bits:
+
 Building Relevant Bits of CyanogenMod
 -------------------------------------
 

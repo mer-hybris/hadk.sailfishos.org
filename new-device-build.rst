@@ -25,32 +25,18 @@ Installation of the ROM is described in the `Encore install guide`_.
 Prepare Environment
 -------------------
 
+Go through :doc:`setupsdk`.
+
 Make sure all the commands use the correct ``$DEVICE`` and ``$VENDOR`` by
 updating your ``~/.hadk.env`` (in this example, ``DEVICE=encore`` and
 ``VENDOR=bn``) or creating a new one ``~/.hadk.env.encore`` and using ``hadk encore``.
 
-Create needed folders and a default set of patterns:
-
-.. code-block:: console
-
-  MER_SDK $
-
-  cd $ANDROID_ROOT
-
-  rpm/helpers/add_new_device.sh
-
-
 Build Android
 -------------
 
-Building Android is done inside the Android SDK. Ensure the environment
-variables are set up correctly by executing ``hadk`` inside the Android SDK:
-
-.. code-block:: console
-
-  HABUILD_SDK $
-
-  hadk
+Go through :ref:`build-cm-bits` up to (not including) the `repo sync` part, to
+ensure everything is setup and environment is initialised, then come back here
+and proceed with sections below.
 
 Device repos
 ````````````
