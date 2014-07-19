@@ -20,7 +20,7 @@ the obtained information where indicated with ``[]`` (MER_ROOT value from
 
   HOST $
 
-  cat <<EOF > $HOME/.hadk.env
+  cat <<'EOF' > $HOME/.hadk.env
   export MER_ROOT="[insert value of your choosing]"
   export ANDROID_ROOT="$MER_ROOT/android/droid"
   export VENDOR="[insert vendor name here]"
