@@ -92,7 +92,7 @@ Now add the repo to the Target to allow build dependencies to be met from locall
     MER_SDK $
 
     sb2 -t $VENDOR-$DEVICE-armv7hl -R -m sdk-install \
-      zypper ar $ANDROID_ROOT/droid-local-repo/$DEVICE local-$DEVICE-hal
+      ssu ar local-$DEVICE-hal file://$ANDROID_ROOT/droid-local-repo/$DEVICE
 
 The ``/etc/hw-release`` file
 ----------------------------
