@@ -44,7 +44,9 @@ but do not contain ``$DEVICE``:
 * RPMs built from libhybris should be named
   **libhybris-*** (e.g. ``libhybris-libEGL``)
 * Plugins for the non-graphic feedback daemon should be named
-  **ngfd-plugin-*** (e.g. ``ngfd-plugin-droid-vibrator``)
+  **ngfd-plugin-*** (e.g. ``ngfd-plugin-droid-vibrator``);
+  as well as their Qt plugin **qt5-feedback-haptics-droid-vibrator**
+  (``qt5-feedback-haptics-droid-vibrator``)
 * The QPA hwcomposer plugin should be named
   **qt5-qpa-hwcomposer-plugin**  (``qt5-qpa-hwcomposer-plugin``)
 * The PulseAudio support modules should be named
