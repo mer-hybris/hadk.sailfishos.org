@@ -12,7 +12,7 @@ This consists of:
 
 * **Mer core**: The Linux userspace core
 * **Android Hardware Adaptation** (HA/HAL), consisting of:
- * Device-specific **Android Kernel**
+ - Device-specific **Android Kernel**
  * **Binary device drivers** taken from an Android ROM (e.g. CyanogenMod)
  * The **libhybris interface** built against the binary drivers
  * **Middleware packages** depending on hardware-specific plugins
@@ -77,7 +77,7 @@ There are a number of components to build; the lower level and Android related
 components are built in the HA build SDK; the rest are built in the Mer SDK.
 
 * In the **HA build SDK**
- * a kernel
+ - a kernel
  * a hacking friendly initrd which supports various boot options
  * ``hybris-boot.img`` and ``hybris-recovery.img`` (for booting and debugging)
  * a minimal Android ``/system/`` tree
@@ -85,7 +85,7 @@ components are built in the HA build SDK; the rest are built in the Mer SDK.
    (e.g. Bionic libc, ``logcat``, ``init``, ...)
 
 * In the **Mer SDK**
- * RPM packages containing all the built binaries and extracted configs
+ - RPM packages containing all the built binaries and extracted configs
  * Hardware-specific middleware and plugins (e.g. Qt QPA plugins, PulseAudio)
 
 For distribution, RPM packages are uploaded to a HA-specific repository. With

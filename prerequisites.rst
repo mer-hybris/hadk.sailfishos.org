@@ -8,7 +8,7 @@ Mobile Device
 
 * An ARMv7 Android device officially supported by CyanogenMod 10.1.x
 
- * See http://wiki.cyanogenmod.org/w/Devices for a list of compatible devices
+ - See http://wiki.cyanogenmod.org/w/Devices for a list of compatible devices
 
  * See :doc:`devices` for a list of devices already supported by HADK
 

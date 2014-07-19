@@ -138,9 +138,9 @@ patterns. A quick in-place solution:
 
 * If that package is provided by e.g. droid-hal-device (like
   ``droid-hal-mako-pulseaudio-settings``), it means that some of its dependencies
-  are not present
+  are not present:
 
- * Edit .ks file by having ``%packages`` section consisting only of single
+ - Edit .ks file by having ``%packages`` section consisting only of single
    ``droid-hal-mako-pulseaudio-settings`` (note there is no @ at the beginning
    of the line, since it's a package, not a pattern) -- another ``mic`` run error
    will show that the offending package is actually ``pulseaudio-modules-droid``
