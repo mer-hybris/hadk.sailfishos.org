@@ -41,7 +41,7 @@ updating your ``~/.hadk.env`` (in this example, ``DEVICE=encore`` and
 Build Android
 -------------
 
-Go through :ref:`build-cm-bits` up to (not including) the `repo sync` part, to
+Go through section :ref:`build-cm-bits` up to (not including) the `repo sync` part, to
 ensure everything is setup and environment is initialised, then come back here
 and proceed with sections below.
 
@@ -218,7 +218,7 @@ Device specific target
 
 Setup a device-specific target. This step is generally only needed when working with the HA layer because the target will contain device-specific information that is not usually needed in a target.
 
-Setup a device target: :doc:`scratchbox2`
+Setup a device target by going through the whole :doc:`scratchbox2` chapter.
 
 Create a simple ``.spec`` file that sets the correct variables and then
 includes ``droid-hal-device.inc``, which contains the RPM building logic:
@@ -271,10 +271,10 @@ You'll need as a minimum:
 Build the HAL
 `````````````
 
-See :doc:`droid-hal`.
+Go through the whole :doc:`droid-hal` chapter.
 
 HAL specific packages
 `````````````````````
 
-See :ref:`build-ha-pkgs`.
+See section :ref:`build-ha-pkgs`.
 
