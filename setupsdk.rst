@@ -45,6 +45,8 @@ It also creates a function ``hadk`` that you can use to set or reset the environ
 variables. As you can see it also supports ~/.hadk.env.<name> to allow you to work on
 multiple devices in different sessions.
 
+.. _enter-mer-sdk:
+
 Setup the Mer SDK
 -----------------
 
@@ -97,7 +99,10 @@ the appropriate location:
   sudo mkdir -p $UBUNTU_CHROOT
   sudo tar --numeric-owner -xvjf $TARBALL -C $UBUNTU_CHROOT
 
-You can now enter the ubuntu chroot like this:
+.. _enter-ubu-chroot:
+
+Entering Ubuntu Chroot
+``````````````````````
 
 .. code-block:: console
 
@@ -109,3 +114,4 @@ You can now enter the ubuntu chroot like this:
 
   #FIXME: Hostname resolution might fail. This error can be ignored.
   Can be fixed manually by adding the hostname to /etc/hosts
+

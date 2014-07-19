@@ -38,14 +38,8 @@ During the HA development you'll typically have one window/terminal using the
 HA build SDK where you build and work on Android code and another session
 using the Mer SDK where you build RPMs for the hardware adaptation.
 
-Commands and output from the HA build session are indicated using
-``HABUILD_SDK $`` at the top of the code block, like this:
-
-.. code-block:: console
-
-  HABUILD_SDK $
-
-  echo "run this command in the Ubuntu HA build SDK terminal"
+Setting up the Mer Platform SDK, as well as the device-specific targets
+and the Ubuntu HA build chroot is described in :doc:`setupsdk`.
 
 Commands and output from the Mer SDK session are indicated using
 ``MER_SDK $`` at the top of the code block, like this:
@@ -56,8 +50,18 @@ Commands and output from the Mer SDK session are indicated using
 
   echo "run this command in the Mer SDK terminal"
 
-Setting up the Mer Platform SDK, as well as the device-specific targets
-and the Ubuntu HA build chroot is described in :doc:`setupsdk`.
+How to enter ``HABUILD_SDK $`` is explained in :ref:`enter-mer-sdk`.
+
+Commands and output from the HA build session are indicated using
+``HABUILD_SDK $`` at the top of the code block, like this:
+
+.. code-block:: console
+
+  HABUILD_SDK $
+
+  echo "run this command in the Ubuntu HA build SDK terminal"
+
+How to enter ``HABUILD_SDK $`` is explained in :ref:`enter-ubu-chroot`.
 
 .. _mer-root:
 
