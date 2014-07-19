@@ -48,22 +48,6 @@ The next step has to be carried out in a Mer SDK chroot:
 
 This should leave you with several RPM packages in ``$ANDROID_ROOT/RPMS/``.
 
-The device specific configuration
-`````````````````````````````````
-
-Now build the droid-hal-configs file. This is split into its own package to make supporting multiple devices easier.
-
-.. code-block:: console
-
-  MER_SDK $
-
-  hadk
-
-  cd $ANDROID_ROOT
-  mb2 -t $VENDOR-$DEVICE-armv7hl \
-    -s hybris/droid-hal-configs/rpm/droid-hal-configs.spec \
-    build
-
 
 .. _createrepo:
 
@@ -93,6 +77,24 @@ Now add the repo to the Target to allow build dependencies to be met from locall
 
     sb2 -t $VENDOR-$DEVICE-armv7hl -R -m sdk-install \
       ssu ar local-$DEVICE-hal file://$ANDROID_ROOT/droid-local-repo/$DEVICE
+
+
+The device specific configuration
+`````````````````````````````````
+
+Now build the droid-hal-configs file. This is split into its own package to make supporting multiple devices easier.
+
+.. code-block:: console
+
+  MER_SDK $
+
+  hadk
+
+  cd $ANDROID_ROOT
+  mb2 -t $VENDOR-$DEVICE-armv7hl \
+    -s hybris/droid-hal-configs/rpm/droid-hal-configs.spec \
+    build
+
 
 The ``/etc/hw-release`` file
 ----------------------------
