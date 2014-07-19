@@ -32,6 +32,7 @@ updating your ``~/.hadk.env`` (in this example, ``DEVICE=encore`` and
 Create needed folders and a default set of patterns:
 
 .. code-block:: console
+
   MER_SDK $
 
   cd $ANDROID_ROOT
