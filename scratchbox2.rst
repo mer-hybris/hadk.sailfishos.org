@@ -33,14 +33,12 @@ Scratchbox2 target with the following commands:
            /opt/cross/bin/armv7hl-meego-linux-gnueabi-gcc
 
   sb2 -t $VENDOR-$DEVICE-armv7hl -m sdk-install -R rpm --rebuilddb
-  sb2 -t $VENDOR-$DEVICE-armv7hl -m sdk-install -R zypper ref --force
 
   sb2 -t $VENDOR-$DEVICE-armv7hl -m sdk-install -R zypper ar \
-      -G http://repo.merproject.org/obs/mer-tools:/testing/latest_i486/ \
-      mer-tools-testing
+      -G http://repo.merproject.org/releases/mer-tools/rolling/builds/armv7hl/packages/ \
+      mer-tools-rolling
 
-  # FIXME: This should be mer-tools and use rolling repo
-  sb2 -t $VENDOR-$DEVICE-armv7hl -m sdk-install -R zypper ref
+  sb2 -t $VENDOR-$DEVICE-armv7hl -m sdk-install -R zypper ref --force
 
 The "collect2: cannot find 'ld'" error/warning after executing sb2-init can be ignored.
 
