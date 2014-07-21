@@ -37,12 +37,14 @@ Build Machine
 Want to Port to a New Device?
 -----------------------------
 
-If you cannot find your gadget among the :doc:`devices`, from now on please
-scrupulously follow :doc:`new-device-build`, clicking on all referenced sections
-(or even whole chapters!) as you go, and backtracking to where you left off when
-each section/chapter is finished.
+If you cannot find your gadget among the :doc:`devices`, then you
+should first read through the entire guide to get a feeling for the
+order in which things are typically done.  Then scrupulously follow
+:doc:`new-device-build`, clicking on all referenced sections (or even
+whole chapters!) as you go, and backtracking to where you left off
+when each section/chapter is finished.
 
-The guide you are reading is supported-device-centric, hence its layout. We kindly
-ask our pioneer porters of new devices to be patient and use sophisticated PDF
-readers, which back/forward ability.
+So we kindly ask our pioneer porters of new devices to be patient and
+ensure they use sophisticated PDF readers, making full use of the
+back/forward ability ;)
 
