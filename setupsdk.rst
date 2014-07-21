@@ -93,7 +93,7 @@ the appropriate location:
 
   hadk
 
-  TARBALL=ubuntu-quantal-android-rootfs.tar.bz2
+  TARBALL=ubuntu-trusty-android-rootfs.tar.bz2
   curl -O http://img.merproject.org/images/mer-hybris/ubu/$TARBALL
   UBUNTU_CHROOT=/parentroot/$MER_ROOT/sdks/ubuntu
   sudo mkdir -p $UBUNTU_CHROOT
