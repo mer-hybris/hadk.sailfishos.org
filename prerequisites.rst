@@ -8,7 +8,7 @@ Mobile Device
 
 * An ARMv7 Android device officially supported by CyanogenMod 10.1.x
 
- * See http://wiki.cyanogenmod.org/w/Devices for a list of compatible devices
+ - See http://wiki.cyanogenmod.org/w/Devices for a list of compatible devices
 
  * See :doc:`devices` for a list of devices already supported by HADK
 
@@ -33,3 +33,16 @@ Build Machine
 .. _Mer Platform SDK: http://wiki.merproject.org/wiki/Platform_SDK
 
 .. _Sailfish OS Target: http://releases.sailfishos.org/sdk/latest/targets/
+
+Want to Port to a New Device?
+-----------------------------
+
+If you cannot find your gadget among the :doc:`devices`, from now on please
+scrupulously follow :doc:`new-device-build`, clicking on all referenced sections
+(or even whole chapters!) as you go, and backtracking to where you left off when
+each section/chapter is finished.
+
+The guide you are reading is supported-device-centric, hence its layout. We kindly
+ask our pioneer porters of new devices to be patient and use sophisticated PDF
+readers, which back/forward ability.
+

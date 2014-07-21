@@ -12,7 +12,7 @@ This consists of:
 
 * **Mer core**: The Linux userspace core
 * **Android Hardware Adaptation** (HA/HAL), consisting of:
- * Device-specific **Android Kernel**
+ - Device-specific **Android Kernel**
  * **Binary device drivers** taken from an Android ROM (e.g. CyanogenMod)
  * The **libhybris interface** built against the binary drivers
  * **Middleware packages** depending on hardware-specific plugins
@@ -38,14 +38,8 @@ During the HA development you'll typically have one window/terminal using the
 HA build SDK where you build and work on Android code and another session
 using the Mer SDK where you build RPMs for the hardware adaptation.
 
-Commands and output from the HA build session are indicated using
-``HABUILD_SDK $`` at the top of the code block, like this:
-
-.. code-block:: console
-
-  HABUILD_SDK $
-
-  echo "run this command in the Ubuntu HA build SDK terminal"
+Setting up the Mer Platform SDK, as well as the device-specific targets
+and the Ubuntu HA build chroot is described in :doc:`setupsdk`.
 
 Commands and output from the Mer SDK session are indicated using
 ``MER_SDK $`` at the top of the code block, like this:
@@ -56,8 +50,18 @@ Commands and output from the Mer SDK session are indicated using
 
   echo "run this command in the Mer SDK terminal"
 
-Setting up the Mer Platform SDK, as well as the device-specific targets
-and the Ubuntu HA build chroot is described in :doc:`setupsdk`.
+How to enter ``HABUILD_SDK $`` is explained in :ref:`enter-mer-sdk`.
+
+Commands and output from the HA build session are indicated using
+``HABUILD_SDK $`` at the top of the code block, like this:
+
+.. code-block:: console
+
+  HABUILD_SDK $
+
+  echo "run this command in the Ubuntu HA build SDK terminal"
+
+How to enter ``HABUILD_SDK $`` is explained in :ref:`enter-ubu-chroot`.
 
 .. _mer-root:
 
@@ -77,7 +81,7 @@ There are a number of components to build; the lower level and Android related
 components are built in the HA build SDK; the rest are built in the Mer SDK.
 
 * In the **HA build SDK**
- * a kernel
+ - a kernel
  * a hacking friendly initrd which supports various boot options
  * ``hybris-boot.img`` and ``hybris-recovery.img`` (for booting and debugging)
  * a minimal Android ``/system/`` tree
@@ -85,7 +89,7 @@ components are built in the HA build SDK; the rest are built in the Mer SDK.
    (e.g. Bionic libc, ``logcat``, ``init``, ...)
 
 * In the **Mer SDK**
- * RPM packages containing all the built binaries and extracted configs
+ - RPM packages containing all the built binaries and extracted configs
  * Hardware-specific middleware and plugins (e.g. Qt QPA plugins, PulseAudio)
 
 For distribution, RPM packages are uploaded to a HA-specific repository. With

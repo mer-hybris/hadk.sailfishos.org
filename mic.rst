@@ -32,16 +32,21 @@ Ensure you have done the steps to :ref:`createrepo`.
   mkdir -p tmp
 
   HA_REPO="repo --name=adaptation0-$DEVICE-@RELEASE@"
-  sed -e "s|^$HA_REPO.*$|$HA_REPO --baseurl=file://$ANDROID_ROOT/droid-local-repo/$DEVICE|" \
-    $ANDROID_ROOT/installroot/usr/share/kickstarts/Jolla-@RELEASE@-$DEVICE-@ARCH@.ks > tmp/Jolla-@RELEASE@-$DEVICE-@ARCH@.ks
+  sed -e \
+    "s|^$HA_REPO.*$|$HA_REPO --baseurl=file://$ANDROID_ROOT/droid-local-repo/$DEVICE|" \
+    $ANDROID_ROOT/installroot/usr/share/kickstarts/Jolla-@RELEASE@-$DEVICE-@ARCH@.ks > \
+    tmp/Jolla-@RELEASE@-$DEVICE-@ARCH@.ks
 
 If you only want to rebuild some of the packages locally (and are confident that there are no changes that require custom rebuilds) then you can use the public build if there is one; we'll use ``sed`` to find (//) the HA_REPO and then 'a'ppend a new line with the OBS repo url:
 
 .. code-block:: console
 
   HA_REPO="repo --name=adaptation0-$DEVICE-@RELEASE@"
-  sed -i -e "/^$HA_REPO.*$/arepo --name=adaptation1-$DEVICE-@RELEASE@ --baseurl=http://repo.merproject.org/obs/sailfishos:/devel:/hw:/$DEVICE/sailfish_latest_@ARCH@/" \
-      tmp/Jolla-@RELEASE@-$DEVICE-@ARCH@.ks
+  HA_REPO1="repo --name=adaptation1-$DEVICE-@RELEASE@ \
+  --baseurl=http://repo.merproject.org/obs\
+  /sailfishos:/devel:/hw:/$DEVICE/sailfish_latest_@ARCH@/"
+  sed -i -e "/^$HA_REPO.*$/a$HA_REPO1" \
+    tmp/Jolla-@RELEASE@-$DEVICE-@ARCH@.ks
 
 Feel free to replace ``sailfishos:/devel:/hw:/...`` with path to any appropriate repo within Mer OBS.
 
@@ -133,9 +138,9 @@ patterns. A quick in-place solution:
 
 * If that package is provided by e.g. droid-hal-device (like
   ``droid-hal-mako-pulseaudio-settings``), it means that some of its dependencies
-  are not present
+  are not present:
 
- * Edit .ks file by having ``%packages`` section consisting only of single
+ - Edit .ks file by having ``%packages`` section consisting only of single
    ``droid-hal-mako-pulseaudio-settings`` (note there is no @ at the beginning
    of the line, since it's a package, not a pattern) -- another ``mic`` run error
    will show that the offending package is actually ``pulseaudio-modules-droid``

@@ -20,7 +20,7 @@ the obtained information where indicated with ``[]`` (MER_ROOT value from
 
   HOST $
 
-  cat <<EOF > $HOME/.hadk.env
+  cat <<'EOF' > $HOME/.hadk.env
   export MER_ROOT="[insert value of your choosing]"
   export ANDROID_ROOT="$MER_ROOT/android/droid"
   export VENDOR="[insert vendor name here]"
@@ -44,6 +44,8 @@ This ensures that the environment is setup correctly when you use the
 It also creates a function ``hadk`` that you can use to set or reset the environment
 variables. As you can see it also supports ~/.hadk.env.<name> to allow you to work on
 multiple devices in different sessions.
+
+.. _enter-mer-sdk:
 
 Setup the Mer SDK
 -----------------
@@ -91,13 +93,16 @@ the appropriate location:
 
   hadk
 
-  TARBALL=ubuntu-quantal-android-rootfs.tar.bz2
+  TARBALL=ubuntu-trusty-android-rootfs.tar.bz2
   curl -O http://img.merproject.org/images/mer-hybris/ubu/$TARBALL
   UBUNTU_CHROOT=/parentroot/$MER_ROOT/sdks/ubuntu
   sudo mkdir -p $UBUNTU_CHROOT
   sudo tar --numeric-owner -xvjf $TARBALL -C $UBUNTU_CHROOT
 
-You can now enter the ubuntu chroot like this:
+.. _enter-ubu-chroot:
+
+Entering Ubuntu Chroot
+``````````````````````
 
 .. code-block:: console
 
@@ -109,3 +114,4 @@ You can now enter the ubuntu chroot like this:
 
   #FIXME: Hostname resolution might fail. This error can be ignored.
   Can be fixed manually by adding the hostname to /etc/hosts
+

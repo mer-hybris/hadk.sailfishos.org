@@ -44,6 +44,8 @@ is **9.4 GB** (as of 2014-02-18). Depending on your connection, this
 might take some time. In the mean time, make yourself familiar with the
 rest of this guide.
 
+.. _build-cm-bits:
+
 Building Relevant Bits of CyanogenMod
 -------------------------------------
 
@@ -93,16 +95,24 @@ See :doc:`devices` for a list of devices supported by HADK. Supported
 devices are automatically downloaded as part of the HADK android build
 environment.
 
+.. _common-pitfalls:
+
 Common Pitfalls
 ---------------
 
 * If ``repo sync`` fails with a message like *fatal: duplicate path
   device/samsung/smdk4412-common in /home/nemo/android/.repo/manifest.xml*,
   remove the local manifest with ``rm .repo/local_manifests/roomservice.xml``
+* If you notice ``git clone`` commands starting to write out *"Forbidden ..."* on
+  github repos, you might have hit API rate limit. To solve this, put your github
+  credentials into ``~/.netrc``. More info can be found following this link:
+  `Perm.auth. with Git repositories`_
 * In some cases (with parallel builds), the build can fail, in this case, use
   ``make -j1 hybris-hal`` to retry with a non-parallel build and see the error
   message without output from parallel jobs. The build usually ends with
   the following output:
+
+.. _Perm.auth. with Git repositories: https://confluence.atlassian.com/display/STASH/Permanently+authenticating+with+Git+repositories#PermanentlyauthenticatingwithGitrepositories-Usingthe.netrcfile
 
 .. code-block:: console
 

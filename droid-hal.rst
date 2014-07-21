@@ -48,20 +48,8 @@ The next step has to be carried out in a Mer SDK chroot:
 
 This should leave you with several RPM packages in ``$ANDROID_ROOT/RPMS/``.
 
-The device specific configuration
-`````````````````````````````````
-
-Now build the droid-hal-configs file. This is split into its own package to make supporting multiple devices easier.
-
-.. code-block:: console
-
-  MER_SDK $
-
-  hadk
-
-  cd $ANDROID_ROOT
-  mb2 -t $VENDOR-$DEVICE-armv7hl -s hybris/droid-hal-configs/rpm/droid-hal-configs.spec build
-
+If the second ``mb2`` fails by writing out inconsistencies in kernel ``CONFIG_``
+flags, refer to the kernel verifier section: :ref:`kernel-config`.
 
 .. _createrepo:
 
@@ -83,13 +71,46 @@ building middleware components:
 
     createrepo  $ANDROID_ROOT/droid-local-repo/$DEVICE
 
-Now add the repo to the Target to allow build dependencies to be met from locally built packages:
+.. _add-local-repo:
+
+Add local RPM repo to Target
+````````````````````````````
+
+This will allow build dependencies to be met from locally built packages:
 
 .. code-block:: console
 
     MER_SDK $
 
-    sb2 -t $VENDOR-$DEVICE-armv7hl -R -m sdk-install zypper ar $ANDROID_ROOT/droid-local-repo/$DEVICE local-$DEVICE-hal
+    sb2 -t $VENDOR-$DEVICE-armv7hl -R -m sdk-install \
+      ssu ar local-$DEVICE-hal file://$ANDROID_ROOT/droid-local-repo/$DEVICE
+
+(safe to ignore warnings about connman or DBus):
+
+Check it's there:
+
+.. code-block:: console
+
+  MER_SDK $
+
+  sb2 -t $VENDOR-$DEVICE-armv7hl -R -msdk-install ssu lr
+
+The device specific configuration
+`````````````````````````````````
+
+Now build the droid-hal-configs file. This is split into its own package to make supporting multiple devices easier.
+
+.. code-block:: console
+
+  MER_SDK $
+
+  hadk
+
+  cd $ANDROID_ROOT
+  mb2 -t $VENDOR-$DEVICE-armv7hl \
+    -s hybris/droid-hal-configs/rpm/droid-hal-configs.spec \
+    build
+
 
 The ``/etc/hw-release`` file
 ----------------------------
