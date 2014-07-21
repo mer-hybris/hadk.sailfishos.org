@@ -50,7 +50,7 @@ Commands and output from the Mer SDK session are indicated using
 
   echo "run this command in the Mer SDK terminal"
 
-How to enter ``HABUILD_SDK $`` is explained in :ref:`enter-mer-sdk`.
+How to enter ``MER_SDK $`` is explained in :ref:`enter-mer-sdk`.
 
 Commands and output from the HA build session are indicated using
 ``HABUILD_SDK $`` at the top of the code block, like this:
