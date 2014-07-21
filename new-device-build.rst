@@ -259,9 +259,9 @@ You'll need as a minimum:
 
   MER_SDK $
 
-  COMPOSITOR_CONFIGS=rpm/device-$VENDOR-$DEVICE-configs/var/lib/environment/compositor
-  mkdir -p $COMPOSITOR_CONFIGS
-  cat <<EOF >$COMPOSITOR_CONFIGS/droid-hal-device.conf
+  COMPOSITOR_CFGS=rpm/device-$VENDOR-$DEVICE-configs/var/lib/environment/compositor
+  mkdir -p $COMPOSITOR_CFGS
+  cat <<EOF >$COMPOSITOR_CFGS/droid-hal-device.conf
   # Config for $VENDOR/$DEVICE
   HYBRIS_EGLPLATFORM=fbdev
   QT_QPA_PLATFORM=hwcomposer
