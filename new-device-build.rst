@@ -105,7 +105,7 @@ partition. If you're lucky the device will simply use
 If not then look in the recovery ``fstab`` for the
 right mapping.
 
-To double check, you can boot to CM and `adb shell` to examine
+To double check, you can boot to CM and ``adb shell`` to examine
 ``/dev/block*`` and ``/dev/mmc*`` (udev-full) contents. Also boot into
 ClockworkMod Recovery, to check those (udev-less) paths there too.
 
