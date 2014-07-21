@@ -8,9 +8,10 @@ See :doc:`prerequisites` for sourcing information about your device.
 
 Go through :doc:`preparing`.
 
-Ensure your device boots CM, and if you are extra fluent (or you get stuck in
-later stages), come back to build the whole CM on your own in a separate folder
-following its instructions on CM device wiki, to be sure your environment can
+Ensure your device boots CM. You should not need to build the whole of
+CM but it can be a useful (and slow!) diagnostic if you hit problems
+in later stages. In this case use a separate folder and follow
+instructions on the CM device wiki to be sure your environment can
 reproduce a working CM kernel and rootfs images.
 
 This example has snippets based on the Encore_. The CyanogenMod base
