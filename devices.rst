@@ -31,11 +31,5 @@ the Manufacturer is the VENDOR.
 For New Devices
 ---------------
 
-First, try building a full CyanogenMod build for your device and deploy it to
-see if you got the right sources. Once you got that, you can try building only
-the Android HAL that is used for Sailfish OS (``mka hybris-hal``).
-
-* Ensure you got all the right mer-hybris repositories added (that includes
-  the device configuration repository as well as hardware support bits)
-
+Please refer to the :ref:`new-device` section.
 

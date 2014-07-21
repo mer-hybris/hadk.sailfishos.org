@@ -34,6 +34,8 @@ Build Machine
 
 .. _Sailfish OS Target: http://releases.sailfishos.org/sdk/latest/targets/
 
+.. _new-device:
+
 Want to Port to a New Device?
 -----------------------------
 
