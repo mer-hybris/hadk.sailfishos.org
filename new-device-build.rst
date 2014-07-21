@@ -115,9 +115,9 @@ The build log will also have provided feedback like:
 
   HABUILD_SDK $
 
-  hybris/hybris-boot/Android.mk:48: ********************* /boot should \
+  hybris/hybris-boot/Android.mk:48: ********************* /boot should
     live on /dev/block/platform/msm_sdcc.1/by-name/boot
-  hybris/hybris-boot/Android.mk:49: ********************* /data should \
+  hybris/hybris-boot/Android.mk:49: ********************* /data should
     live on /dev/block/platform/msm_sdcc.1/by-name/userdata
 
 
