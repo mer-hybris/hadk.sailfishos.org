@@ -65,7 +65,8 @@ For the Kernel, some configuration options must be enabled to support
 ``systemd`` features, and some configuration options must be disabled,
 because they conflict or block certain features of Sailfish OS.
 
-* **Required Configuration Options**: See ``initramfs/init`` for a list of required kernel options
+* **Required Configuration Options**: See ``$ANDROID_ROOT/hybris/hybris-boot/init-script`` function ``check_kernel_config()``
+   for a list of required kernel options
 * **Conflicting Configuration Options**: ``CONFIG_ANDROID_PARANOID_NETWORK``:
    This would make all network connections fail if the user is not
    in the group with ID 3003.
