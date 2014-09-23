@@ -69,7 +69,7 @@ building middleware components:
     rm -f $ANDROID_ROOT/droid-local-repo/$DEVICE/droid-hal-*rpm
     mv RPMS/*${DEVICE}* $ANDROID_ROOT/droid-local-repo/$DEVICE
 
-    createrepo  $ANDROID_ROOT/droid-local-repo/$DEVICE
+    createrepo $ANDROID_ROOT/droid-local-repo/$DEVICE
 
 .. _add-local-repo:
 

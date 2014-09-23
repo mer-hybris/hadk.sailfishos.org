@@ -205,7 +205,7 @@ clean builds.
 
   MER_SDK $
 
-  mb2 -s ../rpm/libhybris.spec -t  $VENDOR-$DEVICE-armv7hl build
+  mb2 -s ../rpm/libhybris.spec -t $VENDOR-$DEVICE-armv7hl build
 
 Now add the packages you just built to the local repo and refresh the repo cache:
 
@@ -216,8 +216,8 @@ Now add the packages you just built to the local repo and refresh the repo cache
   mkdir -p $ANDROID_ROOT/droid-local-repo/$DEVICE/$PKG/
   rm -f $ANDROID_ROOT/droid-local-repo/$DEVICE/$PKG/*.rpm
   mv RPMS/*.rpm $ANDROID_ROOT/droid-local-repo/$DEVICE/$PKG
-  createrepo  $ANDROID_ROOT/droid-local-repo/$DEVICE
-  sb2 -t  $VENDOR-$DEVICE-armv7hl -R -msdk-install zypper ref
+  createrepo $ANDROID_ROOT/droid-local-repo/$DEVICE
+  sb2 -t $VENDOR-$DEVICE-armv7hl -R -msdk-install zypper ref
 
 Note that all repositories that are in ``tar_git`` format (for use with OBS)
 will have their RPM packages built locally might not always have the right
@@ -229,7 +229,7 @@ At this point, and for the libhybris package only, you can remove the mesa-llvmp
 
   MER_SDK $
 
-  sb2 -t  $VENDOR-$DEVICE-armv7hl -R -msdk-build zypper rm mesa-llvmpipe
+  sb2 -t $VENDOR-$DEVICE-armv7hl -R -msdk-build zypper rm mesa-llvmpipe
 
 Failure to do this will cause problems pulling in build requirements for other packages.
 
@@ -245,12 +245,12 @@ qt5-qpa-hwcomposer-plugin
   cd $MER_ROOT/devel/mer-hybris
   git clone https://github.com/mer-hybris/$PKG.git
   cd $PKG
-  mb2 -s rpm/$PKG.spec -t  $VENDOR-$DEVICE-armv7hl build
+  mb2 -s rpm/$PKG.spec -t $VENDOR-$DEVICE-armv7hl build
   mkdir -p $ANDROID_ROOT/droid-local-repo/$DEVICE/$PKG/
   rm -f $ANDROID_ROOT/droid-local-repo/$DEVICE/$PKG/*.rpm
   mv RPMS/*.rpm $ANDROID_ROOT/droid-local-repo/$DEVICE/$PKG
-  createrepo  $ANDROID_ROOT/droid-local-repo/$DEVICE
-  sb2 -t  $VENDOR-$DEVICE-armv7hl -R -msdk-install zypper ref
+  createrepo $ANDROID_ROOT/droid-local-repo/$DEVICE
+  sb2 -t $VENDOR-$DEVICE-armv7hl -R -msdk-install zypper ref
 
 sensorfw
 ''''''''
@@ -266,12 +266,12 @@ sensorfw
   cd $MER_ROOT/devel/mer-hybris
   git clone https://github.com/mer-hybris/$PKG.git
   cd $PKG
-  mb2 -s rpm/$SPEC.spec -t  $VENDOR-$DEVICE-armv7hl build
+  mb2 -s rpm/$SPEC.spec -t $VENDOR-$DEVICE-armv7hl build
   mkdir -p $ANDROID_ROOT/droid-local-repo/$DEVICE/$PKG/
   rm -f $ANDROID_ROOT/droid-local-repo/$DEVICE/$PKG/*.rpm
   mv RPMS/*.rpm $ANDROID_ROOT/droid-local-repo/$DEVICE/$PKG
-  createrepo  $ANDROID_ROOT/droid-local-repo/$DEVICE
-  sb2 -t  $VENDOR-$DEVICE-armv7hl -R -msdk-install zypper ref
+  createrepo $ANDROID_ROOT/droid-local-repo/$DEVICE
+  sb2 -t $VENDOR-$DEVICE-armv7hl -R -msdk-install zypper ref
 
 ngfd-plugin-droid-vibrator
 ''''''''''''''''''''''''''
@@ -285,12 +285,12 @@ ngfd-plugin-droid-vibrator
   cd $MER_ROOT/devel/mer-hybris
   git clone https://github.com/mer-hybris/$PKG.git
   cd $PKG
-  mb2 -s rpm/$SPEC.spec -t  $VENDOR-$DEVICE-armv7hl build
+  mb2 -s rpm/$SPEC.spec -t $VENDOR-$DEVICE-armv7hl build
   mkdir -p $ANDROID_ROOT/droid-local-repo/$DEVICE/$PKG/
   rm -f $ANDROID_ROOT/droid-local-repo/$DEVICE/$PKG/*.rpm
   mv RPMS/*.rpm $ANDROID_ROOT/droid-local-repo/$DEVICE/$PKG
-  createrepo  $ANDROID_ROOT/droid-local-repo/$DEVICE
-  sb2 -t  $VENDOR-$DEVICE-armv7hl -R -msdk-install zypper ref
+  createrepo $ANDROID_ROOT/droid-local-repo/$DEVICE
+  sb2 -t $VENDOR-$DEVICE-armv7hl -R -msdk-install zypper ref
 
 qt5-feedback-haptics-droid-vibrator
 '''''''''''''''''''''''''''''''''''
@@ -304,12 +304,12 @@ qt5-feedback-haptics-droid-vibrator
   cd $MER_ROOT/devel/mer-hybris
   git clone https://github.com/mer-hybris/$PKG.git
   cd $PKG
-  mb2 -s rpm/$SPEC.spec -t  $VENDOR-$DEVICE-armv7hl build
+  mb2 -s rpm/$SPEC.spec -t $VENDOR-$DEVICE-armv7hl build
   mkdir -p $ANDROID_ROOT/droid-local-repo/$DEVICE/$PKG/
   rm -f $ANDROID_ROOT/droid-local-repo/$DEVICE/$PKG/*.rpm
   mv RPMS/*.rpm $ANDROID_ROOT/droid-local-repo/$DEVICE/$PKG
-  createrepo  $ANDROID_ROOT/droid-local-repo/$DEVICE
-  sb2 -t  $VENDOR-$DEVICE-armv7hl -R -msdk-install zypper ref
+  createrepo $ANDROID_ROOT/droid-local-repo/$DEVICE
+  sb2 -t $VENDOR-$DEVICE-armv7hl -R -msdk-install zypper ref
 
 pulseaudio-modules-droid
 ''''''''''''''''''''''''
@@ -323,10 +323,10 @@ pulseaudio-modules-droid
   cd $MER_ROOT/devel/mer-hybris
   git clone https://github.com/mer-hybris/$PKG.git
   cd $PKG
-  mb2 -s rpm/$SPEC.spec -t  $VENDOR-$DEVICE-armv7hl build
+  mb2 -s rpm/$SPEC.spec -t $VENDOR-$DEVICE-armv7hl build
   mkdir -p $ANDROID_ROOT/droid-local-repo/$DEVICE/$PKG/
   rm -f $ANDROID_ROOT/droid-local-repo/$DEVICE/$PKG/*.rpm
   mv RPMS/*.rpm $ANDROID_ROOT/droid-local-repo/$DEVICE/$PKG
-  createrepo  $ANDROID_ROOT/droid-local-repo/$DEVICE
-  sb2 -t  $VENDOR-$DEVICE-armv7hl -R -msdk-install zypper ref
+  createrepo $ANDROID_ROOT/droid-local-repo/$DEVICE
+  sb2 -t $VENDOR-$DEVICE-armv7hl -R -msdk-install zypper ref
 
