@@ -103,8 +103,8 @@ Building a rootfs using RPM repositories and a kickstart file:
   sudo mic create fs --arch armv7hl \
       --tokenmap=ARCH:armv7hl,RELEASE:$RELEASE,EXTRA_NAME:$EXTRA_NAME \
       --record-pkgs=name,url \
-      --outdir=sfa-mako-ea-$RELEASE$EXTRA_NAME \
-      --pack-to=sfa-mako-ea-$RELEASE$EXTRA_NAME.tar.bz2 \
+      --outdir=sfe-$DEVICE-$RELEASE$EXTRA_NAME \
+      --pack-to=sfe-$DEVICE-$RELEASE$EXTRA_NAME.tar.bz2 \
       $ANDROID_ROOT/tmp/Jolla-@RELEASE@-$DEVICE-@ARCH@.ks
 
 Once obtained the ``.zip`` file, proceed installation as per instructions to
