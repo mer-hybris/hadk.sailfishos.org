@@ -176,7 +176,10 @@ Once the kernel has built you can check the kernel config. You can use the Mer k
 
   HABUILD_SDK $
 
-  tmp/mer_verify_kernel_config ./out/target/product/$DEVICE/obj/KERNEL_OBJ/.config
+  cd $ANDROID_ROOT
+
+  hybris/mer-kernel-check/mer_verify_kernel_config \
+      ./out/target/product/$DEVICE/obj/KERNEL_OBJ/.config
 
 Apply listed modifications to the defconfig file that CM is using. Which one?
 It's different for every device:
