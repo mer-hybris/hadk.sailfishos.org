@@ -194,6 +194,27 @@ After you'll have applied the needed changes, re-run ``mka hybris-boot`` and
 re-verify. Lather, rinse, repeat :) Run also ``mka hybris-recovery`` in the end
 when no more errors.
 
+Contribute your mods back
+'''''''''''''''''''''''''
+
+Ask someone to fork your kernel repo under ``github.com/mer-hybris`` if it's not there yet.
+
+Then perform these steps:
+
+.. code-block:: console
+
+  HABUILD_SDK $
+
+  cd $ANDROID_ROOT/kernel/$VENDOR/$DEVICE
+
+  DEFCONFIG=arch/arm/configs/[defconfig you found in the section above]
+
+  git add $DEFCONFIG
+
+  # git commit ...
+
+Create PR to the forked kernel repo under github/mer-hybris.
+
 Success
 ```````
 
