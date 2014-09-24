@@ -126,10 +126,10 @@ A more obscure error might look like this:
     pattern:jolla-hw-adaptation-$DEVICE-(version).noarch[$DEVICE]
 
 This means a package dependency cannot be satisfied down the hierarchy of
-patterns. A quick in-place solution:
+patterns. A quick in-place solution (NB: expand @DEVICE@ occurrences manually):
 
-* Substitute the line ``@Jolla Configuration $DEVICE`` with
-  ``@jolla-hw-adaptation-$DEVICE`` in your .ks
+* Substitute the line ``@Jolla Configuration @DEVICE@`` with
+  ``@jolla-hw-adaptation-@DEVICE@`` in your .ks
 
 * Rebuild .ks
 
@@ -144,6 +144,9 @@ patterns. A quick in-place solution:
    ``droid-hal-mako-pulseaudio-settings`` (note there is no @ at the beginning
    of the line, since it's a package, not a pattern) -- another ``mic`` run error
    will show that the offending package is actually ``pulseaudio-modules-droid``
+
+* When found and fixed culprit in next sections, restore your .ks %packages section
+  to ``@Jolla Configuration @DEVICE@`` and rebuild .ks with ``mic``
 
 Now you're ready to proceed to the :ref:`missing-package` section.
 
