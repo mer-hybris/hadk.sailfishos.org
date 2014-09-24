@@ -235,10 +235,14 @@ includes ``droid-hal-device.inc``, which contains the RPM building logic:
   cd $ANDROID_ROOT
   cat <<EOF > rpm/droid-hal-$DEVICE.spec
   # device is the cyanogenmod codename for the device
-  # eg mako = Nexus 4
+  # eg mako is Nexus 4
   %define device $DEVICE
-  # vendor is used in device/%vendor/%device/
+  # vendor is used in device/$VENDOR/$DEVICE/
   %define vendor $VENDOR
+
+  # Manufacturer and device name to be shown in UI
+  %define vendor_pretty LG
+  %define device_pretty Nexus 4
 
   %include rpm/droid-hal-device.inc
   EOF
