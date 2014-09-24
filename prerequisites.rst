@@ -18,21 +18,17 @@ Mobile Device
 Build Machine
 -------------
 
-* A 64-bit X86 machine with a 64-bit Linux kernel
+* A 64-bit x86 machine with a 64-bit Linux kernel
 
-* `Mer Platform SDK`_
+* Mer Platform SDK (installation explained later)
 
-* `Sailfish OS Target`_
+* Sailfish OS Target (explained later)
 
 * At least 16 GiB of free disk space (10 GiB source download + more for
   building) for a complete Android build; a minimal download and HADK build
   (only hardware adaptation-related components) requires slightly less space
 
 * At least 4 GiB of RAM (the more the better)
-
-.. _Mer Platform SDK: http://wiki.merproject.org/wiki/Platform_SDK
-
-.. _Sailfish OS Target: http://releases.sailfishos.org/sdk/latest/targets/
 
 .. _new-device:
 
