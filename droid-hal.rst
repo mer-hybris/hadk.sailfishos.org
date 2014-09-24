@@ -98,7 +98,16 @@ Check it's there:
 The device specific configuration
 `````````````````````````````````
 
-Now build the droid-hal-configs file. This is split into its own package to make supporting multiple devices easier.
+Now build the droid-hal-configs package. This is split into its own package to
+make supporting multiple devices easier.
+
+.. warning::
+
+    ``droid-hal-configs`` will re-generate your .ks file, so if it already
+    exists, make backup and track any modifications yourself. You'll find your
+    .ks here:
+    ``$ANDROID_ROOT/installroot/usr/share/kickstarts/``
+    with name ``Jolla-@RELEASE@-$DEVICE-@ARCH@.ks``
 
 .. code-block:: console
 
