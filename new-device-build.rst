@@ -283,3 +283,8 @@ HAL specific packages
 
 See section :ref:`build-ha-pkgs`.
 
+Generate installable .zip
+`````````````````````````
+
+Go through the whole :doc:`mic` chapter.
+
