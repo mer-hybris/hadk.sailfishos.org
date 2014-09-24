@@ -38,12 +38,7 @@ The next step has to be carried out in a Mer SDK chroot:
 
     cd $ANDROID_ROOT
 
-    # THE COMMAND BELOW WILL FAIL. It's normal, carry on with the next one.
-    # Explanation: force installing of build-requirements by specifying the
-    # .inc file directly, but build-dependencies will be pulled in via
-    # zypper, so that the next step has all macro definitions loaded
-    mb2 -t $VENDOR-$DEVICE-armv7hl -s rpm/droid-hal-device.inc build
-
+    # type `rpm -q sdk-utils` to ensure you are using 0.65 or newer before proceeding!
     mb2 -t $VENDOR-$DEVICE-armv7hl -s rpm/droid-hal-$DEVICE.spec build
 
 This should leave you with several RPM packages in ``$ANDROID_ROOT/RPMS/``.
@@ -67,7 +62,7 @@ building middleware components:
     mkdir -p $ANDROID_ROOT/droid-local-repo/$DEVICE
 
     rm -f $ANDROID_ROOT/droid-local-repo/$DEVICE/droid-hal-*rpm
-    mv RPMS/*${DEVICE}* $ANDROID_ROOT/droid-local-repo/$DEVICE
+    mv RPMS/*$DEVICE* $ANDROID_ROOT/droid-local-repo/$DEVICE
 
     createrepo $ANDROID_ROOT/droid-local-repo/$DEVICE
 
