@@ -50,11 +50,12 @@ multiple devices in different sessions.
 Setup the Mer SDK
 -----------------
 
-The Mer SDK setup is described on `the Mer wiki`_.
+Mer Platform SDK should be installed under your $HOME, to avoid possible
+mount/options issues. Setup is described on `the Mer wiki`_.
 
 Ensure you are able to open a shell in the Mer SDK before moving on.
 
-.. _the Mer wiki: http://wiki.merproject.org/wiki/Platform_SDK
+.. _the Mer wiki: https://wiki.merproject.org/wiki/Platform_SDK#tl.3Bdr
 
 Preparing the Mer SDK
 ---------------------
