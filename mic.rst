@@ -28,6 +28,8 @@ Ensure you have done the steps to :ref:`createrepo`.
 
   MER_SDK $
 
+  hadk $DEVICE
+
   cd $ANDROID_ROOT
   mkdir -p tmp
 
@@ -44,10 +46,10 @@ If you only want to rebuild some of the packages locally (and are confident that
   MOBS_URI="http://repo.merproject.org/obs"
   HA_REPO="repo --name=adaptation0-$DEVICE-@RELEASE@"
   HA_REPO1="repo --name=adaptation1-$DEVICE-@RELEASE@ \
-  --baseurl=$MOBS_URI/sailfishos:/devel:/hw:/$DEVICE/sailfish_latest_@ARCH@/"
+  --baseurl=$MOBS_URI/nemo:/devel:/hw:/$VENDOR:/$DEVICE/sailfish_latest_@ARCH@/"
   sed -i -e "/^$HA_REPO.*$/a$HA_REPO1" tmp/Jolla-@RELEASE@-$DEVICE-@ARCH@.ks
 
-Feel free to replace ``sailfishos:/devel:/hw:`` with path to any suitable HA repo within Mer OBS.
+Feel free to replace ``nemo:/devel:/hw:`` with path to any suitable HA repo within Mer OBS.
 
 .. _patterns:
 
