@@ -90,7 +90,8 @@ Building the Image with MIC
 Ensure you re-generated :ref:`patterns` (needs to be run after every
 ``createrepo``)
 
-Building a rootfs using RPM repositories and a kickstart file:
+Building a rootfs using RPM repositories and a kickstart file (NB: all errors are
+non-critical as long as you end up with a generated image):
 
 .. code-block:: console
 
@@ -170,4 +171,13 @@ from patterns in ``rpm/patterns/$DEVICE`` and orderly perform:
 Alternatively (or if you can't find it among patterns) add ``-NAME_OF_PACKAGE`` line
 to your .ks ``%packages`` section (remember that regenerating .ks will overwrite this
 modification).
+
+Troubleshooting
+```````````````
+
+/dev/null - Permission denied
+'''''''''''''''''''''''''''''
+
+Most likely the partition your MerSDK resides in, is mounted with ``nodev`` option.
+Remove that option from mount rules.
 
