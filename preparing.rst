@@ -109,7 +109,7 @@ You should at least check the following features:
   Intensity, patterns.
 
 * **HW composer version**:
-  check ``dumpsys surfaceflinger`` through ADB (see `SF Layer Debugging`_).
+  check ``dumpsys SurfaceFlinger`` through ADB (see `SF Layer Debugging`_).
 
 .. _Gears4Android: http://www.jeffboody.net/gears4android.php
 .. _GPSTest: https://play.google.com/store/apps/details?id=com.chartcross.gpstest
