@@ -23,8 +23,13 @@ Devices: $DEVICE and $VENDOR
 
 To get this information find your device here: `CyanogenMod Devices`_,
 note down the "*Manufacturer*" and "*Codename*" values, which are
-displayed in the side bar on the right. The Codename is the DEVICE and
-the Manufacturer is the VENDOR.
+displayed in the side bar on the right. The Codename is the $DEVICE and
+the Manufacturer is the $VENDOR.
+
+Alternatively, if you have a running device with provided src then these
+values may be found from the */system/build.prop* file on the device where
+$DEVICE is ro.product.device and $VENDOR is ro.product.manufacturer (with
+lower case letters).
 
 .. _CyanogenMod Devices: http://wiki.cyanogenmod.org/w/Devices
 
