@@ -96,7 +96,7 @@ the appropriate location:
 
   TARBALL=ubuntu-trusty-android-rootfs.tar.bz2
   curl -O http://img.merproject.org/images/mer-hybris/ubu/$TARBALL
-  UBUNTU_CHROOT=/parentroot/$MER_ROOT/sdks/ubuntu
+  UBUNTU_CHROOT=$MER_ROOT/sdks/ubuntu
   sudo mkdir -p $UBUNTU_CHROOT
   sudo tar --numeric-owner -xvjf $TARBALL -C $UBUNTU_CHROOT
 
@@ -111,7 +111,7 @@ Entering Ubuntu Chroot
 
   hadk
 
-  ubu-chroot -r /parentroot/$MER_ROOT/sdks/ubuntu
+  ubu-chroot -r $MER_ROOT/sdks/ubuntu
 
   #FIXME: Hostname resolution might fail. This error can be ignored.
   Can be fixed manually by adding the hostname to /etc/hosts
