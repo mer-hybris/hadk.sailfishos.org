@@ -264,7 +264,7 @@ sensorfw
   OTHER_RANDOM_NAME=hybris-libsensorfw-qt5
 
   cd $MER_ROOT/devel/mer-hybris
-  git clone https://github.com/mer-hybris/$PKG.git
+  git clone https://github.com/mer-packages/$PKG.git
   cd $PKG
   mb2 -s rpm/$SPEC.spec -t $VENDOR-$DEVICE-armv7hl build
   mkdir -p $ANDROID_ROOT/droid-local-repo/$DEVICE/$PKG/
