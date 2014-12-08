@@ -101,7 +101,7 @@ non-critical as long as you end up with a generated image):
 
   # always aim for the latest:
   RELEASE=1.0.8.19
-  # WARNING: EXTRA_NAME currently does not support '.' dots in it!
+  # EXTRA_NAME adds your custom tag. It doesn't support '.' dots in it!
   EXTRA_NAME=-my1
   sudo mic create fs --arch armv7hl \
       --tokenmap=ARCH:armv7hl,RELEASE:$RELEASE,EXTRA_NAME:$EXTRA_NAME \
