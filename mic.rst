@@ -92,14 +92,25 @@ Building the Image with MIC
 Ensure you re-generated :ref:`patterns` (needs to be run after every
 ``createrepo``)
 
+In the script below choose a `Sailfish OS version`_ you want to build. Identify
+what hotfixes have also been released. Take care of building opt-in releases as
+they are not stable and a technology change might break with what your target
+builds have produced (e.g. update8 and update9 changed Qt from v5.1 to 5.2,
+which means update9 packages won't compile/work with update8 target ones and
+vice versa).
+
 Building a rootfs using RPM repositories and a kickstart file (NB: all errors are
 non-critical as long as you end up with a generated image):
+
+.. _Sailfish OS version: https://together.jolla.com/questions/tags:changelog/
 
 .. code-block:: console
 
   MER_SDK $
 
-  # always aim for the latest:
+  # Check https://together.jolla.com/questions/tags:changelog/ for updates
+  # Always ensure you used a compatible build target
+  # Finally, set the version:
   RELEASE=1.0.8.19
   # EXTRA_NAME adds your custom tag. It doesn't support '.' dots in it!
   EXTRA_NAME=-my1
