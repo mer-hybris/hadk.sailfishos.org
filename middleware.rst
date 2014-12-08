@@ -330,3 +330,29 @@ pulseaudio-modules-droid
   createrepo $ANDROID_ROOT/droid-local-repo/$DEVICE
   sb2 -t $VENDOR-$DEVICE-armv7hl -R -msdk-install zypper ref
 
+All other packages
+''''''''''''''''''
+Please compile any other required packages should a build/mic process
+indicate a dependency on them. Feel free to add/remove those packages
+to/from patterns to suit your port's needs.
+
+Follow the exact same compilation approach as with above packages. Known
+packages are:
+
+* https://github.com/mer-hybris/qtscenegraph-adaptation - needed by Qt 5.2
+  graphics stack (Sailfish OS >= 1.1.0.38)
+
+* https://github.com/nemomobile/mce-plugin-libhybris - for LED functionality
+
+* Multimedia support in that order:
+
+ - https://github.com/sailfishos/gst-jolla
+
+ * https://github.com/sailfishos/gst-colorconv
+
+ * https://github.com/sailfishos/gst-omx
+
+ * https://github.com/sailfishos/gst-droidcamsrc
+
+* https://github.com/mer-hybris/unblank-restart-sensors - needed only by mako
+
