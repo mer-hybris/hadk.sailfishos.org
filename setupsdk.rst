@@ -50,11 +50,12 @@ multiple devices in different sessions.
 Setup the Mer SDK
 -----------------
 
-The Mer SDK setup is described on `the Mer wiki`_.
+Mer Platform SDK should be installed under your $HOME, to avoid possible
+mount/options issues. Setup is described on `the Mer wiki`_.
 
 Ensure you are able to open a shell in the Mer SDK before moving on.
 
-.. _the Mer wiki: http://wiki.merproject.org/wiki/Platform_SDK
+.. _the Mer wiki: https://wiki.merproject.org/wiki/Platform_SDK#tl.3Bdr
 
 Preparing the Mer SDK
 ---------------------
@@ -95,7 +96,7 @@ the appropriate location:
 
   TARBALL=ubuntu-trusty-android-rootfs.tar.bz2
   curl -O http://img.merproject.org/images/mer-hybris/ubu/$TARBALL
-  UBUNTU_CHROOT=/parentroot/$MER_ROOT/sdks/ubuntu
+  UBUNTU_CHROOT=$MER_ROOT/sdks/ubuntu
   sudo mkdir -p $UBUNTU_CHROOT
   sudo tar --numeric-owner -xvjf $TARBALL -C $UBUNTU_CHROOT
 
@@ -110,7 +111,7 @@ Entering Ubuntu Chroot
 
   hadk
 
-  ubu-chroot -r /parentroot/$MER_ROOT/sdks/ubuntu
+  ubu-chroot -r $MER_ROOT/sdks/ubuntu
 
   #FIXME: Hostname resolution might fail. This error can be ignored.
   Can be fixed manually by adding the hostname to /etc/hosts

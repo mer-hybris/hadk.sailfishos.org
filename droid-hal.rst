@@ -38,12 +38,7 @@ The next step has to be carried out in a Mer SDK chroot:
 
     cd $ANDROID_ROOT
 
-    # THE COMMAND BELOW WILL FAIL. It's normal, carry on with the next one.
-    # Explanation: force installing of build-requirements by specifying the
-    # .inc file directly, but build-dependencies will be pulled in via
-    # zypper, so that the next step has all macro definitions loaded
-    mb2 -t $VENDOR-$DEVICE-armv7hl -s rpm/droid-hal-device.inc build
-
+    # type `rpm -q sdk-utils` to ensure you are using 0.65 or newer before proceeding!
     mb2 -t $VENDOR-$DEVICE-armv7hl -s rpm/droid-hal-$DEVICE.spec build
 
 This should leave you with several RPM packages in ``$ANDROID_ROOT/RPMS/``.
@@ -67,9 +62,9 @@ building middleware components:
     mkdir -p $ANDROID_ROOT/droid-local-repo/$DEVICE
 
     rm -f $ANDROID_ROOT/droid-local-repo/$DEVICE/droid-hal-*rpm
-    mv RPMS/*${DEVICE}* $ANDROID_ROOT/droid-local-repo/$DEVICE
+    mv RPMS/*$DEVICE* $ANDROID_ROOT/droid-local-repo/$DEVICE
 
-    createrepo  $ANDROID_ROOT/droid-local-repo/$DEVICE
+    createrepo $ANDROID_ROOT/droid-local-repo/$DEVICE
 
 .. _add-local-repo:
 
@@ -98,7 +93,16 @@ Check it's there:
 The device specific configuration
 `````````````````````````````````
 
-Now build the droid-hal-configs file. This is split into its own package to make supporting multiple devices easier.
+Now build the droid-hal-configs package. This is split into its own package to
+make supporting multiple devices easier.
+
+.. warning::
+
+    ``droid-hal-configs`` will re-generate your .ks file, so if it already
+    exists, make backup and track any modifications yourself. You'll find your
+    .ks here:
+    ``$ANDROID_ROOT/installroot/usr/share/kickstarts/``
+    with name ``Jolla-@RELEASE@-$DEVICE-@ARCH@.ks``
 
 .. code-block:: console
 

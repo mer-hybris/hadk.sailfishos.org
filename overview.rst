@@ -70,10 +70,11 @@ The build area root directory
 
 In this guide, we refer to the base of the SDK storage/build area with the
 environment variable ``$MER_ROOT``. You need several gigabytes of space in
-this area, we suggest the following paths:
+this area, we strongly recommend the following path:
 
-* ``export MER_ROOT=/srv/mer/`` for a system-wide installation
 * ``export MER_ROOT=$HOME/mer/`` for a user-specific installation
+
+Do not point MER_ROOT outside your $HOME due to existing issues.
 
 Build components
 ````````````````

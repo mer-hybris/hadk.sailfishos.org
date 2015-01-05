@@ -28,6 +28,8 @@ Ensure you have done the steps to :ref:`createrepo`.
 
   MER_SDK $
 
+  hadk $DEVICE
+
   cd $ANDROID_ROOT
   mkdir -p tmp
 
@@ -44,10 +46,10 @@ If you only want to rebuild some of the packages locally (and are confident that
   MOBS_URI="http://repo.merproject.org/obs"
   HA_REPO="repo --name=adaptation0-$DEVICE-@RELEASE@"
   HA_REPO1="repo --name=adaptation1-$DEVICE-@RELEASE@ \
-  --baseurl=$MOBS_URI/sailfishos:/devel:/hw:/$DEVICE/sailfish_latest_@ARCH@/"
+  --baseurl=$MOBS_URI/nemo:/devel:/hw:/$VENDOR:/$DEVICE/sailfish_latest_@ARCH@/"
   sed -i -e "/^$HA_REPO.*$/a$HA_REPO1" tmp/Jolla-@RELEASE@-$DEVICE-@ARCH@.ks
 
-Feel free to replace ``sailfishos:/devel:/hw:`` with path to any suitable HA repo within Mer OBS.
+Feel free to replace ``nemo:/devel:/hw:`` with path to any suitable HA repo within Mer OBS.
 
 .. _patterns:
 
@@ -90,21 +92,33 @@ Building the Image with MIC
 Ensure you re-generated :ref:`patterns` (needs to be run after every
 ``createrepo``)
 
-Building a rootfs using RPM repositories and a kickstart file:
+In the script below choose a `Sailfish OS version`_ you want to build. Identify
+what hotfixes have also been released. Take care of building opt-in releases as
+they are not stable and a technology change might break with what your target
+builds have produced (e.g. update8 and update9 changed Qt from v5.1 to 5.2,
+which means update9 packages won't compile/work with update8 target ones and
+vice versa).
+
+Building a rootfs using RPM repositories and a kickstart file (NB: all errors are
+non-critical as long as you end up with a generated image):
+
+.. _Sailfish OS version: https://together.jolla.com/questions/tags:changelog/
 
 .. code-block:: console
 
   MER_SDK $
 
-  # always aim for the latest:
+  # Check https://together.jolla.com/questions/tags:changelog/ for updates
+  # Always ensure you used a compatible build target
+  # Finally, set the version:
   RELEASE=1.0.8.19
-  # WARNING: EXTRA_NAME currently does not support '.' dots in it!
+  # EXTRA_NAME adds your custom tag. It doesn't support '.' dots in it!
   EXTRA_NAME=-my1
   sudo mic create fs --arch armv7hl \
       --tokenmap=ARCH:armv7hl,RELEASE:$RELEASE,EXTRA_NAME:$EXTRA_NAME \
       --record-pkgs=name,url \
-      --outdir=sfa-mako-ea-$RELEASE$EXTRA_NAME \
-      --pack-to=sfa-mako-ea-$RELEASE$EXTRA_NAME.tar.bz2 \
+      --outdir=sfe-$DEVICE-$RELEASE$EXTRA_NAME \
+      --pack-to=sfe-$DEVICE-$RELEASE$EXTRA_NAME.tar.bz2 \
       $ANDROID_ROOT/tmp/Jolla-@RELEASE@-$DEVICE-@ARCH@.ks
 
 Once obtained the ``.zip`` file, proceed installation as per instructions to
@@ -125,10 +139,10 @@ A more obscure error might look like this:
     pattern:jolla-hw-adaptation-$DEVICE-(version).noarch[$DEVICE]
 
 This means a package dependency cannot be satisfied down the hierarchy of
-patterns. A quick in-place solution:
+patterns. A quick in-place solution (NB: expand @DEVICE@ occurrences manually):
 
-* Substitute the line ``@Jolla Configuration $DEVICE`` with
-  ``@jolla-hw-adaptation-$DEVICE`` in your .ks
+* Substitute the line ``@Jolla Configuration @DEVICE@`` with
+  ``@jolla-hw-adaptation-@DEVICE@`` in your .ks
 
 * Rebuild .ks
 
@@ -143,6 +157,9 @@ patterns. A quick in-place solution:
    ``droid-hal-mako-pulseaudio-settings`` (note there is no @ at the beginning
    of the line, since it's a package, not a pattern) -- another ``mic`` run error
    will show that the offending package is actually ``pulseaudio-modules-droid``
+
+* When found and fixed culprit in next sections, restore your .ks %packages section
+  to ``@Jolla Configuration @DEVICE@`` and rebuild .ks with ``mic``
 
 Now you're ready to proceed to the :ref:`missing-package` section.
 
@@ -170,4 +187,13 @@ from patterns in ``rpm/patterns/$DEVICE`` and orderly perform:
 Alternatively (or if you can't find it among patterns) add ``-NAME_OF_PACKAGE`` line
 to your .ks ``%packages`` section (remember that regenerating .ks will overwrite this
 modification).
+
+Troubleshooting
+```````````````
+
+/dev/null - Permission denied
+'''''''''''''''''''''''''''''
+
+Most likely the partition your MerSDK resides in, is mounted with ``nodev`` option.
+Remove that option from mount rules.
 

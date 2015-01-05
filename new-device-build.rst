@@ -176,7 +176,10 @@ Once the kernel has built you can check the kernel config. You can use the Mer k
 
   HABUILD_SDK $
 
-  tmp/mer_verify_kernel_config ./out/target/product/$DEVICE/obj/KERNEL_OBJ/.config
+  cd $ANDROID_ROOT
+
+  hybris/mer-kernel-check/mer_verify_kernel_config \
+      ./out/target/product/$DEVICE/obj/KERNEL_OBJ/.config
 
 Apply listed modifications to the defconfig file that CM is using. Which one?
 It's different for every device:
@@ -190,6 +193,27 @@ It's different for every device:
 After you'll have applied the needed changes, re-run ``mka hybris-boot`` and
 re-verify. Lather, rinse, repeat :) Run also ``mka hybris-recovery`` in the end
 when no more errors.
+
+Contribute your mods back
+'''''''''''''''''''''''''
+
+Ask someone to fork your kernel repo under ``github.com/mer-hybris`` if it's not there yet.
+
+Then perform these steps:
+
+.. code-block:: console
+
+  HABUILD_SDK $
+
+  cd $ANDROID_ROOT/kernel/$VENDOR/$DEVICE
+
+  DEFCONFIG=arch/arm/configs/[defconfig you found in the section above]
+
+  git add $DEFCONFIG
+
+  # git commit ...
+
+Create PR to the forked kernel repo under github/mer-hybris.
 
 Success
 ```````
@@ -232,10 +256,14 @@ includes ``droid-hal-device.inc``, which contains the RPM building logic:
   cd $ANDROID_ROOT
   cat <<EOF > rpm/droid-hal-$DEVICE.spec
   # device is the cyanogenmod codename for the device
-  # eg mako = Nexus 4
+  # eg mako is Nexus 4
   %define device $DEVICE
-  # vendor is used in device/%vendor/%device/
+  # vendor is used in device/$VENDOR/$DEVICE/
   %define vendor $VENDOR
+
+  # Manufacturer and device name to be shown in UI
+  %define vendor_pretty LG
+  %define device_pretty Nexus 4
 
   %include rpm/droid-hal-device.inc
   EOF
@@ -279,4 +307,9 @@ HAL specific packages
 `````````````````````
 
 See section :ref:`build-ha-pkgs`.
+
+Generate installable .zip
+`````````````````````````
+
+Go through the whole :doc:`mic` chapter.
 
