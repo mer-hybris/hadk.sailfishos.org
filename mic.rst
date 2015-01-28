@@ -39,7 +39,15 @@ Ensure you have done the steps to :ref:`createrepo`.
    $ANDROID_ROOT/installroot/usr/share/kickstarts/Jolla-@RELEASE@-$DEVICE-@ARCH@.ks \
    > tmp/Jolla-@RELEASE@-$DEVICE-@ARCH@.ks
 
-If you only want to rebuild some of the packages locally (and are confident that there are no changes that require custom rebuilds) then you can use the public build if there is one; we'll use ``sed`` to find (//) the HA_REPO and then 'a'ppend a new line with the OBS repo url:
+.. warning::
+    THIS IS IMPORTANT: Do not execute the code below this box if you are not
+    aware what OBS is, or if the packages for your device are not available on
+    the Mer OBS -- OpenSUSE Build Serice is out of scope for this guide.
+
+    If however, on OBS your device's hardware adaptation repository exists,
+    consider the steps below.
+Feel free to replace ``nemo:/devel:/hw:`` with path to your HA repo within the
+Mer OBS:
 
 .. code-block:: console
 
@@ -49,7 +57,6 @@ If you only want to rebuild some of the packages locally (and are confident that
   --baseurl=$MOBS_URI/nemo:/devel:/hw:/$VENDOR:/$DEVICE/sailfish_latest_@ARCH@/"
   sed -i -e "/^$HA_REPO.*$/a$HA_REPO1" tmp/Jolla-@RELEASE@-$DEVICE-@ARCH@.ks
 
-Feel free to replace ``nemo:/devel:/hw:`` with path to any suitable HA repo within Mer OBS.
 
 .. _patterns:
 
