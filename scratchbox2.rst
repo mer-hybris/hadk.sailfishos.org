@@ -13,17 +13,17 @@ Scratchbox2 target with the following commands:
 
   cd $HOME
 
-  SFFE_SB2_TARGET=$MER_ROOT/targets/$VENDOR-$DEVICE-armv7hl
+  SFE_SB2_TARGET=$MER_ROOT/targets/$VENDOR-$DEVICE-armv7hl
   TARBALL_URL=http://releases.sailfishos.org/sdk/latest/targets/targets.json
   TARBALL=$(curl $TARBALL_URL | grep 'armv7hl.tar.bz2' | cut -d\" -f4)
   curl -O $TARBALL
 
-  sudo mkdir -p $SFFE_SB2_TARGET
-  sudo tar --numeric-owner -pxjf $(basename $TARBALL) -C $SFFE_SB2_TARGET
+  sudo mkdir -p $SFE_SB2_TARGET
+  sudo tar --numeric-owner -pxjf $(basename $TARBALL) -C $SFE_SB2_TARGET
 
-  sudo chown -R $USER $SFFE_SB2_TARGET
+  sudo chown -R $USER $SFE_SB2_TARGET
 
-  cd $SFFE_SB2_TARGET
+  cd $SFE_SB2_TARGET
   grep :$(id -u): /etc/passwd >> etc/passwd
   grep :$(id -g): /etc/group >> etc/group
 
