@@ -38,7 +38,7 @@ The next step has to be carried out in a Mer SDK chroot:
 
     cd $ANDROID_ROOT
 
-    # type `rpm -q sdk-utils` to ensure you are using 0.65 or newer before proceeding!
+    # type `zypper ref; zypper dup` every-so-often to update your Mer SDK
     mb2 -t $VENDOR-$DEVICE-armv7hl -s rpm/droid-hal-$DEVICE.spec build
 
 This should leave you with several RPM packages in ``$ANDROID_ROOT/RPMS/``.
