@@ -162,8 +162,8 @@ patterns. A quick in-place solution (NB: expand @DEVICE@ occurrences manually):
    will show that the offending package is actually ``pulseaudio-modules-droid``
 
 .. important:: When found and fixed culprit in next sections, restore your .ks
-   %packages section to ``@Jolla Configuration @DEVICE@``! Then rebuild .ks with
-   ``mic``
+   ``%packages`` section to ``@Jolla Configuration @DEVICE@``! Then rebuild .ks
+   with ``mic``
 
 Now you're ready to proceed to the :ref:`missing-package` section.
 
