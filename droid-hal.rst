@@ -119,6 +119,10 @@ make supporting multiple devices easier.
 The ``/etc/hw-release`` file
 ----------------------------
 
+.. attention::
+   This section does not require any action from your part in most cases, and
+   is for information purposes only.
+
 Sailfish OS Hardware Adaptations use the file ``/etc/hw-release`` to store
 variables related to the device adaptation. This file is read by different
 middleware components to determine which adaptation repositories to enable
