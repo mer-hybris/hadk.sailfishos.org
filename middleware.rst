@@ -193,7 +193,6 @@ Some packages will use submodules:
   MER_SDK $
 
   git submodule update
-  cd libhybris
 
 Now use ``mb2`` to build the package. This essentially runs a slightly
 modified ``rpmbuild`` using the Scratchbox2 target. It also pulls in
@@ -205,7 +204,7 @@ clean builds.
 
   MER_SDK $
 
-  mb2 -s ../rpm/libhybris.spec -t $VENDOR-$DEVICE-armv7hl build
+  mb2 -s rpm/libhybris.spec -t $VENDOR-$DEVICE-armv7hl build
 
 Now add the packages you just built to the local repo and refresh the repo cache:
 
