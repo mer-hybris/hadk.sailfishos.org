@@ -401,11 +401,12 @@ Creative Commons Notice
     this trademark restriction does not form part of this License.
 
     Creative Commons may be contacted at http://creativecommons.org/.
-   
 
-Indices and tables
-==================
+.. only:: html
 
-* :ref:`genindex`
-* :ref:`search`
+ Indices and tables
+ ==================
+
+ * :ref:`genindex` (non-working)
+ * :ref:`search` (really useful)
 
