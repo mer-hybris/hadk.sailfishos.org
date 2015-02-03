@@ -39,7 +39,15 @@ Ensure you have done the steps to :ref:`createrepo`.
    $ANDROID_ROOT/installroot/usr/share/kickstarts/Jolla-@RELEASE@-$DEVICE-@ARCH@.ks \
    > tmp/Jolla-@RELEASE@-$DEVICE-@ARCH@.ks
 
-If you only want to rebuild some of the packages locally (and are confident that there are no changes that require custom rebuilds) then you can use the public build if there is one; we'll use ``sed`` to find (//) the HA_REPO and then 'a'ppend a new line with the OBS repo url:
+.. warning::
+    THIS IS IMPORTANT: Do not execute the code below this box if you are not
+    aware what OBS is, or if the packages for your device are not available on
+    the Mer OBS -- OpenSUSE Build Serice is out of scope for this guide.
+
+    If however, on OBS your device's hardware adaptation repository exists,
+    consider the steps below.
+Feel free to replace ``nemo:/devel:/hw:`` with path to your HA repo within the
+Mer OBS:
 
 .. code-block:: console
 
@@ -49,7 +57,6 @@ If you only want to rebuild some of the packages locally (and are confident that
   --baseurl=$MOBS_URI/nemo:/devel:/hw:/$VENDOR:/$DEVICE/sailfish_latest_@ARCH@/"
   sed -i -e "/^$HA_REPO.*$/a$HA_REPO1" tmp/Jolla-@RELEASE@-$DEVICE-@ARCH@.ks
 
-Feel free to replace ``nemo:/devel:/hw:`` with path to any suitable HA repo within Mer OBS.
 
 .. _patterns:
 
@@ -63,7 +70,8 @@ adaptation.
 
 Ensure you have done the steps to :ref:`createrepo`.
 
-Add/update metadata about patterns using this script (NB: it will fail with a non-critical error):
+Add/update metadata about patterns using this script (NB: it will fail with a
+non-critical ``Exception AttributeError: "'NoneType...`` error):
 
 .. code-block:: console
 
@@ -73,13 +81,6 @@ Add/update metadata about patterns using this script (NB: it will fail with a no
 
     cd $ANDROID_ROOT
     rpm/helpers/process_patterns.sh
-
-As mentioned above, safely ignore the following error:
-
-.. code-block:: console
-
-  Exception AttributeError: "'NoneType' object has no attribute
-    'px_proxy_factory_free'"...
 
 To modify a pattern, edit its respective template under ``rpm/patterns/{common,hybris,templates}``
 and then run ``rpm/helpers/add_new_device.sh``. Take care and always use ``git status/stash`` commands.
@@ -92,26 +93,28 @@ Building the Image with MIC
 Ensure you re-generated :ref:`patterns` (needs to be run after every
 ``createrepo``)
 
-In the script below choose a `Sailfish OS version`_ you want to build. Identify
-what hotfixes have also been released. Take care of building opt-in releases as
-they are not stable and a technology change might break with what your target
-builds have produced (e.g. update8 and update9 changed Qt from v5.1 to 5.2,
-which means update9 packages won't compile/work with update8 target ones and
-vice versa).
+In the script below choose a `Sailfish OS version`_ you want to build.
 
-Building a rootfs using RPM repositories and a kickstart file (NB: all errors are
-non-critical as long as you end up with a generated image):
+.. important::
+   Avoid building older releases unless you know what you're doing (expect
+   patterns to break as new HA packages get introduced).
 
-.. _Sailfish OS version: https://together.jolla.com/questions/tags:changelog/
+   Ensure you pick the same release as your target was in    :doc:`scratchbox2`.
+   E.g., if target said ``Jolla...Update9...tar.bz2``, build the 10th SailfishOS
+   update 1.1.0.39 (check with `Sailfish OS version`_)
+
+Build a rootfs using RPM repositories and a kickstart file (NB: all errors are
+non-critical as long as you end up with a generated .zip image):
+
+.. _Sailfish OS version: http://en.wikipedia.org/wiki/Sailfish_OS#Software_version
 
 .. code-block:: console
 
   MER_SDK $
 
-  # Check https://together.jolla.com/questions/tags:changelog/ for updates
-  # Always ensure you used a compatible build target
-  # Finally, set the version:
-  RELEASE=1.0.8.19
+  # Set the version of your choosing, latest is strongly preferred
+  # (check with "Sailfish OS version" link above)
+  RELEASE=1.1.0.39
   # EXTRA_NAME adds your custom tag. It doesn't support '.' dots in it!
   EXTRA_NAME=-my1
   sudo mic create fs --arch armv7hl \
@@ -121,8 +124,8 @@ non-critical as long as you end up with a generated image):
       --pack-to=sfe-$DEVICE-$RELEASE$EXTRA_NAME.tar.bz2 \
       $ANDROID_ROOT/tmp/Jolla-@RELEASE@-$DEVICE-@ARCH@.ks
 
-Once obtained the ``.zip`` file, proceed installation as per instructions to
-Early Adopters Release Notes.
+Once obtained the ``.zip`` file, sideload via your device's recovery mode,
+or examine other particular ways of deploying to your device.
 
 Currently HADK does not support creating images with Jolla Store functionality.
 
@@ -158,8 +161,9 @@ patterns. A quick in-place solution (NB: expand @DEVICE@ occurrences manually):
    of the line, since it's a package, not a pattern) -- another ``mic`` run error
    will show that the offending package is actually ``pulseaudio-modules-droid``
 
-* When found and fixed culprit in next sections, restore your .ks %packages section
-  to ``@Jolla Configuration @DEVICE@`` and rebuild .ks with ``mic``
+.. important:: When found and fixed culprit in next sections, restore your .ks
+   ``%packages`` section to ``@Jolla Configuration @DEVICE@``! Then rebuild .ks
+   with ``mic``
 
 Now you're ready to proceed to the :ref:`missing-package` section.
 

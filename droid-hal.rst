@@ -38,7 +38,7 @@ The next step has to be carried out in a Mer SDK chroot:
 
     cd $ANDROID_ROOT
 
-    # type `rpm -q sdk-utils` to ensure you are using 0.65 or newer before proceeding!
+    # type `zypper ref; zypper dup` every-so-often to update your Mer SDK
     mb2 -t $VENDOR-$DEVICE-armv7hl -s rpm/droid-hal-$DEVICE.spec build
 
 This should leave you with several RPM packages in ``$ANDROID_ROOT/RPMS/``.
@@ -118,6 +118,10 @@ make supporting multiple devices easier.
 
 The ``/etc/hw-release`` file
 ----------------------------
+
+.. attention::
+   This section does not require any action from your part in most cases, and
+   is for information purposes only.
 
 Sailfish OS Hardware Adaptations use the file ``/etc/hw-release`` to store
 variables related to the device adaptation. This file is read by different
