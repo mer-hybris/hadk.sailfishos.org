@@ -32,6 +32,7 @@ to devices running the CyanogenMod flavour of Android.
    flashing
    manual-install
    modifications
+   subsystems
    middleware
    new-device-build
    devices
