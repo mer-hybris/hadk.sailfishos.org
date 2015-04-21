@@ -11,15 +11,116 @@ MCE libhybris Plugin
 
 TODO
 
-Non-Graphic Feedback Daemon Droid Vibrator Plugin
--------------------------------------------------
+.. _mceconfiguration:
 
-TODO
+MCE configuration
+-----------------
+
+**/etc/mce/60-doubletap-jolla.ini**
+
+Configures the touchscreen kernel driver sysfs that can be used to disable
+and enable double tap to wake up feature. Example of it's content:
+
+.. code-block:: console
+
+    # Configuration for doubletap wakeup plugin
+    [DoubleTap]
+    # Path to doubletap wakeup control file
+    ControlPath=/sys/bus/i2c/drivers/touch_synaptics/3-0020/double_tap_enable
+    # Value to write when enabling doubletap wakeups
+    EnableValue=1
+    # Value to write when Disabling doubletap wakeups
+    DisableValue=0
+
+TODO:
+
+**/etc/mce/60-mce-cpu-scaling-governor.ini**
+
+**/etc/mce/60-mce-display-blank-timeout.conf**
+
+**/etc/mce/60-mce-display-brightness.conf**
+
+**/etc/mce/60-mce-possible-display-dim-timeouts.conf**
+
+**/etc/mce/60-memnotify-jolla.conf**
+
+
+.. _hapticconfiguration:
+
+Configuring haptics in Mer/Sailfish OS
+--------------------------------------
+
+Sailfish OS has 2 kinds of feedback methods:
+
+1. **NGFD** - Non-graphical feedback framework **ffmemless** plugin
+2. **QtFeedback** - QtFeedback with direct ffmemless backend
+
+The NGFD plugin is for providing feedback for events and alarms, while
+QtFeedback is used for minimum latency haptics and for 3rd party applications.
+
+Both of these have their own default .ini configuration files with the default
+effects for basic use. The default configurations can be overridden with device
+specific .ini files in your adaptation project's config package. The default
+config files can be seen in:
+
+* **NGFD**: /usr/share/ngfd/plugins.d/`ffmemless.ini <https://github.com/nemomobile/ngfd/blob/master/data/plugins.d/ffmemless.ini>`_
+* **QtFeedback**: /usr/lib/qt5/plugins/feedback/`ffmemless.ini <https://github.com/nemomobile/qt-mobility-haptics-ffmemless/blob/master/ffmemless.ini>`_
+
+The default configuration files can be over-ridden with setting environment
+variables NGF_FFMEMLESS_SETTINGS (ngfd) and FF_MEMLESS_SETTINGS (qtfeedback),
+that point to device specifc configuration files.
+
+To set the environment variables add environment config file to your config
+package that installs to (**NOTE**: Replace "**DEVICE**" with your device's
+name. E.g. mako, hammerhead, etc.):
+
+ /var/lib/environment/nemo/60-DEVICE-vibra.conf
+
+And that file should contain 2 lines:
+
+
+.. code-block:: console
+
+   FF_MEMLESS_SETTINGS=/usr/lib/qt5/plugins/feedback/qtfeedback-DEVICE.ini
+   NGF_FFMEMLESS_SETTINGS=/usr/share/ngfd/plugins.d/ngf-vibra-DEVICE.ini
+
+Now you can use those 2 files to tune force feedback effects suitable
+specifically for your device. For template to start making your own
+configuration files, see ngfd `ffmemless.ini <https://github.com/nemomobile/ngfd/blob/master/data/plugins.d/ffmemless.ini>`_ and Qtfeedback `ffmemless.ini <https://github.com/nemomobile/qt-mobility-haptics-ffmemless/blob/master/ffmemless.ini>`_.
+
+
+Non-Graphical Feedback Daemon
+---------------------------
+
+The Non-Graphical Feedback Daemon provides combined audio, haptic, and LED
+feedback for system events and alarms. These events include such things as
+ring tones, message tones, clock alarms, email notifications, etc.
+
+* https://github.com/nemomobile/ngfd
+
+TODO: add more detail about configuring NGFD.
 
 Non-Graphic Feedback Daemon PulseAudio Plugin
 ---------------------------------------------
 
 TODO
+
+Non-Graphic Feedback Daemon Droid ffmemless Plugin
+--------------------------------------------------
+
+This is the main plugin handling vibra feedback for Sailfish OS. See
+:ref:`hapticconfiguration` for more details.
+
+
+Non-Graphic Feedback Daemon Droid Vibrator Plugin
+-------------------------------------------------
+
+This is a secondary vibra plugin for demoing and quick ports. It works out
+of the box with android timed output drivers. The feature set is reduced
+compared to ffmemless plugin.
+
+TODO
+
 
 PulseAudio Droid Modules
 ------------------------
