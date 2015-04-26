@@ -143,7 +143,46 @@ TODO: Add more info in general.
 Sensors
 *******
 
-TODO
+Sailfish OS sensor support is based upon Sensor Framework at:
+https://github.com/mer-packages/sensorfw
+
+Hybris based systems can use the hybris sensor adaptor plugins, which uses
+existing android libhardware sensor adaptations to read sensor data and control.
+
+It can also be configured for standard linux sysfs and evdev sensor interfaces.
+
+It should be configured at /etc/sensorfw/primary.conf, which links to a device
+specific conf file. Historically named sensord-<BOARDNAME>.conf.
+You can also use any conf file by specifying it on the commandline.
+
+For hybris based platforms, this will be sensord-hybris.conf, and most likely will 
+not have to be modified.
+https://github.com/mer-packages/sensorfw/blob/master/config/sensord-hybris.conf
+
+There are already a few device specific conf files to look at if the device needs
+more configuration.
+Example of mixed hybris and evdev configuration
+https://github.com/mer-packages/sensorfw/blob/master/config/sensord-tbj.conf
+
+Generally, if sensors are working on the android/hybris side, they will work in sensorfw
+and up to the Sailfish UI. libhybris comes with /usr/bin/test-sensors which can list
+those Android sensors found.
+
+Above Sensor Framework is QtSensors, which requires a configuration file at
+/etc/xdg/QtProject/QtSensors.conf
+which is supplied with the sensorfw backend plugin in QtSensors
+
+For Mer based systems, the QtSensors source code is at:
+https://github.com/mer-qt/qtsensors
+
+Debugging output of sensorfwd can be increased one level during runtime by sending 
+(as root) USR1 signal like so:
+kill -USR1 `pgrep sensorfwd`
+or specified on the commandline for startup debugging.
+
+Sending kill -USR2 `pgrep sensorfwd` will output a current status report.
+
+
 
 Power management
 ****************
