@@ -101,7 +101,7 @@ make supporting multiple devices easier.
     ``droid-hal-configs`` will re-generate your .ks file, so if it already
     exists, make backup and track any modifications yourself. You'll find your
     .ks here:
-    ``$ANDROID_ROOT/installroot/usr/share/kickstarts/``
+    ``$ANDROID_ROOT/hybris/droid-configs/installroot/usr/share/kickstarts/``
     with name ``Jolla-@RELEASE@-$DEVICE-@ARCH@.ks``
 
 .. code-block:: console

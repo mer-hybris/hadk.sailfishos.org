@@ -142,7 +142,7 @@ actually require using hwcomposer to request flipping and for vsync integration.
 
 The important environment variables are:
 
- * ``EGL_PLATFORM`` / ``HYBRIS_EGLPLATFORM``: For the Wayland Compositor, this
+ * ``EGL_PLATFORM``: For the Wayland Compositor, this
    needs to be set to ``fbdev`` on devices with older hwcomposer versions, and
    to ``hwcomposer`` for hwcomposer version 1.1 and newer. For best results,
    first try ``fbdev``, and if it doesn't work, try ``hwcomposer`` instead.
@@ -191,7 +191,7 @@ existing implementations is used. Right now, the following implementations exist
   hardware layers at the moment and can support switching the screen off. The VSync
   period is queried from the hwcomposer device, but it will fall back to 60 Hz if
   the information cannot be determined via the libhardware APIs.
-  (``HYBRIS_EGLPLATFORM=fbdev``)
+  (``EGL_PLATFORM=fbdev``)
 
 * *hwcomposer_backend_v10*: Version 1.0 of the hwcomposer API. It supports one
   display device, handles VSync explicitly and uses a single hardware layer that
@@ -200,14 +200,14 @@ existing implementations is used. Right now, the following implementations exist
   Switching the screen off is also supported, and sleeping the screen disables
   VSync events. Also, the same VSync period algorithm is used (try to query from
   libhardware, fall back to 60 Hz if detection fails).
-  (``HYBRIS_EGLPLATFORM=fbdev``)
+  (``EGL_PLATFORM=fbdev``)
 
 * *hwcomposer_backend_v11*: Version 1.1, 1.2 and 1.3 of the hwcomposer API. Version
   1.3 only supports physical displays, whereas 1.1 and 1.2 support also virtual
   displays. This requires libsync and hwcomposer-egl from libhybris. Most of the
   hwcomposer 1.0 API properties apply, with the exception that frame posting and
   synchronization happens with the help of libhybris' hwcomposer EGL platform.
-  (``HYBRIS_EGLPLATFORM=hwcomposer``)
+  (``EGL_PLATFORM=hwcomposer``)
 
 Instead of running the Wayland Compositor (lipstick) on top of the hwcomposer QPA
 plugin, one can also run all other Qt 5-based applications, but the application
@@ -215,7 +215,7 @@ can only open a single window (multiple windows are not supported, and will caus
 an application abort). For multiple windows, Wayland is used. This means that for
 testing, it is possible to run a simple, single-window Qt 5 application on the
 framebuffer (without any Wayland Compositor in between) by setting the environment
-variables ``HYBRIS_EGLPLATFORM`` and ``QT_QPA_PLATFORM`` according to the above.
+variables ``EGL_PLATFORM`` and ``QT_QPA_PLATFORM`` according to the above.
 
 
 SensorFW Qt 5 / libhybris Plugin
@@ -293,6 +293,7 @@ Some packages will use submodules:
 
   MER_SDK $
 
+  git submodule init
   git submodule update
 
 Now use ``mb2`` to build the package. This essentially runs a slightly

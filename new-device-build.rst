@@ -42,7 +42,7 @@ updating your ``~/.hadk.env`` (in this example, ``DEVICE=encore`` and
 Build Android
 -------------
 
-Go through section :ref:`build-cm-bits` up to (not including) the `repo sync` part, to
+Go through section :ref:`checkout-cm-source` up to (not including) the `repo sync` part, to
 ensure everything is setup and environment is initialised, then come back here
 and proceed with sections below.
 
@@ -150,7 +150,7 @@ tools, configuration files and others:
 
   HABUILD_SDK $
 
-  mka hybris-hal
+  make hybris-hal
 
 For example, an error about ``hardware/ti/wlan/mac80211/compat_wl12xx`` leads
 us to check ``.repo/manifests/cm-10.1.3.xml`` and find a likely looking
@@ -159,7 +159,7 @@ project; you can see in the example above it was added to
 
 If you're building for encore, try removing it from the local manifest and
 removing the ``hardware/ti`` directory to see the errors. Repeat this for
-other local projects you may find. Also note that you may have to run ``mka
+other local projects you may find. Also note that you may have to run ``make
 hybris-hal`` multiple times; please report a bug if that happens as something
 will be wrong with dependencies.
 
@@ -190,8 +190,8 @@ It's different for every device:
 
 * Check it's name under $ANDROID_ROOT/device/$VENDOR/\*/BoardConfigCommon.mk
 
-After you'll have applied the needed changes, re-run ``mka hybris-boot`` and
-re-verify. Lather, rinse, repeat :) Run also ``mka hybris-recovery`` in the end
+After you'll have applied the needed changes, re-run ``make hybris-boot`` and
+re-verify. Lather, rinse, repeat :) Run also ``make hybris-recovery`` in the end
 when no more errors.
 
 Contribute your mods back
@@ -291,7 +291,7 @@ You'll need as a minimum:
   mkdir -p $COMPOSITOR_CFGS
   cat <<EOF >$COMPOSITOR_CFGS/droid-hal-device.conf
   # Config for $VENDOR/$DEVICE
-  HYBRIS_EGLPLATFORM=fbdev
+  EGL_PLATFORM=fbdev
   QT_QPA_PLATFORM=hwcomposer
   LIPSTICK_OPTIONS=-plugin evdevtouch:/dev/input/event0 \
     -plugin evdevkeyboard:keymap=/usr/share/qt5/keymaps/droid.qmap

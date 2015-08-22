@@ -28,16 +28,17 @@ Ensure you have done the steps to :ref:`createrepo`.
 
   MER_SDK $
 
-  hadk $DEVICE
+  hadk
 
   cd $ANDROID_ROOT
   mkdir -p tmp
 
   HA_REPO="repo --name=adaptation0-$DEVICE-@RELEASE@"
+  KS="Jolla-@RELEASE@-$DEVICE-@ARCH@.ks"
   sed -e \
    "s|^$HA_REPO.*$|$HA_REPO --baseurl=file://$ANDROID_ROOT/droid-local-repo/$DEVICE|" \
-   $ANDROID_ROOT/installroot/usr/share/kickstarts/Jolla-@RELEASE@-$DEVICE-@ARCH@.ks \
-   > tmp/Jolla-@RELEASE@-$DEVICE-@ARCH@.ks
+   $ANDROID_ROOT/droid-configs/installroot/usr/share/kickstarts/$KS \
+   > tmp/$KS
 
 .. warning::
     THIS IS IMPORTANT: Do not execute the code below this box if you are not

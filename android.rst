@@ -1,6 +1,8 @@
 Building the Android HAL
 ========================
 
+.. _checkout-cm-source:
+
 Checking out CyanogenMod Source
 -------------------------------
 
