@@ -97,17 +97,18 @@ Ensure you re-generated :ref:`patterns` (needs to be run after every
 In the script below choose a `Sailfish OS version`_ you want to build.
 
 .. important::
-   Avoid building older releases unless you know what you're doing (expect
-   patterns to break as new HA packages get introduced).
+   Avoid building older releases unless you know what you're doing - we do not
+   guarantee backwards compatibility for old Sailfish OS versions! E.g., expect
+   patterns to break as new HA packages get introduced.
 
    Ensure you pick the same release as your target was in    :doc:`scratchbox2`.
-   E.g., if target said ``Jolla...Update9...tar.bz2``, build the 10th SailfishOS
-   update 1.1.0.39 (check with `Sailfish OS version`_)
+   E.g., if target said ``Jolla-update16-...tar.bz2``, build the 16th Sailfish OS
+   update 1.1.7.28 (check with `Sailfish OS version`_)
 
 Build a rootfs using RPM repositories and a kickstart file (NB: all errors are
 non-critical as long as you end up with a generated .zip image):
 
-.. _Sailfish OS version: http://en.wikipedia.org/wiki/Sailfish_OS#Software_version
+.. _Sailfish OS version: http://en.wikipedia.org/wiki/Sailfish_OS#Version_history
 
 .. code-block:: console
 
@@ -115,7 +116,7 @@ non-critical as long as you end up with a generated .zip image):
 
   # Set the version of your choosing, latest is strongly preferred
   # (check with "Sailfish OS version" link above)
-  RELEASE=1.1.0.39
+  RELEASE=1.1.7.28
   # EXTRA_NAME adds your custom tag. It doesn't support '.' dots in it!
   EXTRA_NAME=-my1
   sudo mic create fs --arch armv7hl \
@@ -148,7 +149,7 @@ patterns. A quick in-place solution (NB: expand @DEVICE@ occurrences manually):
 * Substitute the line ``@Jolla Configuration @DEVICE@`` with
   ``@jolla-hw-adaptation-@DEVICE@`` in your .ks
 
-* Rebuild .ks
+* Try creating the image again (:ref:`mic`)
 
 * Repeat the steps above substituting respective pattern to walk down the
   patterns hierarchy -- you'll eventually discover the offending package
@@ -163,8 +164,8 @@ patterns. A quick in-place solution (NB: expand @DEVICE@ occurrences manually):
    will show that the offending package is actually ``pulseaudio-modules-droid``
 
 .. important:: When found and fixed culprit in next sections, restore your .ks
-   ``%packages`` section to ``@Jolla Configuration @DEVICE@``! Then rebuild .ks
-   with ``mic``
+   ``%packages`` section to ``@Jolla Configuration @DEVICE@``! Then try creating
+   the image again (:ref:`mic`)
 
 Now you're ready to proceed to the :ref:`missing-package` section.
 
