@@ -55,7 +55,7 @@ Splitting and Re-Assembling Boot Images
 A **boot.img** file is basically a combination of a Linux kernel and an
 initramfs as ``cpio`` archive. The Mer SDK offer the ``mkbootimg``
 to build a boot image from a kernel and cpio archive. To split a boot
-image, use ``split_bootimg`` in the SDK.
+image, use ``split_bootimg`` in Mer SDK.
 
 In the CyanogenMod-based Sailfish OS port, a boot image with Sailfish OS-
 specific scripts will be built automatically. These boot images are then

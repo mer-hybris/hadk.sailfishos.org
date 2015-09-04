@@ -49,10 +49,11 @@ and proceed with sections below.
 Device repos
 ````````````
 
-You'll need a new local manifest. The example given below is for encore. Modify it appropriately.
+You'll need a new local manifest. The example given below is for encore. Modify
+it appropriately.
 
-The entries will vary per-device but you'll need the device and kernel repos
-as a minimum. Depending on any build issues that arise you may need additional
+The entries will vary per-device but you'll need at least the device and kernel
+repos. Depending on any build issues that arise you may need additional
 ``hardware/`` and/or ``external/`` repositories (the example ones probably
 won't be needed for your device). You'll need to fork the kernel repository in
 order to update the default config:
@@ -281,7 +282,7 @@ And generate device folder structure and patterns:
 Device specific config
 ``````````````````````
 
-You'll need as a minimum:
+You'll need at least:
 
 .. code-block:: console
 
