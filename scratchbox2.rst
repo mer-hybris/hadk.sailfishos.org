@@ -27,6 +27,7 @@ Scratchbox2 target with the following commands:
   grep :$(id -u): /etc/passwd >> etc/passwd
   grep :$(id -g): /etc/group >> etc/group
 
+  # don't worry about this message: collect2: cannot find 'ld'
   sb2-init -d -L "--sysroot=/" -C "--sysroot=/" \
            -c /usr/bin/qemu-arm-dynamic -m sdk-build \
            -n -N -t / $VENDOR-$DEVICE-armv7hl \
@@ -39,8 +40,6 @@ Scratchbox2 target with the following commands:
     mer-tools-rolling
 
   sb2 -t $VENDOR-$DEVICE-armv7hl -m sdk-install -R zypper ref --force
-
-The "collect2: cannot find 'ld'" error/warning after executing sb2-init can be ignored.
 
 To verify the correct installation of the Scratchbox2 target, cross-compile
 a simple "Hello, World!" C application with ``sb2``:

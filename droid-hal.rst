@@ -71,7 +71,8 @@ building middleware components:
 Add local RPM repo to Target
 ````````````````````````````
 
-This will allow build dependencies to be met from locally built packages:
+This will allow build dependencies to be met from locally built packages (NB:
+it's safe to ignore warnings about DBus or connman):
 
 .. code-block:: console
 
@@ -79,8 +80,6 @@ This will allow build dependencies to be met from locally built packages:
 
     sb2 -t $VENDOR-$DEVICE-armv7hl -R -m sdk-install \
       ssu ar local-$DEVICE-hal file://$ANDROID_ROOT/droid-local-repo/$DEVICE
-
-(safe to ignore warnings about connman or DBus):
 
 Check it's there:
 
