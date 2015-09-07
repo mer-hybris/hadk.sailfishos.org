@@ -7,8 +7,7 @@ Setting up required environment variables
 Throughout this guide we will be referencing the location of your SDK,
 targets and source code. As is customary with Android hardware adaptations,
 the device vendor (``$VENDOR``) and device codename (``$DEVICE``) are also
-used, both in scripts and configuration files. For a list of vendor and
-device names, refer to :doc:`devices`.
+used, both in scripts and configuration files.
 
 Now run the following commands on your host operating system substituting
 the obtained information where indicated with ``[]`` (MER_ROOT value from

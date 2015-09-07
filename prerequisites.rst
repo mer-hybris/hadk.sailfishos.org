@@ -10,7 +10,7 @@ Mobile Device
 
  - See http://wiki.cyanogenmod.org/w/Devices for a list of compatible devices
 
- * See :doc:`devices` for a list of devices already supported by HADK
+ * See https://wiki.merproject.org/wiki/Adaptations/libhybris for a list of devices ported using HADK
 
 * Means to do backup and restore of the device contents (e.g. SD card or USB
   cable to host computer), as well as flash recovery images to the device
@@ -35,7 +35,7 @@ Build Machine
 Want to Port to a New Device?
 -----------------------------
 
-If you cannot find your gadget among the :doc:`devices`, then you
+You
 should first read through the entire guide to get a feeling for the
 order in which things are typically done.  Then scrupulously follow
 :doc:`new-device-build`, clicking on all referenced sections (or even

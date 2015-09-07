@@ -35,7 +35,6 @@ to devices running the CyanogenMod flavour of Android.
    subsystems
    middleware
    new-device-build
-   devices
    repos
    naming
 

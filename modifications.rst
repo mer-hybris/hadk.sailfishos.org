@@ -5,14 +5,6 @@ Running Sailfish OS using libhybris and Mer requires a few
 modifications to a standard Android/CM system. We maintain forks of
 some repos with those patches aplied.
 
-For Supported Devices
-`````````````````````
-
-See :doc:`devices` for a list of devices supported by HADK. Supported
-devices are automatically downloaded as part of the HADK android build
-environment.
-
-
 Mer Modifications to CyanogenMod
 --------------------------------
 

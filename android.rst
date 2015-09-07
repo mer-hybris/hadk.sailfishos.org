@@ -90,13 +90,6 @@ particular:
 The expected disk usage for the source and binaries after ``make hybris-hal``
 is **16 GB** (as of 2014-02-18).
 
-For Supported Devices
-`````````````````````
-
-See :doc:`devices` for a list of devices supported by HADK. Supported
-devices are automatically downloaded as part of the HADK android build
-environment.
-
 .. _common-pitfalls:
 
 Common Pitfalls
