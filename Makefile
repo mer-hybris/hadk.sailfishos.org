@@ -113,9 +113,10 @@ latex:
 latexpdf:
 	$(SPHINXBUILD) -b latex $(ALLSPHINXOPTS) $(BUILDDIR)/latex
 	@echo "Running LaTeX files through pdflatex..."
-	mv $(BUILDDIR)/latex/SailfishOSHardwareAdaptationDevelopmentKit.tex $(BUILDDIR)/latex/tex.tmp
-	cat $(BUILDDIR)/latex/tex.tmp | perl modify_latex.pl > $(BUILDDIR)/latex/SailfishOSHardwareAdaptationDevelopmentKit.tex
-	rm $(BUILDDIR)/latex/tex.tmp
+	TEXFILE=$(shell find $(BUILDDIR)/latex/SailfishOS-HardwareAdaptationDevelopmentKit-*.tex | tail -1)
+	$(shell mv $(TEXFILE) $(BUILDDIR)/latex/tex.tmp)
+	$(shell cat $(BUILDDIR)/latex/tex.tmp | perl modify_latex.pl > $(TEXFILE))
+	$(shell rm $(BUILDDIR)/latex/tex.tmp)
 	$(MAKE) -C $(BUILDDIR)/latex all-pdf
 	@echo "pdflatex finished; the PDF files are in $(BUILDDIR)/latex."
 
