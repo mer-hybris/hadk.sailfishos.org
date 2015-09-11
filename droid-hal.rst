@@ -177,3 +177,24 @@ The next step has to be carried out in a Mer SDK chroot:
 This should compile all the needed packages, patterns, middleware and put them
 under local repository. If anything needs modified, just re-run this script.
 
+Troubleshoot errors from build_packages.sh
+``````````````````````````````````````````
+
+* **Installed (but unpackaged) file(s) found**: Add those files to this section
+  in your rpm/droid-hal-$DEVICE.spec before ``%include ...`` line (files sampled
+  from Motorola Moto G /falcon/ build):
+.. code-block:: console
+
+ %define straggler_files \\
+ /init.mmi.boot.sh\\
+ /init.mmi.touch.sh\\
+ /init.qcom.ssr.sh\\
+ /selinux_version\\
+ /service_contexts\\
+ %{nil}
+
+If it was a port of Moto G, then you'd add ``- droid-hal-falcon-detritus`` to ``droid-configs/patterns/jolla-hw-adaptation-falcon.yaml`` -- substitute as appropriate for your device. Then finally re-run ``build_packages.sh``.
+
+* **Anything mentioning ``mesa-llvmpipe``** -- happened only few times, simply re-run
+  ``build_packages.sh``.
+
