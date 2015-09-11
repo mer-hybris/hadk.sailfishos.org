@@ -127,9 +127,9 @@ The build log will also have provided feedback like:
   hybris/hybris-boot/Android.mk:49: ********************* /data should
     live on /dev/block/platform/msm_sdcc.1/by-name/userdata
 
-Note that a subsequent ``repo sync`` will reset this, unless the file
-``.repo/local_manifests/hammerhead.xml`` is updated to point to a fork of the
-hybris-boot repo.
+Note that a subsequent ``repo sync --fetch-submodule`` will reset this, unless
+the file ``.repo/local_manifests/hammerhead.xml`` is updated to point to a fork
+of the ``hybris-boot`` repo.
 
 
 .. _build-cm-bits:
