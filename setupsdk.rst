@@ -50,12 +50,31 @@ variables.
 Setup the Mer SDK
 -----------------
 
-Mer Platform SDK should be installed under your $HOME, to avoid possible
-mount/options issues. Setup is described on `the Mer wiki`_.
+Mer Platform SDK should be installed under your $HOME, big enough and without
+mount --binds, to avoid possible mount/options issues. Setup MerSDK as follows::
+
+ HOST $
+
+ export MER_ROOT=$HOME/mer
+ cd $HOME
+ TARBALL=mer-i486-latest-sdk-rolling-chroot-armv7hl-sb2.tar.bz2
+ curl -k -O https://img.merproject.org/images/mer-sdk/$TARBALL
+ sudo mkdir -p $MER_ROOT/sdks/sdk
+ cd $MER_ROOT/sdks/sdk
+ sudo tar --numeric-owner -p -xjf $HOME/$TARBALL
+ echo "export MER_ROOT=$MER_ROOT" >> ~/.bashrc
+ echo 'alias sdk=$MER_ROOT/sdks/sdk/mer-sdk-chroot' >> ~/.bashrc
+ exec bash
+ echo 'PS1="MerSDK $PS1"' >> ~/.mersdk.profile
+ cd $HOME
+ sdk
+ # These commands are a tmp workaround of glitch when working with target:
+ zypper ar http://repo.merproject.org/obs/home:/sledge:/mer/latest_i486/ \
+  curlfix
+ zypper ref curlfix
+ zypper dup --from curlfix
 
 Ensure you are able to open a shell in the Mer SDK before moving on.
-
-.. _the Mer wiki: https://wiki.merproject.org/wiki/Platform_SDK#tl.3Bdr
 
 Preparing the Mer SDK
 ---------------------
