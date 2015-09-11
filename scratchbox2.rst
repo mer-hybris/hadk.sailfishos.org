@@ -13,9 +13,9 @@ Scratchbox2 target with the following commands:
 
   cd $HOME
 
-  SFE_SB2_TARGET=$MER_ROOT/targets/$VENDOR-$DEVICE-armv7hl
+  SFE_SB2_TARGET=$MER_ROOT/targets/$VENDOR-$DEVICE-$ARCH
   TARBALL_URL=http://releases.sailfishos.org/sdk/latest/targets/targets.json
-  TARBALL=$(curl $TARBALL_URL | grep 'armv7hl.tar.bz2' | cut -d\" -f4)
+  TARBALL=$(curl $TARBALL_URL | grep "$ARCH.tar.bz2" | cut -d\" -f4)
   curl -O $TARBALL
 
   sudo mkdir -p $SFE_SB2_TARGET
@@ -28,18 +28,19 @@ Scratchbox2 target with the following commands:
   grep :$(id -g): /etc/group >> etc/group
 
   # don't worry about this message: collect2: cannot find 'ld'
+  # FIXME: qemu-arm won't work for Intel Architecture builds
   sb2-init -d -L "--sysroot=/" -C "--sysroot=/" \
            -c /usr/bin/qemu-arm-dynamic -m sdk-build \
-           -n -N -t / $VENDOR-$DEVICE-armv7hl \
-           /opt/cross/bin/armv7hl-meego-linux-gnueabi-gcc
+           -n -N -t / $VENDOR-$DEVICE-$ARCH \
+           /opt/cross/bin/$ARCH-meego-linux-gnueabi-gcc
 
-  sb2 -t $VENDOR-$DEVICE-armv7hl -m sdk-install -R rpm --rebuilddb
+  sb2 -t $VENDOR-$DEVICE-$ARCH -m sdk-install -R rpm --rebuilddb
 
-  sb2 -t $VENDOR-$DEVICE-armv7hl -m sdk-install -R zypper ar \
-    -G http://repo.merproject.org/releases/mer-tools/rolling/builds/armv7hl/packages/ \
+  sb2 -t $VENDOR-$DEVICE-$ARCH -m sdk-install -R zypper ar \
+    -G http://repo.merproject.org/releases/mer-tools/rolling/builds/$ARCH/packages/ \
     mer-tools-rolling
 
-  sb2 -t $VENDOR-$DEVICE-armv7hl -m sdk-install -R zypper ref --force
+  sb2 -t $VENDOR-$DEVICE-$ARCH -m sdk-install -R zypper ref --force
 
 To verify the correct installation of the Scratchbox2 target, cross-compile
 a simple "Hello, World!" C application with ``sb2``:
@@ -59,7 +60,7 @@ a simple "Hello, World!" C application with ``sb2``:
     }
     EOF
 
-    sb2 -t $VENDOR-$DEVICE-armv7hl gcc main.c -o test
+    sb2 -t $VENDOR-$DEVICE-$ARCH gcc main.c -o test
 
 If the compilation was successful you can test the executable by running the
 following command (this will run the executable using ``qemu`` as emulation
@@ -67,7 +68,7 @@ layer, which is part of the ``sb2`` setup):
 
 .. code-block:: console
 
-    sb2 -t $VENDOR-$DEVICE-armv7hl ./test
+    sb2 -t $VENDOR-$DEVICE-$ARCH ./test
 
 The above command should output "Hello, world!" on the console, this proves
 that the target can compile binaries and execute them for your architecture.

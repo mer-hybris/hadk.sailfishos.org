@@ -130,8 +130,8 @@ non-critical as long as you end up with a generated .zip image):
   RELEASE=1.1.7.28
   # EXTRA_NAME adds your custom tag. It doesn't support '.' dots in it!
   EXTRA_NAME=-my1
-  sudo mic create fs --arch armv7hl \
-      --tokenmap=ARCH:armv7hl,RELEASE:$RELEASE,EXTRA_NAME:$EXTRA_NAME \
+  sudo mic create fs --arch $ARCH \
+      --tokenmap=ARCH:$ARCH,RELEASE:$RELEASE,EXTRA_NAME:$EXTRA_NAME \
       --record-pkgs=name,url \
       --outdir=sfe-$DEVICE-$RELEASE$EXTRA_NAME \
       --pack-to=sfe-$DEVICE-$RELEASE$EXTRA_NAME.tar.bz2 \

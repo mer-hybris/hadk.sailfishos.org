@@ -26,6 +26,7 @@ device and setup (MER_ROOT value from :ref:`mer-root`):
   export ANDROID_ROOT="$MER_ROOT/android/droid"
   export VENDOR="lge"
   export DEVICE="hammerhead"
+  export ARCH="armv7hl"
   EOF
 
   cat <<'EOF' >> $HOME/.mersdkubu.profile
