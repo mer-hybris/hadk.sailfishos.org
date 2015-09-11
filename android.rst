@@ -50,8 +50,7 @@ MultiROM support for your device. It supports Sailfish OS starting v28.
   sudo mkdir -p $ANDROID_ROOT
   sudo chown -R $USER $ANDROID_ROOT
   cd $ANDROID_ROOT
-  #PREREL:
-  repo init -u git://github.com/sledges/android.git -b modular-hybris-11.0
+  repo init -u git://github.com/mer-hybris/android.git -b hybris-11.0
 
 Device repos
 ------------
