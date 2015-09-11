@@ -203,6 +203,7 @@ latex_elements = {
 \renewcommand{\footrulewidth}{0.4pt}
 \makeatother
 }
+\definecolor{VerbatimBorderColor}{rgb}{1,1,1}
 """,
 }
 
