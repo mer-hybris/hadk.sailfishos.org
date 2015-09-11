@@ -29,13 +29,13 @@ device and setup (MER_ROOT value from :ref:`mer-root`):
   EOF
 
   cat <<'EOF' >> $HOME/.mersdkubu.profile
-  function hadk() { source $HOME/.hadk.env${1:+.$1}; echo "Env setup for $DEVICE"; }
+  function hadk() { source $HOME/.hadk.env; echo "Env setup for $DEVICE"; }
   export PS1="HABUILD_SDK [\${DEVICE}] $PS1"
   hadk
   EOF
 
   cat <<'EOF' >> $HOME/.mersdk.profile
-  function hadk() { source $HOME/.hadk.env${1:+.$1}; echo "Env setup for $DEVICE"; }
+  function hadk() { source $HOME/.hadk.env; echo "Env setup for $DEVICE"; }
   hadk
   EOF
 
@@ -43,8 +43,7 @@ This ensures that the environment is setup correctly when you use the
 ``ubu-chroot`` command to enter the Android SDK.
 
 It also creates a function ``hadk`` that you can use to set or reset the environment
-variables. As you can see it also supports ~/.hadk.env.<name> to allow you to work on
-multiple devices in different sessions.
+variables.
 
 .. _enter-mer-sdk:
 
