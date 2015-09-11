@@ -7,11 +7,11 @@ Setting up required environment variables
 Throughout this guide we will be referencing the location of your SDK,
 targets and source code. As is customary with Android hardware adaptations,
 the device vendor (``$VENDOR``) and device codename (``$DEVICE``) are also
-used, both in scripts and configuration files.
+used, both in scripts and configuration files. As example we'll use Nexus 5
+(lge/hammerhead for its vendor/device pair).
 
-Now run the following commands on your host operating system substituting
-the obtained information where indicated with ``[]`` (MER_ROOT value from
-:ref:`mer-root`):
+Now run the following commands on your host operating system fitting for your
+device and setup (MER_ROOT value from :ref:`mer-root`):
 
 .. _CyanogenMod Devices: http://wiki.cyanogenmod.org/w/Devices
 
@@ -20,10 +20,10 @@ the obtained information where indicated with ``[]`` (MER_ROOT value from
   HOST $
 
   cat <<'EOF' > $HOME/.hadk.env
-  export MER_ROOT="[insert value of your choosing]"
+  export MER_ROOT="/path/to/mer"
   export ANDROID_ROOT="$MER_ROOT/android/droid"
-  export VENDOR="[insert vendor name here]"
-  export DEVICE="[insert device codename here]"
+  export VENDOR="lge"
+  export DEVICE="hammerhead"
   EOF
 
   cat <<'EOF' >> $HOME/.mersdkubu.profile
@@ -82,7 +82,7 @@ Setting up an Android Build Environment
 Downloading and Unpacking Ubuntu Chroot
 ```````````````````````````````````````
 
-In order to maintain build stability, we use an *Ubuntu GNU/Linux*
+In order to maintain build stability, we use a *Ubuntu GNU/Linux*
 ``chroot`` environment from within the Mer SDK to build our Android
 source tree. The following commands download and unpack the rootfs to
 the appropriate location:

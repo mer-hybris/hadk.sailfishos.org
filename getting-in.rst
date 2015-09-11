@@ -49,6 +49,51 @@ However ``dmesg`` doesn't report all changes in the USB subsystem and the init s
   $ lsusb -v | grep iSerial
    iSerial    3 Mer Debug telnet on port 23 on rndis0 192.168.2.15 - also running udhcpd
 
+However, if it says something like::
+
+ [1094634.238143] usb 2-2: SerialNumber: Mer Debug setting up (DONE_SWITCH=yes)
+
+connectivity will be available via ``telnet 192.168.2.15 2323`` port.
+
+Bootloops
+`````````
+
+If device bootloops, there might be several reasons:
+
+* If it immediately reboots (and especially if it later boots to recovery mode),
+  SELinux is enabled, and all ports based on Android 4.4 or newer need to disable
+  it. Add ``CONFIG_SECURITY_SELINUX_BOOTPARAM=y`` to your kernel defconfig, and
+  ``selinux=0`` to your kernel command line (usually in ``BOARD_KERNEL_CMDLINE``
+  under $ANDROID_ROOT/device/$VENDOR/\*/BoardConfig\*.mk)
+* If it reboots after a minute or so, be quick and telnet into device, then do::
+ ln -s /dev/null /etc/systemd/system/ofono.service
+* Check if your /system is mounted by systemd (system.mount unit)
+
+Tips
+````
+
+To ease debugging in unstable/halting/logs spamming early ports::
+ systemctl mask droid-hal-init
+ systemctl mask user@100000
+
+Get connected
+`````````````
+Use USB networking to connect to the Internet from your Sailfish OS
+
+Execute on your host as root. Use the interface which your host uses
+to connect to the Internet. It's wlan0 in this example::
+ HOST $
+
+ iptables -t nat -A POSTROUTING -o wlan0 -j MASQUERADE
+ echo 1 > /proc/sys/net/ipv4/ip_forward
+
+Execute on the device::
+ TARGET $
+
+ route add default gw 192.168.2.X (<- host's usb0 IP)
+ echo 'nameserver 208.67.222.222' > /etc/resolv.conf
+
+
 Splitting and Re-Assembling Boot Images
 ---------------------------------------
 

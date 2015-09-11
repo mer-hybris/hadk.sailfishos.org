@@ -1,14 +1,10 @@
 List of Repositories
 ====================
 
-**droid-hal-device**
+**droid-hal-$DEVICE**
     Contains RPM packaging and conversion scripts for converting
     the results of the Android HAL build process to RPM packages
     and systemd configuration files.
-
-**droid-system-packager**
-    Helper package for ``droid-hal-device``, installed on the
-    device.
 
 **hybris-boot**
     Script run during Android HAL build that will combine the

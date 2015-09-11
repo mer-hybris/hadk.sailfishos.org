@@ -1,8 +1,6 @@
 Prerequisites
 =============
 
-.. _supported_devices:
- 
 Mobile Device
 -------------
 
@@ -10,7 +8,8 @@ Mobile Device
 
  - See http://wiki.cyanogenmod.org/w/Devices for a list of compatible devices
 
- * See https://wiki.merproject.org/wiki/Adaptations/libhybris for a list of devices ported using HADK
+ * See https://wiki.merproject.org/wiki/Adaptations/libhybris for a list of
+   devices ported using HADK
 
 * Means to do backup and restore of the device contents (e.g. SD card or USB
   cable to host computer), as well as flash recovery images to the device
@@ -29,20 +28,4 @@ Build Machine
   (only hardware adaptation-related components) requires slightly less space
 
 * At least 4 GiB of RAM (the more the better)
-
-.. _new-device:
-
-Want to Port to a New Device?
------------------------------
-
-You
-should first read through the entire guide to get a feeling for the
-order in which things are typically done.  Then scrupulously follow
-:doc:`new-device-build`, clicking on all referenced sections (or even
-whole chapters!) as you go, and backtracking to where you left off
-when each section/chapter is finished.
-
-So we kindly ask our pioneer porters of new devices to be patient and
-ensure they use sophisticated PDF readers, making full use of the
-back/forward ability ;)
 

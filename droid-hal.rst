@@ -6,29 +6,163 @@ as RPM packages and create a local RPM repository. From there, the RPM
 packages can be added to a local target and used to build libhybris and the
 QPA plugin. They can also be used to build the rootfs.
 
+Creating Repositories for a New Device
+-------------------------------------
+
+If the folders ``rpm, hybris/droid-configs, hybris-droid-hal-version-$DEVICE``
+do not yet exist, create them as follows (example is for Nexus 5, adjust as
+appropriate and push to your GitHub home):
+
+.. code-block:: console
+
+ MER_SDK $
+
+ cd $ANDROID_ROOT
+ mkdir rpm
+ cd rpm
+ git init
+ git submodule add https://github.com/mer-hybris/droid-hal-device dhd
+ # Rename 'hammerhead' and other values as appropriate
+ cat <<'EOF' >droid-hal-hammerhead.spec
+ # These and other macros are documented in dhd/droid-hal-device.inc
+
+ %define device hammerhead
+ %define vendor lge
+
+ %define vendor_pretty LG
+ %define device_pretty Nexus 5
+
+ %define installable_zip 1
+
+ %include rpm/dhd/droid-hal-device.inc
+ EOF
+ git add .
+ git commit -m "[dhd] Initial content"
+ # Create this repository under your GitHub home
+ git remote add myname https://github.com/myname/droid-hal-hammerhead
+ git push myname master
+ cd -
+
+ mkdir hybris/droid-configs
+ cd hybris/droid-configs
+ git init
+ git submodule add https://github.com/mer-hybris/droid-hal-configs \
+     droid-configs-device
+ mkdir rpm
+ cat <<'EOF' >rpm/droid-config-hammerhead.spec
+ # These and other macros are documented in
+ # ../droid-configs-device/droid-configs.inc
+
+ %define device hammerhead
+ %define vendor lge
+
+ %define vendor_pretty LG
+ %define device_pretty Nexus 5
+
+ %define dcd_path ./
+
+ # Adjust this for your device
+ %define pixel_ratio 2.0
+
+ # We assume most devices will
+ %define have_modem 1
+
+ %include droid-configs-device/droid-configs.inc
+ EOF
+ git add .
+ git commit -m "[dcd] Initial content"
+ # Create this repository under your GitHub home
+ git remote add myname https://github.com/myname/droid-config-hammerhead
+ git push myname master
+ cd -
+
+ rpm/dhd/helpers/add_new_device.sh
+ # On Nexus 5 the output of the last command is:
+ # Creating the following nodes:
+ # sparse/
+ # patterns/
+ # patterns/jolla-configuration-hammerhead.yaml
+ # patterns/jolla-ui-configuration-hammerhead.yaml
+ # patterns/jolla-hw-adaptation-hammerhead.yaml
+ cd hybris/droid-configs
+ COMPOSITOR_CFGS=sparse/var/lib/environment/compositor
+ mkdir -p $COMPOSITOR_CFGS
+ cat <<EOF >$COMPOSITOR_CFGS/droid-hal-device.conf
+ # Config for $VENDOR/$DEVICE
+ EGL_PLATFORM=hwcomposer
+ QT_QPA_PLATFORM=hwcomposer
+ # Determine which node is your touchscreen by checking /dev/input/event*
+ LIPSTICK_OPTIONS=-plugin evdevtouch:/dev/input/event0 \
+   -plugin evdevkeyboard:keymap=/usr/share/qt5/keymaps/droid.qmap
+ EOF
+ git add .
+ git commit -m "[dcd] Patterns and compositor config"
+ git push myname master
+ cd -
+
+ mkdir hybris/droid-hal-version-hammerhead
+ cd hybris/droid-hal-version-hammerhead
+ git init
+ git submodule add https://github.com/mer-hybris/droid-hal-version
+ mkdir rpm
+ cat <<'EOF' >rpm/droid-hal-version-hammerhead.spec
+ # rpm_device is the name of the ported device
+ %define rpm_device hammerhead
+ # rpm_vendor is used in the rpm space
+ %define rpm_vendor lge
+
+ # Manufacturer and device name to be shown in UI
+ %define vendor_pretty LG
+ %define device_pretty Nexus 5
+
+ # See ../droid-hal-version/droid-hal-device.inc for similar macros:
+ %define have_vibrator 1
+ %define have_led 1
+
+ %include droid-hal-version/droid-hal-version.inc
+ EOF
+ git add .
+ git commit -m "[dvd] Initial content"
+ # Create this repository under your GitHub home
+ git remote add myname \
+     https://github.com/myname/droid-hal-version-hammerhead
+ git push myname master
+
+Now to complete you local manifest, this is how it would be done for Nexus 5.
+Do it for your device by renaming accordingly:
+
+.. code-block:: console
+
+  # add the next 3 entries into .repo/local_manifests/hammerhead.xml
+
+  <project path="rpm/"
+           name="myname/droid-hal-hammerhead" revision="master" />
+  <project path="hybris/droid-configs"
+           name="myname/droid-config-hammerhead" revision="master" />
+  <project path="hybris/droid-hal-version-hammerhead"
+           name="myname/droid-hal-version-hammerhead" revision="master" />
+
+Once all these 3 repositories get upstreamed under https://github.com/mer-hybris
+create PR into an appropriate branch of the file
+``.repo/local_manifests/hammerhead.xml`` to the
+ https://github.com/mer-hybris/local_manifests repository.
+
+
 Packaging ``droid-hal-device``
 ------------------------------
 
-This step requires:
-
-* A populated ``$ANDROID_ROOT`` from :doc:`android`
-* A Mer Platform SDK installation (chroot) for RPM building
-
-Inside your ``$ANDROID_ROOT``, there is a copy of ``droid-hal-device``
-in the ``rpm/`` directory (since it appears in the manifest).
-
-The master git repo for the packaging is here:  https://github.com/mer-hybris/droid-hal-device
-
-This ``rpm/`` dir contains the necessary ``.spec`` files to make a set of RPM
-packages that form the core Droid hardware adaptation part and configuration
-file setup of the hardware adaptation. It also builds a development package
+The ``$ANDROID_ROOT/rpm/`` dir contains the needed ``.spec`` file to make a set
+of RPM packages that form the core Droid hardware adaptation part of the
+hardware adaptation. It also builds a development package (ends with -devel)
 that contains libraries and headers, which are used when building middleware
-components (see :doc:`middleware`).
+components later on.
 
 .. _build-rpms:
 
 Building the droid-hal-device packages
 ``````````````````````````````````````
+.. important::
+ # type ``zypper ref; zypper dup`` every now and again to update your Mer SDK!
 
 The next step has to be carried out in a Mer SDK chroot:
 
@@ -38,120 +172,8 @@ The next step has to be carried out in a Mer SDK chroot:
 
     cd $ANDROID_ROOT
 
-    # type `zypper ref; zypper dup` every-so-often to update your Mer SDK
-    mb2 -t $VENDOR-$DEVICE-armv7hl -s rpm/droid-hal-$DEVICE.spec build
+    rpm/dhd/helpers/build_packages.sh
 
-This should leave you with several RPM packages in ``$ANDROID_ROOT/RPMS/``.
+This should compile all the needed packages, patterns, middleware and put them
+under local repository. If anything needs modified, just re-run this script.
 
-If the second ``mb2`` fails by writing out inconsistencies in kernel ``CONFIG_``
-flags, refer to the kernel verifier section: :ref:`kernel-config`.
-
-.. _createrepo:
-
-Create a local RPM repository
-`````````````````````````````
-
-Now we create a local repository that can be used to create images using
-``mic`` or to install the development headers into our ``sb2`` target for
-building middleware components:
-
-.. code-block:: console
-
-    MER_SDK $
-
-    mkdir -p $ANDROID_ROOT/droid-local-repo/$DEVICE
-
-    rm -f $ANDROID_ROOT/droid-local-repo/$DEVICE/droid-hal-*rpm
-    mv RPMS/*$DEVICE* $ANDROID_ROOT/droid-local-repo/$DEVICE
-
-    createrepo $ANDROID_ROOT/droid-local-repo/$DEVICE
-
-.. _add-local-repo:
-
-Add local RPM repo to Target
-````````````````````````````
-
-This will allow build dependencies to be met from locally built packages (NB:
-it's safe to ignore warnings about DBus or connman):
-
-.. code-block:: console
-
-    MER_SDK $
-
-    sb2 -t $VENDOR-$DEVICE-armv7hl -R -m sdk-install \
-      ssu ar local-$DEVICE-hal file://$ANDROID_ROOT/droid-local-repo/$DEVICE
-
-Check it's there:
-
-.. code-block:: console
-
-  MER_SDK $
-
-  sb2 -t $VENDOR-$DEVICE-armv7hl -R -msdk-install ssu lr
-
-The device specific configuration
-`````````````````````````````````
-
-Now build the droid-hal-configs package. This is split into its own package to
-make supporting multiple devices easier.
-
-.. warning::
-
-    ``droid-hal-configs`` will re-generate your .ks file, so if it already
-    exists, make backup and track any modifications yourself. You'll find your
-    .ks here:
-    ``$ANDROID_ROOT/hybris/droid-configs/installroot/usr/share/kickstarts/``
-    with name ``Jolla-@RELEASE@-$DEVICE-@ARCH@.ks``
-
-.. code-block:: console
-
-  MER_SDK $
-
-  hadk
-
-  cd $ANDROID_ROOT
-  mb2 -t $VENDOR-$DEVICE-armv7hl \
-    -s hybris/droid-hal-configs/rpm/droid-hal-configs.spec \
-    build
-
-
-The ``/etc/hw-release`` file
-----------------------------
-
-.. attention::
-   This section does not require any action from your part in most cases, and
-   is for information purposes only.
-
-Sailfish OS Hardware Adaptations use the file ``/etc/hw-release`` to store
-variables related to the device adaptation. This file is read by different
-middleware components to determine which adaptation repositories to enable
-and which device-specific tweaks to apply.
-
-File is autogenerated during the build of ``droid-hal-device`` (see ``droid-hal-device.inc``).
-If you wish to provide more customisations, please read the remainder of this section.
-
-The format of this file is a line-based ``KEY=value`` format. The ``KEY`` is a
-non-empty string consisting of only upper case characters (``A-Z``) and the
-underscore (``_``), it must not begin with an underscore (or in other words, it
-must match the regular expression ``[A-Z][A-Z_]*``). Lines starting with ``#``
-are considered comments and are ignored. Lines must not have any leading or
-trailing whitespace (any such whitespace is stripped when the file is parsed),
-and the ``=`` character must also not be surrounded by any whitespace. Values
-can contain any valid UTF-8 character (but no newline character).
-
-An example file could look like this:
-
-.. code-block:: text
-
-    # This is a comment
-    MER_HA_DEVICE=mako
-    MER_HA_VENDOR=lge
-
-As far as Droid-based hardware adaptations are concerned, the following keys
-are mandatory and specified:
-
-* ``MER_HA_DEVICE``: Must be set to the device name, e.g. ``mako``
-* ``MER_HA_VENDOR``: Must be set to the device vendor, e.g. ``lge``
-
-All other keys are not yet specified, and should not be used; parsers should
-ignore all lines that don't start with a known key.
