@@ -216,3 +216,12 @@ Troubleshooting
 Most likely the partition your MerSDK resides in, is mounted with ``nodev`` option.
 Remove that option from mount rules.
 
+Failed to apply RootPasswordConfig
+''''''''''''''''''''''''''''''''''
+
+The full query is::
+ Failed to apply RootPasswordConfig, skip and continue?(Y/n)
+
+You can just answer Y, or Enter, however adding --runtime=native to mic create
+command line in the :ref:`mic` section, should get rid of this error.
+
