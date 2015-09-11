@@ -7,8 +7,10 @@ Setting up required environment variables
 Throughout this guide we will be referencing the location of your SDK,
 targets and source code. As is customary with Android hardware adaptations,
 the device vendor (``$VENDOR``) and device codename (``$DEVICE``) are also
-used, both in scripts and configuration files. As example we'll use Nexus 5
-(lge/hammerhead for its vendor/device pair).
+used, both in scripts and configuration files. **Throughout this guide as example,
+we'll use Nexus 5 (lge/hammerhead for its vendor/device pair), and port it
+basing on CyanogenMod 11.0 version.** Thus ensure you read snippets carefully
+and rename where appropriate for your ported device/vendor/base.
 
 Now run the following commands on your host operating system fitting for your
 device and setup (MER_ROOT value from :ref:`mer-root`):
