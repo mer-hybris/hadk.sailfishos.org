@@ -55,6 +55,8 @@ However, if it says something like::
 
 connectivity will be available via ``telnet 192.168.2.15 2323`` port.
 
+.. _bootloops:
+
 Bootloops
 `````````
 

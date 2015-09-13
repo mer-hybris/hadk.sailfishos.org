@@ -77,7 +77,34 @@ TODO
 Cellular modem
 **************
 
-TODO
+* Ensure Android's RIL running ``ps ax | grep rild`` (expect one or two
+  ``/system/bin/rild``)
+* If RIL is not running, check why it is not launched from /init*.rc scripts
+
+* If it's launched, check where it fails with
+  ``/usr/libexec/droid-hybris/system/bin/logcat -b radio``
+
+* Errors in RIL might look like this::
+ RIL[0][main] qcril_qmi_modem_power_process_bootup: ESOC node is not available
+After online search this suggests firmware loading issues on Motorola Moto G.
+Compare with a healthy radio logcat after booting back into CM, not all
+lines starting with ``E/RIL...`` will point to a root cause!
+
+* If it's firmware loading problem, trace all needed daemons in CM and their
+  loading order as well as all mounted firmware, modem, and baseband partitions.
+
+* Once RIL is happy, then ofono can be launched. Unmask it if it was previously
+  masked due to causing reboots in :ref:`bootloops`.
+
+* If you still get no signal indicator in UI, remove SIM PIN and retry
+
+* Also install ``ofono-tests`` package and run ``/usr/lib/ofono/test/list-modems``
+
+* Try to recompile latest ofono master branch from
+  https://github.com/nemomobile-packages/ofono
+
+* If everything else fails, then stop and strace a failing daemon (either RIL or
+  ofono) from command line manually
 
 Bluetooth
 *********
