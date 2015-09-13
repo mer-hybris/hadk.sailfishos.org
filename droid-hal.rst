@@ -185,12 +185,12 @@ Troubleshoot errors from build_packages.sh
   from Motorola Moto G /falcon/ build):
 .. code-block:: console
 
- %define straggler_files \\
- /init.mmi.boot.sh\\
- /init.mmi.touch.sh\\
- /init.qcom.ssr.sh\\
- /selinux_version\\
- /service_contexts\\
+ %define straggler_files \
+ /init.mmi.boot.sh\
+ /init.mmi.touch.sh\
+ /init.qcom.ssr.sh\
+ /selinux_version\
+ /service_contexts\
  %{nil}
 
 If it was a port of Moto G, then you'd add ``- droid-hal-falcon-detritus`` to ``droid-configs/patterns/jolla-hw-adaptation-falcon.yaml`` -- substitute as appropriate for your device. Then finally re-run ``build_packages.sh``.
