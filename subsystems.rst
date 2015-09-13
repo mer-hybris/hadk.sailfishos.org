@@ -129,7 +129,11 @@ should be enough for future compatibility.
 GPS
 ***
 
-TODO
+Ensure the ``test_gps`` command gets a fix after a while.
+
+On unofficial (community's) ports, put that community's built
+``geoclue-provider-hybris-community`` package into your patterns. It however
+won't have AGPS, so wait longer for a fix.
 
 Audio
 *****
