@@ -184,7 +184,7 @@ won't have AGPS, so wait longer for a fix.
 Audio
 *****
 
-For audio, Mer / Sailfish OS uses pulse audio as the main mixer. For audio
+For audio, Mer / Sailfish OS uses PulseAudio as the main mixer. For audio
 routing ohmd is used.
 
 TODO: Add info about audio routing configuration
