@@ -71,10 +71,10 @@ mount --binds, to avoid possible mount/options issues. Setup MerSDK as follows::
  cd $HOME
  sdk
  # These commands are a tmp workaround of glitch when working with target:
- zypper ar http://repo.merproject.org/obs/home:/sledge:/mer/latest_i486/ \
-  curlfix
- zypper ref curlfix
- zypper dup --from curlfix
+ sudo zypper ar \
+  http://repo.merproject.org/obs/home:/sledge:/mer/latest_i486/ curlfix
+ sudo zypper ref curlfix
+ sudo zypper dup --from curlfix
 
 Ensure you are able to open a shell in the Mer SDK before moving on.
 
