@@ -130,10 +130,8 @@ Entering Ubuntu Chroot
 
   MER_SDK $
 
-  hadk
-
   ubu-chroot -r $MER_ROOT/sdks/ubuntu
 
-  #FIXME: Hostname resolution might fail. This error can be ignored.
-  Can be fixed manually by adding the hostname to /etc/hosts
+  # FIXME: Hostname resolution might fail. This error can be ignored.
+  # Can be fixed manually by adding the hostname to /etc/hosts
 
