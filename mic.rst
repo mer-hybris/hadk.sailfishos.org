@@ -37,7 +37,7 @@ during droid-configs build, using ``ssuks``, which is part of the SSU utility::
   KS="Jolla-@RELEASE@-$DEVICE-@ARCH@.ks"
   sed -e \
    "s|^$HA_REPO.*$|$HA_REPO --baseurl=file://$ANDROID_ROOT/droid-local-repo/$DEVICE|" \
-   $ANDROID_ROOT/droid-configs/installroot/usr/share/kickstarts/$KS \
+   $ANDROID_ROOT/hybris/droid-configs/installroot/usr/share/kickstarts/$KS \
    > tmp/$KS
 
 .. warning::
