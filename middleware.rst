@@ -63,8 +63,8 @@ effects for basic use. The default configurations can be overridden with device
 specific .ini files in your adaptation project's config package. The default
 config files can be seen in:
 
-* **NGFD**: /usr/share/ngfd/plugins.d/`ffmemless.ini <https://github.com/nemomobile/ngfd/blob/master/data/plugins.d/ffmemless.ini>`_
-* **QtFeedback**: /usr/lib/qt5/plugins/feedback/`ffmemless.ini <https://github.com/nemomobile/qt-mobility-haptics-ffmemless/blob/master/ffmemless.ini>`_
+* **NGFD**: /usr/share/ngfd/plugins.d/`ffmemless.ini <https://git.merproject.org/mer-core/ngfd/blob/master/data/plugins.d/ffmemless.ini>`_
+* **QtFeedback**: /usr/lib/qt5/plugins/feedback/`ffmemless.ini <https://git.merproject.org/mer-core/qt-mobility-haptics-ffmemless/blob/master/ffmemless.ini>`_
 
 The default configuration files can be over-ridden with setting environment
 variables NGF_FFMEMLESS_SETTINGS (ngfd) and FF_MEMLESS_SETTINGS (qtfeedback),
@@ -86,8 +86,20 @@ And that file should contain 2 lines:
 
 Now you can use those 2 files to tune force feedback effects suitable
 specifically for your device. For template to start making your own
-configuration files, see ngfd `ffmemless.ini <https://github.com/nemomobile/ngfd/blob/master/data/plugins.d/ffmemless.ini>`_ and Qtfeedback `ffmemless.ini <https://github.com/nemomobile/qt-mobility-haptics-ffmemless/blob/master/ffmemless.ini>`_.
+configuration files, just copy-paste the ngfd `ffmemless.ini <https://git.merproject.org/mer-core/ngfd/blob/master/data/plugins.d/ffmemless.ini>`_ and Qtfeedback `ffmemless.ini <https://git.merproject.org/mer-core/qt-mobility-haptics-ffmemless/blob/master/ffmemless.ini>`_
+default config files as the device specific files and then edit only needed
+bits.
 
+The reason we have possibility for device specific effects is that hardware
+mechanics and the vibra engines differ greatly device-by-device, and single
+settings will not give good effect on all devices.
+
+* **At minimum, you should ALWAYS tune at least KEYPAD effect in qtfeedback-DEVICE.ini for every device separately to make the VKB haptic feel good and punctual.**
+
+Good guideline for VKB haptic is that it should be as short as possible, and
+vibrate at the resonance frequency of the device mechanics when vibra engine
+reaches top magnitude of the vibra effect. It should not feel like vibration,
+but like a single kick.
 
 Non-Graphical Feedback Daemon
 ---------------------------

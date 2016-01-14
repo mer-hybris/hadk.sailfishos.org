@@ -47,6 +47,25 @@ converted to a ffmemless driver. The main tasks for this are:
   /* Envelope update interval in ms */
   #define FF_ENVELOPE_INTERVAL   50
 
+* Optionally you can decrease ff-memless control interval so that fade and
+  attack envelopes can be used in short haptic effects as well:
+
+.. code-block:: c
+
+ diff --git a/drivers/input/ff-memless.c b/drivers/input/ff-memless.c
+ index 89d3a3d..33eee2e 100644
+ --- a/drivers/input/ff-memless.c
+ +++ b/drivers/input/ff-memless.c
+ @@ -41,7 +41,7 @@ MODULE_DESCRIPTION("Force feedback support for memoryless devi
+  #define FF_MEMLESS_EFFECTS     64
+  
+  /* Envelope update interval in ms */
+ -static int ff_envelope_interval = 50;
+ +static int ff_envelope_interval = 10;
+  module_param(ff_envelope_interval, int, S_IWUSR | S_IRUGO);
+  
+  #define FF_EFFECT_STARTED      0
+
 
 * If your platform happens to already support a ffmemless based vibra driver,
   just enable it and fix any issues that you see. Otherwise go through the rest
