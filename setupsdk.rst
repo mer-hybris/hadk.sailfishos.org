@@ -61,7 +61,7 @@ mount --binds, to avoid possible mount/options issues. Setup MerSDK as follows::
  cd $HOME
  TARBALL=mer-i486-latest-sdk-rolling-chroot-armv7hl-sb2.tar.bz2
  curl -k -O https://img.merproject.org/images/mer-sdk/$TARBALL
- sudo mkdir -p $MER_ROOT/sdks/sdk
+ mkdir -p $MER_ROOT/sdks/sdk
  cd $MER_ROOT/sdks/sdk
  sudo tar --numeric-owner -p -xjf $HOME/$TARBALL
  echo "export MER_ROOT=$MER_ROOT" >> ~/.bashrc
