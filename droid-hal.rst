@@ -195,6 +195,3 @@ Troubleshoot errors from build_packages.sh
 
 If it was a port of Moto G, then you'd add ``- droid-hal-falcon-detritus`` to ``droid-configs/patterns/jolla-hw-adaptation-falcon.yaml`` -- substitute as appropriate for your device. Then finally re-run ``build_packages.sh``.
 
-* **Anything mentioning ``mesa-llvmpipe``** -- happened only few times, simply re-run
-  ``build_packages.sh``.
-
