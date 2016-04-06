@@ -129,6 +129,7 @@ non-critical as long as you end up with a generated .zip image):
   # EXTRA_NAME adds your custom tag. It doesn't support '.' dots in it!
   EXTRA_NAME=-my1
   sudo mic create fs --arch $PORT_ARCH \
+      --debug \
       --tokenmap=ARCH:$PORT_ARCH,RELEASE:$RELEASE,EXTRA_NAME:$EXTRA_NAME \
       --record-pkgs=name,url \
       --outdir=sfe-$DEVICE-$RELEASE$EXTRA_NAME \
