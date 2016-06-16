@@ -14,6 +14,9 @@ Mobile Device
  * See https://wiki.merproject.org/wiki/Adaptations/libhybris for a status list
    of devices already ported using HADK
 
+ * See https://wiki.merproject.org/wiki/Adaptations/libhybris/porters for a list
+   of ports in early stages, and their authors to contact on IRC
+
  * AOSP5 support (**hybris-aosp-5.1.0_r5**) is also available, however certain
    AOSP build aspects differ, and are left for porters to discover themselves
 

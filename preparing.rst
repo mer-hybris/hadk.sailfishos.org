@@ -55,7 +55,7 @@ a functionality baseline to compare your build results with.
 You should at least check the following features:
 
 * **OpenGL ES 2.0**:
-  Use e.g. `Gears4Android`_ to test
+  Use e.g. `Gears for Android`_ to test
   (the hz you will get there will be max refresh rate).
 
 * **WLAN connectivity**:
@@ -81,7 +81,7 @@ You should at least check the following features:
   2G/3G/LTE calls + data connectivity.
 
 * **GPS**:
-  Using `GPSTest`_, check GLONASS too; typical time to fix; AGPS.
+  Using `GPS Test`_, check GLONASS too; typical time to fix; AGPS.
 
 * **Sensors**:
   Using `AndroSensor`_: Accelerometer, Proximity Sensor, Ambient Light
@@ -111,8 +111,8 @@ You should at least check the following features:
 * **HW composer version**:
   check ``dumpsys SurfaceFlinger`` through ADB (see `SF Layer Debugging`_).
 
-.. _Gears4Android: http://www.jeffboody.net/gears4android.php
-.. _GPSTest: https://play.google.com/store/apps/details?id=com.chartcross.gpstest
+.. _Gears for Android: http://www.jeffboody.net/gears4android.php
+.. _GPS Test: https://play.google.com/store/apps/details?id=com.chartcross.gpstest
 .. _AndroSensor: https://play.google.com/store/apps/details?id=com.fivasim.androsenso
 .. _SF Layer Debugging: http://bamboopuppy.com/dumpsys-surfaceflinger-layer-debugging/
 

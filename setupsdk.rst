@@ -61,7 +61,7 @@ mount --binds, to avoid possible mount/options issues. Setup MerSDK as follows::
  cd $HOME
  TARBALL=mer-i486-latest-sdk-rolling-chroot-armv7hl-sb2.tar.bz2
  curl -k -O https://img.merproject.org/images/mer-sdk/$TARBALL
- sudo mkdir -p $MER_ROOT/sdks/sdk
+ mkdir -p $MER_ROOT/sdks/sdk
  cd $MER_ROOT/sdks/sdk
  sudo tar --numeric-owner -p -xjf $HOME/$TARBALL
  echo "export MER_ROOT=$MER_ROOT" >> ~/.bashrc
@@ -71,10 +71,10 @@ mount --binds, to avoid possible mount/options issues. Setup MerSDK as follows::
  cd $HOME
  sdk
  # These commands are a tmp workaround of glitch when working with target:
- zypper ar http://repo.merproject.org/obs/home:/sledge:/mer/latest_i486/ \
-  curlfix
- zypper ref curlfix
- zypper dup --from curlfix
+ sudo zypper ar \
+  http://repo.merproject.org/obs/home:/sledge:/mer/latest_i486/ curlfix
+ sudo zypper ref curlfix
+ sudo zypper dup --from curlfix
 
 Ensure you are able to open a shell in the Mer SDK before moving on.
 
@@ -130,10 +130,8 @@ Entering Ubuntu Chroot
 
   MER_SDK $
 
-  hadk
-
   ubu-chroot -r $MER_ROOT/sdks/ubuntu
 
-  #FIXME: Hostname resolution might fail. This error can be ignored.
-  Can be fixed manually by adding the hostname to /etc/hosts
+  # FIXME: Hostname resolution might fail. This error can be ignored.
+  # Can be fixed manually by adding the hostname to /etc/hosts
 

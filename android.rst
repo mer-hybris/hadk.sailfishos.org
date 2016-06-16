@@ -248,13 +248,26 @@ with
 Common Pitfalls
 ---------------
 
-* If ``repo sync`` fails with a message like *fatal: duplicate path
+* If ``repo sync --fetch-submodules`` fails with a message like *fatal: duplicate path
   device/samsung/smdk4412-common in /home/nemo/android/.repo/manifest.xml*,
   remove the local manifest with ``rm .repo/local_manifests/roomservice.xml``
 * If you notice ``git clone`` commands starting to write out *"Forbidden ..."* on
   github repos, you might have hit API rate limit. To solve this, put your github
   credentials into ``~/.netrc``. More info can be found following this link:
   `Perm.auth. with Git repositories`_
+* *error: Cannot fetch ... (GitError: --force-sync not enabled; cannot overwrite
+  a local work tree.*, usually happens if ``repo sync --fetch-submodules`` gets
+  interrupted. It is a bug of the repo tool. Ensure all your changes have been
+  safely stowed (check with ``repo status``), and then workaround by:
+
+.. code-block:: console
+
+  HABUILD_SDK $
+
+  repo sync --force-sync
+
+  repo sync --fetch-submodules
+
 * In some cases (with parallel builds), the build can fail, in this case, use
   ``make -j1 hybris-hal`` to retry with a non-parallel build and see the error
   message without output from parallel jobs. The build usually ends with

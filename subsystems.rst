@@ -184,7 +184,7 @@ won't have AGPS, so wait longer for a fix.
 Audio
 *****
 
-For audio, Mer / Sailfish OS uses pulse audio as the main mixer. For audio
+For audio, Mer / Sailfish OS uses PulseAudio as the main mixer. For audio
 routing ohmd is used.
 
 TODO: Add info about audio routing configuration
@@ -201,13 +201,15 @@ existing android libhardware sensor adaptations to read sensor data and control.
 
 It can also be configured for standard linux sysfs and evdev sensor interfaces.
 
-It should be configured at /etc/sensorfw/primary.conf, which links to a device
+It should be configured at /etc/sensorfw/primaryuse.conf, which links to a device
 specific conf file. Historically named sensord-<BOARDNAME>.conf.
 You can also use any conf file by specifying it on the commandline.
 
 For hybris based platforms, this will be sensord-hybris.conf, and most likely will 
 not have to be modified.
 https://github.com/mer-packages/sensorfw/blob/master/config/sensord-hybris.conf
+Place this file under
+``$ANDROID_ROOT/hybris/droid-configs/sparse/etc/sensorfw/primaryuse.conf``
 
 There are already a few device specific conf files to look at if the device needs
 more configuration.

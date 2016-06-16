@@ -18,6 +18,21 @@ build_packages.sh does.
 Via the flexible system of patterns, you will be able to select only
 working/needed functions for your device.
 
+Allowed Content in Your Sailfish OS Image
+-----------------------------------------
+
+The default set of packages results in a minimal and functional root filesystem.
+
+It is forbidden to add proprietary/commercial packages to your image, because
+royalty fees need to be paid or licence constraints not allowing to redistribute
+them. Examples:
+
+* jolla-xt9 (dictionary suggestions while typing)
+* sailfish-eas (Microsoft Exchange support)
+* aliendalvik (Android runtime support)
+* sailfish-maps
+* Any non-free audio/video codecs, etc.
+
 .. _gen-ks:
 
 Creating and Configuring the Kickstart File
@@ -37,7 +52,7 @@ during droid-configs build, using ``ssuks``, which is part of the SSU utility::
   KS="Jolla-@RELEASE@-$DEVICE-@ARCH@.ks"
   sed -e \
    "s|^$HA_REPO.*$|$HA_REPO --baseurl=file://$ANDROID_ROOT/droid-local-repo/$DEVICE|" \
-   $ANDROID_ROOT/droid-configs/installroot/usr/share/kickstarts/$KS \
+   $ANDROID_ROOT/hybris/droid-configs/installroot/usr/share/kickstarts/$KS \
    > tmp/$KS
 
 .. warning::
@@ -111,8 +126,8 @@ In the script below choose a `Sailfish OS version`_ you want to build.
    patterns to break as new HA packages get introduced etc.
 
    Ensure you pick the same release as your target was in    :doc:`scratchbox2`.
-   E.g., if target said ``Jolla-update16-...tar.bz2``, build the 16th Sailfish OS
-   update 1.1.7.28 (check with `Sailfish OS version`_)
+   E.g., if target said ``Jolla-2.0.1.11-...tar.bz2``, build Sailfish OS update
+   2.0.1.11 (check for the latest, non "early access" `Sailfish OS version`_)
 
 Build a rootfs using RPM repositories and a kickstart file (NB: all errors are
 non-critical as long as you end up with a generated .zip image):
@@ -125,10 +140,12 @@ non-critical as long as you end up with a generated .zip image):
 
   # Set the version of your choosing, latest is strongly preferred
   # (check with "Sailfish OS version" link above)
-  RELEASE=1.1.7.28
+  RELEASE=2.0.1.11
   # EXTRA_NAME adds your custom tag. It doesn't support '.' dots in it!
   EXTRA_NAME=-my1
   sudo mic create fs --arch $PORT_ARCH \
+      --debug \
+      --runtime=native \
       --tokenmap=ARCH:$PORT_ARCH,RELEASE:$RELEASE,EXTRA_NAME:$EXTRA_NAME \
       --record-pkgs=name,url \
       --outdir=sfe-$DEVICE-$RELEASE$EXTRA_NAME \
@@ -213,13 +230,4 @@ Troubleshooting
 
 Most likely the partition your MerSDK resides in, is mounted with ``nodev`` option.
 Remove that option from mount rules.
-
-Failed to apply RootPasswordConfig
-''''''''''''''''''''''''''''''''''
-
-The full query is::
- Failed to apply RootPasswordConfig, skip and continue?(Y/n)
-
-You can just answer Y, or Enter, however adding --runtime=native to mic create
-command line in the :ref:`mic` section, should get rid of this error.
 
