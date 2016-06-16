@@ -18,6 +18,21 @@ build_packages.sh does.
 Via the flexible system of patterns, you will be able to select only
 working/needed functions for your device.
 
+Allowed Content in Your Sailfish OS Image
+-----------------------------------------
+
+The default set of packages results in a minimal and functional root filesystem.
+
+It is forbidden to add proprietary/commercial packages to your image, because
+royalty fees need to be paid or licence constraints not allowing to redistribute
+them. Examples:
+
+* jolla-xt9 (dictionary suggestions while typing)
+* sailfish-eas (Microsoft Exchange support)
+* aliendalvik (Android runtime support)
+* sailfish-maps
+* Any non-free audio/video codecs, etc.
+
 .. _gen-ks:
 
 Creating and Configuring the Kickstart File
