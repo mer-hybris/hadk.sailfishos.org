@@ -15,7 +15,7 @@ Ensure you have setup your name and e-mail address in your Git configuration:
 
 .. code-block:: console
 
-  MER_SDK $
+  PLATFORM_SDK $
 
   git config --global user.name "Your Name"
   git config --global user.email "you@example.com"

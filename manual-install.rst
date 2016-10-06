@@ -15,7 +15,7 @@ Replace ``i9305-devel.tar.gz`` with the name of your rootfs tarball:
 
 .. code-block:: bash
 
-  MER_SDK $
+  PLATFORM_SDK $
 
   adb push i9305-devel.tar.gz /sdcard/
   adb shell
@@ -32,7 +32,7 @@ partition and filename is obviously different:
 
 .. code-block:: console
 
-  MER_SDK $
+  PLATFORM_SDK $
 
   adb push out/target/product/i9305/hybris-boot.img /sdcard/
   adb shell
@@ -49,7 +49,7 @@ connectivity to connect to the Internet and download updates:
 
 .. code-block:: console
 
-  MER_SDK $
+  PLATFORM_SDK $
 
   adb shell
   su

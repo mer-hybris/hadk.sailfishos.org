@@ -12,7 +12,7 @@ flashing mechanisms used for Android devices:
 * **odin**: Used by most Samsung devices
 
 For flashing fastboot-based devices, use ``fastboot`` (available in the
-Mer SDK), for odin-based devices, use `Heimdall`_.
+Platform SDK), for odin-based devices, use `Heimdall`_.
 
 .. _Heimdall: http://glassechidna.com.au/heimdall/
 
@@ -100,9 +100,9 @@ Splitting and Re-Assembling Boot Images
 ---------------------------------------
 
 A **boot.img** file is basically a combination of a Linux kernel and an
-initramfs as ``cpio`` archive. The Mer SDK offer the ``mkbootimg``
+initramfs as ``cpio`` archive. The Platform SDK offer the ``mkbootimg``
 to build a boot image from a kernel and cpio archive. To split a boot
-image, use ``split_bootimg`` in Mer SDK.
+image, use ``split_bootimg`` in Platform SDK.
 
 In the CyanogenMod-based Sailfish OS port, a boot image with Sailfish OS-
 specific scripts will be built automatically. These boot images are then

@@ -8,7 +8,7 @@ OBS as binary packages:
 
 .. code-block:: console
 
-  MER_SDK $
+  PLATFORM_SDK $
 
   cd $ANDROID_ROOT/rpm/obs-upload
   make

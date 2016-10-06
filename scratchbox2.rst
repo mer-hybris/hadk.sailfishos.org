@@ -7,7 +7,7 @@ Scratchbox2 target with the following commands:
 
 .. code-block:: console
 
-  MERSDK $
+  PLATFORM_SDK $
 
   hadk
 
@@ -47,7 +47,7 @@ a simple "Hello, World!" C application with ``sb2``:
 
 .. code-block:: console
 
-    MERSDK $
+    PLATFORM_SDK $
 
     cd $HOME
     cat > main.c << EOF

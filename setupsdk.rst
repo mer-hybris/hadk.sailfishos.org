@@ -49,11 +49,11 @@ variables.
 
 .. _enter-mer-sdk:
 
-Setup the Mer SDK
------------------
+Setup the Platform SDK
+----------------------
 
-Mer Platform SDK should be installed under your $HOME, big enough and without
-mount --binds, to avoid possible mount/options issues. Setup MerSDK as follows::
+Platform SDK should be installed under your $HOME, big enough and without
+mount --binds, to avoid possible mount/options issues. Set it up as follows::
 
  HOST $
 
@@ -67,7 +67,7 @@ mount --binds, to avoid possible mount/options issues. Setup MerSDK as follows::
  echo "export MER_ROOT=$MER_ROOT" >> ~/.bashrc
  echo 'alias sdk=$MER_ROOT/sdks/sdk/mer-sdk-chroot' >> ~/.bashrc
  exec bash
- echo 'PS1="MerSDK $PS1"' >> ~/.mersdk.profile
+ echo 'PS1="PlatformSDK $PS1"' >> ~/.mersdk.profile
  cd $HOME
  sdk
  # These commands are a tmp workaround of glitch when working with target:
@@ -76,12 +76,12 @@ mount --binds, to avoid possible mount/options issues. Setup MerSDK as follows::
  sudo zypper ref curlfix
  sudo zypper dup --from curlfix
 
-Ensure you are able to open a shell in the Mer SDK before moving on.
+Ensure you are able to open a shell in the Platform SDK before moving on.
 
-Preparing the Mer SDK
----------------------
+Preparing the Platform SDK
+--------------------------
 
-You'll need some tools which are not installed into the Mer SDK by default:
+You'll need some tools which are not installed into the Platform SDK by default:
 
 * **android-tools** contains tools and utilities needed for working with
   the Android SDK
@@ -94,7 +94,7 @@ install those tools with the following command:
 
 .. code-block:: console
 
-  MER_SDK $
+  PLATFORM_SDK $
 
   sudo zypper in android-tools createrepo zip
 
@@ -105,13 +105,13 @@ Downloading and Unpacking Ubuntu Chroot
 ```````````````````````````````````````
 
 In order to maintain build stability, we use a *Ubuntu GNU/Linux*
-``chroot`` environment from within the Mer SDK to build our Android
+``chroot`` environment from within the Platform SDK to build our Android
 source tree. The following commands download and unpack the rootfs to
 the appropriate location:
 
 .. code-block:: console
 
-  MER_SDK $
+  PLATFORM_SDK $
 
   hadk
 
@@ -128,7 +128,7 @@ Entering Ubuntu Chroot
 
 .. code-block:: console
 
-  MER_SDK $
+  PLATFORM_SDK $
 
   ubu-chroot -r $MER_ROOT/sdks/ubuntu
 
