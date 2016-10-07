@@ -119,7 +119,7 @@ the appropriate location:
   curl -O http://img.merproject.org/images/mer-hybris/ubu/$TARBALL
   UBUNTU_CHROOT=$MER_ROOT/sdks/ubuntu
   sudo mkdir -p $UBUNTU_CHROOT
-  sudo tar --numeric-owner -xvjf $TARBALL -C $UBUNTU_CHROOT
+  sudo tar --numeric-owner -xjf $TARBALL -C $UBUNTU_CHROOT
 
 .. _enter-ubu-chroot:
 
