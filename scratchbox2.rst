@@ -3,44 +3,14 @@ Setting up Scratchbox2 Target
 
 It is necessary to setup a Scratchbox2 target to use for packaging your
 hardware adaptation packages in the next section. Download and create your
-Scratchbox2 target with the following commands:
+Scratchbox2 target following this wiki:
 
-.. code-block:: console
+.. warning::
+    To ensure consistency with HADK build scripts, name your target as
+    ``$VENDOR-$DEVICE-$PORT_ARCH`` instead of the wiki's suggested
+    ``SailfishOS-armv7hl``.
 
-  PLATFORM_SDK $
-
-  hadk
-
-  cd $HOME
-
-  SFE_SB2_TARGET=$MER_ROOT/targets/$VENDOR-$DEVICE-$PORT_ARCH
-  TARBALL_URL=http://releases.sailfishos.org/sdk/latest/targets/targets.json
-  TARBALL=$(curl $TARBALL_URL | grep "$PORT_ARCH.tar.bz2" | cut -d\" -f4)
-  curl -O $TARBALL
-
-  sudo mkdir -p $SFE_SB2_TARGET
-  sudo tar --numeric-owner -pxjf $(basename $TARBALL) -C $SFE_SB2_TARGET
-
-  sudo chown -R $USER $SFE_SB2_TARGET
-
-  cd $SFE_SB2_TARGET
-  grep :$(id -u): /etc/passwd >> etc/passwd
-  grep :$(id -g): /etc/group >> etc/group
-
-  # don't worry about this message: collect2: cannot find 'ld'
-  # FIXME: qemu-arm won't work for Intel Architecture builds
-  sb2-init -d -L "--sysroot=/" -C "--sysroot=/" \
-           -c /usr/bin/qemu-arm-dynamic -m sdk-build \
-           -n -N -t / $VENDOR-$DEVICE-$PORT_ARCH \
-           /opt/cross/bin/$PORT_ARCH-meego-linux-gnueabi-gcc
-
-  sb2 -t $VENDOR-$DEVICE-$PORT_ARCH -m sdk-install -R rpm --rebuilddb
-
-  sb2 -t $VENDOR-$DEVICE-$PORT_ARCH -m sdk-install -R zypper ar \
-    -G http://repo.merproject.org/releases/mer-tools/rolling/builds/$PORT_ARCH/packages/ \
-    mer-tools-rolling
-
-  sb2 -t $VENDOR-$DEVICE-$PORT_ARCH -m sdk-install -R zypper ref --force
+https://sailfishos.org/wiki/Platform_SDK_Target_Installation
 
 To verify the correct installation of the Scratchbox2 target, cross-compile
 a simple "Hello, World!" C application with ``sb2``:
