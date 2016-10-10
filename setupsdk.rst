@@ -13,7 +13,7 @@ basing on CyanogenMod 11.0 version.** Thus ensure you read snippets carefully
 and rename where appropriate for your ported device/vendor/base.
 
 Now run the following commands on your host operating system fitting for your
-device and setup (MER_ROOT value from :ref:`mer-root`):
+device and setup:
 
 .. _CyanogenMod Devices: http://wiki.cyanogenmod.org/w/Devices
 
@@ -22,8 +22,8 @@ device and setup (MER_ROOT value from :ref:`mer-root`):
   HOST $
 
   cat <<'EOF' > $HOME/.hadk.env
-  export MER_ROOT="/path/to/mer"
-  export ANDROID_ROOT="$MER_ROOT/android/droid"
+  export MER_ROOT="/srv/mer"
+  export ANDROID_ROOT="$HOME/hadk"
   export VENDOR="lge"
   export DEVICE="hammerhead"
   # ARCH conflicts with kernel build

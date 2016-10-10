@@ -68,13 +68,9 @@ How to enter ``HABUILD_SDK $`` is explained in :ref:`enter-ubu-chroot`.
 The build area root directory
 `````````````````````````````
 
-In this guide, we refer to the base of the SDK storage/build area with the
-environment variable ``$MER_ROOT``. You need several gigabytes of space in
-this area, we strongly recommend the following path:
-
-* ``export MER_ROOT=$HOME/mer/`` for a user-specific installation
-
-Do not point MER_ROOT outside your $HOME due to existing issues.
+In this guide, we refer to the SDK directory hosting Platform SDK, Targets, and
+Ubuntu chroot with the environment variable ``$MER_ROOT``. With one SDK target
+spanning 0.5-1GB, you need around 3GB of space in total.
 
 Build components
 ````````````````
