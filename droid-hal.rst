@@ -15,7 +15,7 @@ appropriate and push to your GitHub home):
 
 .. code-block:: console
 
- MER_SDK $
+ PLATFORM_SDK $
 
  cd $ANDROID_ROOT
  mkdir rpm
@@ -162,13 +162,13 @@ components later on.
 Building the droid-hal-device packages
 ``````````````````````````````````````
 .. important::
- # type ``zypper ref; zypper dup`` every now and again to update your Mer SDK!
+ # type ``zypper ref; zypper dup`` every now and again to update your Platform SDK!
 
-The next step has to be carried out in a Mer SDK chroot:
+The next step has to be carried out in the Platform SDK chroot:
 
 .. code-block:: console
 
-    MER_SDK $
+    PLATFORM_SDK $
 
     cd $ANDROID_ROOT
 

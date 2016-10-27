@@ -1,7 +1,7 @@
 Sailfish OS Hardware Adaptation Development Kit
 --------------------------------------------
 
-Build-dependencies in Mer SDK (mer-tools) :
+Build-dependencies in Platform SDK (mer-tools) :
 
     zypper in python-sphinx
 

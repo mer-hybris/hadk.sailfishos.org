@@ -26,7 +26,7 @@ Development
 Requirements
 ````````````
 
-The development environment uses the Mer Platform SDK, with:
+The development environment uses the Platform SDK, with:
 
 * one or more device specific **targets** (a rootfs with device-specific
   headers and libraries)
@@ -36,21 +36,21 @@ The development environment uses the Mer Platform SDK, with:
 
 During the HA development you'll typically have one window/terminal using the
 HA build SDK where you build and work on Android code and another session
-using the Mer SDK where you build RPMs for the hardware adaptation.
+using the Platform SDK where you build RPMs for the hardware adaptation.
 
-Setting up the Mer Platform SDK, as well as the device-specific targets
+Setting up the Platform SDK, as well as the device-specific targets
 and the Ubuntu HA build chroot is described in :doc:`setupsdk`.
 
-Commands and output from the Mer SDK session are indicated using
-``MER_SDK $`` at the top of the code block, like this:
+Commands and output from the Platform SDK session are indicated using
+``PLATFORM_SDK $`` at the top of the code block, like this:
 
 .. code-block:: console
 
-  MER_SDK $
+  PLATFORM_SDK $
 
-  echo "run this command in the Mer SDK terminal"
+  echo "run this command in the Platform SDK terminal"
 
-How to enter ``MER_SDK $`` is explained in :ref:`enter-mer-sdk`.
+How to enter ``PLATFORM_SDK $`` is explained in :ref:`enter-mer-sdk`.
 
 Commands and output from the HA build session are indicated using
 ``HABUILD_SDK $`` at the top of the code block, like this:
@@ -68,18 +68,14 @@ How to enter ``HABUILD_SDK $`` is explained in :ref:`enter-ubu-chroot`.
 The build area root directory
 `````````````````````````````
 
-In this guide, we refer to the base of the SDK storage/build area with the
-environment variable ``$MER_ROOT``. You need several gigabytes of space in
-this area, we strongly recommend the following path:
-
-* ``export MER_ROOT=$HOME/mer/`` for a user-specific installation
-
-Do not point MER_ROOT outside your $HOME due to existing issues.
+In this guide, we refer to the SDK directory hosting Platform SDK, Targets, and
+Ubuntu chroot with the environment variable ``$MER_ROOT``. With one SDK target
+spanning 0.5-1GB, you need around 3GB of space in total.
 
 Build components
 ````````````````
 There are a number of components to build; the lower level and Android related
-components are built in the HA build SDK; the rest are built in the Mer SDK.
+components are built in the HA build SDK; the rest are built in the Platform SDK.
 
 * In the **HA build SDK**
  - a kernel
@@ -89,13 +85,13 @@ components are built in the HA build SDK; the rest are built in the Mer SDK.
  * modified Android parts for compatibility with libhybris and Sailfish OS
    (e.g. Bionic libc, ``logcat``, ``init``, ...)
 
-* In the **Mer SDK**
+* In the **Platform SDK**
  - RPM packages containing all the built binaries and extracted configs
  * Hardware-specific middleware and plugins (e.g. Qt QPA plugins, PulseAudio)
 
 For distribution, RPM packages are uploaded to a HA-specific repository. With
 this repository, full system images using the ``mic`` utility. The ``mic``
-utility is usually also run inside the Mer SDK.
+utility is usually also run inside the Platform SDK.
 
 Deployment
 ==========
