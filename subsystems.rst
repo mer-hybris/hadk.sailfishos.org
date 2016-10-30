@@ -88,6 +88,107 @@ configuration files, see more details in
 
 * :ref:`hapticconfiguration`
 
+GStreamer v1.0
+**************
+
+Sailfish OS 2.0 introduces GStreamer v1.0 for camera and video, and deprecates GStreamer v0.10.
+
+For CM12.0/AOSP5 or newer you will need to do these two steps first:
+
+1. Build libcameraservice target:
+
+.. code-block:: console
+
+    HABUILD_SDK $
+
+    cd $ANDROID_ROOT
+    source build/envsetup.sh
+    breakfast $DEVICE
+    make libcameraservice
+
+2. Patch ``$ANDROID_ROOT/system/core/``:
+
+.. code-block:: diff
+
+    diff --git a/rootdir/init.rc b/rootdir/init.rc
+     service minimedia /usr/libexec/droid-hybris/system/bin/minimediaservice
+         user media
+         group audio camera
+         ioprio rt 4
+    +    setenv LD_PRELOAD /usr/libexec/droid-hybris/system/lib/libcameraservice.so
+
+Remaining steps for all adaptations:
+
+.. code-block:: console
+
+    HABUILD_SDK $
+
+    cd $ANDROID_ROOT
+    source build/envsetup.sh
+    breakfast $DEVICE
+    make -j8 libdroidmedia minimediaservice minisfservice
+
+
+    PLATFORM_SDK $
+
+    cd $ANDROID_ROOT
+    rpm/dhd/helpers/pack_source_droidmedia-localbuild.sh
+    mkdir -p hybris/mw/droidmedia-localbuild
+    cp rpm/dhd/helpers/droidmedia-localbuild.spec hybris/mw/droidmedia-localbuild/droidmedia.spec
+    cd hybris/mw/droidmedia-localbuild
+    mv ../droidmedia-0.0.0.tgz .
+    mb2 -s droidmedia.spec -t $VENDOR-$DEVICE-$PORT_ARCH build
+    cd -
+    mv hybris/mw/droidmedia-localbuild/RPMS/*.rpm $ANDROID_ROOT/droid-local-repo/$DEVICE/
+    createrepo $ANDROID_ROOT/droid-local-repo/$DEVICE
+    sb2 -t $VENDOR-$DEVICE-$PORT_ARCH -R -msdk-install zypper ref
+
+To prevent camera lockup, disable shutter audio in your
+``$ANDROID_ROOT/device/$VENDOR/$DEVICE/`` flag
+``PRODUCT_DEFAULT_PROPERTY_OVERRIDES`` like so:
+
+.. code-block:: diff
+
+   diff --git a/device.mk b/device.mk
+    # Camera configuration
+    PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
+   +    persist.camera.shutter.disable=1 \
+        camera.disable_zsl_mode=1
+
+Symlink ``/system/etc/media_*.xml`` to ``/etc`` (this is done in
+``$ANDROID_ROOT/hybris/droid-configs/sparse/etc/``).
+
+Build relevant parts:
+
+.. code-block:: console
+
+    PLATFORM_SDK $
+
+    cd $ANDROID_ROOT
+    rpm/dhd/helpers/build_packages.sh --droid-hal --mw=https://github.com/sailfishos/gst-droid.git
+
+Add the GStreamer-droid bridge to patterns in ``$ANDROID_ROOT/hybris/droid-configs/``:
+
+.. code-block:: diff
+
+    diff --git a/patterns/jolla-hw-adaptation-$DEVICE.yaml b/patterns/jolla-hw-adaptation-$DEVICE.yaml
+     - nemo-gstreamer1.0-interfaces
+    +- gstreamer1.0-droid
+    +
+     # This is needed for notification LEDs
+     - mce-plugin-libhybris
+
+Rebuild configs and patterns:
+
+.. code-block:: console
+
+    PLATFORM_SDK $
+
+    cd $ANDROID_ROOT
+    rpm/dhd/helpers/build_packages.sh --configs
+
+You are now ready to rebuild the image which will have GStreamer v1.0 support.
+
 Camera
 ******
 
