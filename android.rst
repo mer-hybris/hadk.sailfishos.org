@@ -45,8 +45,6 @@ MultiROM support for your device. It supports Sailfish OS starting v28.
 
   HABUILD_SDK $
 
-  hadk
-
   sudo mkdir -p $ANDROID_ROOT
   sudo chown -R $USER $ANDROID_ROOT
   cd $ANDROID_ROOT
@@ -61,8 +59,6 @@ for the mer-hybris builds. Create directory at first:
 .. code-block:: console
 
   HABUILD_SDK $
-
-  hadk
 
   mkdir $ANDROID_ROOT/.repo/local_manifests
 
@@ -92,8 +88,6 @@ Time to sync the whole source code, this might take a while:
 .. code-block:: console
 
   HABUILD_SDK $
-
-  hadk
 
   repo sync --fetch-submodules
 
@@ -146,8 +140,6 @@ tools, configuration files and others:
 .. code-block:: console
 
   HABUILD_SDK $
-
-  hadk
 
   source build/envsetup.sh
   export USE_CCACHE=1

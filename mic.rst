@@ -43,8 +43,6 @@ during droid-configs build, using ``ssuks``, which is part of the SSU utility::
 
   PLATFORM_SDK $
 
-  hadk
-
   cd $ANDROID_ROOT
   mkdir -p tmp
 
@@ -93,8 +91,6 @@ non-critical ``Exception AttributeError: "'NoneType...`` error):
 .. code-block:: console
 
     PLATFORM_SDK $
-
-    hadk
 
     cd $ANDROID_ROOT
     hybris/droid-configs/droid-configs-device/helpers/process_patterns.sh

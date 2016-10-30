@@ -91,8 +91,6 @@ the appropriate location:
 
   PLATFORM_SDK $
 
-  hadk
-
   TARBALL=ubuntu-trusty-android-rootfs.tar.bz2
   curl -O http://img.merproject.org/images/mer-hybris/ubu/$TARBALL
   UBUNTU_CHROOT=$MER_ROOT/sdks/ubuntu
