@@ -189,14 +189,15 @@ It's different for every device, most likely first:
 * Check the value of ``TARGET_KERNEL_CONFIG`` under
   $ANDROID_ROOT/device/$VENDOR/\*/BoardConfig\*.mk
 
-* Double-check which defconfig is taken when you're building kernel, e.g.:
-  make  -C kernel/lge/hammerhead ... cyanogenmod_hammerhead_defconfig
+* Examine the output of `make bootimage` for which defconfig is taken when
+  you're building kernel, e.g.:
+  ``make  -C kernel/lge/hammerhead ... cyanogenmod_hammerhead_defconfig``
 
 * Check CM kernel's commit history of the ``arch/arm/configs`` folder, look for
   defconfig
 
-First get rid of ``ERROR`` flags, then take care of ``WARNING`` ones if you're
-extra picky and/or your kernel still compiles fine.
+If you are in a rush, get rid only of ``ERROR`` cases first, but don't forget to
+come back to the ``WARNING`` ones too.
 After you'll have applied the needed changes, re-run ``make hybris-boot`` and
 re-verify. Lather, rinse, repeat :) Run also ``make hybris-recovery`` in the end
 when no more errors.
