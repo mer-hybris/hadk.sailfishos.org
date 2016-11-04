@@ -22,7 +22,7 @@ device and setup:
   HOST $
 
   cat <<'EOF' > $HOME/.hadk.env
-  export MER_ROOT="/srv/mer"
+  export PLATFORM_SDK_ROOT="/srv/mer"
   export ANDROID_ROOT="$HOME/hadk"
   export VENDOR="lge"
   export DEVICE="hammerhead"
@@ -93,7 +93,7 @@ the appropriate location:
 
   TARBALL=ubuntu-trusty-android-rootfs.tar.bz2
   curl -O http://img.merproject.org/images/mer-hybris/ubu/$TARBALL
-  UBUNTU_CHROOT=$MER_ROOT/sdks/ubuntu
+  UBUNTU_CHROOT=$PLATFORM_SDK_ROOT/sdks/ubuntu
   sudo mkdir -p $UBUNTU_CHROOT
   sudo tar --numeric-owner -xjf $TARBALL -C $UBUNTU_CHROOT
 
@@ -106,7 +106,7 @@ Entering Ubuntu Chroot
 
   PLATFORM_SDK $
 
-  ubu-chroot -r $MER_ROOT/sdks/ubuntu
+  ubu-chroot -r $PLATFORM_SDK_ROOT/sdks/ubuntu
 
   # FIXME: Hostname resolution might fail. This error can be ignored.
   # Can be fixed manually by adding the hostname to /etc/hosts

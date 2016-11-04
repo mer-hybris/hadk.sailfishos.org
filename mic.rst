@@ -216,6 +216,6 @@ Troubleshooting
 /dev/null - Permission denied
 '''''''''''''''''''''''''''''
 
-Most likely the partition your MerSDK resides in, is mounted with ``nodev`` option.
+Most likely the partition your Platform SDK resides in, is mounted with ``nodev`` option.
 Remove that option from mount rules.
 

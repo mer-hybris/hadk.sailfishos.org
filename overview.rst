@@ -69,7 +69,7 @@ The build area root directory
 `````````````````````````````
 
 In this guide, we refer to the SDK directory hosting Platform SDK, Targets, and
-Ubuntu chroot with the environment variable ``$MER_ROOT``. With one SDK target
+Ubuntu chroot with the environment variable ``$PLATFORM_SDK_ROOT``. With one SDK target
 spanning 0.5-1GB, you need around 3GB of space in total.
 
 Build components
