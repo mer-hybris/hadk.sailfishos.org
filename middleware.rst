@@ -108,7 +108,7 @@ The Non-Graphical Feedback Daemon provides combined audio, haptic, and LED
 feedback for system events and alarms. These events include such things as
 ring tones, message tones, clock alarms, email notifications, etc.
 
-* https://github.com/nemomobile/ngfd
+* https://git.merproject.org/mer-core/ngfd
 
 TODO: add more detail about configuring NGFD.
 
@@ -136,14 +136,6 @@ TODO
 
 PulseAudio Droid Modules
 ------------------------
-
-If you are lucky, these config files should just make audio work, take them from
-https://github.com/mer-hybris/droid-config-hammerhead/tree/master/sparse/etc/pulse:
-* arm_qualcomm_msm_8974_hammerhead_flattened_device_tree_000b.pa
-* xpolicy.conf
-and https://github.com/mer-hybris/droid-config-hammerhead/blob/master/sparse/etc/sysconfig/pulseaudio
-
-Place them under your ``$ANDROID_ROOT/droid-configs/sparse`` respective paths.
 
 TODO - more information about how PA works
 

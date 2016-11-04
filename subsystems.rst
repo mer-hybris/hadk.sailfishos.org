@@ -80,13 +80,114 @@ converted to a ffmemless driver. The main tasks for this are:
  * At probe, create a ffmemless device with **input_ff_create_memless**
   * http://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git/tree/include/linux/input.h#n531
  * And register the resulting device with input_device_register.
- * Remeber to clean up the input device structure at driver exit
+ * Remember to clean up the input device structure at driver exit
  * The example ffmemless drivers above can be used for reference
 
 The userspace configuration haptic feedback and effects is handled with ngfd
 configuration files, see more details in
 
 * :ref:`hapticconfiguration`
+
+GStreamer v1.0
+**************
+
+Sailfish OS 2.0 introduces GStreamer v1.0 for camera and video, and deprecates GStreamer v0.10.
+
+For CM12.0/AOSP5 or newer you will need to do these two steps first:
+
+1. Build libcameraservice target:
+
+.. code-block:: console
+
+    HABUILD_SDK $
+
+    cd $ANDROID_ROOT
+    source build/envsetup.sh
+    breakfast $DEVICE
+    make libcameraservice
+
+2. Patch ``$ANDROID_ROOT/system/core/``:
+
+.. code-block:: diff
+
+    diff --git a/rootdir/init.rc b/rootdir/init.rc
+     service minimedia /usr/libexec/droid-hybris/system/bin/minimediaservice
+         user media
+         group audio camera
+         ioprio rt 4
+    +    setenv LD_PRELOAD /usr/libexec/droid-hybris/system/lib/libcameraservice.so
+
+Remaining steps for all adaptations:
+
+.. code-block:: console
+
+    HABUILD_SDK $
+
+    cd $ANDROID_ROOT
+    source build/envsetup.sh
+    breakfast $DEVICE
+    make -j8 libdroidmedia minimediaservice minisfservice
+
+
+    PLATFORM_SDK $
+
+    cd $ANDROID_ROOT
+    rpm/dhd/helpers/pack_source_droidmedia-localbuild.sh
+    mkdir -p hybris/mw/droidmedia-localbuild
+    cp rpm/dhd/helpers/droidmedia-localbuild.spec hybris/mw/droidmedia-localbuild/droidmedia.spec
+    cd hybris/mw/droidmedia-localbuild
+    mv ../droidmedia-0.0.0.tgz .
+    mb2 -s droidmedia.spec -t $VENDOR-$DEVICE-$PORT_ARCH build
+    cd -
+    mv hybris/mw/droidmedia-localbuild/RPMS/*.rpm $ANDROID_ROOT/droid-local-repo/$DEVICE/
+    createrepo $ANDROID_ROOT/droid-local-repo/$DEVICE
+    sb2 -t $VENDOR-$DEVICE-$PORT_ARCH -R -msdk-install zypper ref
+
+To prevent camera lockup, disable shutter audio in your
+``$ANDROID_ROOT/device/$VENDOR/$DEVICE/`` flag
+``PRODUCT_DEFAULT_PROPERTY_OVERRIDES`` like so:
+
+.. code-block:: diff
+
+   diff --git a/device.mk b/device.mk
+    # Camera configuration
+    PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
+   +    persist.camera.shutter.disable=1 \
+        camera.disable_zsl_mode=1
+
+Symlink ``/system/etc/media_*.xml`` to ``/etc`` (this is done in
+``$ANDROID_ROOT/hybris/droid-configs/sparse/etc/``).
+
+Build relevant parts:
+
+.. code-block:: console
+
+    PLATFORM_SDK $
+
+    cd $ANDROID_ROOT
+    rpm/dhd/helpers/build_packages.sh --droid-hal --mw=https://github.com/sailfishos/gst-droid.git
+
+Add the GStreamer-droid bridge to patterns in ``$ANDROID_ROOT/hybris/droid-configs/``:
+
+.. code-block:: diff
+
+    diff --git a/patterns/jolla-hw-adaptation-$DEVICE.yaml b/patterns/jolla-hw-adaptation-$DEVICE.yaml
+     - nemo-gstreamer1.0-interfaces
+    +- gstreamer1.0-droid
+    +
+     # This is needed for notification LEDs
+     - mce-plugin-libhybris
+
+Rebuild configs and patterns:
+
+.. code-block:: console
+
+    PLATFORM_SDK $
+
+    cd $ANDROID_ROOT
+    rpm/dhd/helpers/build_packages.sh --configs
+
+You are now ready to rebuild the image which will have GStreamer v1.0 support.
 
 Camera
 ******
@@ -120,7 +221,7 @@ lines starting with ``E/RIL...`` will point to a root cause!
 * Also install ``ofono-tests`` package and run ``/usr/lib/ofono/test/list-modems``
 
 * Try to recompile latest ofono master branch from
-  https://github.com/nemomobile-packages/ofono
+  https://git.merproject.org/mer-core/ofono
 
 * If everything else fails, then stop and strace a failing daemon (either RIL or
   ofono) from command line manually
@@ -151,11 +252,11 @@ accesses directly the WLAN driver bypassing wpa_supplicant.
 
 The version of currently used wpa_supplicant can be checked from here:
 
- https://github.com/mer-packages/wpa_supplicant
+ https://git.merproject.org/mer-core/wpa_supplicant
 
 The version of used connman can be checked from here:
 
- https://github.com/mer-packages/connman
+ https://git.merproject.org/mer-core/connman
 
 Special quirks: WLAN hotspot
 ============================
@@ -164,7 +265,7 @@ On some android WLAN drivers, the whole connectivity stack needs to be reset
 after WLAN hotspot use. For that purpose there is reset service in dsme, please
 see details how to set that up for your adaptation project in here:
 
- https://github.com/nemomobile/dsme/commit/c377c349079b470db38ba6394121b6d899004963
+ https://git.merproject.org/mer-core/dsme/commit/c377c349079b470db38ba6394121b6d899004963
 
 NFC
 ***
@@ -177,9 +278,8 @@ GPS
 
 Ensure the ``test_gps`` command gets a fix after a while.
 
-On unofficial (community's) ports, put that community's built
-``geoclue-provider-hybris-community`` package into your patterns. It however
-won't have AGPS, so wait longer for a fix.
+The necessary middleware is already built for you, just add
+``geoclue-provider-hybris`` package into your patterns.
 
 Audio
 *****
@@ -194,7 +294,7 @@ Sensors
 *******
 
 Sailfish OS sensor support is based upon Sensor Framework at:
-https://github.com/mer-packages/sensorfw
+https://git.merproject.org/mer-core/sensorfw
 
 Hybris based systems can use the hybris sensor adaptor plugins, which uses
 existing android libhardware sensor adaptations to read sensor data and control.
@@ -207,14 +307,14 @@ You can also use any conf file by specifying it on the commandline.
 
 For hybris based platforms, this will be sensord-hybris.conf, and most likely will 
 not have to be modified.
-https://github.com/mer-packages/sensorfw/blob/master/config/sensord-hybris.conf
+https://git.merproject.org/mer-core/sensorfw/blob/master/config/sensord-hybris.conf
 Place this file under
 ``$ANDROID_ROOT/hybris/droid-configs/sparse/etc/sensorfw/primaryuse.conf``
 
 There are already a few device specific conf files to look at if the device needs
 more configuration.
 Example of mixed hybris and evdev configuration
-https://github.com/mer-packages/sensorfw/blob/master/config/sensord-tbj.conf
+https://git.merproject.org/mer-core/sensorfw/blob/master/config/sensord-tbj.conf
 
 Generally, if sensors are working on the android/hybris side, they will work in sensorfw
 and up to the Sailfish UI. libhybris comes with /usr/bin/test-sensors which can list
@@ -247,7 +347,7 @@ are working normally.
 The userspace API's for platform applications is exposed via nemo-keepalive
 package. See more details here:
 
- https://github.com/nemomobile/nemo-keepalive
+ https://git.merproject.org/mer-core/nemo-keepalive
 
 Watchdog
 ********
