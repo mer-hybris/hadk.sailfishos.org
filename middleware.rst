@@ -108,7 +108,7 @@ The Non-Graphical Feedback Daemon provides combined audio, haptic, and LED
 feedback for system events and alarms. These events include such things as
 ring tones, message tones, clock alarms, email notifications, etc.
 
-* https://github.com/nemomobile/ngfd
+* https://git.merproject.org/mer-core/ngfd
 
 TODO: add more detail about configuring NGFD.
 
