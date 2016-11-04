@@ -90,9 +90,10 @@ to connect to the Internet. It's wlan0 in this example::
  echo 1 > /proc/sys/net/ipv4/ip_forward
 
 Execute on the device::
+
  TARGET $
 
- route add default gw 192.168.2.X (<- host's usb0 IP)
+ route add default gw 192.168.2.X # <- host's usb0 IP
  echo 'nameserver 208.67.222.222' > /etc/resolv.conf
 
 

@@ -80,7 +80,7 @@ converted to a ffmemless driver. The main tasks for this are:
  * At probe, create a ffmemless device with **input_ff_create_memless**
   * http://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git/tree/include/linux/input.h#n531
  * And register the resulting device with input_device_register.
- * Remeber to clean up the input device structure at driver exit
+ * Remember to clean up the input device structure at driver exit
  * The example ffmemless drivers above can be used for reference
 
 The userspace configuration haptic feedback and effects is handled with ngfd
