@@ -12,8 +12,8 @@ therefore need to be built separately for each target device.
 See :doc:`middleware` for a list of all middleware components (not all
 middleware components are used for all device adaptations). Most of them will
 have already been built by the ``build_packages.sh`` script, but if you need a
-extra one, clone its repository from Github and rebuild the same way
-build_packages.sh does.
+extra one, clone its repository from Github and rebuild via
+``rpm/dhd/helpers/build_packages.sh --mw=GIT_URL``.
 
 Via the flexible system of patterns, you will be able to select only
 working/needed functions for your device.
@@ -82,37 +82,29 @@ adaptation.
 
 .. _patterns:
 
-Making local repo aware of patterns
-```````````````````````````````````
+Modifying a pattern
+```````````````````
 
-Add/update metadata about patterns using this script (NB: it will fail with a
-non-critical ``Exception AttributeError: "'NoneType...`` error):
+To make an extra modification to a pattern, edit its respective file under
+``hybris/droid-configs/patterns/``. Take care and always use ``git status/stash``
+commands. Once happy, commit to your GitHub home and eventually PR upstream.
+
+For patterns to take effect on the image, run the following:
 
 .. code-block:: console
 
     PLATFORM_SDK $
 
     cd $ANDROID_ROOT
-    hybris/droid-configs/droid-configs-device/helpers/process_patterns.sh
+    rpm/dhd/helpers/build_packages.sh --configs
 
-Modifying a pattern
-```````````````````
-
-To make an extra modification to a pattern, edit its respective file under
-``hybris/patterns/``. Take care and always use ``git status/stash`` commands.
-Once happy, commit to your GitHub home and eventually PR upstream.
-
-For patterns to take effect on the image, re-run :ref:`build-rpms` (answer No
-for all middleware packages - they don't need rebuilding), and finally process
-them as per :ref:`patterns`.
+NB: it will fail with a non-critical ``Exception AttributeError: "'NoneType...``
+error.
 
 .. _mic:
 
 Building the Image with MIC
 ---------------------------
-
-Ensure you have regenerated :ref:`patterns` (needs to be run after every
-launch of ``build_packages.sh``)
 
 In the script below choose a `Sailfish OS version`_ you want to build.
 
@@ -172,6 +164,8 @@ patterns. A quick in-place solution (NB: expand @DEVICE@ occurrences manually):
 * Substitute the line ``@Jolla Configuration @DEVICE@`` with
   ``@jolla-hw-adaptation-@DEVICE@`` in your .ks
 
+* Update patterns (:ref:`patterns`)
+
 * Try creating the image again (:ref:`mic`)
 
 * Repeat the steps above substituting respective pattern to walk down the
@@ -207,7 +201,6 @@ Otherwise if a package is not critical, and you accept to have less
 functionality (or even unbootable) image, you can temporarily comment it out
 from patterns in ``hybris/droid-configs/patterns`` and orderly perform:
 
-* :ref:`build-rpms`
 * :ref:`gen-ks`
 * :ref:`patterns`
 * :ref:`mic`
