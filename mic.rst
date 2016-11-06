@@ -44,14 +44,13 @@ during droid-configs build, using ``ssuks``, which is part of the SSU utility::
   PLATFORM_SDK $
 
   cd $ANDROID_ROOT
-  mkdir -p tmp
 
   HA_REPO="repo --name=adaptation0-$DEVICE-@RELEASE@"
   KS="Jolla-@RELEASE@-$DEVICE-@ARCH@.ks"
   sed -e \
    "s|^$HA_REPO.*$|$HA_REPO --baseurl=file://$ANDROID_ROOT/droid-local-repo/$DEVICE|" \
    $ANDROID_ROOT/hybris/droid-configs/installroot/usr/share/kickstarts/$KS \
-   > tmp/$KS
+   > $KS
 
 .. warning::
     THIS IS IMPORTANT: Do not execute the code snippet below this box if you are not
@@ -69,7 +68,7 @@ Mer OBS:
   HA_REPO="repo --name=adaptation0-$DEVICE-@RELEASE@"
   HA_REPO1="repo --name=adaptation1-$DEVICE-@RELEASE@ \
   --baseurl=$MOBS_URI/nemo:/devel:/hw:/$VENDOR:/$DEVICE/sailfish_latest_@ARCH@/"
-  sed -i -e "/^$HA_REPO.*$/a$HA_REPO1" tmp/Jolla-@RELEASE@-$DEVICE-@ARCH@.ks
+  sed -i -e "/^$HA_REPO.*$/a$HA_REPO1" Jolla-@RELEASE@-$DEVICE-@ARCH@.ks
 
 
 Patterns
@@ -137,7 +136,7 @@ non-critical as long as you end up with a generated .zip image):
       --record-pkgs=name,url \
       --outdir=sfe-$DEVICE-$RELEASE$EXTRA_NAME \
       --pack-to=sfe-$DEVICE-$RELEASE$EXTRA_NAME.tar.bz2 \
-      $ANDROID_ROOT/tmp/Jolla-@RELEASE@-$DEVICE-@ARCH@.ks
+      $ANDROID_ROOT/Jolla-@RELEASE@-$DEVICE-@ARCH@.ks
 
 Once obtained the ``.zip`` file, sideload via your device's recovery mode,
 or examine other particular ways of deploying to your device.
