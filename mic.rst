@@ -44,14 +44,13 @@ during droid-configs build, using ``ssuks``, which is part of the SSU utility::
   PLATFORM_SDK $
 
   cd $ANDROID_ROOT
-  mkdir -p tmp
 
   HA_REPO="repo --name=adaptation0-$DEVICE-@RELEASE@"
   KS="Jolla-@RELEASE@-$DEVICE-@ARCH@.ks"
   sed -e \
    "s|^$HA_REPO.*$|$HA_REPO --baseurl=file://$ANDROID_ROOT/droid-local-repo/$DEVICE|" \
    $ANDROID_ROOT/hybris/droid-configs/installroot/usr/share/kickstarts/$KS \
-   > tmp/$KS
+   > $KS
 
 .. warning::
     THIS IS IMPORTANT: Do not execute the code snippet below this box if you are not
@@ -69,7 +68,7 @@ Mer OBS:
   HA_REPO="repo --name=adaptation0-$DEVICE-@RELEASE@"
   HA_REPO1="repo --name=adaptation1-$DEVICE-@RELEASE@ \
   --baseurl=$MOBS_URI/nemo:/devel:/hw:/$VENDOR:/$DEVICE/sailfish_latest_@ARCH@/"
-  sed -i -e "/^$HA_REPO.*$/a$HA_REPO1" tmp/Jolla-@RELEASE@-$DEVICE-@ARCH@.ks
+  sed -i -e "/^$HA_REPO.*$/a$HA_REPO1" Jolla-@RELEASE@-$DEVICE-@ARCH@.ks
 
 
 Patterns
@@ -131,13 +130,17 @@ non-critical as long as you end up with a generated .zip image):
   RELEASE=2.0.4.14
   # EXTRA_NAME adds your custom tag. It doesn't support '.' dots in it!
   EXTRA_NAME=-my1
+  # Always regenerate patterns as they usually get reset during build process
+  # NB: the next command will output a non-error, safe to ignore it:
+  # Exception AttributeError: "'NoneType' object has no attribute 'px_proxy_fa..
+  hybris/droid-configs/droid-configs-device/helpers/process_patterns.sh
   sudo mic create fs --arch $PORT_ARCH \
       --debug \
       --tokenmap=ARCH:$PORT_ARCH,RELEASE:$RELEASE,EXTRA_NAME:$EXTRA_NAME \
       --record-pkgs=name,url \
       --outdir=sfe-$DEVICE-$RELEASE$EXTRA_NAME \
       --pack-to=sfe-$DEVICE-$RELEASE$EXTRA_NAME.tar.bz2 \
-      $ANDROID_ROOT/tmp/Jolla-@RELEASE@-$DEVICE-@ARCH@.ks
+      $ANDROID_ROOT/Jolla-@RELEASE@-$DEVICE-@ARCH@.ks
 
 Once obtained the ``.zip`` file, sideload via your device's recovery mode,
 or examine other particular ways of deploying to your device.
@@ -201,7 +204,6 @@ Otherwise if a package is not critical, and you accept to have less
 functionality (or even unbootable) image, you can temporarily comment it out
 from patterns in ``hybris/droid-configs/patterns`` and orderly perform:
 
-* :ref:`gen-ks`
 * :ref:`patterns`
 * :ref:`mic`
 

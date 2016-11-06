@@ -37,6 +37,12 @@ to devices running the CyanogenMod flavour of Android.
    repos
    naming
 
+.. only:: html
+
+  .. toctree::
+
+   factory
+
 License
 =======
 

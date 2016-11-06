@@ -88,10 +88,14 @@ configuration files, see more details in
 
 * :ref:`hapticconfiguration`
 
+.. _gst-droid:
+
 GStreamer v1.0
 **************
 
-Sailfish OS 2.0 introduces GStreamer v1.0 for camera and video, and deprecates GStreamer v0.10.
+Sailfish OS 2.0 introduces GStreamer v1.0 with hardware-accelerated video and
+audio encoding and decoding in Camera, Gallery and Browser, and deprecates
+GStreamer v0.10.
 
 For CM12.0/AOSP5 or newer you will need to do these two steps first:
 
@@ -133,15 +137,10 @@ Remaining steps for all adaptations:
 
     cd $ANDROID_ROOT
     rpm/dhd/helpers/pack_source_droidmedia-localbuild.sh
-    mkdir -p hybris/mw/droidmedia-localbuild
-    cp rpm/dhd/helpers/droidmedia-localbuild.spec hybris/mw/droidmedia-localbuild/droidmedia.spec
-    cd hybris/mw/droidmedia-localbuild
-    mv ../droidmedia-0.0.0.tgz .
-    mb2 -s droidmedia.spec -t $VENDOR-$DEVICE-$PORT_ARCH build
-    cd -
-    mv hybris/mw/droidmedia-localbuild/RPMS/*.rpm $ANDROID_ROOT/droid-local-repo/$DEVICE/
-    createrepo $ANDROID_ROOT/droid-local-repo/$DEVICE
-    sb2 -t $VENDOR-$DEVICE-$PORT_ARCH -R -msdk-install zypper ref
+    mkdir -p hybris/mw/droidmedia-localbuild/rpm
+    cp rpm/dhd/helpers/droidmedia-localbuild.spec hybris/mw/droidmedia-localbuild/rpm/droidmedia.spec
+    mv hybris/mw/droidmedia-0.0.0.tgz hybris/mw/droidmedia-localbuild
+    rpm/dhd/helpers/build_packages.sh --build=hybris/mw/droidmedia-localbuild
 
 To prevent camera lockup, disable shutter audio in your
 ``$ANDROID_ROOT/device/$VENDOR/$DEVICE/`` flag
@@ -187,12 +186,83 @@ Rebuild configs and patterns:
     cd $ANDROID_ROOT
     rpm/dhd/helpers/build_packages.sh --configs
 
-You are now ready to rebuild the image which will have GStreamer v1.0 support.
+You are now ready to rebuild the image which will have GStreamer v1.0 support,
+refer to :doc:`mic`. Alternatively you can complete productising other HW areas
+as described in this chapter.
 
 Camera
 ******
 
-TODO
+Ensure you have built the :ref:`gst-droid` part in the previous section, you can
+test the Camera app right away, it should already work, however with default low
+settings and reduced feature set (e.g. no flash or focus mode selection).
+
+To improve those, install ``gstreamer1.0-droid-tools`` on device (RPM is available
+under ``$ANDROID_ROOT/droid-local-repo/$DEVICE/gst-droid/``) and launch:
+
+.. code-block:: console
+
+    DEVICE $
+
+    devel-su # Set your password in Settings | Developer mode
+    mk-cam-conf 0 /etc/gst-droid/gstdroidcamsrc-0.conf
+    mk-cam-conf 1 /etc/gst-droid/gstdroidcamsrc-1.conf
+
+This creates configs for each, front and back cameras. Transfer them over and
+place under ``$ANDROID_ROOT/hybris/droid-configs/sparse/etc/gst-droid`` for
+persistency (don't forget to git commit+push somewhere safe! :)
+
+Next you'll need to generate the resolutions file. Build the following repo:
+
+.. code-block:: console
+
+    PLATFORM_SDK $
+
+    cd $ANDROID_ROOT
+    rpm/dhd/helpers/build_packages.sh --mw=droid-camres
+
+Install the RPM from ``$ANDROID_ROOT/droid-local-repo/$DEVICE/droid-camres/``
+onto your device and execute:
+
+.. code-block:: console
+
+    DEVICE $
+
+    droid-camres -w
+
+    # It creates a failsafe jolla-camera-hw.txt, manual perfecting is encouraged
+
+    devel-su # Set your password in Settings | Developer mode
+    mv jolla-camera-hw.txt /etc/dconf/db/vendor.d/
+    dconf update
+
+Go to Settings | Apps | Camera and ensure valid ratio and megapixel entries
+appear in both cameras. Reloading Camera app should effectuate the changes.
+
+You can further fix/improve the contents of ``jolla-camera-hw.txt`` by looking
+more closely at the output of ``droid-camres``. Sometimes it chooses an aspect
+ratio which provides sub-optimal resolution, e.g. it prefers 4:3 for the front
+facing camera, yet sensor only supports 1280x960, however switching to 16:9
+would give a far superior 1920x1080 resolution.
+
+You are encouraged to set all viewfinder resolutions to match that of your
+device's framebuffer. Do check for regressions via ``devel-su dconf update``
+and reloading Camera app as you go.
+
+Preserve ``/etc/dconf/db/vendor.d/jolla-camera-hw.txt`` under version control
+just like you did with ``gstdroidcamsrc-*.conf`` above.
+
+If your device supports flash torch during video recording change
+``flashValues=[2]`` under ``[apps/jolla-camera/primary/video]`` to
+``flashValues=[2, 32]``.
+
+Lastly, check other variants of ``/etc/dconf/db/vendor.d/jolla-camera-hw.txt``
+throughout the range of existing Sailfish OS devices, or consult our developers
+how to obtain e.g. more valid ISO values, focus distance, add other MegaPixel
+values etc.
+
+Ultimately you are the most welcome to improve the ``droid-camsrc`` tool itself
+by contributing upstream!
 
 Cellular modem
 **************
