@@ -130,6 +130,10 @@ non-critical as long as you end up with a generated .zip image):
   RELEASE=2.0.4.14
   # EXTRA_NAME adds your custom tag. It doesn't support '.' dots in it!
   EXTRA_NAME=-my1
+  # Always regenerate patterns as they usually get reset during build process
+  # NB: the next command will output a non-error, safe to ignore it:
+  # Exception AttributeError: "'NoneType' object has no attribute 'px_proxy_fa..
+  hybris/droid-configs/droid-configs-device/helpers/process_patterns.sh
   sudo mic create fs --arch $PORT_ARCH \
       --debug \
       --tokenmap=ARCH:$PORT_ARCH,RELEASE:$RELEASE,EXTRA_NAME:$EXTRA_NAME \
@@ -200,7 +204,6 @@ Otherwise if a package is not critical, and you accept to have less
 functionality (or even unbootable) image, you can temporarily comment it out
 from patterns in ``hybris/droid-configs/patterns`` and orderly perform:
 
-* :ref:`gen-ks`
 * :ref:`patterns`
 * :ref:`mic`
 
