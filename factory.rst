@@ -234,3 +234,76 @@ And effectively enable our home-grown /system in ``$ANDROID_ROOT/rpm``:
 Rebuild dhd via ``rpm/dhd/helpers/build_packages.sh --droid-hal`` and then the
 whole image (refer to :doc:`mic`).
 
+Convert ``userdata`` into the Sailfish OS LVM partition
+-------------------------------------------------------
+
+We should not let the root file system to run out of space, so we need to split
+``$HOME`` and ``/`` into separate volumes. For this we'll use the whole
+``userdata`` as an LVM partition, with fixed size ``/`` and let ``$HOME`` to
+take up the rest.
+
+Package an LVM-enabled bootloader
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+In directory ``$ANDROID_ROOT/rpm`` apply the following:
+
+.. code-block:: diff
+
+    diff --git a/droid-hal-$DEVICE.spec b/droid-hal-$DEVICE.spec
+    -%define installable_zip 1
+    +%define have_custom_img_boot 1
+    +%define have_custom_img_recovery 1
+
+And rebuild droid-hal ``rpm/dhd/helpers/build_packages.sh --droid-hal``.
+
+Then create path and file
+``$ANDROID_ROOT/hybris/droid-hal-img-boot/rpm/droid-hal-hammerhead-img-boot.spec``
+with content:
+
+.. code-block:: spec
+
+ %define device hammerhead
+
+ # Retrieve mkbootimg_cmd contents from
+ # $ANDROID_ROOT/device/$VENDOR/$DEVICE/BoardConfig.mk and/or from make output.
+ # NOTE: taken from the userdebug build, check after switching to user build!
+ # If your Android adaptation produces a separate device tree, it should be
+ # packaged within droid-hal-$DEVICE-kernel .rpm as ./boot/dt.img, add this to
+ # mkbootimg_cmd: --dt %{devicetree}
+ %define mkbootimg_cmd mkbootimg --ramdisk %{initrd} --kernel %{kernel} --base 0x00000000 --pagesize 2048 --ramdisk_offset 0x02900000 --tags_offset 0x02700000 --cmdline "androidboot.hardware=hammerhead user_debug=31 msm_watchdog_v2.enable=1 selinux=0"  --output
+
+ %define root_part_label userdata
+ %define factory_part_label system
+
+ %define display_brightness_path /sys/class/leds/lcd-backlight/brightness
+ %define display_brightness 16
+
+ %include initrd/droid-hal-device-img-boot.inc
+
+Initiate git repository with our publicly available ``hybris-initrd`` as
+submodule; then build dependencies and the new img-boot:
+
+.. code-block:: console
+
+    PLATFORM_SDK $
+
+    cd $ANDROID_ROOT/hybris/droid-hal-img-boot
+    git init
+    git submodule add https://github.com/mer-hybris/hybris-initrd initrd
+
+    cd $ANDROID_ROOT
+    sb2 -t $VENDOR-$DEVICE-$PORT_ARCH -m sdk-install -R zypper in droid-hal-$DEVICE-kernel droid-hal-$DEVICE-kernel-modules
+    rpm/dhd/helpers/build_packages.sh --mw=https://github.com/sailfishos/yamui
+    rpm/dhd/helpers/build_packages.sh --mw=https://github.com/sailfishos/initrd-helpers
+    rpm/dhd/helpers/build_packages.sh --mw=https://github.com/nemomobile/hw-ramdisk
+    rpm/dhd/helpers/build_packages.sh --build=hybris/droid-hal-img-boot/
+
+    # Test the success by booting our recovery image (boot image would not boot
+    # without LVM yet):
+    rpm2cpio droid-local-repo/$DEVICE/droid-hal-img-boot/droid-hal-$DEVICE-img-recovery-*.armv7hl.rpm | cpio -idv
+    # Set your device into fastboot mode:
+    sudo fastboot boot ./boot/hybris-recovery.img
+
+    # Shortly you should see instructions on device screen on how to telnet in,
+    # however avoid testing factory reset, as it is not ready at this stage.
+
