@@ -134,8 +134,7 @@ non-critical as long as you end up with a generated .zip image):
   # NB: the next command will output a non-error, safe to ignore it:
   # Exception AttributeError: "'NoneType' object has no attribute 'px_proxy_fa..
   hybris/droid-configs/droid-configs-device/helpers/process_patterns.sh
-  sudo mic create fs --arch $PORT_ARCH \
-      --debug \
+  sudo mic create fs --arch=$PORT_ARCH \
       --tokenmap=ARCH:$PORT_ARCH,RELEASE:$RELEASE,EXTRA_NAME:$EXTRA_NAME \
       --record-pkgs=name,url \
       --outdir=sfe-$DEVICE-$RELEASE$EXTRA_NAME \
