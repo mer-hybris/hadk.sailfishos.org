@@ -310,7 +310,7 @@ submodule; then build dependencies and the new img-boot:
 Configuring the LVM packaging
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Within ``$ANDROID_ROOT/hybris/droid_configs`` create the following paths and
+Within ``$ANDROID_ROOT/hybris/droid-configs`` create the following paths and
 files:
 
 ``kickstart/pack/$DEVICE/hybris``
