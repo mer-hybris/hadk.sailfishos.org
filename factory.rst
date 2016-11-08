@@ -607,8 +607,8 @@ files:
    $FLASHCMD $partition $ifile
  done
 
- # Flashing to userdata for now..
- for x in sailfish.img0*; do
+ # Flashing to userdata..
+ for x in sailfish.img*; do
    $FLASHCMD userdata $x
  done
 
