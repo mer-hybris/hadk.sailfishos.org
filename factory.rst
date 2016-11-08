@@ -612,7 +612,7 @@ files:
    $FLASHCMD userdata $x
  done
 
- echo "Flashing completed. Detach usb cable, press and hold the powerkey to reboot."
+ echo "Flashing completed. Choose "Start" with Volume buttons then press Power."
 
 
 ``sparse/boot/flashing-README.txt``
@@ -695,8 +695,18 @@ the image:
     +%define out_of_image_files 1
      %include droid-configs-device/droid-configs.inc
 
+Flashing LVM-enabled image
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 Rebuild configs via ``rpm/dhd/helpers/build_packages.sh --droid-configs``, add
 LVM tools to PLATFORM_SDK ``sudo zypper in lvm2 atruncate``, and lastly rebuild
 the whole image (refer to :doc:`mic`), but use ``loop`` instead of ``fs`` within
 ``mic create`` as well as drop the ``--pack-to`` parameter.
+
+You may also want to change ``EXTRA_NAME`` to preserve the non-LVM version, yet
+to ever go back to that you'd need to format userdata partition as ``ext3`` or
+``ext4``.
+
+``mic`` will produce a tarball and place extracting-README.txt next to it,
+simply follow instructions how to flash to your device.
 
