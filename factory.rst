@@ -9,8 +9,8 @@ This includes:
 * Package ``system`` partition content as RPM
 * Flash Sailfish OS to use the whole ``userdata`` partition as LVM
 * Enable Sailfish OS recovery mode
-* Provide flashing tools
 * Enable factory reset support
+* Provide flashing tools
 * Modify bootloader, splash screen, and other partitions
 * Optimising size and layout of partitions
 * Provide a raw image for factory testing and flashing
@@ -240,6 +240,8 @@ Convert ``userdata`` into the Sailfish OS LVM partition
 We want to split ``$HOME`` and ``/`` into separate volumes, so we could e.g.
 ``/``, or encrypt ``$HOME``. For this we'll use the whole ``userdata`` as an LVM
 partition, with fixed size ``/`` and let ``$HOME`` take up the rest.
+
+.. _package-img-boot:
 
 Package an LVM-enabled bootloader
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -695,6 +697,8 @@ the image:
     +%define out_of_image_files 1
      %include droid-configs-device/droid-configs.inc
 
+.. _flashing-lvm:
+
 Flashing LVM-enabled image
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -709,4 +713,82 @@ to ever go back to that you'd need to format userdata partition as ``ext3`` or
 
 ``mic`` will produce a tarball and place extracting-README.txt next to it,
 simply follow instructions how to flash to your device.
+
+Enable Sailfish OS recovery mode
+--------------------------------
+
+Our recovery mode is already provided by the ``droid-hal-$DEVICE-img-boot`` (see
+section :ref:`package-img-boot`), and flashed to device together with the LVM
+image.
+
+To enter recovery on Nexus 5, press Volume Down and Power buttons
+simultaneously, this enter fastboot mode (bootloader). Using Volume Up/Down
+buttons select ``Recovery mode`` and press Power key to enter it.
+
+Follow instructions on screen to ``telnet`` and perform desired actions.
+
+
+Enable factory reset support
+----------------------------
+
+Whilst packaging up LVM images, we'll also place ``root.img`` and ``home.img``
+to ``system`` partition, since we are packaging ``/system`` ourselves.
+
+Within ``$ANDROID_ROOT/hybris/droid-configs`` patch the following files:
+
+.. code-block:: diff
+
+ diff --git a/kickstart/part/$DEVICE b/kickstart/part/$DEVICE
+  part / --fstype="ext4" --size=1800 --label=root
+  part /home --fstype="ext4" --size=800 --label=home
+ +part /fimage --fstype="ext4" --size=10 --label=fimage
+
+ diff --git a/kickstart/pack/$DEVICE/hybris b/kickstart/pack/$DEVICE/hybris
+  /usr/sbin/vgchange -a n sailfish
+ -rm home.img root.img
+ +# Temporary dir for making factory image backups.
+ +FIMAGE_TEMP=$(mktemp -d -p $(pwd))
+ +
+ +# For some reason loop files created by imager don't shrink properly when
+ +# running resize2fs -M on them. Hence manually growing the loop file here
+ +# to make the shrinking work once we have the image populated.
+ +dd if=/dev/zero bs=1 seek=1400000000 count=1 of=fimage.img
+ +/sbin/e2fsck -f -y fimage.img
+ +/sbin/resize2fs -f fimage.img
+ +
+ +pigz -7 root.img
+ +md5sum -b root.img.gz > root.img.gz.md5
+ +
+ +pigz -7 home.img
+ +md5sum -b home.img.gz > home.img.gz.md5
+ +
+ +mount -o loop fimage.img $FIMAGE_TEMP
+ +mkdir -p $FIMAGE_TEMP/${RELEASENAME}
+ +mv root.img.gz* $FIMAGE_TEMP/${RELEASENAME}
+ +mv home.img.gz* $FIMAGE_TEMP/${RELEASENAME}
+ +umount $FIMAGE_TEMP
+ +rmdir $FIMAGE_TEMP
+ +
+ +/sbin/e2fsck -f -y fimage.img
+ +/sbin/resize2fs -f -M fimage.img
+ +
+  /sbin/losetup -d $LVM_LOOP
+
+ diff --git a/sparse/boot/flash.sh b/sparse/boot/flash.sh
+    $FLASHCMD userdata $x
+  done
+
+ +# Flashing fimage to system partition
+ +for x in fimage.img*; do
+ +  $FLASHCMD system $x
+ +done
+ +
+
+Repeat the flashing process as outlined in :ref:`flashing-lvm`, boot the device,
+go to ``Settings | Reset device``, and perform reset.
+
+Device will reboot into recovery and you will see the spinner image with status.
+
+Afterwards device will power off (unless you ticked ``Reboot after reset``
+earlier), power it back on and it will boot as new.
 
