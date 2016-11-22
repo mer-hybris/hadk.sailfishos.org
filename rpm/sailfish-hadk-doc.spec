@@ -24,7 +24,7 @@ sed -e "s/^version = '.*'/version = '%{version}'/" \
     -e "s/^release = '.*'/release = '%{version}-%{release}'/" \
     -i.bak conf.py
 
-make html
+make singlehtml
 
 # Revert RPM version injection after build has been done
 mv conf.py.bak conf.py
@@ -32,7 +32,7 @@ mv conf.py.bak conf.py
 %install
 TARGET=%{buildroot}/%{_datadir}/doc/%{name}
 mkdir -p $TARGET
-cp -rpv _build/html/* $TARGET/
+cp -rpv _build/singlehtml/* $TARGET/
 
 %files
 %defattr(-,root,root,-)

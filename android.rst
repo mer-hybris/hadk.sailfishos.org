@@ -98,32 +98,37 @@ some time. In the mean time, make yourself familiar with the rest of this guide.
 Configure Mountpoint Information
 --------------------------------
 
-Until ``systemd`` reached a new enough version, we need to patch
-``hybris/hybris-boot/fixup-mountpoints`` for the device. The idea here is to
-ensure the udev-less initrd mounts the correct ``/boot`` and ``/data``
-partition. If you're lucky the device will simply use ``/dev/block/<somedev>``
-and you can use the i9305 approach. If not then look in the recovery ``fstab``
-for the right mapping. Please submit patches for the ``fixup-mountpoints`` file!
+Currently in Sailfish OS, ``udev`` starts after ``initrd``, which leaves us not
+being able to use generic partition names (independent of partition number).
 
-To double check, you can boot to CM and ``adb shell`` to examine
-``/dev/block*`` and ``/dev/mmc*`` (udev-full) contents. Also boot into
-ClockworkMod or TWRP recovery, to check those (udev-less) paths there too.
+In ``initrd`` we then have to specify hardcoded ``/dev/mmcblkXpY`` nodes for
+``/boot`` and ``/data`` partitions.
 
-The build log will also have provided feedback like:
+After ``initrd``, ``systemd`` needs to mount all other required partitions (such
+as ``/system``, ``/firmware``, ``/persist``, ``/config``, ...) for the HAL layer
+to work. The required partitions are read from ``*.fstab`` and ``init*.rc``
+files, disabled there, and respective ``.mount`` units created -- all done by
+``$ANDROID_ROOT/rpm (droid-hal-device)``.
 
-.. code-block:: console
+Unfortunately, ``systemd`` cannot recognise named partition paths in ``.mount``
+units, because of the same late start of ``udev``, even though one can see
+already created nodes under ``/dev/block/platform/SOC/by-name/``.
 
-  HABUILD_SDK $
+To work around this, we need to create a map between partition names and numbers
+in ``hybris/hybris-boot/fixup-mountpoints`` for each device, for all partitions
+-- in this way we are sure to cover them all, because if done manually by
+looking through fstab/rc files, some might get unnoticed.
 
-  hybris/hybris-boot/Android.mk:48: ********************* /boot should
-    live on /dev/block/platform/msm_sdcc.1/by-name/boot
-  hybris/hybris-boot/Android.mk:49: ********************* /data should
-    live on /dev/block/platform/msm_sdcc.1/by-name/userdata
+To get that mapping, you should boot to CM and execute via ``adb shell`` this:
+``ls -l /dev/block/platform/*/by-name/``
 
-Note that a subsequent ``repo sync --fetch-submodule`` will reset this, unless
-the file ``.repo/local_manifests/hammerhead.xml`` is updated to point to a fork
-of the ``hybris-boot`` repo.
+Once you've patched ``fixup-mountpoints``, take care if you ever have to run
+``repo sync --fetch-submodules`` again because it will reset your changes,
+unless the file ``.repo/local_manifests/$DEVICE.xml`` is pointing
+``hybris-boot`` to your fork with the needed fixup-mountpoints changes.
 
+Then when you get to boot to the Sailfish OS UI, please don't forget to upstream
+your ``fixup-mountpoints`` patch.
 
 .. _build-cm-bits:
 
