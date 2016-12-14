@@ -97,7 +97,7 @@ Sailfish OS 2.0 introduces GStreamer v1.0 with hardware-accelerated video and
 audio encoding and decoding in Camera, Gallery and Browser, and deprecates
 GStreamer v0.10.
 
-For CM12.0/AOSP5 or newer you will need to do these two steps first:
+Starting with CM12.0/AOSP5, you will need to do these two steps:
 
 1. Build libcameraservice target:
 
