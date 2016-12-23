@@ -39,11 +39,11 @@ appropriate and push to your GitHub home):
  git add .
  git commit -m "[dhd] Initial content"
  # Create this repository under your GitHub home
- git remote add myname https://github.com/myname/droid-hal-hammerhead
+ git remote add myname https://github.com/myname/droid-hal-hammerhead.git
  git push myname master
  cd -
 
- mkdir hybris/droid-configs
+ mkdir -p hybris/droid-configs
  cd hybris/droid-configs
  git init
  git submodule add https://github.com/mer-hybris/droid-hal-configs \
@@ -72,7 +72,7 @@ appropriate and push to your GitHub home):
  git add .
  git commit -m "[dcd] Initial content"
  # Create this repository under your GitHub home
- git remote add myname https://github.com/myname/droid-config-hammerhead
+ git remote add myname https://github.com/myname/droid-config-hammerhead.git
  git push myname master
  cd -
 
@@ -100,15 +100,15 @@ appropriate and push to your GitHub home):
  git push myname master
  cd -
 
- mkdir hybris/droid-hal-version-hammerhead
+ mkdir -p hybris/droid-hal-version-hammerhead
  cd hybris/droid-hal-version-hammerhead
  git init
  git submodule add https://github.com/mer-hybris/droid-hal-version
  mkdir rpm
  cat <<'EOF' >rpm/droid-hal-version-hammerhead.spec
- # rpm_device is the name of the ported device
+ # rpm_device is in 99% cases $DEVICE
  %define rpm_device hammerhead
- # rpm_vendor is used in the rpm space
+ # rpm_vendor is in 99% cases $VENDOR
  %define rpm_vendor lge
 
  # Manufacturer and device name to be shown in UI
@@ -125,7 +125,7 @@ appropriate and push to your GitHub home):
  git commit -m "[dvd] Initial content"
  # Create this repository under your GitHub home
  git remote add myname \
-     https://github.com/myname/droid-hal-version-hammerhead
+     https://github.com/myname/droid-hal-version-hammerhead.git
  git push myname master
 
 Now to complete you local manifest, this is how it would be done for Nexus 5.
