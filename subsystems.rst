@@ -296,6 +296,66 @@ lines starting with ``E/RIL...`` will point to a root cause!
 * If everything else fails, then stop and strace a failing daemon (either RIL or
   ofono) from command line manually
 
+Phone calls don't work (but SMS and mobile data works)
+======================================================
+
+Starting with Android 5, some RIL versions might be tied more with Android
+internals, hence an additional audio routing glue is needed. Here's how:
+
+.. code-block:: console
+
+    HABUILD_SDK $
+
+    cd $ANDROID_ROOT
+    source build/envsetup.sh
+    breakfast $DEVICE
+    make -j8 libaudioflingerglue miniafservice
+
+
+    PLATFORM_SDK $
+
+    cd $ANDROID_ROOT
+    rpm/dhd/helpers/pack_source_audioflingerglue-localbuild.sh
+    mkdir -p hybris/mw/audioflingerglue-localbuild/rpm
+    cp rpm/dhd/helpers/audioflingerglue-localbuild.spec hybris/mw/audioflingerglue-localbuild/rpm/droidmedia.spec
+    mv hybris/mw/audioflingerglue-0.0.1.tgz hybris/mw/audioflingerglue-localbuild
+    rpm/dhd/helpers/build_packages.sh --build=hybris/mw/audioflingerglue-localbuild
+    rpm/dhd/helpers/build_packages.sh --droid-hal --mw=https://github.com/mer-hybris/pulseaudio-modules-droid-glue.git
+
+Add the pulseaudio-modules glue package to patterns in
+``$ANDROID_ROOT/hybris/droid-configs/``:
+
+.. code-block:: diff
+
+    diff --git a/patterns/jolla-hw-adaptation-$DEVICE.yaml b/patterns/jolla-hw-adaptation-$DEVICE.yaml
+     - pulseaudio-modules-droid
+    +- pulseaudio-modules-droid-glue
+
+Create device-specific pulseaudio configuration (adjust msmXYZW to your SoC and
+hammerhead with your device name) and enable the glue module:
+
+.. code-block:: console
+
+    cd $ANDROID_ROOT/hybris/droid-configs/
+    mkdir -p sparse/etc/pulse
+    DEVICE_PA=arm_msm8974_hammerhead.pa
+    cp droid-configs-device/sparse/etc/pulse/arm_droid_default.pa sparse/etc/pulse/$DEVICE_PA
+    sed -i "s/#load-module module-droid-glue/load-module module-droid-glue/" sparse/etc/pulse/$DEVICE_PA
+    echo CONFIG=\"-n --file=/etc/pulse/$DEVICE_PA\" > sparse/etc/sysconfig/pulseaudio
+
+Rebuild configs and patterns:
+
+.. code-block:: console
+
+    PLATFORM_SDK $
+
+    cd $ANDROID_ROOT
+    rpm/dhd/helpers/build_packages.sh --configs
+
+You are now ready to rebuild the image (or sideload affected RPMs) which will
+bring audio to your phonecalls.
+
+
 Bluetooth
 *********
 
