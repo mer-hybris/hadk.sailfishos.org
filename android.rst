@@ -53,8 +53,15 @@ MultiROM support for your device. It supports Sailfish OS starting v28.
 Device repos
 ------------
 
-You will need to provide device-specific repositories, for Android as well as
-for the mer-hybris builds. Create directory at first:
+The local manifest contains device-specific repositories, for Android as well as
+for the mer-hybris builds.
+
+If your device has already been ported, its codes properly placed on GitHub,
+you should check this repository: https://github.com/local_manifests (choose
+the branch of hybris-* that your are porting to), and use $DEVICE.xml file
+instead of creating a new one in this chapter.
+
+Create directory at first:
 
 .. code-block:: console
 
@@ -62,12 +69,12 @@ for the mer-hybris builds. Create directory at first:
 
   mkdir $ANDROID_ROOT/.repo/local_manifests
 
-You'll have to create the local
+If your are working on a new port, you'll have to create the local
 manifest yourself, which contains at least two repos: one for the kernel, another
 for the device configuration. Find those CM device wiki, for Nexus 5 it would be
 http://wiki.cyanogenmod.org/w/Hammerhead_Info inside the **Source code** table.
 Local manifest below will also need pointing to correct branches - identify which
-one matches the default manifest branch.
+one matches the default manifest branch (``stable/cm-11.0`` in Nexus 5 case).
 
 Add the following content to ``$ANDROID_ROOT/.repo/local_manifests/$DEVICE.xml``:
 

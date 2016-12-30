@@ -55,6 +55,20 @@ However, if it says something like::
 
 connectivity will be available via ``telnet 192.168.2.15 2323`` port.
 
+Logs across reboots
+-------------------
+
+.. code-block:: console
+
+    devel-su
+    # change Storage=volatile --> Storage=automatic in:
+    vi /etc/systemd/journald.conf
+    mkdir /var/log/journal
+    reboot
+
+Systemd suppresses journal, and some valuable info might get hidden. To prevent this, set
+``RateLimitInterval=0``
+
 .. _bootloops:
 
 Bootloops
