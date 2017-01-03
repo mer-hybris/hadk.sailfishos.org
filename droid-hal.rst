@@ -161,8 +161,6 @@ components later on.
 
 Building the droid-hal-device packages
 ``````````````````````````````````````
-.. important::
- # type ``zypper ref; zypper dup`` every now and again to update your Platform SDK!
 
 The next step has to be carried out in the Platform SDK chroot:
 
