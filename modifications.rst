@@ -30,7 +30,8 @@ Android need to be modified:
    (``/dev/alog/``)
  * Add ``/usr/libexec/droid-hybris/lib-dev-alog/``
    to the ``LD_LIBRARY_PATH``
- * Force SELINUX off since mer doesn't support it
+ * Force SELinux OFF since hybris does not utilise the relevant Android parts,
+   and leaving SELinux support ON would then cause device to reboot to recovery
  * Remove various ``init`` and ``init.rc`` settings and operations that
    are handled by ``systemd`` and/or Hybris on a Sailfish OS system
 * **frameworks/base/**: Only build ``servicemanager``, ``bootanimation`` and ``androidfw``
