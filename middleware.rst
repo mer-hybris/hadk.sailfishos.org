@@ -215,8 +215,9 @@ existing implementations is used. Right now, the following implementations exist
   libhardware, fall back to 60 Hz if detection fails).
   (``EGL_PLATFORM=fbdev``)
 
-* *hwcomposer_backend_v11*: Version 1.1, 1.2 and 1.3 of the hwcomposer API. Version
-  1.3 only supports physical displays, whereas 1.1 and 1.2 support also virtual
+* *hwcomposer_backend_v11*: Version 1.1, 1.2, 1.3, 1.4, and 1.5
+  of the hwcomposer API. Versions higher or equal than
+  1.3 only support physical displays, whereas 1.1 and 1.2 support also virtual
   displays. This requires libsync and hwcomposer-egl from libhybris. Most of the
   hwcomposer 1.0 API properties apply, with the exception that frame posting and
   synchronization happens with the help of libhybris' hwcomposer EGL platform.
