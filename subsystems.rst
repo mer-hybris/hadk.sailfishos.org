@@ -331,18 +331,6 @@ Add the pulseaudio-modules glue package to patterns in
      - pulseaudio-modules-droid
     +- pulseaudio-modules-droid-glue
 
-Create device-specific pulseaudio configuration (adjust msmXYZW to your SoC and
-hammerhead with your device name) and enable the glue module:
-
-.. code-block:: console
-
-    cd $ANDROID_ROOT/hybris/droid-configs/
-    mkdir -p sparse/etc/pulse
-    DEVICE_PA=arm_msm8974_hammerhead.pa
-    cp droid-configs-device/sparse/etc/pulse/arm_droid_default.pa sparse/etc/pulse/$DEVICE_PA
-    sed -i "s/#load-module module-droid-glue/load-module module-droid-glue/" sparse/etc/pulse/$DEVICE_PA
-    echo CONFIG=\"-n --file=/etc/pulse/$DEVICE_PA\" > sparse/etc/sysconfig/pulseaudio
-
 Rebuild configs and patterns:
 
 .. code-block:: console
