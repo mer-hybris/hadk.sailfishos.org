@@ -261,7 +261,7 @@ throughout the range of existing Sailfish OS devices, or consult our developers
 how to obtain e.g. more valid ISO values, focus distance, add other MegaPixel
 values etc.
 
-Ultimately you are the most welcome to improve the ``droid-camsrc`` tool itself
+Ultimately you are the most welcome to improve the ``droid-camres`` tool itself
 by contributing upstream!
 
 Cellular modem

@@ -40,7 +40,7 @@ Build Machine
 
 * A 64-bit x86 machine with a 64-bit Linux kernel
 
-* Mer Platform SDK (installation explained later)
+* Sailfish OS Platform SDK (installation explained later)
 
 * Sailfish OS Target (explained later)
 

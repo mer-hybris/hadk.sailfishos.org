@@ -27,7 +27,7 @@ code repositories, see `Installing repo`_.
 
 After you've installed the ``repo`` command, a set of commands below download
 the required projects for building the modified parts of Android used in
-libhybris-based Mer device hardware adaptations.
+hybris hardware adaptations.
 
 All available CM versions that you can port on can be seen here:
 https://github.com/mer-hybris/android/branches
@@ -227,7 +227,7 @@ appropriate to match your device/branch):
 
   git add $DEFCONFIG
 
-  git commit -m "Mer-friendly defconfig"
+  git commit -m "Hybris-friendly defconfig"
   git remote add myname https://github.com/myname/android_kernel_lge_hammerhead
   git push myname hybris-11.0
 

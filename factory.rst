@@ -48,7 +48,7 @@ Create directory ``$ANDROID_ROOT/hybris/droid-system/`` and create file
  # and mount loop image to some mount point. Give that mount point
  # parameter for this script.
  #
- # 1. "simg2img system.img system.raw" (Run inside Mer SDK target)
+ # 1. "simg2img system.img system.raw" (Run inside Platform SDK target)
  # 2. "mkdir ~/system"
  # 3. "sudo mount -t ext4 -o loop system.raw ~/system"
  # 4. "./copy_system.sh ~/system"
