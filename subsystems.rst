@@ -424,9 +424,9 @@ specific conf file. Historically named sensord-<BOARDNAME>.conf.
 You can also use any conf file by specifying it on the commandline.
 
 For hybris based platforms, this will be sensord-hybris.conf, and most likely will 
-not have to be modified.
+not have to be modified. A copy of this file is already among default configs:
 https://git.merproject.org/mer-core/sensorfw/blob/master/config/sensord-hybris.conf
-Place this file under
+If you do make modifications to it, add the file under
 ``$ANDROID_ROOT/hybris/droid-configs/sparse/etc/sensorfw/primaryuse.conf``
 
 There are already a few device specific conf files to look at if the device needs
@@ -435,12 +435,13 @@ Example of mixed hybris and evdev configuration
 https://git.merproject.org/mer-core/sensorfw/blob/master/config/sensord-tbj.conf
 
 Generally, if sensors are working on the android/hybris side, they will work in sensorfw
-and up to the Sailfish UI. libhybris comes with /usr/bin/test-sensors which can list
+and up to the Sailfish UI. libhybris comes with /usr/bin/test_sensors which can list
 those Android sensors found.
 
 Above Sensor Framework is QtSensors, which requires a configuration file at
 /etc/xdg/QtProject/QtSensors.conf
-which is supplied with the sensorfw backend plugin in QtSensors
+which is supplied with the sensorfw backend plugin in QtSensors and a copy of it
+is already among your default configs.
 
 For Mer based systems, the QtSensors source code is at:
 https://github.com/mer-qt/qtsensors
