@@ -149,9 +149,8 @@ under local repository. If anything needs modified, just re-run this script.
 Troubleshoot errors from build_packages.sh
 ``````````````````````````````````````````
 
-* **Installed (but unpackaged) file(s) found**: Add those files to this section
-  in your rpm/droid-hal-$DEVICE.spec before ``%include ...`` line (files sampled
-  from Motorola Moto G /falcon/ build):
+* **Installed (but unpackaged) file(s) found**: Add those files to straggler section
+  in your rpm/droid-hal-$DEVICE.spec before the ``%include ...`` line, for example:
 .. code-block:: console
 
  %define straggler_files \
@@ -162,5 +161,5 @@ Troubleshoot errors from build_packages.sh
  /service_contexts\
  %{nil}
 
-If it was a port of Moto G, then you'd add ``- droid-hal-falcon-detritus`` to ``droid-configs/patterns/jolla-hw-adaptation-falcon.yaml`` -- substitute as appropriate for your device. Then finally re-run ``build_packages.sh``.
+And re-run ``build_packages.sh --droid-hal``.
 
