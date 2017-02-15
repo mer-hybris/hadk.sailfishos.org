@@ -154,9 +154,6 @@ To prevent camera lockup, disable shutter audio in your
    +    persist.camera.shutter.disable=1 \
         camera.disable_zsl_mode=1
 
-Symlink ``/system/etc/media_*.xml`` to ``/etc`` (this is done in
-``$ANDROID_ROOT/hybris/droid-configs/sparse/etc/``).
-
 Build relevant parts:
 
 .. code-block:: console
