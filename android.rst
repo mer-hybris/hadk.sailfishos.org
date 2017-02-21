@@ -169,7 +169,7 @@ particular:
 * ``hybris-recovery.img``: Recovery boot image
 * ``system/`` and ``root/``: HAL system libraries and binaries
 
-The expected disk usage ny the source and binaries after ``make hybris-hal``
+The expected disk usage by the source and binaries after ``make hybris-hal``
 is **19 GB** (as of 2015-09-09, hybris-11.0 branch).
 
 .. _kernel-config:

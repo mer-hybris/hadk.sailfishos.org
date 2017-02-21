@@ -62,7 +62,6 @@ appropriate and push to your GitHub home):
  # sparse/
  # patterns/
  # patterns/jolla-configuration-hammerhead.yaml
- # patterns/jolla-ui-configuration-hammerhead.yaml
  # patterns/jolla-hw-adaptation-hammerhead.yaml
  cd hybris/droid-configs
  COMPOSITOR_CFGS=sparse/var/lib/environment/compositor

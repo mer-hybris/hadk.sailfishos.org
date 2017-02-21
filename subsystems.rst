@@ -158,6 +158,14 @@ Build relevant parts:
 
 .. code-block:: console
 
+    HABUILD_SDK $
+
+    cd $ANDROID_ROOT
+    source build/envsetup.sh
+    breakfast $DEVICE
+    make -j8 hybris-hal
+
+
     PLATFORM_SDK $
 
     cd $ANDROID_ROOT
@@ -314,7 +322,7 @@ internals, hence an additional audio routing glue is needed. Here's how:
     cd $ANDROID_ROOT
     rpm/dhd/helpers/pack_source_audioflingerglue-localbuild.sh
     mkdir -p hybris/mw/audioflingerglue-localbuild/rpm
-    cp rpm/dhd/helpers/audioflingerglue-localbuild.spec hybris/mw/audioflingerglue-localbuild/rpm/droidmedia.spec
+    cp rpm/dhd/helpers/audioflingerglue-localbuild.spec hybris/mw/audioflingerglue-localbuild/rpm/audioflingerglue.spec
     mv hybris/mw/audioflingerglue-0.0.1.tgz hybris/mw/audioflingerglue-localbuild
     rpm/dhd/helpers/build_packages.sh --build=hybris/mw/audioflingerglue-localbuild
     rpm/dhd/helpers/build_packages.sh --droid-hal --mw=https://github.com/mer-hybris/pulseaudio-modules-droid-glue.git
