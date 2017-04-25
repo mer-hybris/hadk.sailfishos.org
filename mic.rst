@@ -45,7 +45,7 @@ during droid-configs build, using ``ssuks``, which is part of the SSU utility::
 
   cd $ANDROID_ROOT
 
-  HA_REPO="repo --name=adaptation0-$DEVICE-@RELEASE@"
+  HA_REPO="repo --name=adaptation-community-$DEVICE-@RELEASE@"
   KS="Jolla-@RELEASE@-$DEVICE-@ARCH@.ks"
   sed -e \
    "s|^$HA_REPO.*$|$HA_REPO --baseurl=file://$ANDROID_ROOT/droid-local-repo/$DEVICE|" \
@@ -127,7 +127,7 @@ non-critical as long as you end up with a generated .zip image):
 
   # Set the version of your choosing, latest is strongly preferred
   # (check with "Sailfish OS version" link above)
-  RELEASE=2.0.4.14
+  RELEASE=2.0.5.6
   # EXTRA_NAME adds your custom tag. It doesn't support '.' dots in it!
   EXTRA_NAME=-my1
   # Always regenerate patterns as they usually get reset during build process

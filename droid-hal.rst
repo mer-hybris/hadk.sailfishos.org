@@ -23,19 +23,12 @@ appropriate and push to your GitHub home):
  git init
  git submodule add https://github.com/mer-hybris/droid-hal-device dhd
  # Rename 'hammerhead' and other values as appropriate
- cat <<'EOF' >droid-hal-hammerhead.spec
- # These and other macros are documented in dhd/droid-hal-device.inc
-
- %define device hammerhead
- %define vendor lge
-
- %define vendor_pretty LG
- %define device_pretty Nexus 5
-
- %define installable_zip 1
-
- %include rpm/dhd/droid-hal-device.inc
- EOF
+ sed -e "s/@DEVICE@/hammerhead/" \
+     -e "s/@VENDOR@/lge/" \
+     -e "s/@DEVICE_PRETTY@/Nexus 5/" \
+     -e "s/@VENDOR_PRETTY@/LG/" \
+     dhd/droid-hal-@DEVICE@.spec.template > droid-hal-hammerhead.spec
+ # Please review droid-hal-hammerhead.spec before committing!
  git add .
  git commit -m "[dhd] Initial content"
  # Create this repository under your GitHub home
@@ -49,26 +42,13 @@ appropriate and push to your GitHub home):
  git submodule add https://github.com/mer-hybris/droid-hal-configs \
      droid-configs-device
  mkdir rpm
- cat <<'EOF' >rpm/droid-config-hammerhead.spec
- # These and other macros are documented in
- # ../droid-configs-device/droid-configs.inc
-
- %define device hammerhead
- %define vendor lge
-
- %define vendor_pretty LG
- %define device_pretty Nexus 5
-
- %define dcd_path ./
-
- # Adjust this for your device
- %define pixel_ratio 2.0
-
- # We assume most devices will
- %define have_modem 1
-
- %include droid-configs-device/droid-configs.inc
- EOF
+ sed -e "s/@DEVICE@/hammerhead/" \
+     -e "s/@VENDOR@/lge/" \
+     -e "s/@DEVICE_PRETTY@/Nexus 5/" \
+     -e "s/@VENDOR_PRETTY@/LG/" \
+     droid-configs-device/droid-config-@DEVICE@.spec.template > \
+     rpm/droid-config-hammerhead.spec
+ # Please review rpm/droid-config-hammerhead.spec before committing!
  git add .
  git commit -m "[dcd] Initial content"
  # Create this repository under your GitHub home
@@ -82,7 +62,6 @@ appropriate and push to your GitHub home):
  # sparse/
  # patterns/
  # patterns/jolla-configuration-hammerhead.yaml
- # patterns/jolla-ui-configuration-hammerhead.yaml
  # patterns/jolla-hw-adaptation-hammerhead.yaml
  cd hybris/droid-configs
  COMPOSITOR_CFGS=sparse/var/lib/environment/compositor
@@ -105,22 +84,13 @@ appropriate and push to your GitHub home):
  git init
  git submodule add https://github.com/mer-hybris/droid-hal-version
  mkdir rpm
- cat <<'EOF' >rpm/droid-hal-version-hammerhead.spec
- # rpm_device is in 99% cases $DEVICE
- %define rpm_device hammerhead
- # rpm_vendor is in 99% cases $VENDOR
- %define rpm_vendor lge
-
- # Manufacturer and device name to be shown in UI
- %define vendor_pretty LG
- %define device_pretty Nexus 5
-
- # See ../droid-hal-version/droid-hal-device.inc for similar macros:
- %define have_vibrator 1
- %define have_led 1
-
- %include droid-hal-version/droid-hal-version.inc
- EOF
+ sed -e "s/@DEVICE@/hammerhead/" \
+     -e "s/@VENDOR@/lge/" \
+     -e "s/@DEVICE_PRETTY@/Nexus 5/" \
+     -e "s/@VENDOR_PRETTY@/LG/" \
+     droid-hal-version/droid-hal-version-@DEVICE@.spec.template > \
+     rpm/droid-hal-version-hammerhead.spec
+ # Please review rpm/droid-hal-version-hammerhead.spec before committing!
  git add .
  git commit -m "[dvd] Initial content"
  # Create this repository under your GitHub home
@@ -178,9 +148,8 @@ under local repository. If anything needs modified, just re-run this script.
 Troubleshoot errors from build_packages.sh
 ``````````````````````````````````````````
 
-* **Installed (but unpackaged) file(s) found**: Add those files to this section
-  in your rpm/droid-hal-$DEVICE.spec before ``%include ...`` line (files sampled
-  from Motorola Moto G /falcon/ build):
+* **Installed (but unpackaged) file(s) found**: Add those files to straggler section
+  in your rpm/droid-hal-$DEVICE.spec before the ``%include ...`` line, for example:
 .. code-block:: console
 
  %define straggler_files \
@@ -191,5 +160,5 @@ Troubleshoot errors from build_packages.sh
  /service_contexts\
  %{nil}
 
-If it was a port of Moto G, then you'd add ``- droid-hal-falcon-detritus`` to ``droid-configs/patterns/jolla-hw-adaptation-falcon.yaml`` -- substitute as appropriate for your device. Then finally re-run ``build_packages.sh``.
+And re-run ``build_packages.sh --droid-hal``.
 

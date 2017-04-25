@@ -27,7 +27,7 @@ code repositories, see `Installing repo`_.
 
 After you've installed the ``repo`` command, a set of commands below download
 the required projects for building the modified parts of Android used in
-libhybris-based Mer device hardware adaptations.
+hybris hardware adaptations.
 
 All available CM versions that you can port on can be seen here:
 https://github.com/mer-hybris/android/branches
@@ -169,7 +169,7 @@ particular:
 * ``hybris-recovery.img``: Recovery boot image
 * ``system/`` and ``root/``: HAL system libraries and binaries
 
-The expected disk usage ny the source and binaries after ``make hybris-hal``
+The expected disk usage by the source and binaries after ``make hybris-hal``
 is **19 GB** (as of 2015-09-09, hybris-11.0 branch).
 
 .. _kernel-config:
@@ -227,7 +227,7 @@ appropriate to match your device/branch):
 
   git add $DEFCONFIG
 
-  git commit -m "Mer-friendly defconfig"
+  git commit -m "Hybris-friendly defconfig"
   git remote add myname https://github.com/myname/android_kernel_lge_hammerhead
   git push myname hybris-11.0
 

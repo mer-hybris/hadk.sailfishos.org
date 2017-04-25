@@ -1,18 +1,15 @@
 Modifications and Patches
 =========================
 
-Running Sailfish OS using libhybris and Mer requires a few
+Running Sailfish OS on top of a Mer Hybris adaptation requires a few
 modifications to a standard Android/CM system. We maintain forks of
 some repos with those patches aplied.
 
-Mer Modifications to CyanogenMod
---------------------------------
+Hybris Modifications to CyanogenMod
+-----------------------------------
 
-Our modifications are tracked by our own hybris-specific repo manifest
-file, currently at version *hybris-10.1* which is based on the
-*CyanogenMod* 10.1.x releases. The below sections outline our
-modifications to these sources for developing *libhybris* based
-adaptations.
+Our modifications are tracked by our own Hybris-specific repo manifest
+file. The below sections outline our modifications to these sources.
 
 Droid System
 ````````````
@@ -27,22 +24,23 @@ Android need to be modified:
  * Support for ``HYBRIS_LD_LIBRARY_PATH`` in the linker
  * Add ``/usr/libexec/droid-hybris/system/lib`` to the linker search path
 * **external/busybox/**: Busybox is used in the normal and recovery boot images. We need
-   some additional features like ``mdev`` and ``udhcpd``.
+   some additional features like ``mdev`` and ``udhcpd``
 * **system/core/**
  - Make ``cutils`` and ``logcat`` aware of the new log location
    (``/dev/alog/``)
  * Add ``/usr/libexec/droid-hybris/lib-dev-alog/``
    to the ``LD_LIBRARY_PATH``
- * Force SELINUX off since mer doesn't support it
+ * Force SELinux OFF since hybris does not utilise the relevant Android parts,
+   and leaving SELinux support ON would then cause device to reboot to recovery
  * Remove various ``init`` and ``init.rc`` settings and operations that
-   are handled by ``systemd`` / Mer on a Sailfish OS system.
+   are handled by ``systemd`` and/or Hybris on a Sailfish OS system
 * **frameworks/base/**: Only build ``servicemanager``, ``bootanimation`` and ``androidfw``
    to make the minimal Droid HAL build smaller (no Java content)
 * **libcore/**: Don't include ``JavaLibrary.mk``, as Java won't be available
 
-All these modifications have already been done in the **mer-hybris** Git
-collection of forks from the original CyanogenMod sources. If the hybris
-repo manifest is used, these changes will be included automatically.
+All these modifications have already been done in the **mer-hybris** GitHub
+organisation of forks from the original CyanogenMod sources. If its ``android``
+manifest is used, these changes will be included automatically.
 
 In addition to these generic modifications, for some devices and SoCs
 we also maintain a set of patches on top of CyanogenMod to fix issues

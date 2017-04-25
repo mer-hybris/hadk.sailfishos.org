@@ -154,12 +154,17 @@ To prevent camera lockup, disable shutter audio in your
    +    persist.camera.shutter.disable=1 \
         camera.disable_zsl_mode=1
 
-Symlink ``/system/etc/media_*.xml`` to ``/etc`` (this is done in
-``$ANDROID_ROOT/hybris/droid-configs/sparse/etc/``).
-
 Build relevant parts:
 
 .. code-block:: console
+
+    HABUILD_SDK $
+
+    cd $ANDROID_ROOT
+    source build/envsetup.sh
+    breakfast $DEVICE
+    make -j8 hybris-hal
+
 
     PLATFORM_SDK $
 
@@ -261,7 +266,7 @@ throughout the range of existing Sailfish OS devices, or consult our developers
 how to obtain e.g. more valid ISO values, focus distance, add other MegaPixel
 values etc.
 
-Ultimately you are the most welcome to improve the ``droid-camsrc`` tool itself
+Ultimately you are the most welcome to improve the ``droid-camres`` tool itself
 by contributing upstream!
 
 Cellular modem
@@ -317,7 +322,7 @@ internals, hence an additional audio routing glue is needed. Here's how:
     cd $ANDROID_ROOT
     rpm/dhd/helpers/pack_source_audioflingerglue-localbuild.sh
     mkdir -p hybris/mw/audioflingerglue-localbuild/rpm
-    cp rpm/dhd/helpers/audioflingerglue-localbuild.spec hybris/mw/audioflingerglue-localbuild/rpm/droidmedia.spec
+    cp rpm/dhd/helpers/audioflingerglue-localbuild.spec hybris/mw/audioflingerglue-localbuild/rpm/audioflingerglue.spec
     mv hybris/mw/audioflingerglue-0.0.1.tgz hybris/mw/audioflingerglue-localbuild
     rpm/dhd/helpers/build_packages.sh --build=hybris/mw/audioflingerglue-localbuild
     rpm/dhd/helpers/build_packages.sh --droid-hal --mw=https://github.com/mer-hybris/pulseaudio-modules-droid-glue.git
@@ -330,18 +335,6 @@ Add the pulseaudio-modules glue package to patterns in
     diff --git a/patterns/jolla-hw-adaptation-$DEVICE.yaml b/patterns/jolla-hw-adaptation-$DEVICE.yaml
      - pulseaudio-modules-droid
     +- pulseaudio-modules-droid-glue
-
-Create device-specific pulseaudio configuration (adjust msmXYZW to your SoC and
-hammerhead with your device name) and enable the glue module:
-
-.. code-block:: console
-
-    cd $ANDROID_ROOT/hybris/droid-configs/
-    mkdir -p sparse/etc/pulse
-    DEVICE_PA=arm_msm8974_hammerhead.pa
-    cp droid-configs-device/sparse/etc/pulse/arm_droid_default.pa sparse/etc/pulse/$DEVICE_PA
-    sed -i "s/#load-module module-droid-glue/load-module module-droid-glue/" sparse/etc/pulse/$DEVICE_PA
-    echo CONFIG=\"-n --file=/etc/pulse/$DEVICE_PA\" > sparse/etc/sysconfig/pulseaudio
 
 Rebuild configs and patterns:
 
@@ -436,9 +429,9 @@ specific conf file. Historically named sensord-<BOARDNAME>.conf.
 You can also use any conf file by specifying it on the commandline.
 
 For hybris based platforms, this will be sensord-hybris.conf, and most likely will 
-not have to be modified.
+not have to be modified. A copy of this file is already among default configs:
 https://git.merproject.org/mer-core/sensorfw/blob/master/config/sensord-hybris.conf
-Place this file under
+If you do make modifications to it, add the file under
 ``$ANDROID_ROOT/hybris/droid-configs/sparse/etc/sensorfw/primaryuse.conf``
 
 There are already a few device specific conf files to look at if the device needs
@@ -447,12 +440,13 @@ Example of mixed hybris and evdev configuration
 https://git.merproject.org/mer-core/sensorfw/blob/master/config/sensord-tbj.conf
 
 Generally, if sensors are working on the android/hybris side, they will work in sensorfw
-and up to the Sailfish UI. libhybris comes with /usr/bin/test-sensors which can list
+and up to the Sailfish UI. libhybris comes with /usr/bin/test_sensors which can list
 those Android sensors found.
 
 Above Sensor Framework is QtSensors, which requires a configuration file at
 /etc/xdg/QtProject/QtSensors.conf
-which is supplied with the sensorfw backend plugin in QtSensors
+which is supplied with the sensorfw backend plugin in QtSensors and a copy of it
+is already among your default configs.
 
 For Mer based systems, the QtSensors source code is at:
 https://github.com/mer-qt/qtsensors
