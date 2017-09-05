@@ -52,9 +52,7 @@ variables.
 Setup the Platform SDK
 ----------------------
 
-Instructions are found on Sailfish OS wiki:
-
-https://sailfishos.org/wiki/Platform_SDK_Installation
+Instructions are found on Sailfish OS wiki: https://sailfishos.org/wiki/Platform_SDK_Installation
 
 Preparing the Platform SDK
 --------------------------
@@ -110,4 +108,19 @@ Entering Ubuntu Chroot
 
   # FIXME: Hostname resolution might fail. This error can be ignored.
   # Can be fixed manually by adding the hostname to /etc/hosts
+
+  # We'll now install auxiliary packages that are needed in the most
+  # modern HW Adaptation builds:
+  sudo apt-get update
+
+  # bsdmainutils provides `column`, otherwise an informative Android's
+  # `make modules` target fails
+  sudo apt-get install bsdmainutils
+  # Add OpenJDK 1.7 VM (your Android base might require older/newer versions)
+  sudo apt-get install openjdk-7-jdk
+  # Here's how to switch an active VM:
+  sudo update-java-alternatives -s java-1.7.0-openjdk-amd64
+  # Add rsync for the way certain HW adaptations package their system
+  # partition; also vim and unzip for convenience
+  sudo apt-get install rsync vim unzip
 

@@ -156,8 +156,6 @@ tools, configuration files and others:
   source build/envsetup.sh
   export USE_CCACHE=1
 
-  sudo apt-get install unzip
-
   breakfast $DEVICE
 
   make -j4 hybris-hal
