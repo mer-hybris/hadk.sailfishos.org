@@ -7,9 +7,13 @@ Mobile Device
 -------------
 
 * An ARM Android device officially supported by CyanogenMod 10.1.x, 11.0,
-  12.1, 13.0 (at the time of writing 2017-02-02). Also check `this link`_
+  12.1, 13.0, 14.1 (at the time of writing 2017-09-05). Also check `this link`_
 
- - Starting with CM 13.0 (Android 6), support for 64bit ARM is also being added
+ - We are aware that CyanogenMod is made obsolete, and whilst going through
+   this guide, please in your mind substitute the word CyanogenMod with an
+   appropriate base that you are porting on (LineageOS, AOSP, CAF etc)
+
+ * Starting with CM 13.0 (Android 6), support for 64bit ARM is also being added
    to Sailfish OS: firstly by running a mix of 64bit Linux Kernel and Android
    HAL, whilst Sailfish OS userspace is being run in 32bit mode
 
@@ -25,7 +29,7 @@ Mobile Device
    of devices already ported using HADK
 
  * See https://wiki.merproject.org/wiki/Adaptations/libhybris/porters for a list
-   of ports in early stages, and their authors to contact on IRC
+   of ports in early stages, and their authors to contact on the IRC
 
  * AOSP or CAF Android base support is also possible, but we chose CM/LineageOS
    for a wider range of devices. It will be up to the porter to patch an AOSP/CAF
