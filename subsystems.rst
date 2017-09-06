@@ -138,7 +138,8 @@ Remaining steps for all adaptations:
     cd $ANDROID_ROOT
     rpm/dhd/helpers/pack_source_droidmedia-localbuild.sh
     mkdir -p hybris/mw/droidmedia-localbuild/rpm
-    cp rpm/dhd/helpers/droidmedia-localbuild.spec hybris/mw/droidmedia-localbuild/rpm/droidmedia.spec
+    cp rpm/dhd/helpers/droidmedia-localbuild.spec \
+      hybris/mw/droidmedia-localbuild/rpm/droidmedia.spec
     mv hybris/mw/droidmedia-0.0.0.tgz hybris/mw/droidmedia-localbuild
     rpm/dhd/helpers/build_packages.sh --build=hybris/mw/droidmedia-localbuild
 
@@ -322,10 +323,12 @@ internals, hence an additional audio routing glue is needed. Here's how:
     cd $ANDROID_ROOT
     rpm/dhd/helpers/pack_source_audioflingerglue-localbuild.sh
     mkdir -p hybris/mw/audioflingerglue-localbuild/rpm
-    cp rpm/dhd/helpers/audioflingerglue-localbuild.spec hybris/mw/audioflingerglue-localbuild/rpm/audioflingerglue.spec
+    cp rpm/dhd/helpers/audioflingerglue-localbuild.spec \
+      hybris/mw/audioflingerglue-localbuild/rpm/audioflingerglue.spec
     mv hybris/mw/audioflingerglue-0.0.1.tgz hybris/mw/audioflingerglue-localbuild
     rpm/dhd/helpers/build_packages.sh --build=hybris/mw/audioflingerglue-localbuild
-    rpm/dhd/helpers/build_packages.sh --droid-hal --mw=https://github.com/mer-hybris/pulseaudio-modules-droid-glue.git
+    rpm/dhd/helpers/build_packages.sh --droid-hal \
+      --mw=https://github.com/mer-hybris/pulseaudio-modules-droid-glue.git
 
 Add the pulseaudio-modules glue package to patterns in
 ``$ANDROID_ROOT/hybris/droid-configs/``:
