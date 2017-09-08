@@ -52,24 +52,6 @@ during droid-configs build, using ``ssuks``, which is part of the SSU utility::
    $ANDROID_ROOT/hybris/droid-configs/installroot/usr/share/kickstarts/$KS \
    > $KS
 
-.. warning::
-    THIS IS IMPORTANT: Do not execute the code snippet below this box if you are not
-    aware what OBS is, or if the packages for your device are not available on
-    the Mer OBS yet -- OpenSUSE Build Service is out of scope for this guide.
-
-    If however, on OBS your device's hardware adaptation repository exists,
-    consider the steps below.
-Feel free to replace ``nemo:/devel:/hw:`` with path to your home project within the
-Mer OBS:
-
-.. code-block:: console
-
-  MOBS_URI="http://repo.merproject.org/obs"
-  HA_REPO="repo --name=adaptation0-$DEVICE-@RELEASE@"
-  HA_REPO1="repo --name=adaptation1-$DEVICE-@RELEASE@ \
-  --baseurl=$MOBS_URI/nemo:/devel:/hw:/$VENDOR:/$DEVICE/sailfish_latest_@ARCH@/"
-  sed -i -e "/^$HA_REPO.*$/a$HA_REPO1" Jolla-@RELEASE@-$DEVICE-@ARCH@.ks
-
 
 Patterns
 --------
