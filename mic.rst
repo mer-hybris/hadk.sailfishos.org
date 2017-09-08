@@ -45,10 +45,11 @@ during droid-configs build, using ``ssuks``, which is part of the SSU utility::
 
   cd $ANDROID_ROOT
 
-  HA_REPO="repo --name=adaptation-community-$DEVICE-@RELEASE@"
+  HA_REPO="repo --name=adaptation-community-common-$DEVICE-@RELEASE@"
+  HA_DEV="repo --name=adaptation-community-$DEVICE-@RELEASE@"
   KS="Jolla-@RELEASE@-$DEVICE-@ARCH@.ks"
-  sed -e \
-   "s|^$HA_REPO.*$|$HA_REPO --baseurl=file://$ANDROID_ROOT/droid-local-repo/$DEVICE|" \
+  sed \
+   "/$HA_REPO/i$HA_DEV --baseurl=file:\/\/$ANDROID_ROOT\/droid-local-repo\/$DEVICE" \
    $ANDROID_ROOT/hybris/droid-configs/installroot/usr/share/kickstarts/$KS \
    > $KS
 
