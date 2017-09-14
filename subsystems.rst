@@ -136,11 +136,15 @@ Remaining steps for all adaptations:
     PLATFORM_SDK $
 
     cd $ANDROID_ROOT
-    rpm/dhd/helpers/pack_source_droidmedia-localbuild.sh
+    DROIDMEDIA_VERSION=$(git --git-dir external/droidmedia/.git describe --tags | sed \
+      -r "s/\-/\+/g")
+    rpm/dhd/helpers/pack_source_droidmedia-localbuild.sh $DROIDMEDIA_VERSION
     mkdir -p hybris/mw/droidmedia-localbuild/rpm
     cp rpm/dhd/helpers/droidmedia-localbuild.spec \
       hybris/mw/droidmedia-localbuild/rpm/droidmedia.spec
-    mv hybris/mw/droidmedia-0.0.0.tgz hybris/mw/droidmedia-localbuild
+    sed -ie "s/0.0.0/$DROIDMEDIA_VERSION/" \
+      hybris/mw/droidmedia-localbuild/rpm/droidmedia.spec
+    mv hybris/mw/droidmedia-$DROIDMEDIA_VERSION.tgz hybris/mw/droidmedia-localbuild
     rpm/dhd/helpers/build_packages.sh --build=hybris/mw/droidmedia-localbuild
 
 To prevent camera lockup, disable shutter audio in your
