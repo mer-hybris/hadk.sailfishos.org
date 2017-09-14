@@ -130,7 +130,7 @@ Remaining steps for all adaptations:
     cd $ANDROID_ROOT
     source build/envsetup.sh
     breakfast $DEVICE
-    make -j8 libdroidmedia minimediaservice minisfservice
+    make -jXX libdroidmedia minimediaservice minisfservice
 
 
     PLATFORM_SDK $
@@ -164,7 +164,7 @@ Build relevant parts:
     cd $ANDROID_ROOT
     source build/envsetup.sh
     breakfast $DEVICE
-    make -j8 hybris-hal
+    make -jXX hybris-hal
 
 
     PLATFORM_SDK $
@@ -315,7 +315,7 @@ internals, hence an additional audio routing glue is needed. Here's how:
     cd $ANDROID_ROOT
     source build/envsetup.sh
     breakfast $DEVICE
-    make -j8 libaudioflingerglue miniafservice
+    make -jXX libaudioflingerglue miniafservice
 
 
     PLATFORM_SDK $

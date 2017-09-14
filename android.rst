@@ -158,7 +158,7 @@ tools, configuration files and others:
 
   breakfast $DEVICE
 
-  make -j4 hybris-hal
+  make -jXX hybris-hal
 
 The relevant output bits will be in ``out/target/product/$DEVICE/``, in
 particular:
