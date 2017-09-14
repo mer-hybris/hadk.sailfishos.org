@@ -123,6 +123,26 @@ Starting with CM12.0/AOSP5, you will need to do these two steps:
 
 Remaining steps for all adaptations:
 
+* If your device is 32bit, just proceed with instructions
+
+* If your device is 64bit then:
+
+ - If you have ``BOARD_QTI_CAMERA_32BIT_ONLY := true`` in your
+   ``$ANDROID_ROOT/device/$VENDOR/$DEVICE/*.mk``  (also grep elsewhere under
+   ``$ANDROID_ROOT/device`` for the best measure), then just proceed with
+   instructions
+
+ * If you don't have ``BOARD_QTI_CAMERA_32BIT_ONLY := true`` defined anywhere,
+   then you need to determine whether your camera binaries are 32bit
+   or 64bit. One brutal way to do this is to boot Android after removing
+   ``/system/lib/libcameraservice.so``
+  - If Android camera app works fine, it means you have 64bit capable camera
+    adaptation, and just proceed with instructions
+  * If the camera doesn't work anymore, add a line
+    ``BOARD_QTI_CAMERA_32BIT_ONLY := true`` to your device makefile, e.g.:
+    ``$ANDROID_ROOT/device/$VENDOR/$DEVICE/device.mk`` and go ahead with
+    instructions
+
 .. code-block:: console
 
     HABUILD_SDK $
@@ -130,6 +150,7 @@ Remaining steps for all adaptations:
     cd $ANDROID_ROOT
     source build/envsetup.sh
     breakfast $DEVICE
+    # If building for a 32bit device, make this:
     make -jXX libdroidmedia minimediaservice minisfservice
 
 
@@ -319,7 +340,10 @@ internals, hence an additional audio routing glue is needed. Here's how:
     cd $ANDROID_ROOT
     source build/envsetup.sh
     breakfast $DEVICE
+    # If building for a 32bit device, make this:
     make -jXX libaudioflingerglue miniafservice
+    # If building for a 64bit device, build a 32bit library with:
+    make -jXX libaudioflingerglue_32 miniafservice
 
 
     PLATFORM_SDK $
