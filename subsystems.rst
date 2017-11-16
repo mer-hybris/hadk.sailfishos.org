@@ -123,6 +123,26 @@ Starting with CM12.0/AOSP5, you will need to do these two steps:
 
 Remaining steps for all adaptations:
 
+* If your device is 32bit, just proceed with instructions
+
+* If your device is 64bit then:
+
+ - If you have ``BOARD_QTI_CAMERA_32BIT_ONLY := true`` in your
+   ``$ANDROID_ROOT/device/$VENDOR/$DEVICE/*.mk``  (also grep elsewhere under
+   ``$ANDROID_ROOT/device`` for the best measure), then just proceed with
+   instructions
+
+ * If you don't have ``BOARD_QTI_CAMERA_32BIT_ONLY := true`` defined anywhere,
+   then you need to determine whether your camera binaries are 32bit
+   or 64bit. One brutal way to do this is to boot Android after removing
+   ``/system/lib/libcameraservice.so``
+  - If Android camera app works fine, it means you have 64bit capable camera
+    adaptation, and just proceed with instructions
+  * If the camera doesn't work anymore, add a line
+    ``BOARD_QTI_CAMERA_32BIT_ONLY := true`` to your device makefile, e.g.:
+    ``$ANDROID_ROOT/device/$VENDOR/$DEVICE/device.mk`` and go ahead with
+    instructions
+
 .. code-block:: console
 
     HABUILD_SDK $
@@ -130,16 +150,22 @@ Remaining steps for all adaptations:
     cd $ANDROID_ROOT
     source build/envsetup.sh
     breakfast $DEVICE
-    make -j8 libdroidmedia minimediaservice minisfservice
+    # If building for a 32bit device, make this:
+    make -jXX libdroidmedia minimediaservice minisfservice
 
 
     PLATFORM_SDK $
 
     cd $ANDROID_ROOT
-    rpm/dhd/helpers/pack_source_droidmedia-localbuild.sh
+    DROIDMEDIA_VERSION=$(git --git-dir external/droidmedia/.git describe --tags | sed \
+      -r "s/\-/\+/g")
+    rpm/dhd/helpers/pack_source_droidmedia-localbuild.sh $DROIDMEDIA_VERSION
     mkdir -p hybris/mw/droidmedia-localbuild/rpm
-    cp rpm/dhd/helpers/droidmedia-localbuild.spec hybris/mw/droidmedia-localbuild/rpm/droidmedia.spec
-    mv hybris/mw/droidmedia-0.0.0.tgz hybris/mw/droidmedia-localbuild
+    cp rpm/dhd/helpers/droidmedia-localbuild.spec \
+      hybris/mw/droidmedia-localbuild/rpm/droidmedia.spec
+    sed -ie "s/0.0.0/$DROIDMEDIA_VERSION/" \
+      hybris/mw/droidmedia-localbuild/rpm/droidmedia.spec
+    mv hybris/mw/droidmedia-$DROIDMEDIA_VERSION.tgz hybris/mw/droidmedia-localbuild
     rpm/dhd/helpers/build_packages.sh --build=hybris/mw/droidmedia-localbuild
 
 To prevent camera lockup, disable shutter audio in your
@@ -163,7 +189,7 @@ Build relevant parts:
     cd $ANDROID_ROOT
     source build/envsetup.sh
     breakfast $DEVICE
-    make -j8 hybris-hal
+    make -jXX hybris-hal
 
 
     PLATFORM_SDK $
@@ -314,7 +340,10 @@ internals, hence an additional audio routing glue is needed. Here's how:
     cd $ANDROID_ROOT
     source build/envsetup.sh
     breakfast $DEVICE
-    make -j8 libaudioflingerglue miniafservice
+    # If building for a 32bit device, make this:
+    make -jXX libaudioflingerglue miniafservice
+    # If building for a 64bit device, build a 32bit library with:
+    make -jXX libaudioflingerglue_32 miniafservice
 
 
     PLATFORM_SDK $
@@ -322,10 +351,12 @@ internals, hence an additional audio routing glue is needed. Here's how:
     cd $ANDROID_ROOT
     rpm/dhd/helpers/pack_source_audioflingerglue-localbuild.sh
     mkdir -p hybris/mw/audioflingerglue-localbuild/rpm
-    cp rpm/dhd/helpers/audioflingerglue-localbuild.spec hybris/mw/audioflingerglue-localbuild/rpm/audioflingerglue.spec
+    cp rpm/dhd/helpers/audioflingerglue-localbuild.spec \
+      hybris/mw/audioflingerglue-localbuild/rpm/audioflingerglue.spec
     mv hybris/mw/audioflingerglue-0.0.1.tgz hybris/mw/audioflingerglue-localbuild
     rpm/dhd/helpers/build_packages.sh --build=hybris/mw/audioflingerglue-localbuild
-    rpm/dhd/helpers/build_packages.sh --droid-hal --mw=https://github.com/mer-hybris/pulseaudio-modules-droid-glue.git
+    rpm/dhd/helpers/build_packages.sh --droid-hal \
+      --mw=https://github.com/mer-hybris/pulseaudio-modules-droid-glue.git
 
 Add the pulseaudio-modules glue package to patterns in
 ``$ANDROID_ROOT/hybris/droid-configs/``:

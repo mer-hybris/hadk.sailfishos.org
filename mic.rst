@@ -45,30 +45,13 @@ during droid-configs build, using ``ssuks``, which is part of the SSU utility::
 
   cd $ANDROID_ROOT
 
-  HA_REPO="repo --name=adaptation-community-$DEVICE-@RELEASE@"
+  HA_REPO="repo --name=adaptation-community-common-$DEVICE-@RELEASE@"
+  HA_DEV="repo --name=adaptation-community-$DEVICE-@RELEASE@"
   KS="Jolla-@RELEASE@-$DEVICE-@ARCH@.ks"
-  sed -e \
-   "s|^$HA_REPO.*$|$HA_REPO --baseurl=file://$ANDROID_ROOT/droid-local-repo/$DEVICE|" \
+  sed \
+   "/$HA_REPO/i$HA_DEV --baseurl=file:\/\/$ANDROID_ROOT\/droid-local-repo\/$DEVICE" \
    $ANDROID_ROOT/hybris/droid-configs/installroot/usr/share/kickstarts/$KS \
    > $KS
-
-.. warning::
-    THIS IS IMPORTANT: Do not execute the code snippet below this box if you are not
-    aware what OBS is, or if the packages for your device are not available on
-    the Mer OBS yet -- OpenSUSE Build Service is out of scope for this guide.
-
-    If however, on OBS your device's hardware adaptation repository exists,
-    consider the steps below.
-Feel free to replace ``nemo:/devel:/hw:`` with path to your home project within the
-Mer OBS:
-
-.. code-block:: console
-
-  MOBS_URI="http://repo.merproject.org/obs"
-  HA_REPO="repo --name=adaptation0-$DEVICE-@RELEASE@"
-  HA_REPO1="repo --name=adaptation1-$DEVICE-@RELEASE@ \
-  --baseurl=$MOBS_URI/nemo:/devel:/hw:/$VENDOR:/$DEVICE/sailfish_latest_@ARCH@/"
-  sed -i -e "/^$HA_REPO.*$/a$HA_REPO1" Jolla-@RELEASE@-$DEVICE-@ARCH@.ks
 
 
 Patterns
@@ -113,8 +96,8 @@ In the script below choose a `Sailfish OS version`_ you want to build.
    patterns to break as new HA packages get introduced etc.
 
    Ensure you pick the same release as your target was in    :doc:`scratchbox2`.
-   E.g., if target's ``ssu lr`` mentioned ``2.0.1.11``, build Sailfish OS update
-   2.0.1.11 (check for the latest, non "early access" `Sailfish OS version`_)
+   E.g., if target's ``ssu lr`` versions begin with ``2.1.1.``, build Sailfish OS update
+   2.1.1.26 (check for the latest, non "early access" `Sailfish OS version`_)
 
 Build a rootfs using RPM repositories and a kickstart file (NB: all errors are
 non-critical as long as you end up with a generated .zip image):
@@ -127,7 +110,7 @@ non-critical as long as you end up with a generated .zip image):
 
   # Set the version of your choosing, latest is strongly preferred
   # (check with "Sailfish OS version" link above)
-  RELEASE=2.0.5.6
+  RELEASE=2.1.1.26
   # EXTRA_NAME adds your custom tag. It doesn't support '.' dots in it!
   EXTRA_NAME=-my1
   # Always regenerate patterns as they usually get reset during build process

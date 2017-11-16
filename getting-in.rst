@@ -41,12 +41,19 @@ OS system. The init system in the hybris-boot initrd will attempt to write
 information via the USB device serial number and model. So ``dmesg`` on the
 host could produce::
 
+ HOST $
+ 
+ dmesg    # sample output:
+ ...
  [1094634.238136] usb 2-2: Manufacturer: Mer Boat Loader
  [1094634.238143] usb 2-2: SerialNumber: Mer Debug setting up (DONE_SWITCH=no)
+ ...
 
 However ``dmesg`` doesn't report all changes in the USB subsystem and the init script will attempt to update the iSerial field with information so also do::
 
-  $ lsusb -v | grep iSerial
+  HOST $
+  
+  lsusb -v | grep iSerial   # sample output:
    iSerial    3 Mer Debug telnet on port 23 on rndis0 192.168.2.15 - also running udhcpd
 
 However, if it says something like::
@@ -60,6 +67,8 @@ Logs across reboots
 
 .. code-block:: console
 
+    DEVICE $
+    
     devel-su
     # change Storage=volatile --> Storage=automatic in:
     vi /etc/systemd/journald.conf
@@ -89,6 +98,9 @@ Tips
 ````
 
 To ease debugging in unstable/halting/logs spamming early ports::
+
+ DEVICE $
+
  systemctl mask droid-hal-init
  systemctl mask user@100000
 

@@ -57,7 +57,7 @@ The local manifest contains device-specific repositories, for Android as well as
 for the mer-hybris builds.
 
 If your device has already been ported, its codes properly placed on GitHub,
-you should check this repository: https://github.com/local_manifests (choose
+you should check this repository: https://github.com/mer-hybris/local_manifests (choose
 the branch of hybris-* that your are porting to), and use $DEVICE.xml file
 instead of creating a new one in this chapter.
 
@@ -156,11 +156,9 @@ tools, configuration files and others:
   source build/envsetup.sh
   export USE_CCACHE=1
 
-  sudo apt-get install unzip
-
   breakfast $DEVICE
 
-  make -j4 hybris-hal
+  make -jXX hybris-hal
 
 The relevant output bits will be in ``out/target/product/$DEVICE/``, in
 particular:

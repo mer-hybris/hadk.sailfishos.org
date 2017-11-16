@@ -85,7 +85,7 @@ You should at least check the following features:
 
 * **Sensors**:
   Using `AndroSensor`_: Accelerometer, Proximity Sensor, Ambient Light
-  Sensor, Gyroscope, Magnetometer (Compass).
+  Sensor, Gyroscope, Magnetometer (Compass), Hall (flip case), ...
 
 * **LEDs**:
   If your device has notification LEDs or keypad backlights.
@@ -110,6 +110,10 @@ You should at least check the following features:
 
 * **HW composer version**:
   check ``dumpsys SurfaceFlinger`` through ADB (see `SF Layer Debugging`_).
+
+* **Fingerprint sensor**
+
+* **FM Radio**
 
 .. _Gears for Android: http://www.jeffboody.net/gears4android.php
 .. _GPS Test: https://play.google.com/store/apps/details?id=com.chartcross.gpstest
