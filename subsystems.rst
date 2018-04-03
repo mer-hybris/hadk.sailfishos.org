@@ -168,7 +168,7 @@ Remaining steps for all adaptations:
     mv hybris/mw/droidmedia-$DROIDMEDIA_VERSION.tgz hybris/mw/droidmedia-localbuild
     rpm/dhd/helpers/build_packages.sh --build=hybris/mw/droidmedia-localbuild
 
-To prevent camera lockup, disable shutter audio in your
+To prevent camera lockup, disable droid scheduling policy and shutter audio in your
 ``$ANDROID_ROOT/device/$VENDOR/$DEVICE/`` flag
 ``PRODUCT_DEFAULT_PROPERTY_OVERRIDES`` like so:
 
@@ -178,6 +178,7 @@ To prevent camera lockup, disable shutter audio in your
     # Camera configuration
     PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
    +    persist.camera.shutter.disable=1 \
+   +    camera.fifo.disable=1 \
         camera.disable_zsl_mode=1
 
 Build relevant parts:
@@ -275,6 +276,19 @@ more closely at the output of ``droid-camres``. Sometimes it chooses an aspect
 ratio which provides sub-optimal resolution, e.g. it prefers 4:3 for the front
 facing camera, yet sensor only supports 1280x960, however switching to 16:9
 would give a far superior 1920x1080 resolution.
+
+This command will list all available parameters for a specific camera from the
+underlying HAL, which will help with tweaking values such as ISO speed, focus
+and flash:
+
+.. code-block:: console
+
+    GST_DEBUG=6 mk-cam-conf 0 /dev/null 2>&1 | grep params_parse | sed -e 's/.*param\s//' | sort -u
+
+If you find some parameters (such as ISO speed or other 3A settings) are
+missing, then it's possible that your camera device is designed to use an older
+version of the Camera HAL than the default. You can try forcing a HAL v1
+connection by adding ``FORCE_HAL:=1`` to ``env.mk`` in droidmedia.
 
 You are encouraged to set all viewfinder resolutions to match that of your
 device's framebuffer. Do check for regressions via ``devel-su dconf update``
