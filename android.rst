@@ -119,15 +119,18 @@ files, disabled there, and respective ``.mount`` units created -- all done by
 
 Unfortunately, ``systemd`` cannot recognise named partition paths in ``.mount``
 units, because of the same late start of ``udev``, even though one can see
-already created nodes under ``/dev/block/platform/SOC/by-name/``.
+already created nodes under ``/dev/block/platform/*/by-name/`` or
+``/dev/block/platform/*/*/by-name``.
 
 To work around this, we need to create a map between partition names and numbers
 in ``hybris/hybris-boot/fixup-mountpoints`` for each device, for all partitions
 -- in this way we are sure to cover them all, because if done manually by
 looking through fstab/rc files, some might get unnoticed.
 
-To get that mapping, you should boot to CM and execute via ``adb shell`` this:
-``ls -l /dev/block/platform/*/by-name/``
+To get that mapping, you should boot to CM and execute ``adb shell`` on your
+host and this: ``ls -l /dev/block/platform/*/by-name/`` on your device. In case
+that yielded no results try ``ls -l /dev/block/platform/*/*/by-name/`` in some
+cases you could also try ``ls -l /dev/block/bootdevice/by-name/``.
 
 Once you've patched ``fixup-mountpoints``, take care if you ever have to run
 ``repo sync --fetch-submodules`` again because it will reset your changes,
