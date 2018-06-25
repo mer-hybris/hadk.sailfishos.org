@@ -54,26 +54,6 @@ Setup the Platform SDK
 
 Instructions are found on Sailfish OS wiki: https://sailfishos.org/wiki/Platform_SDK_Installation
 
-Preparing the Platform SDK
---------------------------
-
-You'll need some tools which are not installed into the Platform SDK by default:
-
-* **android-tools** contains tools and utilities needed for working with
-  the Android SDK
-* **createrepo** is needed to build repositories locally if you want to
-  create or update local RPM repositories
-* **zip** is needed to pack the final updater package into an .zip file
-
-The latest SDK tarballs should include these but if not you can
-install those tools with the following command:
-
-.. code-block:: console
-
-  PLATFORM_SDK $
-
-  sudo zypper in android-tools createrepo zip
-
 Setting up an Android Build Environment
 ---------------------------------------
 
