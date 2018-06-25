@@ -9,9 +9,12 @@ Scratchbox2 target following this wiki:
     Please use the 2.2.0 target or newer (as well as the Platform SDK Chroot)
 
 .. warning::
+    Platform SDK now also requires SDK tooling, create it as
+    ``SailfishOS-latest``, just like the wiki says.
+
     To ensure consistency with HADK build scripts, name your target as
     ``$VENDOR-$DEVICE-$PORT_ARCH`` instead of the wiki's suggested
-    ``SailfishOS-armv7hl``.
+    ``SailfishOS-latest-armv7hl``. Ignore the i486 target.
 
 https://sailfishos.org/wiki/Platform_SDK_Target_Installation
 
