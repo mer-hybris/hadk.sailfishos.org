@@ -54,6 +54,15 @@ Setup the Platform SDK
 
 Instructions are found on Sailfish OS wiki: https://sailfishos.org/wiki/Platform_SDK_Installation
 
+We strongly encourage all porters to use at least 2.2.0.29 Platform SDK.
+To check what release you are on:
+
+.. code-block:: console
+
+  PLATFORM_SDK $
+
+  cat /etc/system-release
+
 Setting up an Android Build Environment
 ---------------------------------------
 

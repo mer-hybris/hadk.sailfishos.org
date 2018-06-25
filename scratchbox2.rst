@@ -6,12 +6,7 @@ hardware adaptation packages in the next section. Download and create your
 Scratchbox2 target following this wiki:
 
 .. important::
-    Please use the 2.1.1.24 target
-    (http://releases.sailfishos.org/sdk/latest/targets-1707/Jolla-2.1.1.24-Sailfish_SDK_Target-armv7hl.tar.bz2)
-    and build Sailfish OS (in chapter 8) for 2.1.1.26, even if it has been
-    discontinued at the time of writing (2017-09-23). All community ports
-    building tools have been setup around 2.1.1, as well as Sailfish X is meant
-    to be run on 2.1.1. This banner will be removed when 2.1.2 is released.
+    Please use the 2.2.0 target or newer (as well as the Platform SDK Chroot)
 
 .. warning::
     To ensure consistency with HADK build scripts, name your target as
