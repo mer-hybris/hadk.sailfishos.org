@@ -123,26 +123,6 @@ Starting with CM12.0/AOSP5, you will need to do these two steps:
 
 Remaining steps for all adaptations:
 
-* If your device is 32bit, just proceed with instructions
-
-* If your device is 64bit then:
-
- - If you have ``BOARD_QTI_CAMERA_32BIT_ONLY := true`` in your
-   ``$ANDROID_ROOT/device/$VENDOR/$DEVICE/*.mk``  (also grep elsewhere under
-   ``$ANDROID_ROOT/device`` for the best measure), then just proceed with
-   instructions
-
- * If you don't have ``BOARD_QTI_CAMERA_32BIT_ONLY := true`` defined anywhere,
-   then you need to determine whether your camera binaries are 32bit
-   or 64bit. One brutal way to do this is to boot Android after removing
-   ``/system/lib/libcameraservice.so``
-  - If Android camera app works fine, it means you have 64bit capable camera
-    adaptation, and just proceed with instructions
-  * If the camera doesn't work anymore, add a line
-    ``BOARD_QTI_CAMERA_32BIT_ONLY := true`` to your device makefile, e.g.:
-    ``$ANDROID_ROOT/device/$VENDOR/$DEVICE/device.mk`` and go ahead with
-    instructions
-
 .. code-block:: console
 
     HABUILD_SDK $
@@ -150,8 +130,7 @@ Remaining steps for all adaptations:
     cd $ANDROID_ROOT
     source build/envsetup.sh
     breakfast $DEVICE
-    # If building for a 32bit device, make this:
-    make -jXX libdroidmedia minimediaservice minisfservice
+    make -jXX $(external/droidmedia/detect_build_targets.sh $PORT_ARCH)
 
 
     PLATFORM_SDK $
@@ -168,7 +147,7 @@ Remaining steps for all adaptations:
     mv hybris/mw/droidmedia-$DROIDMEDIA_VERSION.tgz hybris/mw/droidmedia-localbuild
     rpm/dhd/helpers/build_packages.sh --build=hybris/mw/droidmedia-localbuild
 
-To prevent camera lockup, disable shutter audio in your
+To prevent camera lockup, disable droid scheduling policy and shutter audio in your
 ``$ANDROID_ROOT/device/$VENDOR/$DEVICE/`` flag
 ``PRODUCT_DEFAULT_PROPERTY_OVERRIDES`` like so:
 
@@ -178,6 +157,7 @@ To prevent camera lockup, disable shutter audio in your
     # Camera configuration
     PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
    +    persist.camera.shutter.disable=1 \
+   +    camera.fifo.disable=1 \
         camera.disable_zsl_mode=1
 
 Build relevant parts:
@@ -276,6 +256,19 @@ ratio which provides sub-optimal resolution, e.g. it prefers 4:3 for the front
 facing camera, yet sensor only supports 1280x960, however switching to 16:9
 would give a far superior 1920x1080 resolution.
 
+This command will list all available parameters for a specific camera from the
+underlying HAL, which will help with tweaking values such as ISO speed, focus
+and flash:
+
+.. code-block:: console
+
+    GST_DEBUG=6 mk-cam-conf 0 /dev/null 2>&1 | grep params_parse | sed -e 's/.*param\s//' | sort -u
+
+If you find some parameters (such as ISO speed or other 3A settings) are
+missing, then it's possible that your camera device is designed to use an older
+version of the Camera HAL than the default. You can try forcing a HAL v1
+connection by adding ``FORCE_HAL:=1`` to ``env.mk`` in droidmedia.
+
 You are encouraged to set all viewfinder resolutions to match that of your
 device's framebuffer. Do check for regressions via ``devel-su dconf update``
 and reloading Camera app as you go.
@@ -340,10 +333,7 @@ internals, hence an additional audio routing glue is needed. Here's how:
     cd $ANDROID_ROOT
     source build/envsetup.sh
     breakfast $DEVICE
-    # If building for a 32bit device, make this:
-    make -jXX libaudioflingerglue miniafservice
-    # If building for a 64bit device, build a 32bit library with:
-    make -jXX libaudioflingerglue_32 miniafservice
+    make -jXX $(external/audioflingerglue/detect_build_targets.sh $PORT_ARCH)
 
 
     PLATFORM_SDK $
