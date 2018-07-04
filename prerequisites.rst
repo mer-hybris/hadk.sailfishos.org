@@ -7,7 +7,7 @@ Mobile Device
 -------------
 
 * An ARM Android device officially supported by CyanogenMod 10.1.x, 11.0,
-  12.1, 13.0, 14.1 (at the time of writing 2017-09-05). Also check `this link`_
+  12.1, 13.0, 14.1 (at the time of writing 2018-06-27). Also check `this link`_
 
  - We are aware that CyanogenMod is made obsolete, and whilst going through
    this guide, please in your mind substitute the word CyanogenMod with an
