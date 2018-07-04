@@ -110,6 +110,6 @@ Entering Ubuntu Chroot
   # Here's how to switch an active VM:
   sudo update-java-alternatives -s java-1.7.0-openjdk-amd64
   # Add rsync for the way certain HW adaptations package their system
-  # partition; also vim and unzip for convenience
-  sudo apt-get install rsync vim unzip
+  # partition; also vim and unzip for convenience, and libssl for the future
+  sudo apt-get install rsync vim unzip libssl-dev
 
