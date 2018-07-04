@@ -36,11 +36,6 @@ device and setup:
   hadk
   EOF
 
-  cat <<'EOF' >> $HOME/.mersdk.profile
-  function hadk() { source $HOME/.hadk.env; echo "Env setup for $DEVICE"; }
-  hadk
-  EOF
-
 This ensures that the environment is setup correctly when you use the
 ``ubu-chroot`` command to enter the Android SDK.
 
@@ -54,7 +49,19 @@ Setup the Platform SDK
 
 Instructions are found on Sailfish OS wiki: https://sailfishos.org/wiki/Platform_SDK_Installation
 
-We strongly encourage all porters to use at least 2.2.0.29 Platform SDK.
+Afterwards, topup the newly created ``~/.mersdk.profile`` with necessary commands:
+
+.. code-block:: console
+
+  HOST $
+
+  cat <<'EOF' >> $HOME/.mersdk.profile
+  function hadk() { source $HOME/.hadk.env; echo "Env setup for $DEVICE"; }
+  hadk
+  EOF
+
+We strongly encourage all porters to use at least 2.2.0.29 Platform SDK. Use
+``sdk-manage`` command to upgrade your toolings and targets, or create from new.
 To check what release you are on:
 
 .. code-block:: console
