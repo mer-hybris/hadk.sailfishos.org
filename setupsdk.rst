@@ -85,8 +85,8 @@ the appropriate location:
 
   PLATFORM_SDK $
 
-  TARBALL=ubuntu-trusty-android-rootfs.tar.bz2
-  curl -O http://img.merproject.org/images/mer-hybris/ubu/$TARBALL
+  TARBALL=ubuntu-trusty-20180613-android-rootfs.tar.bz2
+  curl -O https://releases.sailfishos.org/ubu/$TARBALL
   UBUNTU_CHROOT=$PLATFORM_SDK_ROOT/sdks/ubuntu
   sudo mkdir -p $UBUNTU_CHROOT
   sudo tar --numeric-owner -xjf $TARBALL -C $UBUNTU_CHROOT
@@ -104,19 +104,4 @@ Entering Ubuntu Chroot
 
   # FIXME: Hostname resolution might fail. This error can be ignored.
   # Can be fixed manually by adding the hostname to /etc/hosts
-
-  # We'll now install auxiliary packages that are needed in the most
-  # modern HW Adaptation builds:
-  sudo apt-get update
-
-  # bsdmainutils provides `column`, otherwise an informative Android's
-  # `make modules` target fails
-  sudo apt-get install bsdmainutils
-  # Add OpenJDK 1.7 VM (your Android base might require older/newer versions)
-  sudo apt-get install openjdk-7-jdk
-  # Here's how to switch an active VM:
-  sudo update-java-alternatives -s java-1.7.0-openjdk-amd64
-  # Add rsync for the way certain HW adaptations package their system
-  # partition; also vim and unzip for convenience, and libssl for the future
-  sudo apt-get install rsync vim unzip libssl-dev
 
