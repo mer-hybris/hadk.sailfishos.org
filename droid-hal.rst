@@ -70,9 +70,8 @@ appropriate and push to your GitHub home):
  # Config for $VENDOR/$DEVICE
  EGL_PLATFORM=hwcomposer
  QT_QPA_PLATFORM=hwcomposer
- # Determine which node is your touchscreen by checking /dev/input/event*
- LIPSTICK_OPTIONS=-plugin evdevtouch:/dev/input/event0 \
-   -plugin evdevkeyboard:keymap=/usr/share/qt5/keymaps/droid.qmap
+ # Determine which node is your touchscreen by checking /dev/input/event*. WRITE ALL IN ONE LINE(:
+ LIPSTICK_OPTIONS=-plugin evdevtouch:/dev/input/event0 -plugin evdevkeyboard:keymap=/usr/share/qt5/keymaps/droid.qmap
  EOF
  git add .
  git commit -m "[dcd] Patterns and compositor config"
