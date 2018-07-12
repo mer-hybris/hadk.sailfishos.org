@@ -80,7 +80,8 @@ To check what release you are on:
 
   PLATFORM_SDK $
 
-  cat /etc/system-release
+  # if no such file, you're on an old SDK version
+  cat /etc/os-release
 
 Setting up an Android Build Environment
 ---------------------------------------
