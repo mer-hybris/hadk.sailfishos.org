@@ -60,6 +60,18 @@ Afterwards, topup the newly created ``~/.mersdk.profile`` with necessary command
   hadk
   EOF
 
+You'll need some tools which are not installed into the Platform SDK by default:
+
+* **android-tools-hadk** contains tools and utilities needed for working with
+  the Android SDK
+* **tar** is needed to extract the ubu-chroot image
+
+.. code-block:: console
+
+  PLATFORM_SDK $
+
+  sudo zypper in android-tools-hadk tar
+
 We strongly encourage all porters to use at least 2.2.0.29 Platform SDK. Use
 ``sdk-manage`` command to upgrade your toolings and targets, or create from new.
 To check what release you are on:
@@ -68,7 +80,8 @@ To check what release you are on:
 
   PLATFORM_SDK $
 
-  cat /etc/system-release
+  # if no such file, you're on an old SDK version
+  cat /etc/os-release
 
 Setting up an Android Build Environment
 ---------------------------------------

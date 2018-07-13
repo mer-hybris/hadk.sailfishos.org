@@ -97,32 +97,6 @@ Sailfish OS 2.0 introduces GStreamer v1.0 with hardware-accelerated video and
 audio encoding and decoding in Camera, Gallery and Browser, and deprecates
 GStreamer v0.10.
 
-Starting with CM12.0/AOSP5, you will need to do these two steps:
-
-1. Build libcameraservice target:
-
-.. code-block:: console
-
-    HABUILD_SDK $
-
-    cd $ANDROID_ROOT
-    source build/envsetup.sh
-    breakfast $DEVICE
-    make libcameraservice
-
-2. Patch ``$ANDROID_ROOT/system/core/``:
-
-.. code-block:: diff
-
-    diff --git a/rootdir/init.rc b/rootdir/init.rc
-     service minimedia /usr/libexec/droid-hybris/system/bin/minimediaservice
-         user media
-         group audio camera
-         ioprio rt 4
-    +    setenv LD_PRELOAD /usr/libexec/droid-hybris/system/lib/libcameraservice.so
-
-Remaining steps for all adaptations:
-
 .. code-block:: console
 
     HABUILD_SDK $
@@ -147,30 +121,9 @@ Remaining steps for all adaptations:
     mv hybris/mw/droidmedia-$DROIDMEDIA_VERSION.tgz hybris/mw/droidmedia-localbuild
     rpm/dhd/helpers/build_packages.sh --build=hybris/mw/droidmedia-localbuild
 
-To prevent camera lockup, disable droid scheduling policy and shutter audio in your
-``$ANDROID_ROOT/device/$VENDOR/$DEVICE/`` flag
-``PRODUCT_DEFAULT_PROPERTY_OVERRIDES`` like so:
-
-.. code-block:: diff
-
-   diff --git a/device.mk b/device.mk
-    # Camera configuration
-    PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
-   +    persist.camera.shutter.disable=1 \
-   +    camera.fifo.disable=1 \
-        camera.disable_zsl_mode=1
-
 Build relevant parts:
 
 .. code-block:: console
-
-    HABUILD_SDK $
-
-    cd $ANDROID_ROOT
-    source build/envsetup.sh
-    breakfast $DEVICE
-    make -jXX hybris-hal
-
 
     PLATFORM_SDK $
 
@@ -201,11 +154,58 @@ You are now ready to rebuild the image which will have GStreamer v1.0 support,
 refer to :doc:`mic`. Alternatively you can complete productising other HW areas
 as described in this chapter.
 
+.. _camera-adaptation:
+
 Camera
 ******
 
-Ensure you have built the :ref:`gst-droid` part in the previous section, you can
-test the Camera app right away, it should already work, however with default low
+Ensure you have built the :ref:`gst-droid` part in the previous section.
+
+To reduce amount of patches done to the Android BSP (that's the ultimate aim in
+general), we will always build audioflingerglue middleware, this will also fix
+phonecalls audio on many adaptations.
+
+.. code-block:: console
+
+    HABUILD_SDK $
+
+    cd $ANDROID_ROOT
+    source build/envsetup.sh
+    breakfast $DEVICE
+    make -jXX $(external/audioflingerglue/detect_build_targets.sh $PORT_ARCH)
+
+
+    PLATFORM_SDK $
+
+    cd $ANDROID_ROOT
+    rpm/dhd/helpers/pack_source_audioflingerglue-localbuild.sh
+    mkdir -p hybris/mw/audioflingerglue-localbuild/rpm
+    cp rpm/dhd/helpers/audioflingerglue-localbuild.spec \
+      hybris/mw/audioflingerglue-localbuild/rpm/audioflingerglue.spec
+    mv hybris/mw/audioflingerglue-0.0.1.tgz hybris/mw/audioflingerglue-localbuild
+    rpm/dhd/helpers/build_packages.sh --build=hybris/mw/audioflingerglue-localbuild
+    rpm/dhd/helpers/build_packages.sh --droid-hal \
+      --mw=https://github.com/mer-hybris/pulseaudio-modules-droid-glue.git
+
+Add the pulseaudio-modules glue package to patterns in
+``$ANDROID_ROOT/hybris/droid-configs/``:
+
+.. code-block:: diff
+
+    diff --git a/patterns/jolla-hw-adaptation-$DEVICE.yaml b/patterns/jolla-hw-adaptation-$DEVICE.yaml
+     - pulseaudio-modules-droid
+    +- pulseaudio-modules-droid-glue
+
+Rebuild configs and patterns:
+
+.. code-block:: console
+
+    PLATFORM_SDK $
+
+    cd $ANDROID_ROOT
+    rpm/dhd/helpers/build_packages.sh --configs
+
+Now you can test the Camera app, it should already work, however with default low
 settings and reduced feature set (e.g. no flash or focus mode selection).
 
 To improve those, install ``gstreamer1.0-droid-tools`` on device (RPM is available
@@ -323,51 +323,8 @@ lines starting with ``E/RIL...`` will point to a root cause!
 Phone calls don't work (but SMS and mobile data works)
 ======================================================
 
-Starting with Android 5, some RIL versions might be tied more with Android
-internals, hence an additional audio routing glue is needed. Here's how:
-
-.. code-block:: console
-
-    HABUILD_SDK $
-
-    cd $ANDROID_ROOT
-    source build/envsetup.sh
-    breakfast $DEVICE
-    make -jXX $(external/audioflingerglue/detect_build_targets.sh $PORT_ARCH)
-
-
-    PLATFORM_SDK $
-
-    cd $ANDROID_ROOT
-    rpm/dhd/helpers/pack_source_audioflingerglue-localbuild.sh
-    mkdir -p hybris/mw/audioflingerglue-localbuild/rpm
-    cp rpm/dhd/helpers/audioflingerglue-localbuild.spec \
-      hybris/mw/audioflingerglue-localbuild/rpm/audioflingerglue.spec
-    mv hybris/mw/audioflingerglue-0.0.1.tgz hybris/mw/audioflingerglue-localbuild
-    rpm/dhd/helpers/build_packages.sh --build=hybris/mw/audioflingerglue-localbuild
-    rpm/dhd/helpers/build_packages.sh --droid-hal \
-      --mw=https://github.com/mer-hybris/pulseaudio-modules-droid-glue.git
-
-Add the pulseaudio-modules glue package to patterns in
-``$ANDROID_ROOT/hybris/droid-configs/``:
-
-.. code-block:: diff
-
-    diff --git a/patterns/jolla-hw-adaptation-$DEVICE.yaml b/patterns/jolla-hw-adaptation-$DEVICE.yaml
-     - pulseaudio-modules-droid
-    +- pulseaudio-modules-droid-glue
-
-Rebuild configs and patterns:
-
-.. code-block:: console
-
-    PLATFORM_SDK $
-
-    cd $ANDROID_ROOT
-    rpm/dhd/helpers/build_packages.sh --configs
-
-You are now ready to rebuild the image (or sideload affected RPMs) which will
-bring audio to your phonecalls.
+``audioflingerglue`` middleware is required, which is now always built together
+with the :ref:`camera-adaptation` adaptation.
 
 
 Bluetooth
