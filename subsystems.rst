@@ -104,8 +104,13 @@ GStreamer v0.10.
     cd $ANDROID_ROOT
     source build/envsetup.sh
     breakfast $DEVICE
-    make -jXX $(external/droidmedia/detect_build_targets.sh $PORT_ARCH)
+    make -jXX $(external/droidmedia/detect_build_targets.sh $PORT_ARCH $(gettargetarch))
 
+.. note:: If during intense development you need to rebuild droidmedia multiple
+          times, you can quicken by executing ``gettargetarch > lunch_arch``
+          once, then running ``make`` without the ``$(gettargetarch)`` param.
+
+.. code-block:: console
 
     PLATFORM_SDK $
 
@@ -172,8 +177,13 @@ phonecalls audio on many adaptations.
     cd $ANDROID_ROOT
     source build/envsetup.sh
     breakfast $DEVICE
-    make -jXX $(external/audioflingerglue/detect_build_targets.sh $PORT_ARCH)
+    make -jXX $(external/audioflingerglue/detect_build_targets.sh $PORT_ARCH $(gettargetarch))
 
+.. note:: If during intense development you need to rebuild audioflingerglue multiple
+          times, you can quicken by executing ``gettargetarch > lunch_arch``
+          once, then running ``make`` without the ``$(gettargetarch)`` param.
+
+.. code-block:: console
 
     PLATFORM_SDK $
 
