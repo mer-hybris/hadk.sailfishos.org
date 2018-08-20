@@ -159,5 +159,9 @@ Troubleshoot errors from build_packages.sh
  /service_contexts\
  %{nil}
 
-And re-run ``build_packages.sh --droid-hal``.
+* Then add ``- droid-hal-hammerhead-detritus`` to ``droid-configs/patterns/
+  jolla-hw-adaptation-hammerhead.yaml`` (substitute as appropriate for your
+  device)
+
+* Lastly, re-run ``build_packages.sh``
 
