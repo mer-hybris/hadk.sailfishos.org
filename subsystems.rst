@@ -190,11 +190,18 @@ phonecalls audio on many adaptations.
     PLATFORM_SDK $
 
     cd $ANDROID_ROOT
-    rpm/dhd/helpers/pack_source_audioflingerglue-localbuild.sh
+    AUDIOFLINGERGLUE_VERSION=$( \
+      git --git-dir external/audioflingerglue/.git describe --tags | \
+      sed -r "s/\-/\+/g")
+    rpm/dhd/helpers/pack_source_audioflingerglue-localbuild.sh \
+      $AUDIOFLINGERGLUE_VERSION
     mkdir -p hybris/mw/audioflingerglue-localbuild/rpm
     cp rpm/dhd/helpers/audioflingerglue-localbuild.spec \
       hybris/mw/audioflingerglue-localbuild/rpm/audioflingerglue.spec
-    mv hybris/mw/audioflingerglue-0.0.1.tgz hybris/mw/audioflingerglue-localbuild
+    sed -ie "s/0.0.0/$AUDIOFLINGERGLUE_VERSION/" \
+      hybris/mw/audioflingerglue-localbuild/rpm/audioflingerglue.spec
+    mv hybris/mw/audioflingerglue-$AUDIOFLINGERGLUE_VERSION.tgz \
+      hybris/mw/audioflingerglue-localbuild
     rpm/dhd/helpers/build_packages.sh --build=hybris/mw/audioflingerglue-localbuild
     rpm/dhd/helpers/build_packages.sh --droid-hal \
       --mw=https://github.com/mer-hybris/pulseaudio-modules-droid-glue.git
