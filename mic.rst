@@ -24,12 +24,12 @@ Allowed Content in Your Sailfish OS Image
 The default set of packages results in a minimal and functional root filesystem.
 
 It is forbidden to add proprietary/commercial packages to your image, because
-royalty fees need to be paid or licence constraints not allowing to redistribute
-them. Examples:
+royalty fees need to be paid or licence constraints are not allowing to
+redistribute them. Examples:
 
-* jolla-xt9 (dictionary suggestions while typing)
+* jolla-xt9 (predictive text input)
 * sailfish-eas (Microsoft Exchange support)
-* aliendalvik (Android runtime support)
+* aliendalvik (Android™ Apps Support)
 * sailfish-maps
 * Any non-free audio/video codecs, etc.
 
@@ -157,17 +157,18 @@ patterns. A quick in-place solution (NB: expand @DEVICE@ occurrences manually):
   patterns hierarchy -- you'll eventually discover the offending package
 
 * If that package is provided by e.g. droid-hal-device (like
-  ``droid-hal-mako-pulseaudio-settings``), it means that some of its dependencies
-  are not present:
+  ``droid-hal-hammerhead-pulseaudio-settings``), it means that some of its
+  dependencies are not present:
 
  - Edit .ks file by having ``%packages`` section consisting only of single
-   ``droid-hal-mako-pulseaudio-settings`` (note there is no @ at the beginning
-   of the line, since it's a package, not a pattern) -- another ``mic`` run error
-   will show that the offending package is actually ``pulseaudio-modules-droid``
+   ``droid-hal-hammerhead-pulseaudio-settings`` (note there is no @ at the
+   beginning of the line, since it's a package, not a pattern) -- another
+   ``mic`` run error will show that the offending package is actually
+  ``pulseaudio-modules-droid``
 
 .. important:: When found and fixed culprit in next sections, restore your .ks
-   ``%packages`` section to ``@Jolla Configuration @DEVICE@``! Then try creating
-   the image again (:ref:`mic`)
+   ``%packages`` section to ``@Jolla Configuration @DEVICE@``! Then try
+   creating the image again (:ref:`mic`)
 
 Now you're ready to proceed to the :ref:`missing-package` section.
 

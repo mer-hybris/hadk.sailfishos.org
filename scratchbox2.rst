@@ -6,7 +6,7 @@ hardware adaptation packages in the next section. Download and create your
 Scratchbox2 target following this wiki:
 
 .. important::
-    Please use the 3.0.0 target or newer (as well as the Platform SDK Chroot)
+    Please use the 3.0.0 target or newer (same requirement as for the Platform SDK Chroot earlier)
 
 .. warning::
     To ensure consistency with HADK build scripts, name your tooling

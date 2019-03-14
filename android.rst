@@ -15,7 +15,7 @@ Ensure you have setup your name and e-mail address in your Git configuration:
 
 .. code-block:: console
 
-  PLATFORM_SDK $
+  HABUILD_SDK $
 
   git config --global user.name "Your Name"
   git config --global user.email "you@example.com"
@@ -161,7 +161,7 @@ tools, configuration files and others:
 
   breakfast $DEVICE
 
-  make -jXX hybris-hal
+  make -j$(nproc --all) hybris-hal
 
 The relevant output bits will be in ``out/target/product/$DEVICE/``, in
 particular:
