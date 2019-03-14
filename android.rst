@@ -170,8 +170,8 @@ particular:
 * ``hybris-recovery.img``: Recovery boot image
 * ``system/`` and ``root/``: HAL system libraries and binaries
 
-The expected disk usage by the source and binaries after ``make hybris-hal``
-is **19 GB** (as of 2015-09-09, hybris-11.0 branch).
+The approximate size of the output directory ``out/`` after  ``make hybris-hal``
+is **10 GB** (as of 2019-03-14, hybris-sony-aosp-8.1.0_r52-20190206 branch).
 
 .. _kernel-config:
 
