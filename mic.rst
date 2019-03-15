@@ -24,12 +24,12 @@ Allowed Content in Your Sailfish OS Image
 The default set of packages results in a minimal and functional root filesystem.
 
 It is forbidden to add proprietary/commercial packages to your image, because
-royalty fees need to be paid or licence constraints not allowing to redistribute
-them. Examples:
+royalty fees need to be paid or licence constraints are not allowing to
+redistribute them. Examples:
 
-* jolla-xt9 (dictionary suggestions while typing)
+* jolla-xt9 (predictive text input)
 * sailfish-eas (Microsoft Exchange support)
-* aliendalvik (Android runtime support)
+* aliendalvik (Android™ Apps Support)
 * sailfish-maps
 * Any non-free audio/video codecs, etc.
 
@@ -96,8 +96,8 @@ In the script below choose a `Sailfish OS version`_ you want to build.
    patterns to break as new HA packages get introduced etc.
 
    Ensure you pick the same release as your target was in    :doc:`scratchbox2`.
-   E.g., if target's ``ssu lr`` versions begin with ``2.1.1.``, build Sailfish OS update
-   2.1.1.26 (check for the latest, non "early access" `Sailfish OS version`_)
+   E.g., if target's ``ssu lr`` versions begin with ``3.0.1.``, build Sailfish OS update
+   3.0.1.11 (check for the latest, non "Early Access" `Sailfish OS version`_)
 
 Build a rootfs using RPM repositories and a kickstart file (NB: all errors are
 non-critical as long as you end up with a generated .zip image):
@@ -110,7 +110,7 @@ non-critical as long as you end up with a generated .zip image):
 
   # Set the version of your choosing, latest is strongly preferred
   # (check with "Sailfish OS version" link above)
-  RELEASE=2.1.1.26
+  RELEASE=3.0.1.11
   # EXTRA_NAME adds your custom tag. It doesn't support '.' dots in it!
   EXTRA_NAME=-my1
   # Always regenerate patterns as they usually get reset during build process
@@ -157,17 +157,18 @@ patterns. A quick in-place solution (NB: expand @DEVICE@ occurrences manually):
   patterns hierarchy -- you'll eventually discover the offending package
 
 * If that package is provided by e.g. droid-hal-device (like
-  ``droid-hal-mako-pulseaudio-settings``), it means that some of its dependencies
-  are not present:
+  ``droid-hal-hammerhead-pulseaudio-settings``), it means that some of its
+  dependencies are not present:
 
  - Edit .ks file by having ``%packages`` section consisting only of single
-   ``droid-hal-mako-pulseaudio-settings`` (note there is no @ at the beginning
-   of the line, since it's a package, not a pattern) -- another ``mic`` run error
-   will show that the offending package is actually ``pulseaudio-modules-droid``
+   ``droid-hal-hammerhead-pulseaudio-settings`` (note there is no @ at the
+   beginning of the line, since it's a package, not a pattern) -- another
+   ``mic`` run error will show that the offending package is actually
+  ``pulseaudio-modules-droid``
 
 .. important:: When found and fixed culprit in next sections, restore your .ks
-   ``%packages`` section to ``@Jolla Configuration @DEVICE@``! Then try creating
-   the image again (:ref:`mic`)
+   ``%packages`` section to ``@Jolla Configuration @DEVICE@``! Then try
+   creating the image again (:ref:`mic`)
 
 Now you're ready to proceed to the :ref:`missing-package` section.
 

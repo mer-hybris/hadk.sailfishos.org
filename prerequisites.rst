@@ -6,8 +6,9 @@ Prerequisites
 Mobile Device
 -------------
 
-* An ARM Android device officially supported by CyanogenMod 10.1.x, 11.0,
-  12.1, 13.0, 14.1 (at the time of writing 2018-06-27). Also check `this link`_
+* An ARM Android device officially supported by CyanogenMod/LineageOS 10.1.x,
+  11.0, 12.1, 13.0, 14.1, 15.1 (at the time of writing 2019-03-14). Also check
+  `this link`_
 
  - We are aware that CyanogenMod is made obsolete, and whilst going through
    this guide, please in your mind substitute the word CyanogenMod with an
@@ -48,9 +49,10 @@ Build Machine
 
 * Sailfish OS Target (explained later)
 
-* At least 16 GiB of free disk space (10 GiB source download + more for
+* At least 30 GiB of free disk space (20 GiB source download + more for
   building) for a complete Android build; a minimal download and HADK build
-  (only hardware adaptation-related components) requires slightly less space
+  (only hardware adaptation-related components) requires slightly less space.
+  The newer the Android base version, the bigger the size requirements.
 
 * At least 4 GiB of RAM (the more the better)
 

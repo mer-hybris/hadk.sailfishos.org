@@ -15,7 +15,7 @@ Ensure you have setup your name and e-mail address in your Git configuration:
 
 .. code-block:: console
 
-  PLATFORM_SDK $
+  HABUILD_SDK $
 
   git config --global user.name "Your Name"
   git config --global user.email "you@example.com"
@@ -161,7 +161,7 @@ tools, configuration files and others:
 
   breakfast $DEVICE
 
-  make -jXX hybris-hal
+  make -j$(nproc --all) hybris-hal
 
 The relevant output bits will be in ``out/target/product/$DEVICE/``, in
 particular:
@@ -170,8 +170,8 @@ particular:
 * ``hybris-recovery.img``: Recovery boot image
 * ``system/`` and ``root/``: HAL system libraries and binaries
 
-The expected disk usage by the source and binaries after ``make hybris-hal``
-is **19 GB** (as of 2015-09-09, hybris-11.0 branch).
+The approximate size of the output directory ``out/`` after  ``make hybris-hal``
+is **10 GB** (as of 2019-03-14, hybris-sony-aosp-8.1.0_r52-20190206 branch).
 
 .. _kernel-config:
 

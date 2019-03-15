@@ -26,7 +26,7 @@ device and setup:
   export ANDROID_ROOT="$HOME/hadk"
   export VENDOR="lge"
   export DEVICE="hammerhead"
-  # ARCH conflicts with kernel build
+  # Set arch to armv7hl even if you are porting a 64bit device
   export PORT_ARCH="armv7hl"
   EOF
 
@@ -50,9 +50,13 @@ Setup the Platform SDK
 Instructions are found on Sailfish OS wiki ("Quick start" section is enough,
 do not install SDK Targets yet): https://sailfishos.org/wiki/Platform_SDK_Installation
 
-Afterwards, topup the newly created ``~/.mersdk.profile`` with necessary commands:
+Afterwards, temporarily leave the PLATFORM_SDK to topup the newly created ``~/.mersdk.profile`` with necessary commands:
 
 .. code-block:: console
+
+  PLATFORM_SDK $
+
+  exit
 
   HOST $
 
@@ -60,6 +64,8 @@ Afterwards, topup the newly created ``~/.mersdk.profile`` with necessary command
   function hadk() { source $HOME/.hadk.env; echo "Env setup for $DEVICE"; }
   hadk
   EOF
+
+  sfossdk
 
 You'll need some tools which are not installed into the Platform SDK by default:
 
@@ -84,6 +90,9 @@ We strongly encourage all porters to use at least 3.0.0.8 Platform SDK. Use
 
   # if no such file, you're on an old SDK version
   cat /etc/os-release
+
+More information about keeping your SDK up-to-date:
+https://sailfishos.org/wiki/SDK_Tips#SDK_Maintenance
 
 Setting up an Android Build Environment
 ---------------------------------------
@@ -119,4 +128,9 @@ Entering Ubuntu Chroot
 
   # FIXME: Hostname resolution might fail. This error can be ignored.
   # Can be fixed manually by adding the hostname to /etc/hosts
+
+  HABUILD_SDK $
+
+  # Now you are in the HABUILD_SDK environment
+  # To leave, just type `exit` or Ctrl+D, and you'll be back to the PLATFORM_SDK
 
