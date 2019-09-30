@@ -63,8 +63,8 @@ effects for basic use. The default configurations can be overridden with device
 specific .ini files in your adaptation project's config package. The default
 config files can be seen in:
 
-* **NGFD**: /usr/share/ngfd/plugins.d/`ffmemless.ini <https://git.merproject.org/mer-core/ngfd/blob/master/data/plugins.d/ffmemless.ini>`_
-* **QtFeedback**: /usr/lib/qt5/plugins/feedback/`ffmemless.ini <https://git.merproject.org/mer-core/qt-mobility-haptics-ffmemless/blob/master/ffmemless.ini>`_
+* **NGFD**: /usr/share/ngfd/plugins.d/`ffmemless.ini <https://git.sailfishos.org/mer-core/ngfd/blob/master/data/plugins.d/ffmemless.ini>`_
+* **QtFeedback**: /usr/lib/qt5/plugins/feedback/`ffmemless.ini <https://git.sailfishos.org/mer-core/qt-mobility-haptics-ffmemless/blob/master/ffmemless.ini>`_
 
 The default configuration files can be over-ridden with setting environment
 variables NGF_FFMEMLESS_SETTINGS (ngfd) and FF_MEMLESS_SETTINGS (qtfeedback),
@@ -86,7 +86,7 @@ And that file should contain 2 lines:
 
 Now you can use those 2 files to tune force feedback effects suitable
 specifically for your device. For template to start making your own
-configuration files, just copy-paste the ngfd `ffmemless.ini <https://git.merproject.org/mer-core/ngfd/blob/master/data/plugins.d/ffmemless.ini>`_ and Qtfeedback `ffmemless.ini <https://git.merproject.org/mer-core/qt-mobility-haptics-ffmemless/blob/master/ffmemless.ini>`_
+configuration files, just copy-paste the ngfd `ffmemless.ini <https://git.sailfishos.org/mer-core/ngfd/blob/master/data/plugins.d/ffmemless.ini>`_ and Qtfeedback `ffmemless.ini <https://git.sailfishos.org/mer-core/qt-mobility-haptics-ffmemless/blob/master/ffmemless.ini>`_
 default config files as the device specific files and then edit only needed
 bits.
 
@@ -108,7 +108,7 @@ The Non-Graphical Feedback Daemon provides combined audio, haptic, and LED
 feedback for system events and alarms. These events include such things as
 ring tones, message tones, clock alarms, email notifications, etc.
 
-* https://git.merproject.org/mer-core/ngfd
+* https://git.sailfishos.org/mer-core/ngfd
 
 TODO: add more detail about configuring NGFD.
 
