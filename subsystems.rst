@@ -1,11 +1,11 @@
 Detailed subsystem adaptation guides
 ####################################
 
-Mer / Sailfish OS uses some kernel interfaces directly, bypassing the android
+Sailfish OS uses some kernel interfaces directly, bypassing the android
 HAL. Mainly this is used in places where the kernel API is stable enough and
 also used by Android. The other reasons for using kernel APIs directly include
 better features offered by standard kernel frameworks, differing middleware
-between Mer / Sailfish OS linux and Android, and lastly special features of
+between Sailfish OS linux and Android, and lastly special features of
 Sailfish OS.
 
 Vibration / force feedback
@@ -15,11 +15,11 @@ The default vibra framework that is used in full featured productized Sailfish
 OS devices is the force feedback API in kernel input framework. The kernel
 drivers should either use the ffmemless framework OR provide FF_PERIODIC and
 FF_RUMBLE support via as a normal input driver. In this chapter we go through
-the ff-memless aproach of adapting your kernel for Mer/Sailfish OS
+the ff-memless aproach of adapting your kernel for Sailfish OS
 
 This is a different method than what is used in community Sailfish OS ports,
 which utilize the android vibrator / timed-output API. The android vibrator
-plugins in Mer/Sailfish OS middleware have very reduced feature set, and are
+plugins in Sailfish OS middleware have very reduced feature set, and are
 not recommended for commercial products.
 
 In order to utilize the standard input framework force feedback features of
@@ -365,9 +365,9 @@ that loads the kernel module at boot. In addition to this you need to check that
 firmware files and possible HW tuning files are installed in correct locations
 on the filesystem.
 
-Mer / Sailfish OS WLAN adaptation assumes the driver is compatible with WPA
+Sailfish OS WLAN adaptation assumes the driver is compatible with WPA
 supplicant. This means the WLAN device driver has to support cfg80211 interface.
-In some cases connman (the higher level connection manager in Mer/Sailfish)
+In some cases connman (the higher level connection manager in Sailfish)
 accesses directly the WLAN driver bypassing wpa_supplicant.
 
 The version of currently used wpa_supplicant can be checked from here:
@@ -404,7 +404,7 @@ The necessary middleware is already built for you, just add
 Audio
 *****
 
-For audio, Mer / Sailfish OS uses PulseAudio as the main mixer. For audio
+For audio, Sailfish OS uses PulseAudio as the main mixer. For audio
 routing ohmd is used.
 
 TODO: Add info about audio routing configuration
@@ -445,7 +445,7 @@ Above Sensor Framework is QtSensors, which requires a configuration file at
 which is supplied with the sensorfw backend plugin in QtSensors and a copy of it
 is already among your default configs.
 
-For Mer based systems, the QtSensors source code is at:
+For Sailfish Core based systems, the QtSensors source code is at:
 https://github.com/mer-qt/qtsensors
 
 Debugging output of sensorfwd can be increased one level during runtime by sending 

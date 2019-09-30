@@ -50,7 +50,7 @@ TODO:
 Configuring haptics
 -------------------
 
-Mer/Sailfish OS has 2 kinds of feedback methods:
+Sailfish OS has 2 kinds of feedback methods:
 
 1. **NGFD** - Non-graphical feedback framework **ffmemless** plugin
 2. **QtFeedback** - QtFeedback with direct ffmemless backend
