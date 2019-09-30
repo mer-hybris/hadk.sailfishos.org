@@ -1,43 +1,59 @@
 Manual Installation and Maintenance
 ===================================
 
-This assumes you are booted into CyanogenMod on your device, can ``adb shell``
+This assumes you are booted into the **Android base** on your device, can ``adb shell``
 to it to get a root shell and have your boot image and rootfs tarball ready.
 
 Some of these approaches also work in Android Recovery (there's an ``adbd``
-running), but you obviously won't have network connectivity for downloading
-updates.
+running).
 
 Extracting the rootfs via adb
 -----------------------------
 
-Replace ``i9305-devel.tar.gz`` with the name of your rootfs tarball:
+Replace ``sailfishos-devel-hammerhead.tar.bz2`` with the name of your rootfs tarball:
 
 .. code-block:: bash
 
   PLATFORM_SDK $
 
-  adb push i9305-devel.tar.gz /sdcard/
+  adb push sailfishos-devel-hammerhead.tar.bz2 /sdcard/
   adb shell
   su
   mkdir -p /data/.stowaways/sailfishos
-  tar --numeric-owner -xvzf /sdcard/i9305-devel.tar.gz \
+  tar --numeric-owner -xvzf /sdcard/sailfishos-devel-hammerhead.tar.bz2 \
       -C /data/.stowaways/sailfishos
 
 Flashing the boot image via adb
 -------------------------------
 
-The following example is for ``i9305``, for other devices the output
+The following example is for ``hammerhead``, for other devices the output
 partition and filename is obviously different:
 
 .. code-block:: console
 
   PLATFORM_SDK $
 
-  adb push out/target/product/i9305/hybris-boot.img /sdcard/
+  cd $ANDROID_ROOT
+  adb push out/target/product/hammerhead/hybris-boot.img /sdcard/
   adb shell
   su
-  dd if=/sdcard/hybris-boot.img of=/dev/block/mmcblk0p8
+  dd if=/sdcard/hybris-boot.img of=/dev/block/mmcblk0p19
+
+Flashing or booting the boot image via fastboot
+-----------------------------------------------
+
+.. code-block:: console
+
+  PLATFORM_SDK $
+
+  cd $ANDROID_ROOT
+  # to smoke test a boot image without flashing it:
+  fastboot boot out/target/product/$DEVICE/hybris-boot.img
+  # to permanently flash an image to boot partition:
+  fastboot flash boot out/target/product/$DEVICE/hybris-boot.img
+  adb shell
+  su
+  dd if=/sdcard/hybris-boot.img of=/dev/block/mmcblk0p19
 
 Interacting with the rootfs via adb from Android
 ------------------------------------------------

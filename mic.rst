@@ -96,8 +96,8 @@ In the script below choose a `Sailfish OS version`_ you want to build.
    patterns to break as new HA packages get introduced etc.
 
    Ensure you pick the same release as your target was in    :doc:`scratchbox2`.
-   E.g., if target's ``ssu lr`` versions begin with ``3.0.1.``, build Sailfish OS update
-   3.0.1.11 (check for the latest, non "Early Access" `Sailfish OS version`_)
+   E.g., if target's ``ssu lr`` versions begin with ``3.1.0.``, build Sailfish OS update
+   3.1.0.11 (check for the latest, non "Early Access" `Sailfish OS version`_)
 
 Build a rootfs using RPM repositories and a kickstart file (NB: all errors are
 non-critical as long as you end up with a generated .zip image):
@@ -110,7 +110,7 @@ non-critical as long as you end up with a generated .zip image):
 
   # Set the version of your choosing, latest is strongly preferred
   # (check with "Sailfish OS version" link above)
-  RELEASE=3.0.1.11
+  RELEASE=3.1.0.11
   # EXTRA_NAME adds your custom tag. It doesn't support '.' dots in it!
   EXTRA_NAME=-my1
   # Always regenerate patterns as they usually get reset during build process

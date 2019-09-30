@@ -28,8 +28,8 @@ rootfs.
 In this way we get to win free space by removing unused files, and use
 ``system`` partition for e.g. flashing the factory reset image.
 
-At first create a tarball of the original ``/system`` contents from Android
-or CyanogenMod flashed to your device (we are using Nexus 5 in this guide).
+At first create a tarball of the original ``/system`` contents from the **Android
+base** image flashed to your device (we are using Nexus 5 in this guide).
 
 Transfer the tarball to your host and extract it.
 

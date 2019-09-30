@@ -4,16 +4,23 @@ Overview
 Goal
 ====
 
-By following this guide you can set up a Sailfish OS (or another Mer Core based)
+By following this guide you can set up a Sailfish OS (or another Sailfish Core based)
 Linux system that will run on an Android device, on top of an existing Android
 Hardware Adaptation kernel and drivers.
 
 This consists of:
 
-* **Sailfish OS core (Mer)**: the GNU/Linux userspace core
+* **Sailfish Core**: the GNU/Linux userspace core
 * **Android Hardware Adaptation** (HA/HAL), consisting of:
  - Device-specific **Android Kernel**
- * **Binary device drivers** taken from an Android ROM (e.g. CyanogenMod)
+ * **Android base** which can be:
+  - LineageOS - https://wiki.lineageos.org
+  * AOSP - Android Open Source Project - https://source.android.com
+  * CAF - Code Aurora Forum - https://www.codeaurora.org
+  * Sony Open Devices program - https://developer.sony.com/develop/open-devices
+  * Vendor-specific Android base
+ * **Binary device drivers** taken from an **Android base**
+ * Hybris patches to the **Android base**
  * The **libhybris interface** built against the binary drivers
  * **Middleware packages** depending on hardware-specific plugins
  * A Qt/Wayland **QPA plugin** utilizing the Android ``hwcomposer``

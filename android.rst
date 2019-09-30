@@ -3,11 +3,11 @@ Building the Android HAL
 
 .. _checkout-cm-source:
 
-Checking out CyanogenMod Source
--------------------------------
+Checking out Source of the Android base
+---------------------------------------
 
-Our build process is based around the CyanogenMod projects source
-tree, but when required we've modified some projects, in order to apply
+Our build process is based around the Android source
+tree, but where needed we've modified some projects, in order to apply
 patches required to make libhybris function correctly, and
 to minimise the built-in actions and services in the ``init.*.rc`` files.
 
@@ -25,21 +25,27 @@ code repositories, see `Installing repo`_.
 
 .. _Installing repo: http://source.android.com/source/downloading.html#installing-repo
 
-After you've installed the ``repo`` command, a set of commands below download
-the required projects for building the modified parts of Android used in
-hybris hardware adaptations.
+After you've installed the ``repo`` command, a set of commands below will download
+the required projects for building the modified parts of the **Android base**
+used in Sailfish OS hardware adaptations.
 
-All available CM versions that you can port on can be seen here:
-https://github.com/mer-hybris/android/branches
+All available **Android base** variants and versions that you can port on can be
+seen here: https://github.com/mer-hybris/android/branches
 
-Choose a CM version which has the best hardware support for your device.
+Choose a version which has the best hardware support for your device.
+
+Alternatively, you can patch an **Android base** of your choosing (e.g. be it
+CAF or AOSP or another).
 
 The result of your Sailfish OS port will be an installable ZIP file. Before
 deploying it onto your device, you'll have to flash a corresponding version of
-CyanogenMod, so Sailfish OS can re-use its Android HAL shared objects.
+the **Android base**, so Sailfish OS can re-use its Android HAL shared objects.
 
-If your primary ROM is not CyanogenMod, or is of another version, look for
-MultiROM support for your device. It supports Sailfish OS starting v28.
+If your primary ROM does not match your **Android base** or its version, and you
+would like to keep it on your device, then look for MultiROM support for it.
+Starting with its version v28, it supports booting Sailfish OS.
+
+This porting guide is using Nexus 5 and CyanogenMod 11.0 version as example:
 
 .. code-block:: console
 
@@ -71,8 +77,9 @@ Create directory at first:
 
 If your are working on a new port, you'll have to create the local
 manifest yourself, which contains at least two repos: one for the kernel, another
-for the device configuration. Find those CM device wiki, for Nexus 5 it would be
-http://wiki.cyanogenmod.org/w/Hammerhead_Info inside the **Source code** table.
+for the device configuration. Find those in the LineageOS device wiki, for Nexus 5
+it would be
+https://wiki.lineageos.org/devices/hammerhead/build#initialize-the-lineageos-source-repository
 Local manifest below will also need pointing to correct branches - identify which
 one matches the default manifest branch (``stable/cm-11.0`` in Nexus 5 case).
 
@@ -127,7 +134,8 @@ in ``hybris/hybris-boot/fixup-mountpoints`` for each device, for all partitions
 -- in this way we are sure to cover them all, because if done manually by
 looking through fstab/rc files, some might get unnoticed.
 
-To get that mapping, you should boot to CM and execute ``adb shell`` on your
+To get that mapping, you should flash and boot and image of your **Android base**
+and execute ``adb shell`` on your
 host and this: ``ls -l /dev/block/platform/*/by-name/`` on your device. In case
 that yielded no results try ``ls -l /dev/block/platform/*/*/by-name/`` in some
 cases you could also try ``ls -l /dev/block/bootdevice/by-name/``.
@@ -142,8 +150,8 @@ your ``fixup-mountpoints`` patch.
 
 .. _build-cm-bits:
 
-Building Relevant Bits of CyanogenMod
--------------------------------------
+Building Relevant Bits of your Android base
+-------------------------------------------
 
 In the Android build tree, run the following in a ``bash`` shell (if you
 are using e.g. ``zsh``, you need to run these commands in a ``bash`` shell,
@@ -190,8 +198,8 @@ kernel config checker:
   hybris/mer-kernel-check/mer_verify_kernel_config \
       ./out/target/product/$DEVICE/obj/KERNEL_OBJ/.config
 
-Apply listed modifications to the defconfig file that CM is using. Which one?
-It's different for every device, most likely first:
+Apply listed modifications to the defconfig file that your **Android base** is
+using. Which one? It's different for every device, most likely first:
 
 * Check the value of ``TARGET_KERNEL_CONFIG`` under
   $ANDROID_ROOT/device/$VENDOR/\*/BoardConfig\*.mk
@@ -200,8 +208,8 @@ It's different for every device, most likely first:
   you're building kernel, e.g.:
   ``make  -C kernel/lge/hammerhead ... cyanogenmod_hammerhead_defconfig``
 
-* Check CM kernel's commit history of the ``arch/arm/configs`` folder, look for
-  defconfig
+* Check your **Android base** kernel's commit history for the
+  ``arch/arm*/configs`` folder, look for defconfig
 
 If you are in a rush, get rid only of ``ERROR`` cases first, but don't forget to
 come back to the ``WARNING`` ones too.

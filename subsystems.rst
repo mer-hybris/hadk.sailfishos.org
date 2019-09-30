@@ -1,11 +1,11 @@
 Detailed subsystem adaptation guides
 ####################################
 
-Mer / Sailfish OS uses some kernel interfaces directly, bypassing the android
+Sailfish OS uses some kernel interfaces directly, bypassing the android
 HAL. Mainly this is used in places where the kernel API is stable enough and
 also used by Android. The other reasons for using kernel APIs directly include
 better features offered by standard kernel frameworks, differing middleware
-between Mer / Sailfish OS linux and Android, and lastly special features of
+between Sailfish OS linux and Android, and lastly special features of
 Sailfish OS.
 
 Vibration / force feedback
@@ -15,11 +15,11 @@ The default vibra framework that is used in full featured productized Sailfish
 OS devices is the force feedback API in kernel input framework. The kernel
 drivers should either use the ffmemless framework OR provide FF_PERIODIC and
 FF_RUMBLE support via as a normal input driver. In this chapter we go through
-the ff-memless aproach of adapting your kernel for Mer/Sailfish OS
+the ff-memless aproach of adapting your kernel for Sailfish OS
 
 This is a different method than what is used in community Sailfish OS ports,
 which utilize the android vibrator / timed-output API. The android vibrator
-plugins in Mer/Sailfish OS middleware have very reduced feature set, and are
+plugins in Sailfish OS middleware have very reduced feature set, and are
 not recommended for commercial products.
 
 In order to utilize the standard input framework force feedback features of
@@ -334,7 +334,7 @@ lines starting with ``E/RIL...`` will point to a root cause!
 * Also install ``ofono-tests`` package and run ``/usr/lib/ofono/test/list-modems``
 
 * Try to recompile latest ofono master branch from
-  https://git.merproject.org/mer-core/ofono
+  https://git.sailfishos.org/mer-core/ofono
 
 * If everything else fails, then stop and strace a failing daemon (either RIL or
   ofono) from command line manually
@@ -365,18 +365,18 @@ that loads the kernel module at boot. In addition to this you need to check that
 firmware files and possible HW tuning files are installed in correct locations
 on the filesystem.
 
-Mer / Sailfish OS WLAN adaptation assumes the driver is compatible with WPA
+Sailfish OS WLAN adaptation assumes the driver is compatible with WPA
 supplicant. This means the WLAN device driver has to support cfg80211 interface.
-In some cases connman (the higher level connection manager in Mer/Sailfish)
+In some cases connman (the higher level connection manager in Sailfish)
 accesses directly the WLAN driver bypassing wpa_supplicant.
 
 The version of currently used wpa_supplicant can be checked from here:
 
- https://git.merproject.org/mer-core/wpa_supplicant
+ https://git.sailfishos.org/mer-core/wpa_supplicant
 
 The version of used connman can be checked from here:
 
- https://git.merproject.org/mer-core/connman
+ https://git.sailfishos.org/mer-core/connman
 
 Special quirks: WLAN hotspot
 ============================
@@ -385,7 +385,7 @@ On some android WLAN drivers, the whole connectivity stack needs to be reset
 after WLAN hotspot use. For that purpose there is reset service in dsme, please
 see details how to set that up for your adaptation project in here:
 
- https://git.merproject.org/mer-core/dsme/commit/c377c349079b470db38ba6394121b6d899004963
+ https://git.sailfishos.org/mer-core/dsme/commit/c377c349079b470db38ba6394121b6d899004963
 
 NFC
 ***
@@ -404,7 +404,7 @@ The necessary middleware is already built for you, just add
 Audio
 *****
 
-For audio, Mer / Sailfish OS uses PulseAudio as the main mixer. For audio
+For audio, Sailfish OS uses PulseAudio as the main mixer. For audio
 routing ohmd is used.
 
 TODO: Add info about audio routing configuration
@@ -414,7 +414,7 @@ Sensors
 *******
 
 Sailfish OS sensor support is based upon Sensor Framework at:
-https://git.merproject.org/mer-core/sensorfw
+https://git.sailfishos.org/mer-core/sensorfw
 
 Hybris based systems can use the hybris sensor adaptor plugins, which uses
 existing android libhardware sensor adaptations to read sensor data and control.
@@ -427,14 +427,14 @@ You can also use any conf file by specifying it on the commandline.
 
 For hybris based platforms, this will be sensord-hybris.conf, and most likely will 
 not have to be modified. A copy of this file is already among default configs:
-https://git.merproject.org/mer-core/sensorfw/blob/master/config/sensord-hybris.conf
+https://git.sailfishos.org/mer-core/sensorfw/blob/master/config/sensord-hybris.conf
 If you do make modifications to it, add the file under
 ``$ANDROID_ROOT/hybris/droid-configs/sparse/etc/sensorfw/primaryuse.conf``
 
 There are already a few device specific conf files to look at if the device needs
 more configuration.
 Example of mixed hybris and evdev configuration
-https://git.merproject.org/mer-core/sensorfw/blob/master/config/sensord-tbj.conf
+https://git.sailfishos.org/mer-core/sensorfw/blob/master/config/sensord-tbj.conf
 
 Generally, if sensors are working on the android/hybris side, they will work in sensorfw
 and up to the Sailfish UI. libhybris comes with /usr/bin/test_sensors which can list
@@ -445,7 +445,7 @@ Above Sensor Framework is QtSensors, which requires a configuration file at
 which is supplied with the sensorfw backend plugin in QtSensors and a copy of it
 is already among your default configs.
 
-For Mer based systems, the QtSensors source code is at:
+For Sailfish Core based systems, the QtSensors source code is at:
 https://github.com/mer-qt/qtsensors
 
 Debugging output of sensorfwd can be increased one level during runtime by sending 
@@ -468,7 +468,7 @@ are working normally.
 The userspace API's for platform applications is exposed via nemo-keepalive
 package. See more details here:
 
- https://git.merproject.org/mer-core/nemo-keepalive
+ https://git.sailfishos.org/mer-core/nemo-keepalive
 
 Watchdog
 ********

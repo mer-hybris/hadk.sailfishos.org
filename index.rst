@@ -7,7 +7,7 @@ Sailfish OS Hardware Adaptation Development Kit
 ===============================================
 
 This is a guide to help you understand how you can port Sailfish OS
-to devices running the CyanogenMod flavour of Android.
+to devices running Android™ OS.
 
 .. warning::
 

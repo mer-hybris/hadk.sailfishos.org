@@ -12,7 +12,7 @@ Prerequisites
 
 * The stock firmware image (for your version and device)
 
-* The vanilla CM release (for your version and device)
+* The **Android base** release (for your version and device)
 
 * A Sailfish OS rootfs update .zip, created by ``mic``
 
@@ -20,12 +20,13 @@ Flashing back to Stock Android
 ------------------------------
 
 It is important that you start with a fresh stock image that matches the
-Android version of the CyanogenMod release you are going to flash (which in
+**Android base** release version you are going to flash (which in
 turn is dictated by the Sailfish OS image you are going to flash).
 
-While the CM .zip contains all files in ``/system/`` (e.g. libraries and
-libhardware modules), the stock image also contains firmware parts and
-flashables for partitions that are not included in the CM .zip.
+While the **Android base** (e.g. CyanogenMod) .zip contains all files in
+``/system/`` (e.g. libraries and libhardware modules), the stock image also
+contains firmware parts and flashables for partitions that are not included in
+the **Android base** .zip.
 
 For example, if you are running stock 4.4.2 on a Nexus 4 (mako), and you
 are going to flash CM 10.1.3 and Sailfish OS to it, you have to first
@@ -41,11 +42,10 @@ there might be some issues when booting into Sailfish OS:
 * WLAN, sensors, audio and other hardware not working
 
 If you experience such issues, please make sure you first flash the
-stock system, ROM, followed by a Recovery image and CyanogenMod, and
+stock system, ROM, followed by the **Android base** image, and
 finally the Sailfish OS update. Please also note that you can't just
-take the latest stock ROM and/or CyanogenMod ROM - both versions have
-to match the Sailfish OS version you are going to install, as the
-Sailfish OS parts are built against a specific version of the HA.
+take the latest stock ROM and/or **Android base** ROM - both versions have to
+match the Android version against which the Sailfish OS adaptation was built. 
 
 Flashing using Android Recovery
 -------------------------------

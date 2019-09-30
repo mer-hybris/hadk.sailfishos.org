@@ -13,13 +13,13 @@ starting to erase and reflash the device with your custom builds).
 Backup and Verify Your Device
 -----------------------------
 
-As mentioned above, it might be helpful to backup the stock image before
-flashing the CM release for the first time, as getting the stock image might
-be hard for some vendors (e.g. some stock images are only available as
-self-extracting .exe package for Windows) or impossible (some vendors do not
-provide stock images for download).
+As mentioned above, it might be helpful to backup the existing stock Android
+image before flashing the **Android base** release for the first time, as
+obtaining the stock image might be hard for some vendors (e.g. some stock images
+are only available as self-extracting .exe package for Windows) or impossible
+(some vendors do not provide stock images for download).
 
-Use an Android/CyanogenMod Recovery to:
+Use Android Recovery (e.g. TWRP or ClockworkMod) to:
 
 1. Backup to SD card: system, data, boot and recovery partitions
 
@@ -37,20 +37,23 @@ Use an Android/CyanogenMod Recovery to:
 
 See the `ClockworkMod Instructions`_ for additional help.
 
-.. _ClockworkMod Instructions: http://wiki.cyanogenmod.org/w/ClockWorkMod_Instructions
+.. _ClockworkMod Instructions: https://forum.xda-developers.com/wiki/ClockworkMod_Recovery
 
-Flash and Test CyanogenMod
---------------------------
+Flash and Test your Android base image
+--------------------------------------
 
-The official CyanogenMod flashing instructions can be found on this `CyanogenMod wiki page`_.
+Flash an image that you built or obtained of your **Android base**, whether it's
+LineageOS, CAF, AOSP, or another.
 
-.. _CyanogenMod wiki page: http://wiki.cyanogenmod.org/w/Devices
+The official LineageOS flashing instructions can be found on this `LineageOS wiki page`_.
 
-You may also want to verify that the CM build for your device is fully
-functional, to avoid wasting time with hardware adaptations that have
+.. _LineageOS wiki page: https://wiki.lineageos.org/devices
+
+You may also want to verify that the **Android base** build for your device is
+fully functional, to avoid wasting time with hardware adaptations that have
 known issues. Also, your device might have some hardware defects - testing
 in Android verifies that all components are working correctly, so you have
-a functionality baseline to compare your build results with.
+a functionality baseline to compare your Sailfish OS build results with.
 
 You should at least check the following features:
 
