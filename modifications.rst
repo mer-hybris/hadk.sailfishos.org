@@ -2,17 +2,19 @@ Modifications and Patches
 =========================
 
 Running Sailfish OS on top of a Mer Hybris adaptation requires a few
-modifications to a standard Android/CM system. We maintain forks of
-some repos with those patches aplied.
+modifications to the underlying **Android base**. We maintain forks of some repos
+with those patches applied.
 
-Hybris Modifications to CyanogenMod
------------------------------------
+Hybris Modifications to an Android base
+---------------------------------------
 
 Our modifications are tracked by our own Hybris-specific repo manifest
 file. The below sections outline our modifications to these sources.
 
 Droid System
 ````````````
+
+.. _manifest is used: https://github.com/mer-hybris/android/
 
 In order to work with ``libhybris``, some parts of the lower levels of
 Android need to be modified:
@@ -39,11 +41,11 @@ Android need to be modified:
 * **libcore/**: Don't include ``JavaLibrary.mk``, as Java won't be available
 
 All these modifications have already been done in the **mer-hybris** GitHub
-organisation of forks from the original CyanogenMod sources. If its ``android``
-manifest is used, these changes will be included automatically.
+organisation of forks from various Android sources. If its ``android``
+`manifest is used`_, these patches will be included automatically.
 
 In addition to these generic modifications, for some devices and SoCs
-we also maintain a set of patches on top of CyanogenMod to fix issues
+we also maintain a set of patches to fix issues
 with drivers that only happen in Sailfish OS, for example:
 
 * **hardware/samsung/**: SEC hwcomposer: Avoid segfault if ``registerProcs`` was never called

@@ -131,7 +131,7 @@ initramfs as ``cpio`` archive. The Platform SDK offer the ``mkbootimg``
 to build a boot image from a kernel and cpio archive. To split a boot
 image, use ``split_bootimg`` in Platform SDK.
 
-In the CyanogenMod-based Sailfish OS port, a boot image with Sailfish OS-
-specific scripts will be built automatically. These boot images are then
+In the Sailfish OS port, a boot image with Sailfish OS-specific scripts will be
+built automatically. These boot images are then
 available as **hybris-boot.img** (for booting into Sailfish OS) and
 **hybris-recovery.img** (for debugging via telnet and test-booting).

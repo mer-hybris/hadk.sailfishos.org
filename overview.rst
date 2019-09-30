@@ -13,7 +13,7 @@ This consists of:
 * **Sailfish OS core (Mer)**: the GNU/Linux userspace core
 * **Android Hardware Adaptation** (HA/HAL), consisting of:
  - Device-specific **Android Kernel**
- * **Binary device drivers** taken from an Android ROM (e.g. CyanogenMod)
+ * **Binary device drivers** taken from an Android base (e.g. LineageOS)
  * The **libhybris interface** built against the binary drivers
  * **Middleware packages** depending on hardware-specific plugins
  * A Qt/Wayland **QPA plugin** utilizing the Android ``hwcomposer``
