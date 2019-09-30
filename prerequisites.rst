@@ -2,6 +2,9 @@ Prerequisites
 =============
 
 .. _this link: https://github.com/mer-hybris/android/branches
+.. _Xperia X (Sony AOSP 6): https://sailfishos.org/wiki/Sailfish_X_Build_and_Flash
+.. _Xperia XA2 (Sony AOSP 8): https://sailfishos.org/wiki/DRAFT-Sailfish_X_Xperia_XA2_Build_and_Flash
+.. _Xperia 10 (Sony AOSP 9): https://sailfishos.org/wiki/Sailfish_X_Xperia_Android_9_Build_and_Flash
 
 Mobile Device
 -------------
@@ -14,6 +17,15 @@ Mobile Device
 
  - Throughout this guide we shall use the term **Android base**, which will
    refer to the appropriate base that you are porting on: LineageOS, AOSP, CAF etc
+
+ * We also support Sony Open Devices program, and published guidelines how to
+   rebuild flashable images for:
+
+  - `Xperia X (Sony AOSP 6)`_
+
+  * `Xperia XA2 (Sony AOSP 8)`_
+
+  * `Xperia 10 (Sony AOSP 9)`_
 
  * Starting with CM 13.0 (Android 6), support for 64bit ARM has being added
    to Sailfish OS: achieved by running a mix of 64bit Linux Kernel and Android
