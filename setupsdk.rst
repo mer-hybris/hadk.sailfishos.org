@@ -21,7 +21,6 @@ device and setup:
   HOST $
 
   cat <<'EOF' > $HOME/.hadk.env
-  export PLATFORM_SDK_ROOT="/srv/mer"
   export ANDROID_ROOT="$HOME/hadk"
   export VENDOR="lge"
   export DEVICE="hammerhead"
