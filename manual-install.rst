@@ -20,7 +20,7 @@ Replace ``sailfishos-devel-hammerhead.tar.bz2`` with the name of your rootfs tar
   adb shell
   su
   mkdir -p /data/.stowaways/sailfishos
-  tar --numeric-owner -xvzf /sdcard/sailfishos-devel-hammerhead.tar.bz2 \
+  tar --numeric-owner -xvf /sdcard/sailfishos-devel-hammerhead.tar.bz2 \
       -C /data/.stowaways/sailfishos
 
 Flashing the boot image via adb
