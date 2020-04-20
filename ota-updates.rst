@@ -100,6 +100,28 @@ Once successfully tested, deploy the stable packages to the release repo:
 To receive the update, each device will have to execute ``devel-su -p
 version --dup``, and reboot when instructed.
 
+Adding custom RPM packages
+--------------------------
+
+You can add any other RPM binary packages to the local build repository (i.e.
+packages that were not created by running ``build_packages.sh``). For example:
+
+.. code-block:: bash
+
+  PLATFORM_SDK $
+
+  cd $ANDROID_ROOT
+  mkdir -p droid-local-repo/$DEVICE/extras
+  cp -a path/to/custom-built.rpm droid-local-repo/$DEVICE/extras
+  createrepo_c droid-local-repo/$DEVICE
+
+The ``createrepo_c`` step is essential, so it rescans and regenerates the
+metadata under ``droid-local-repo/$DEVICE/repodata/``.
+
+To make the devices of your users pull this RPM package in, ensure some other
+package or pattern requires it, then :ref:`test<test_repo>` and
+:ref:`deploy<deploy_repo>` your repo as per instructions above.
+
 Updating to the next Sailfish OS release
 ----------------------------------------
 
