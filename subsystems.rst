@@ -388,7 +388,7 @@ and up to the Sailfish UI. libhybris comes with /usr/bin/test_sensors which can 
 those Android sensors found.
 
 Above Sensor Framework is QtSensors, which requires a configuration file at
-/etc/xdg/QtProject/QtSensors.conf
+/etc/xdg/QtProject/Sensors.conf
 which is supplied with the sensorfw backend plugin in QtSensors and a copy of it
 is already among your default configs.
 
