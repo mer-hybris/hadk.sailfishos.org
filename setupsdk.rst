@@ -40,7 +40,7 @@ This ensures that the environment is setup correctly when you use the
 It also creates a function ``hadk`` that you can use to set or reset the environment
 variables.
 
-.. _enter-mer-sdk:
+.. _enter-sfos-sdk:
 
 Setup the Platform SDK
 ----------------------
