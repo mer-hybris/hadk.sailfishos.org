@@ -97,75 +97,20 @@ Sailfish OS 2.0 introduces GStreamer v1.0 with hardware-accelerated video and
 audio encoding and decoding in Camera, Gallery and Browser, and deprecates
 GStreamer v0.10.
 
-.. code-block:: console
-
-    HABUILD_SDK $
-
-    cd $ANDROID_ROOT
-    source build/envsetup.sh
-    breakfast $DEVICE
-    make -j$(nproc --all) $(external/droidmedia/detect_build_targets.sh \
-      $PORT_ARCH $(gettargetarch))
-
-.. note:: If during intense development you need to rebuild droidmedia multiple
-          times, you can quicken by executing ``gettargetarch > lunch_arch``
-          once, then running ``make`` without the ``$(gettargetarch)`` param.
+The GStreamer-droid bridge is part of the integral build process. If you need to
+modify its source code, then rebuild it via:
 
 .. code-block:: console
 
     PLATFORM_SDK $
 
     cd $ANDROID_ROOT
-    DROIDMEDIA_VERSION=$(git --git-dir external/droidmedia/.git describe --tags | sed \
-      -r "s/\-/\+/g")
-    rpm/dhd/helpers/pack_source_droidmedia-localbuild.sh $DROIDMEDIA_VERSION
-    mkdir -p hybris/mw/droidmedia-localbuild/rpm
-    cp rpm/dhd/helpers/droidmedia-localbuild.spec \
-      hybris/mw/droidmedia-localbuild/rpm/droidmedia.spec
-    sed -ie "s/0.0.0/$DROIDMEDIA_VERSION/" \
-      hybris/mw/droidmedia-localbuild/rpm/droidmedia.spec
-    mv hybris/mw/droidmedia-$DROIDMEDIA_VERSION.tgz hybris/mw/droidmedia-localbuild
-    rpm/dhd/helpers/build_packages.sh --build=hybris/mw/droidmedia-localbuild
-
-Build relevant parts:
-
-.. code-block:: console
-
-    PLATFORM_SDK $
-
-    cd $ANDROID_ROOT
-    rpm/dhd/helpers/build_packages.sh --droid-hal --mw=https://github.com/sailfishos/gst-droid.git
-
-Add the GStreamer-droid bridge to patterns in ``$ANDROID_ROOT/hybris/droid-configs/``:
-
-.. code-block:: diff
-
-    diff --git a/patterns/jolla-hw-adaptation-$DEVICE.yaml b/patterns/jolla-hw-adaptation-$DEVICE.yaml
-     - nemo-gstreamer1.0-interfaces
-    +- gstreamer1.0-droid
-    +
-     # This is needed for notification LEDs
-     - mce-plugin-libhybris
-
-Rebuild configs and patterns:
-
-.. code-block:: console
-
-    PLATFORM_SDK $
-
-    cd $ANDROID_ROOT
-    rpm/dhd/helpers/build_packages.sh --configs
-
-You are now ready to rebuild the image which will have GStreamer v1.0 support,
-refer to :doc:`mic`. Alternatively you can complete productising other HW areas
-as described in this chapter.
+    rpm/dhd/helpers/build_packages.sh --gg
 
 .. _camera-adaptation:
 
 Camera
 ******
-
-Ensure you have built the :ref:`gst-droid` part in the previous section.
 
 Launch the Camera app. If if shows black screen and becomes non-responsive,
 enable the `audiosystem-passthrough-dummy-af` package in the patterns and
