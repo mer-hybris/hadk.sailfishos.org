@@ -57,7 +57,7 @@ Commands and output from the Platform SDK session are indicated using
 
   echo "run this command in the Platform SDK terminal"
 
-How to enter ``PLATFORM_SDK $`` is explained in :ref:`enter-mer-sdk`.
+How to enter ``PLATFORM_SDK $`` is explained in :ref:`enter-sfos-sdk`.
 
 Commands and output from the HA build session are indicated using
 ``HABUILD_SDK $`` at the top of the code block, like this:

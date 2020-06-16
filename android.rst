@@ -169,7 +169,7 @@ tools, configuration files and others:
 
   breakfast $DEVICE
 
-  make -j$(nproc --all) hybris-hal
+  make -j$(nproc --all) hybris-hal droidmedia
 
 The relevant output bits will be in ``out/target/product/$DEVICE/``, in
 particular:
@@ -285,7 +285,7 @@ Common Pitfalls
   repo sync --fetch-submodules
 
 * In some cases (with parallel builds), the build can fail, in this case, use
-  ``make -j1 hybris-hal`` to retry with a non-parallel build and see the error
+  ``make -j1 ...`` to retry with a non-parallel build and see the error
   message without output from parallel jobs. The build usually ends with
   the following output:
 

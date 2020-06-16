@@ -139,10 +139,14 @@ The next step has to be carried out in the Platform SDK chroot:
 
     cd $ANDROID_ROOT
 
-    rpm/dhd/helpers/build_packages.sh
+    rpm/dhd/helpers/build_packages.sh --droid-hal
+    rpm/dhd/helpers/build_packages.sh --configs
+    rpm/dhd/helpers/build_packages.sh --mw
+    rpm/dhd/helpers/build_packages.sh --gg
+    rpm/dhd/helpers/build_packages.sh --version
 
-This should compile all the needed packages, patterns, middleware and put them
-under local repository. If anything needs modified, just re-run this script.
+This will compile all the needed packages, patterns, middleware and put them
+under local repository. If anything gets modified, just re-run the appropriate part.
 
 Troubleshoot errors from build_packages.sh
 ``````````````````````````````````````````
@@ -163,5 +167,5 @@ Troubleshoot errors from build_packages.sh
   jolla-hw-adaptation-hammerhead.yaml`` (substitute as appropriate for your
   device)
 
-* Lastly, re-run ``build_packages.sh``
+* Lastly, re-run ``build_packages.sh --droid-hal``
 

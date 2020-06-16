@@ -46,14 +46,14 @@ master_doc = 'index'
 
 # General information about the project.
 project = u'Sailfish OS Hardware Adaptation Development Kit'
-copyright = u'2014-2019, Jolla Ltd.'
+copyright = u'2014-2020, Jolla Ltd.'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
 # built documents.
 #
 # The short X.Y version.
-version = '3.1'
+version = '3.3'
 # The full version, including alpha/beta/rc tags.
 release = version+'.0.0'
 
@@ -195,7 +195,7 @@ latex_elements = {
 \makeatletter
 \fancypagestyle{normal} {
 \fancyhf{}
-\fancyfoot[LO,RE]{{Copyright 2014-2019 Jolla Ltd. | Content licensed under CC-BY-NC-SA 3.0 Unported}}
+\fancyfoot[LO,RE]{{Copyright 2014-2020 Jolla Ltd. | Content licensed under CC-BY-NC-SA 3.0 Unported}}
 \fancyfoot[RO,LE]{{\py@HeaderFamily \thepage}}
 \fancyhead[LO,RE]{{v\version}}
 \fancyhead[RO,LE]{{\py@HeaderFamily \@title}}
