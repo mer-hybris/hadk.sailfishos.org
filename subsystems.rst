@@ -167,66 +167,12 @@ Camera
 
 Ensure you have built the :ref:`gst-droid` part in the previous section.
 
-To reduce amount of patches done to the Android BSP (that's the ultimate aim in
-general), we will always build audioflingerglue middleware, this will also fix
-phonecalls audio on many adaptations.
+Launch the Camera app. If if shows black screen and becomes non-responsive,
+enable the `audiosystem-passthrough-dummy-af` package in the patterns and
+rebuild droid-configs.
 
-.. code-block:: console
-
-    HABUILD_SDK $
-
-    cd $ANDROID_ROOT
-    source build/envsetup.sh
-    breakfast $DEVICE
-    make -j$(nproc --all) $(external/audioflingerglue/detect_build_targets.sh \
-      $PORT_ARCH $(gettargetarch))
-
-.. note:: If during intense development you need to rebuild audioflingerglue multiple
-          times, you can quicken by executing ``gettargetarch > lunch_arch``
-          once, then running ``make`` without the ``$(gettargetarch)`` param.
-
-.. code-block:: console
-
-    PLATFORM_SDK $
-
-    cd $ANDROID_ROOT
-    AUDIOFLINGERGLUE_VERSION=$( \
-      git --git-dir external/audioflingerglue/.git describe --tags | \
-      sed -r "s/\-/\+/g")
-    rpm/dhd/helpers/pack_source_audioflingerglue-localbuild.sh \
-      $AUDIOFLINGERGLUE_VERSION
-    mkdir -p hybris/mw/audioflingerglue-localbuild/rpm
-    cp rpm/dhd/helpers/audioflingerglue-localbuild.spec \
-      hybris/mw/audioflingerglue-localbuild/rpm/audioflingerglue.spec
-    sed -ie "s/0.0.0/$AUDIOFLINGERGLUE_VERSION/" \
-      hybris/mw/audioflingerglue-localbuild/rpm/audioflingerglue.spec
-    mv hybris/mw/audioflingerglue-$AUDIOFLINGERGLUE_VERSION.tgz \
-      hybris/mw/audioflingerglue-localbuild
-    rpm/dhd/helpers/build_packages.sh --build=hybris/mw/audioflingerglue-localbuild
-    rpm/dhd/helpers/build_packages.sh --droid-hal \
-      --mw=https://github.com/mer-hybris/pulseaudio-modules-droid-glue.git
-
-Add the pulseaudio-modules glue package to patterns in
-``$ANDROID_ROOT/hybris/droid-configs/``:
-
-.. code-block:: diff
-
-    diff --git a/patterns/jolla-hw-adaptation-$DEVICE.yaml b/patterns/jolla-hw-adaptation-$DEVICE.yaml
-     - pulseaudio-modules-droid
-    +- pulseaudio-modules-droid-glue
-
-Rebuild configs and patterns:
-
-.. code-block:: console
-
-    PLATFORM_SDK $
-
-    cd $ANDROID_ROOT
-    rpm/dhd/helpers/build_packages.sh --configs
-
-Now you can test the Camera app, it should already work, however with default low
+When the app is working, it will initially be at its default (low) resolution
 settings and reduced feature set (e.g. no flash or focus mode selection).
-
 To improve those, install ``gstreamer1.0-droid-tools`` on device (RPM is available
 under ``$ANDROID_ROOT/droid-local-repo/$DEVICE/gst-droid/``) and launch:
 
@@ -342,8 +288,9 @@ lines starting with ``E/RIL...`` will point to a root cause!
 Phone calls don't work (but SMS and mobile data works)
 ======================================================
 
-``audioflingerglue`` middleware is required, which is now always built together
-with the :ref:`camera-adaptation` adaptation.
+If the calling parties cannot hear one another, then the
+``audiosystem-passthrough-dummy-af`` middleware package is required, which
+should be enabled in the patterns.
 
 
 Bluetooth
