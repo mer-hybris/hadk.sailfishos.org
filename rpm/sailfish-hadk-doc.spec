@@ -10,7 +10,7 @@ BuildArch: noarch
 URL: http://sailfishos.org/
 License: TBD
 Group: Documentation
-BuildRequires: python-sphinx
+BuildRequires: python3-sphinx
 
 %description
 Documentation for building and porting Sailfish OS to new devices.
