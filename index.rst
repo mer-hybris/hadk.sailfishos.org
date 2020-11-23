@@ -31,6 +31,7 @@ to devices running Android™ OS.
    getting-in
    flashing
    manual-install
+   ota-updates
    modifications
    subsystems
    middleware
