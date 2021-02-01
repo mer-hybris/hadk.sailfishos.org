@@ -11,7 +11,7 @@ with the device codename (e.g. ``mako`` for Nexus 4), and the asterisk
 List of naming rules
 --------------------
 
-Packages that are arch-specific (e.g. ``armv7hl``), device-specific and
+Packages that are arch-specific (e.g. ``aarch64``), device-specific and
 contain ``$DEVICE`` in their name:
 
 * The arch-specific HAL RPMs (built from ``droid-hal-device``) should be named
@@ -38,7 +38,7 @@ Package that are arch-independent (``noarch``), device-specific and contain
 * The SensorFW libhybris plugin configuration should be named
   **hybris-libsensorfw-qt5-configs** (``hybris-libsensorfw-qt5-configs``)
 
-Packages that are arch-specific (e.g. ``armv7hl``), device-specific,
+Packages that are arch-specific (e.g. ``aarch64``), device-specific,
 but do not contain ``$DEVICE``:
 
 * RPMs built from libhybris should be named

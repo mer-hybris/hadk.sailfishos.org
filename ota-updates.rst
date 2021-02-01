@@ -6,7 +6,7 @@ You can setup to upgrade a Sailfish OS device over the air, a.k.a. OTA update.
 Prepare the infrastructure
 --------------------------
 
-* Ensure your Sailfish OS version is at least 3.2.1
+* Ensure your Sailfish OS version is at least 3.2.1 (3.4.0 for ``aarch64``)
 * Create file ``20-mydomain.ini`` (rename "mydomain" as you see fit) under
   ``$ANDROID_ROOT/hybris/droid-configs/sparse/usr/share/ssu/repos.d/`` with the
   following content:
@@ -20,7 +20,7 @@ Prepare the infrastructure
   subpath if exists)
 * The ``%(release)/%(vendor)-%(adaptation)/%(arch)/`` format is advised, because
   it's the most future-proof. E.g. for the Nexus 5 this string would resolve to
-  ``3.2.1.20/lge-hammerhead/armv7hl/``
+  ``4.0.1.48/lge-hammerhead/aarch64/``
 * Commit the above change to droid-configs (including updating the submodule,
   which introduces timestamped versioning, so updates get picked up)
 * Make new image and ensure devices are flashed which will be receiving future
@@ -156,7 +156,7 @@ on the device will be different:
 
   ssu ar sfos-test https://mydomain.net/sailfish-tmp-test-repo
   ssu dr adaptation0
-  ssu re 3.3.0.16    # adjust to the actual version
+  ssu re 4.0.1.48    # adjust to the actual version
   devel-su -p version --dup
   ssu rr sfos-test
   ssu er adaptation0

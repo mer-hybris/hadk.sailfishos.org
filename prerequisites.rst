@@ -5,14 +5,15 @@ Prerequisites
 .. _Xperia X (Sony AOSP 6): https://sailfishos.org/wiki/Sailfish_X_Build_and_Flash
 .. _Xperia XA2 (Sony AOSP 8): https://sailfishos.org/wiki/DRAFT-Sailfish_X_Xperia_XA2_Build_and_Flash
 .. _Xperia 10 (Sony AOSP 9): https://sailfishos.org/wiki/Sailfish_X_Xperia_Android_9_Build_and_Flash
+.. _Xperia 10 II (Sony AOSP 10): https://sailfishos.org/wiki/Sailfish_X_Xperia_Android_10_Build_and_Flash
 
 Mobile Device
 -------------
 
-* An Android device officially supported by LineageOS 15.1 (Android 8) and 16.0
-  (Android 9) at the time of writing 2019-09-30. CyanogenMod versions (that are Sailfish
-  OS-compatible) 10.1.x, 11.0, 12.1, 13.0, 14.1 will require additional
-  effort because CM has become obsolete.
+* An Android device officially supported by LineageOS 15.1 (Android 8), 16.0
+  (Android 9) and 17.1 (Android 10) at the time of writing 2021-02-01.
+  CyanogenMod versions (that are Sailfish OS-compatible) 10.1.x, 11.0, 12.1,
+  13.0, 14.1 will require additional effort because CM has become obsolete.
   For more supported Android versions also check `this link`_
 
  - Throughout this guide we shall use the term **Android base**, which will
@@ -27,9 +28,14 @@ Mobile Device
 
   * `Xperia 10 (Sony AOSP 9)`_
 
- * Starting with CM 13.0 (Android 6), support for 64bit ARM has being added
-   to Sailfish OS: achieved by running a mix of 64bit Linux Kernel and Android
-   HAL, whilst Sailfish OS userspace is being run in the 32bit mode
+  * `Xperia 10 II (Sony AOSP 10)`_
+
+ * Starting with Sailfish OS 3.4.0, support for 64bit ARM userspace has being added
+
+ * Adaptations starting with CM 13.0 (Android 6) on Sailfish OS 3.4.0 were constructed
+   by running a mix of 64bit Linux Kernel and Android HAL, whilst Sailfish OS userspace
+   was being run in the 32bit mode. Such mixed mode is still supported, but we
+   encourage porters to switch to full 64bit ports (using Xperia 10 II as reference)
 
  * See https://wiki.lineageos.org/devices for a list of compatible devices
 
