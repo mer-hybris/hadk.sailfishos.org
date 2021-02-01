@@ -57,9 +57,9 @@ Build Machine
 * Sailfish OS Platform SDK Target (explained later)
 
 * At least 30 GiB of free disk space (20 GiB source download + more for
-  building) for a complete Android build; a minimal download and HADK build
+  building) for a complete Android 6 build; a minimal download and HADK build
   (only hardware adaptation-related components) requires slightly less space.
-  The newer the Android base version, the bigger the size requirements.
+  Newer Android base versions yield increasingly bigger size requirements.
 
 * At least 4 GiB of RAM (the more the better)
 

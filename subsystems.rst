@@ -113,7 +113,7 @@ Camera
 ******
 
 Launch the Camera app. If if shows black screen and becomes non-responsive,
-enable the `audiosystem-passthrough-dummy-af` package in the patterns and
+enable the ``audiosystem-passthrough-dummy-af`` package in the patterns and
 rebuild droid-configs.
 
 When the app is working, it will initially be at its default (low) resolution
