@@ -76,7 +76,7 @@ You'll need some tools which are not installed into the Platform SDK by default:
   PLATFORM_SDK $
 
   sudo zypper ref
-  sudo zypper in android-tools-hadk tar
+  sudo zypper in android-tools-hadk tar kmod
 
 We strongly encourage all porters to use at least 3.0.0.8 Platform SDK. Use
 ``sdk-manage`` command to upgrade your toolings and targets, or create from new
