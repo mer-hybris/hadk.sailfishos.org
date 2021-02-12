@@ -24,8 +24,8 @@ device and setup:
   export ANDROID_ROOT="$HOME/hadk"
   export VENDOR="lge"
   export DEVICE="hammerhead"
-  # Set arch to armv7hl even if you are porting a 64bit device
-  export PORT_ARCH="armv7hl"
+  # "armv7hl" is still supported, but we encourage to have full 64bit ports
+  export PORT_ARCH="aarch64"
   EOF
 
   cat <<'EOF' >> $HOME/.mersdkubu.profile

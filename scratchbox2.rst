@@ -6,14 +6,18 @@ hardware adaptation packages in the next section. Download and create your
 Scratchbox2 target following this wiki:
 
 .. important::
-    Please use the 3.0.0 target or newer (same requirement as for the Platform SDK Chroot earlier)
+    Please use the 4.0.1 target or newer (same requirement as for the
+    Platform SDK Chroot earlier)
 
 .. warning::
     To ensure consistency with HADK build scripts, name your tooling
-    ``SailfishOS-3.0.0`` (or whichever release you are building for) instead of
+    ``SailfishOS-4.0.1`` (or whichever release you are building for) instead of
     wiki's suggested ``SailfishOS-latest``, and your target as
-    ``$VENDOR-$DEVICE-$PORT_ARCH`` (instead of ``SailfishOS-latest-armv7hl``).
+    ``$VENDOR-$DEVICE-$PORT_ARCH`` (instead of ``SailfishOS-latest-aarch64``).
     Ignore the i486 target.
+
+Choose ``aarch64`` target, unless you are building for the ``armv7hl``
+Sailfish OS userspace.
 
 https://sailfishos.org/wiki/Platform_SDK_Target_Installation
 
