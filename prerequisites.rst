@@ -30,7 +30,7 @@ Mobile Device
 
   * `Xperia 10 II (Sony AOSP 10)`_
 
- * Starting with Sailfish OS 3.4.0, support for 64bit ARM userspace has being added
+ * Starting with Sailfish OS 3.4.0, support for 64bit ARM SFOS userspace has been added
 
  * Adaptations starting with CM 13.0 (Android 6) on Sailfish OS 3.4.0 were constructed
    by running a mix of 64bit Linux Kernel and Android HAL, whilst Sailfish OS userspace
