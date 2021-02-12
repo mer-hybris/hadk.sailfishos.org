@@ -11,7 +11,7 @@ Mobile Device
 -------------
 
 * An Android device officially supported by LineageOS 15.1 (Android 8), 16.0
-  (Android 9) and 17.1 (Android 10) at the time of writing 2021-02-01.
+  (Android 9) and 17.1 (Android 10) at the time of writing 2021-02-12.
   CyanogenMod versions (that are Sailfish OS-compatible) 10.1.x, 11.0, 12.1,
   13.0, 14.1 will require additional effort because CM has become obsolete.
   For more supported Android versions also check `this link`_
