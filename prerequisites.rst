@@ -32,7 +32,7 @@ Mobile Device
 
  * Starting with Sailfish OS 3.4.0, support for 64bit ARM SFOS userspace has been added
 
- * Adaptations starting with CM 13.0 (Android 6) on Sailfish OS 3.4.0 were constructed
+ * Sailfish OS adaptations starting with CM 13.0 (Android 6) were constructed
    by running a mix of 64bit Linux Kernel and Android HAL, whilst Sailfish OS userspace
    was being run in the 32bit mode. Such mixed mode is still supported, but we
    encourage porters to switch to full 64bit ports (using Xperia 10 II as reference)

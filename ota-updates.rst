@@ -140,7 +140,7 @@ Remove or backup your local build repository:
 
   cd $ANDROID_ROOT
 
-  PREV_RELEASE=3.2.1.16    # adjust to what previous release version you were on
+  PREV_RELEASE=3.4.0.24    # adjust to the previous release version you were on
 
   mv droid-local-repo/$DEVICE droid-local-repo/$DEVICE-$PREV_RELEASE
   mkdir droid-local-repo/$DEVICE
@@ -171,7 +171,7 @@ Finally, to receive the update, each device will have to execute:
 
   DEVICE $
 
-  ssu re 3.3.0.16    # adjust to the actual version
+  ssu re 4.0.1.48    # adjust to the actual version
   devel-su -p version --dup
 
 NOTE: The %(release) in your self-hosted repo (visible via ``ssu lr``) will get
