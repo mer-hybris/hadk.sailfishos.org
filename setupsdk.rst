@@ -69,14 +69,14 @@ You'll need some tools which are not installed into the Platform SDK by default:
 
 * **android-tools-hadk** contains tools and utilities needed for working with
   the Android SDK
-* **tar** is needed to extract the ubu-chroot image
+* **kmod** is needed by mic's qemu to build the image
 
 .. code-block:: console
 
   PLATFORM_SDK $
 
   sudo zypper ref
-  sudo zypper in android-tools-hadk tar kmod
+  sudo zypper in android-tools-hadk kmod
 
 We strongly encourage all porters to use at least 3.0.0.8 Platform SDK. Use
 ``sdk-manage`` command to upgrade your toolings and targets, or create from new
