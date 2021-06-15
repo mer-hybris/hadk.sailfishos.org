@@ -100,18 +100,21 @@ Downloading and Unpacking Ubuntu Chroot
 
 In order to maintain build stability, we use a *Ubuntu GNU/Linux*
 ``chroot`` environment from within the Platform SDK to build our Android
-source tree. The following commands download and unpack the rootfs to
+source tree. For Android device ports that require OpenJDK 1.8 or newer,
+the following commands download and unpack the rootfs to
 the appropriate location:
 
 .. code-block:: console
 
   PLATFORM_SDK $
 
-  TARBALL=ubuntu-trusty-20180613-android-rootfs.tar.bz2
+  TARBALL=ubuntu-focal-20210531-android-rootfs.tar.bz2
   curl -O https://releases.sailfishos.org/ubu/$TARBALL
   UBUNTU_CHROOT=$PLATFORM_SDK_ROOT/sdks/ubuntu
   sudo mkdir -p $UBUNTU_CHROOT
   sudo tar --numeric-owner -xjf $TARBALL -C $UBUNTU_CHROOT
+  # FIXME: to be removed when Sailfish OS 4.2.0 is out:
+  sudo sed -i 's/jessie/bullseye/g' /usr/bin/ubu-chroot
 
 .. _enter-ubu-chroot:
 
@@ -131,4 +134,25 @@ Entering Ubuntu Chroot
 
   # Now you are in the HABUILD_SDK environment
   # To leave, just type `exit` or Ctrl+D, and you'll be back to the PLATFORM_SDK
+
+.. _older-ubu-chroot:
+
+If your port requires OpenJDK 1.7 or older
+``````````````````````````````````````````
+
+Our ubu-chroot environment is based on 20.04 LTS which provides OpenJDK 1.8 or
+newer.
+
+If your Android base build requires an older Java Development Kit, please
+install the legacy ubu-chroot instead:
+
+.. code-block:: console
+
+  PLATFORM_SDK $
+
+  TARBALL=ubuntu-trusty-20180613-android-rootfs.tar.bz2
+  curl -O https://releases.sailfishos.org/ubu/$TARBALL
+  UBUNTU_CHROOT=$PLATFORM_SDK_ROOT/sdks/ubuntu
+  sudo mkdir -p $UBUNTU_CHROOT
+  sudo tar --numeric-owner -xjf $TARBALL -C $UBUNTU_CHROOT
 
