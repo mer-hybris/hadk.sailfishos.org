@@ -95,50 +95,8 @@ uniquely - either via IMEI or (for non-cellular devices) WLAN/BT MAC address.
 Consult us on #sailfishos-porters IRC channel on Freenode.net about details.
 
 If creation fails due to absence of a package required by pattern, note down
-the package name and proceed to :ref:`missing-package`.
+the package name.
 
-A more obscure error might look like this:
-
-.. code-block:: console
-
-  Warning: repo problem: pattern:jolla-configuration-$DEVICE-(version).noarch
-    requires jolla-hw-adaptation-$DEVICE,
-    but this requirement cannot be provided, uninstallable providers:
-    pattern:jolla-hw-adaptation-$DEVICE-(version).noarch[$DEVICE]
-
-This means a package dependency cannot be satisfied down the hierarchy of
-patterns. A quick in-place solution (NB: expand @DEVICE@ occurrences manually):
-
-* Substitute the line ``@Jolla Configuration @DEVICE@`` with
-  ``@jolla-hw-adaptation-@DEVICE@`` in your .ks
-
-* Update patterns (:ref:`patterns`)
-
-* Try creating the image again (:ref:`mic`)
-
-* Repeat the steps above substituting respective pattern to walk down the
-  patterns hierarchy -- you'll eventually discover the offending package
-
-* If that package is provided by e.g. droid-hal-device (like
-  ``droid-hal-hammerhead-pulseaudio-settings``), it means that some of its
-  dependencies are not present:
-
- - Edit .ks file by having ``%packages`` section consisting only of single
-   ``droid-hal-hammerhead-pulseaudio-settings`` (note there is no @ at the
-   beginning of the line, since it's a package, not a pattern) -- another
-   ``mic`` run error will show that the offending package is actually
-  ``pulseaudio-modules-droid``
-
-.. important:: When found and fixed culprit in next sections, restore your .ks
-   ``%packages`` section to ``@Jolla Configuration @DEVICE@``! Then try
-   creating the image again (:ref:`mic`)
-
-Now you're ready to proceed to the :ref:`missing-package` section.
-
-.. _missing-package:
-
-Dealing with a Missing Package
-``````````````````````````````
 If that package is critical (e.g. ``libhybris``, ``qt5-qpa-hwcomposer-plugin`` etc.),
 build and add it to the local repo as explained in :ref:`extra-mw`.
 Afterwards perform:
