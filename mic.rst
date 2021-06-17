@@ -92,7 +92,7 @@ or examine other particular ways of deploying to your device.
 
 Jolla Store functionality can be enabled only if your device identifies itself
 uniquely - either via IMEI or (for non-cellular devices) WLAN/BT MAC address.
-Consult us on #sailfishos-porters IRC channel on Freenode.net about details.
+Consult us on #sailfishos-porters IRC channel on oftc.net about details.
 
 If creation fails due to absence of a package required by pattern, note down
 the package name.
