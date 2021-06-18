@@ -68,8 +68,8 @@ You need to choose a `Sailfish OS version`_ you want to build.
    patterns to break as new HA packages get introduced etc.
 
    Ensure you pick the same release as your target was in    :doc:`scratchbox2`.
-   E.g., if target's ``ssu lr`` versions begin with ``4.0.1.``, build Sailfish OS update
-   4.0.1.48 (check for the latest, non "Early Access" `Sailfish OS version`_)
+   E.g., if target's ``ssu lr`` versions begin with ``4.1.0.``, build Sailfish OS update
+   4.1.0.24 (check for the latest, non "Early Access" `Sailfish OS version`_)
 
 Build a rootfs using RPM repositories and a kickstart file (NB: all errors are
 non-critical as long as you end up with a generated .zip image):
@@ -82,7 +82,7 @@ non-critical as long as you end up with a generated .zip image):
 
   # Set the version of your choosing, latest is strongly preferred
   # (check with "Sailfish OS version" link above)
-  export RELEASE=4.0.1.48
+  export RELEASE=4.1.0.24
   # EXTRA_NAME adds your custom tag. It doesn't support '.' dots in it!
   export EXTRA_NAME=-my1
   rpm/dhd/helpers/build_packages.sh --mic
@@ -92,53 +92,11 @@ or examine other particular ways of deploying to your device.
 
 Jolla Store functionality can be enabled only if your device identifies itself
 uniquely - either via IMEI or (for non-cellular devices) WLAN/BT MAC address.
-Consult us on #sailfishos-porters IRC channel on Freenode.net about details.
+Consult us on #sailfishos-porters IRC channel on oftc.net about details.
 
 If creation fails due to absence of a package required by pattern, note down
-the package name and proceed to :ref:`missing-package`.
+the package name.
 
-A more obscure error might look like this:
-
-.. code-block:: console
-
-  Warning: repo problem: pattern:jolla-configuration-$DEVICE-(version).noarch
-    requires jolla-hw-adaptation-$DEVICE,
-    but this requirement cannot be provided, uninstallable providers:
-    pattern:jolla-hw-adaptation-$DEVICE-(version).noarch[$DEVICE]
-
-This means a package dependency cannot be satisfied down the hierarchy of
-patterns. A quick in-place solution (NB: expand @DEVICE@ occurrences manually):
-
-* Substitute the line ``@Jolla Configuration @DEVICE@`` with
-  ``@jolla-hw-adaptation-@DEVICE@`` in your .ks
-
-* Update patterns (:ref:`patterns`)
-
-* Try creating the image again (:ref:`mic`)
-
-* Repeat the steps above substituting respective pattern to walk down the
-  patterns hierarchy -- you'll eventually discover the offending package
-
-* If that package is provided by e.g. droid-hal-device (like
-  ``droid-hal-hammerhead-pulseaudio-settings``), it means that some of its
-  dependencies are not present:
-
- - Edit .ks file by having ``%packages`` section consisting only of single
-   ``droid-hal-hammerhead-pulseaudio-settings`` (note there is no @ at the
-   beginning of the line, since it's a package, not a pattern) -- another
-   ``mic`` run error will show that the offending package is actually
-  ``pulseaudio-modules-droid``
-
-.. important:: When found and fixed culprit in next sections, restore your .ks
-   ``%packages`` section to ``@Jolla Configuration @DEVICE@``! Then try
-   creating the image again (:ref:`mic`)
-
-Now you're ready to proceed to the :ref:`missing-package` section.
-
-.. _missing-package:
-
-Dealing with a Missing Package
-``````````````````````````````
 If that package is critical (e.g. ``libhybris``, ``qt5-qpa-hwcomposer-plugin`` etc.),
 build and add it to the local repo as explained in :ref:`extra-mw`.
 Afterwards perform:

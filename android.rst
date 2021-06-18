@@ -23,7 +23,12 @@ Ensure you have setup your name and e-mail address in your Git configuration:
 You also need to install the ``repo`` command from the AOSP source
 code repositories, see `Installing repo`_.
 
-.. _Installing repo: http://source.android.com/source/downloading.html#installing-repo
+.. _Installing repo: https://source.android.com/setup/develop#installing-repo
+
+.. note:: :ref:`older-ubu-chroot`, use the `older repo tool for legacy Python 2
+          systems`_.
+
+.. _older repo tool for legacy Python 2 systems: https://source.android.com/setup/develop#old-repo-python2
 
 After you've installed the ``repo`` command, a set of commands below will download
 the required projects for building the modified parts of the **Android base**

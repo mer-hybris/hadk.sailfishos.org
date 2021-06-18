@@ -69,14 +69,14 @@ You'll need some tools which are not installed into the Platform SDK by default:
 
 * **android-tools-hadk** contains tools and utilities needed for working with
   the Android SDK
-* **tar** is needed to extract the ubu-chroot image
+* **kmod** is needed by mic's qemu to build the image
 
 .. code-block:: console
 
   PLATFORM_SDK $
 
   sudo zypper ref
-  sudo zypper in android-tools-hadk tar kmod
+  sudo zypper in android-tools-hadk kmod
 
 We strongly encourage all porters to use at least 3.0.0.8 Platform SDK. Use
 ``sdk-manage`` command to upgrade your toolings and targets, or create from new
@@ -100,18 +100,21 @@ Downloading and Unpacking Ubuntu Chroot
 
 In order to maintain build stability, we use a *Ubuntu GNU/Linux*
 ``chroot`` environment from within the Platform SDK to build our Android
-source tree. The following commands download and unpack the rootfs to
+source tree. For Android device ports that require OpenJDK 1.8 or newer,
+the following commands download and unpack the rootfs to
 the appropriate location:
 
 .. code-block:: console
 
   PLATFORM_SDK $
 
-  TARBALL=ubuntu-trusty-20180613-android-rootfs.tar.bz2
+  TARBALL=ubuntu-focal-20210531-android-rootfs.tar.bz2
   curl -O https://releases.sailfishos.org/ubu/$TARBALL
   UBUNTU_CHROOT=$PLATFORM_SDK_ROOT/sdks/ubuntu
   sudo mkdir -p $UBUNTU_CHROOT
   sudo tar --numeric-owner -xjf $TARBALL -C $UBUNTU_CHROOT
+  # FIXME: to be removed when Sailfish OS 4.2.0 is out:
+  sudo sed -i 's/jessie/bullseye/g' /usr/bin/ubu-chroot
 
 .. _enter-ubu-chroot:
 
@@ -131,4 +134,25 @@ Entering Ubuntu Chroot
 
   # Now you are in the HABUILD_SDK environment
   # To leave, just type `exit` or Ctrl+D, and you'll be back to the PLATFORM_SDK
+
+.. _older-ubu-chroot:
+
+If your port requires OpenJDK 1.7 or older
+``````````````````````````````````````````
+
+Our ubu-chroot environment is based on 20.04 LTS which provides OpenJDK 1.8 or
+newer.
+
+If your Android base build requires an older Java Development Kit, please
+install the legacy ubu-chroot instead:
+
+.. code-block:: console
+
+  PLATFORM_SDK $
+
+  TARBALL=ubuntu-trusty-20180613-android-rootfs.tar.bz2
+  curl -O https://releases.sailfishos.org/ubu/$TARBALL
+  UBUNTU_CHROOT=$PLATFORM_SDK_ROOT/sdks/ubuntu
+  sudo mkdir -p $UBUNTU_CHROOT
+  sudo tar --numeric-owner -xjf $TARBALL -C $UBUNTU_CHROOT
 
