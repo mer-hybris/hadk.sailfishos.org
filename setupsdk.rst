@@ -116,6 +116,15 @@ the appropriate location:
   # The following is only needed if you're building against a target of Sailfish OS 4.1.0 or earlier:
   sudo sed -i 's/jessie/bullseye/g' /usr/bin/ubu-chroot
 
+In case you find you're not able to gain ``sudo`` privileges inside the Ubuntu
+Chroot, execute the following inside the Platform SDK:
+
+.. code-block:: console
+
+  PLATFORM_SDK $
+
+  sudo chroot $UBUNTU_CHROOT /bin/bash -c "chage -M 999999 $(id -nu 1000)"
+
 .. _enter-ubu-chroot:
 
 Entering Ubuntu Chroot
