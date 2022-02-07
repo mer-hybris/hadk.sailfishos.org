@@ -113,7 +113,7 @@ the appropriate location:
   UBUNTU_CHROOT=$PLATFORM_SDK_ROOT/sdks/ubuntu
   sudo mkdir -p $UBUNTU_CHROOT
   sudo tar --numeric-owner -xjf $TARBALL -C $UBUNTU_CHROOT
-  # FIXME: to be removed when Sailfish OS 4.2.0 is out:
+  # The following is only needed if you're building against a target of Sailfish OS 4.1.0 or earlier:
   sudo sed -i 's/jessie/bullseye/g' /usr/bin/ubu-chroot
 
 .. _enter-ubu-chroot:
