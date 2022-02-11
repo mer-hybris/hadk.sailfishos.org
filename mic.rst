@@ -2,6 +2,7 @@ Creating the Sailfish OS Root Filesystem
 ========================================
 
 .. _extra-mw:
+
 Additional Packages for Hardware Adaptation
 -------------------------------------------
 
