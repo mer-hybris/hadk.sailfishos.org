@@ -6,6 +6,7 @@ Prerequisites
 .. _Xperia XA2 (Sony AOSP 8): https://docs.sailfishos.org/Develop/HW_Adaptation/Sailfish_X_Xperia_Android_8_Build_and_Flash/
 .. _Xperia 10 (Sony AOSP 9): https://docs.sailfishos.org/Develop/HW_Adaptation/Sailfish_X_Xperia_Android_9_Build_and_Flash/
 .. _Xperia 10 II (Sony AOSP 10): https://docs.sailfishos.org/Develop/HW_Adaptation/Sailfish_X_Xperia_Android_10_Build_and_Flash/
+.. _Xperia 10 III (Sony AOSP 11): https://docs.sailfishos.org/Develop/HW_Adaptation/Sailfish_X_Xperia_Android_11_Build_and_Flash/
 
 Mobile Device
 -------------
@@ -29,6 +30,8 @@ Mobile Device
   * `Xperia 10 (Sony AOSP 9)`_
 
   * `Xperia 10 II (Sony AOSP 10)`_
+
+  * `Xperia 10 III (Sony AOSP 11)`_
 
  * Starting with Sailfish OS 3.4.0, support for 64bit ARM SFOS userspace has been added
 
