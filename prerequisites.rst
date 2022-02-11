@@ -2,10 +2,10 @@ Prerequisites
 =============
 
 .. _this link: https://github.com/mer-hybris/android/branches
-.. _Xperia X (Sony AOSP 6): https://sailfishos.org/wiki/Sailfish_X_Build_and_Flash
-.. _Xperia XA2 (Sony AOSP 8): https://sailfishos.org/wiki/DRAFT-Sailfish_X_Xperia_XA2_Build_and_Flash
-.. _Xperia 10 (Sony AOSP 9): https://sailfishos.org/wiki/Sailfish_X_Xperia_Android_9_Build_and_Flash
-.. _Xperia 10 II (Sony AOSP 10): https://sailfishos.org/wiki/Sailfish_X_Xperia_Android_10_Build_and_Flash
+.. _Xperia X (Sony AOSP 6): https://docs.sailfishos.org/Develop/HW_Adaptation/Sailfish_X_Xperia_Android_6_Build_and_Flash/
+.. _Xperia XA2 (Sony AOSP 8): https://docs.sailfishos.org/Develop/HW_Adaptation/Sailfish_X_Xperia_Android_8_Build_and_Flash/
+.. _Xperia 10 (Sony AOSP 9): https://docs.sailfishos.org/Develop/HW_Adaptation/Sailfish_X_Xperia_Android_9_Build_and_Flash/
+.. _Xperia 10 II (Sony AOSP 10): https://docs.sailfishos.org/Develop/HW_Adaptation/Sailfish_X_Xperia_Android_10_Build_and_Flash/
 
 Mobile Device
 -------------

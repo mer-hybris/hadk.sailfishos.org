@@ -46,7 +46,7 @@ Setup the Platform SDK
 ----------------------
 
 Instructions are found on Sailfish OS wiki ("Quick start" section is enough,
-do not install SDK Targets yet): https://sailfishos.org/wiki/Platform_SDK_Installation
+do not install SDK Targets yet): https://docs.sailfishos.org/Tools/Platform_SDK/Installation/
 
 Afterwards, temporarily leave the PLATFORM_SDK to topup the newly created ``~/.mersdk.profile`` with necessary commands:
 
@@ -90,7 +90,7 @@ We strongly encourage all porters to use at least 3.0.0.8 Platform SDK. Use
   cat /etc/os-release
 
 More information about keeping your SDK up-to-date:
-https://sailfishos.org/wiki/SDK_Tips#SDK_Maintenance
+https://github.com/sailfishos/sdk-setup/blob/master/sdk-setup/README.tips.wiki#SDK_Maintenance
 
 Setting up an Android Build Environment
 ---------------------------------------

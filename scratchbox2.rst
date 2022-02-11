@@ -19,7 +19,7 @@ Scratchbox2 target following this wiki:
 Choose ``aarch64`` target, unless you are building for the ``armv7hl``
 Sailfish OS userspace.
 
-https://sailfishos.org/wiki/Platform_SDK_Target_Installation
+https://docs.sailfishos.org/Tools/Platform_SDK/Target_Installation/
 
 To verify the correct installation of the Scratchbox2 target, cross-compile
 a simple "Hello, World!" C application with ``sb2``:
