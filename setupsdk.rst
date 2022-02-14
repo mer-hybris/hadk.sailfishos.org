@@ -46,7 +46,7 @@ Setup the Platform SDK
 ----------------------
 
 Instructions are found on Sailfish OS wiki ("Quick start" section is enough,
-do not install SDK Targets yet): https://sailfishos.org/wiki/Platform_SDK_Installation
+do not install SDK Targets yet): https://docs.sailfishos.org/Tools/Platform_SDK/Installation/
 
 Afterwards, temporarily leave the PLATFORM_SDK to topup the newly created ``~/.mersdk.profile`` with necessary commands:
 
@@ -78,8 +78,8 @@ You'll need some tools which are not installed into the Platform SDK by default:
   sudo zypper ref
   sudo zypper in android-tools-hadk kmod
 
-We strongly encourage all porters to use at least 3.0.0.8 Platform SDK. Use
-``sdk-manage`` command to upgrade your toolings and targets, or create from new
+The minimum Platform SDK SFOS version is 4.3.0.15. Use
+``sdk-assistant`` command to upgrade your toolings and targets, or create from new
 (especially when updating from 2.x to 3.x). To check what release you are on:
 
 .. code-block:: console
@@ -90,7 +90,7 @@ We strongly encourage all porters to use at least 3.0.0.8 Platform SDK. Use
   cat /etc/os-release
 
 More information about keeping your SDK up-to-date:
-https://sailfishos.org/wiki/SDK_Tips#SDK_Maintenance
+https://github.com/sailfishos/sdk-setup/blob/master/sdk-setup/README.tips.wiki#SDK_Maintenance
 
 Setting up an Android Build Environment
 ---------------------------------------
@@ -113,8 +113,6 @@ the appropriate location:
   UBUNTU_CHROOT=$PLATFORM_SDK_ROOT/sdks/ubuntu
   sudo mkdir -p $UBUNTU_CHROOT
   sudo tar --numeric-owner -xjf $TARBALL -C $UBUNTU_CHROOT
-  # The following is only needed if you're building against a target of Sailfish OS 4.1.0 or earlier:
-  sudo sed -i 's/jessie/bullseye/g' /usr/bin/ubu-chroot
 
 In case you find you're not able to gain ``sudo`` privileges inside the Ubuntu
 Chroot, execute the following inside the Platform SDK:

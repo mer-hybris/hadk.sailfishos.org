@@ -20,7 +20,7 @@ Prepare the infrastructure
   subpath if exists)
 * The ``%(release)/%(vendor)-%(adaptation)/%(arch)/`` format is advised, because
   it's the most future-proof. E.g. for the Nexus 5 this string would resolve to
-  ``4.0.1.48/lge-hammerhead/aarch64/``
+  ``4.3.0.15/lge-hammerhead/aarch64/``
 * Commit the above change to droid-configs (including updating the submodule,
   which introduces timestamped versioning, so updates get picked up)
 * Make new image and ensure devices are flashed which will be receiving future
@@ -140,7 +140,7 @@ Remove or backup your local build repository:
 
   cd $ANDROID_ROOT
 
-  PREV_RELEASE=3.4.0.24    # adjust to the previous release version you were on
+  PREV_RELEASE=4.2.0.21    # adjust to the previous release version you were on
 
   mv droid-local-repo/$DEVICE droid-local-repo/$DEVICE-$PREV_RELEASE
   mkdir droid-local-repo/$DEVICE
@@ -156,7 +156,7 @@ on the device will be different:
 
   ssu ar sfos-test https://mydomain.net/sailfish-tmp-test-repo
   ssu dr adaptation0
-  ssu re 4.0.1.48    # adjust to the actual version
+  ssu re 4.3.0.15    # adjust to the actual version
   devel-su -p version --dup
   ssu rr sfos-test
   ssu er adaptation0
@@ -171,7 +171,7 @@ Finally, to receive the update, each device will have to execute:
 
   DEVICE $
 
-  ssu re 4.0.1.48    # adjust to the actual version
+  ssu re 4.3.0.15    # adjust to the actual version
   devel-su -p version --dup
 
 NOTE: The %(release) in your self-hosted repo (visible via ``ssu lr``) will get
