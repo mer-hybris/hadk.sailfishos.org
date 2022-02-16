@@ -26,6 +26,8 @@ device and setup:
   export DEVICE="hammerhead"
   # "armv7hl" is still supported, but we encourage to have full 64bit ports
   export PORT_ARCH="aarch64"
+  # Uncomment the next line to conveniently build all RPMs in local repo:
+  #alias mb2='mb2 --output-dir "${ANDROID_ROOT?}/droid-local-repo/${DEVICE?}"'
   EOF
 
   cat <<'EOF' >> $HOME/.mersdkubu.profile
