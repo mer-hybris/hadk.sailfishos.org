@@ -65,7 +65,7 @@ release = version+'.0.15'
 # non-false value, then it is used:
 #today = ''
 # Else, today_fmt is used as the format for a strftime call.
-#today_fmt = '%B %d, %Y'
+today_fmt = '%d %b %Y'
 
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
@@ -195,7 +195,7 @@ latex_elements = {
 \makeatletter
 \fancypagestyle{normal} {
 \fancyhf{}
-\fancyfoot[LO,RE]{{Copyright 2014-2021 Jolla Ltd. | Content licensed under CC-BY-NC-SA 3.0 Unported}}
+\fancyfoot[LO,RE]{{Copyright 2014-2022 Jolla Ltd. | Content licensed under CC-BY-NC-SA 3.0 Unported}}
 \fancyfoot[RO,LE]{{\py@HeaderFamily \thepage}}
 \fancyhead[LO,RE]{{v\version}}
 \fancyhead[RO,LE]{{\py@HeaderFamily \@title}}
