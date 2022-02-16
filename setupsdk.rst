@@ -70,13 +70,14 @@ You'll need some tools which are not installed into the Platform SDK by default:
 * **android-tools-hadk** contains tools and utilities needed for working with
   the Android SDK
 * **kmod** is needed by mic's qemu to build the image
+* **createrepo_c** is needed when passing local repo to mic
 
 .. code-block:: console
 
   PLATFORM_SDK $
 
   sudo zypper ref
-  sudo zypper in android-tools-hadk kmod
+  sudo zypper in android-tools-hadk kmod createrepo_c
 
 The minimum Platform SDK SFOS version is 4.3.0.15. Use
 ``sdk-assistant`` command to upgrade your toolings and targets, or create from new
