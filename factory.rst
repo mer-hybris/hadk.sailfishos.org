@@ -293,7 +293,7 @@ submodule; then build dependencies and the new img-boot:
     git submodule add https://github.com/mer-hybris/hybris-initrd initrd
 
     cd $ANDROID_ROOT
-    sb2 -t $VENDOR-$DEVICE-$PORT_ARCH -m sdk-install -R zypper in droid-hal-$DEVICE-kernel droid-hal-$DEVICE-kernel-modules
+    sdk-assistant maintain $VENDOR-$DEVICE-$PORT_ARCH zypper in droid-hal-$DEVICE-kernel droid-hal-$DEVICE-kernel-modules
     rpm/dhd/helpers/build_packages.sh --build=hybris/droid-hal-img-boot/
 
     # Test the success by booting our recovery image (boot image would not boot

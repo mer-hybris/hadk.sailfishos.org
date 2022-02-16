@@ -22,13 +22,15 @@ Sailfish OS userspace.
 https://docs.sailfishos.org/Tools/Platform_SDK/Target_Installation/
 
 To verify the correct installation of the Scratchbox2 target, cross-compile
-a simple "Hello, World!" C application with ``sb2``:
+a simple "Hello, World!" C application with ``mb2 build-shell``:
 
 .. code-block:: console
 
     PLATFORM_SDK $
 
     cd $HOME
+    mkdir hadk-test-tmp
+    cd hadk-test-tmp
     cat > main.c << EOF
     #include <stdlib.h>
     #include <stdio.h>
@@ -38,16 +40,16 @@ a simple "Hello, World!" C application with ``sb2``:
       return EXIT_SUCCESS;
     }
     EOF
-
-    sb2 -t $VENDOR-$DEVICE-$PORT_ARCH gcc main.c -o test
+    mb2 -t $VENDOR-$DEVICE-$PORT_ARCH build-init
+    mb2 -t $VENDOR-$DEVICE-$PORT_ARCH build-shell gcc main.c -o test
 
 If the compilation was successful you can test the executable by running the
 following command (this will run the executable using ``qemu`` as emulation
-layer, which is part of the ``sb2`` setup):
+layer, which is part of the ``mb2`` setup):
 
 .. code-block:: console
 
-    sb2 -t $VENDOR-$DEVICE-$PORT_ARCH ./test
+    mb2 -t $VENDOR-$DEVICE-$PORT_ARCH build-shell ./test
 
 The above command should output "Hello, world!" on the console, this proves
 that the target can compile binaries and execute them for your architecture.
