@@ -35,8 +35,10 @@ Requirements
 
 The development environment uses the Platform SDK, with:
 
-* one or more device specific **targets** (a rootfs with device-specific
-  headers and libraries)
+* **Build Tools** consisting of cross-compilers (tooling) and an emulated
+  rootfs for your device architecture (target), containing device-specific
+  headers and libraries -- will also be referred as **build environment**
+  throughout the document
 
 * a HA build SDK (a minimal Ubuntu chroot required to build
   the Android sources)
@@ -45,7 +47,7 @@ During the HA development you'll typically have one window/terminal using the
 HA build SDK where you build and work on Android code and another session
 using the Platform SDK where you build RPMs for the hardware adaptation.
 
-Setting up the Platform SDK, as well as the device-specific targets
+Setting up the Platform SDK, as well as the device-specific build environment
 and the Ubuntu HA build chroot is described in :doc:`setupsdk`.
 
 Commands and output from the Platform SDK session are indicated using
@@ -75,9 +77,9 @@ How to enter ``HABUILD_SDK $`` is explained in :ref:`enter-ubu-chroot`.
 The build area root directory
 `````````````````````````````
 
-In this guide, we refer to the SDK directory hosting Platform SDK, Targets, and
-Ubuntu chroot with the environment variable ``$PLATFORM_SDK_ROOT``. With one SDK target
-spanning 0.5-1GB, you need around 3GB of space in total.
+In this guide, we refer to the SDK directory hosting Platform SDK,
+Build Tools, and Ubuntu chroot with the environment variable
+``$PLATFORM_SDK_ROOT``. You need around 10GB of space in total.
 
 Build components
 ````````````````

@@ -68,7 +68,7 @@ You need to choose a `Sailfish OS version`_ you want to build.
    guarantee backwards compatibility for old Sailfish OS versions! E.g., expect
    patterns to break as new HA packages get introduced etc.
 
-   Ensure you pick the same release as your target was in    :doc:`scratchbox2`.
+   Ensure you pick the same release as your target was in :doc:`build-env`.
    E.g., if target's ``ssu lr`` versions begin with ``4.3.0.``, build Sailfish OS update
    4.3.0.15 (check for the latest, non "Early Access" `Sailfish OS version`_)
 
@@ -131,7 +131,7 @@ Executing commands in the build environment
 
 You can execute commands to build and install packages under the build
 environment, inspect and debug any issues. The syntax is shown in
-:doc:`scratchbox2`.
+:doc:`build-env`.
 
 Note that ``mb2`` uses a working copy of your original build target, which
 means you can experiment with ``mb2 build-shell`` at will, but once you have

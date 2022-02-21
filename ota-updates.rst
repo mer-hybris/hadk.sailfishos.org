@@ -128,9 +128,10 @@ Updating to the next Sailfish OS release
 If another official Sailfish OS update has been released since you last
 published your HW adaptation update, perform the following:
 
-Update your SDK Target (see how in the last paragraph of :ref:`enter-sfos-sdk`).
+Update your SDK target device build environment (see how in the last paragraph
+of :ref:`enter-sfos-sdk`).
 
-Alternatively, you can remove it and create a new one as per :doc:`scratchbox2`.
+Alternatively, you can remove it and create a new one as per :doc:`build-env`.
 
 Remove or backup your local build repository:
 

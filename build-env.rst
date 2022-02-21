@@ -1,9 +1,9 @@
-Setting up Scratchbox2 Target
------------------------------
+Installing Build Tools for Your Device
+--------------------------------------
 
-It is necessary to setup a Scratchbox2 target to use for packaging your
-hardware adaptation packages in the next section. Download and create your
-Scratchbox2 target following this wiki:
+It is necessary to emulate your target device architecture and file system to
+build hardware adaptation packages in the next section. Download and install
+your build tools following instructions below.
 
 .. important::
     Minimum version for SFOS target is 4.3.0.15 (same requirement as for the
@@ -16,12 +16,12 @@ Scratchbox2 target following this wiki:
     ``$VENDOR-$DEVICE-$PORT_ARCH`` (instead of ``SailfishOS-latest-aarch64``).
     Ignore the i486 target.
 
-Choose ``aarch64`` target, unless you are building for the ``armv7hl``
-Sailfish OS userspace.
+For ARM devices, choose ``aarch64`` build target, unless you are building for
+the ``armv7hl`` Sailfish OS userspace.
 
 https://docs.sailfishos.org/Tools/Platform_SDK/Target_Installation/
 
-To verify the correct installation of the Scratchbox2 target, cross-compile
+To verify the correct installation of the build tools, cross-compile
 a simple "Hello, World!" C application with ``mb2 build-shell``:
 
 .. code-block:: console
@@ -52,5 +52,5 @@ layer, which is part of the ``mb2`` setup):
     mb2 -t $VENDOR-$DEVICE-$PORT_ARCH build-shell ./test
 
 The above command should output "Hello, world!" on the console, this proves
-that the target can compile binaries and execute them for your architecture.
+that the build tools can compile binaries and execute them for your architecture.
 

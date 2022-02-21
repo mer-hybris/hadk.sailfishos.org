@@ -25,7 +25,7 @@ to devices running Android™ OS.
    preparing
    setupsdk
    android
-   scratchbox2
+   build-env
    droid-hal
    mic
    getting-in

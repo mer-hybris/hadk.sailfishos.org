@@ -5,13 +5,13 @@ Setting up required environment variables
 -----------------------------------------
 
 Throughout this guide we will be referencing the location of your SDK,
-targets and source code. As is customary with Android hardware adaptations,
-the device vendor (``$VENDOR``) and device codename (``$DEVICE``) are also
-used, both in scripts and configuration files. **Throughout this guide as example,
-we'll use Nexus 5 (lge/hammerhead for its vendor/device pair), and port it
-using CyanogenMod 11.0 version as the "Android base".** Thus ensure you read
-the code snippets carefully and rename where appropriate for your ported
-device/vendor/base.
+device build environment and source code. As is customary with Android
+hardware adaptations, the device vendor (``$VENDOR``) and device codename
+(``$DEVICE``) are also used, both in scripts and configuration files.
+**Throughout this guide as example, we'll use Nexus 5 (lge/hammerhead for
+its vendor/device pair), and port it using CyanogenMod 11.0 version as the
+"Android base".** Thus ensure you read the code snippets carefully and
+rename where appropriate for your ported device/vendor/base.
 
 Now run the following commands on your host operating system fitting for your
 device and setup:
@@ -47,7 +47,7 @@ variables.
 Setup the Platform SDK
 ----------------------
 
-Instructions are found on Sailfish OS wiki ("Quick start" section is enough,
+Instructions are found on Sailfish OS docs ("Quick start" section is enough,
 do not install SDK Targets yet): https://docs.sailfishos.org/Tools/Platform_SDK/Installation/
 
 Afterwards, temporarily leave the PLATFORM_SDK to topup the newly created ``~/.mersdk.profile`` with necessary commands:
@@ -82,7 +82,7 @@ You'll need some tools which are not installed into the Platform SDK by default:
   sudo zypper in android-tools-hadk kmod createrepo_c
 
 The minimum Platform SDK SFOS version is 4.3.0.15. Use
-``sdk-assistant`` command to upgrade your toolings and targets, or create from new
+``sdk-assistant`` command to upgrade your build tools, or create from new
 (especially when updating from 2.x to 3.x). To check what release you are on:
 
 .. code-block:: console
