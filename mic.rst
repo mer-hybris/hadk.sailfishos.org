@@ -68,7 +68,7 @@ You need to choose a `Sailfish OS version`_ you want to build.
    guarantee backwards compatibility for old Sailfish OS versions! E.g., expect
    patterns to break as new HA packages get introduced etc.
 
-   Ensure you pick the same release as your target was in    :doc:`scratchbox2`.
+   Ensure you pick the same release as your target was in :doc:`build-env`.
    E.g., if target's ``ssu lr`` versions begin with ``4.3.0.``, build Sailfish OS update
    4.3.0.15 (check for the latest, non "Early Access" `Sailfish OS version`_)
 
@@ -118,11 +118,59 @@ to your .ks ``%packages`` section (remember that regenerating .ks will overwrite
 modification).
 
 Troubleshooting
-```````````````
+---------------
 
-/dev/null - Permission denied
-'''''''''''''''''''''''''''''
+/dev/null - Permission denied (while using `mic`)
+`````````````````````````````````````````````````
 
 Most likely the partition your Platform SDK resides in, is mounted with ``nodev`` option.
 Remove that option from mount rules.
 
+Executing commands in the build environment
+```````````````````````````````````````````
+
+You can execute commands to build and install packages under the build
+environment, inspect and debug any issues. The syntax is shown in
+:doc:`build-env`.
+
+Note that ``mb2`` uses a working copy of your original build target, which
+means you can experiment with ``mb2 build-shell`` at will, but once you have
+found a desired fix, make it permanent by recording the changes in your
+source code (e.g. do not leave installed packages with ``zypper in`` lying
+around, but add them to your .spec's ``BuildRequires``).
+
+If you break your build environment via ``mb2 build-shell``, you can reset
+it back to its clean state via ``mb2 -t $VENDOR-$DEVICE-$PORT_ARCH
+build-requires reset``. This happens implicitly after re-running
+``build_packages.sh`` [#]_.
+
+Use ``mb2 ... build-requires diff`` if you want to know what you have done
+to your build environment with ``mb2`` in terms of installed/removed
+packages [#]_.
+
+``mb2 ... build-shell`` is limited to launch only from directories where
+you previously ran commands like ``mb2 ... build`` or ``mb2 ...
+build-init`` [#]_. Such commands are run under ``$ANDROID_ROOT`` during the
+build of dhd, so you can run ``mb2 build-shell`` from ``$ANDROID_ROOT`` if
+you find no better place.
+
+
+.. rubric:: Footnotes
+
+.. [#] As long as your original build target does not change, ``mb2`` keeps
+   using the same working copy ("snapshot" in mb2's speech) of your build
+   target in subsequent executions, preserving any changes you make to it.
+   When your original build target changes, ``mb2`` will reset the working copy
+   to match the updated state of your original target next time it is invoked.
+   This happens e.g. when you use ``build_packages.sh``, which intentionally
+   works directly on your original build target. Factors that are regarded as
+   a change in the original build target are: RPM DB change, SSU configuration,
+   and few other things.
+
+.. [#] If you need to make permanent changes to the original build environment
+   (not recommended), add ``--no-snapshot=force`` option at the beginning of
+   ``mb2`` command line (it is a global option).
+
+.. [#] ``mb2`` looks for a directory named ``.mb2``, where it stores some of
+   its state. It is created implicitly by ``mb2 ... build`` and you can also
+   create it explicitly with ``mb2 -t $VENDOR-$DEVICE-$PORT_ARCH build-init``.

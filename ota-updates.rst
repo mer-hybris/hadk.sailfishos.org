@@ -50,6 +50,8 @@ Perform the following:
   . ~/.hadk.env
   rm -rf /srv/http/sailfish-tmp-test-repo
   cp -ar $ANDROID_ROOT/droid-local-repo/$DEVICE /srv/http/sailfish-tmp-test-repo
+  rm -rf /srv/http/sailfish-tmp-test-repo/repo
+  createrepo_c /srv/http/sailfish-tmp-test-repo
 
 SSH into your device and execute (substituting ``https://mydomain.net`` with
 the address to your Web server):
@@ -96,6 +98,8 @@ Once successfully tested, deploy the stable packages to the release repo:
   mkdir -p /srv/http/$RELEASE/$VENDOR-$DEVICE
   cp -ar $ANDROID_ROOT/droid-local-repo/$DEVICE \
          /srv/http/$RELEASE/$VENDOR-$DEVICE/$PORT_ARCH
+  rm -rf /srv/http/$RELEASE/$VENDOR-$DEVICE/$PORT_ARCH/repo
+  createrepo_c /srv/http/$RELEASE/$VENDOR-$DEVICE/$PORT_ARCH
 
 To receive the update, each device will have to execute ``devel-su -p
 version --dup``, and reboot when instructed.
@@ -111,12 +115,8 @@ packages that were not created by running ``build_packages.sh``). For example:
   PLATFORM_SDK $
 
   cd $ANDROID_ROOT
-  mkdir -p droid-local-repo/$DEVICE/extras
-  cp -a path/to/custom-built.rpm droid-local-repo/$DEVICE/extras
-  createrepo_c droid-local-repo/$DEVICE
-
-The ``createrepo_c`` step is essential, so it rescans and regenerates the
-metadata under ``droid-local-repo/$DEVICE/repodata/``.
+  # Alternatively you can use `mb2 --output-dir ... build` instead of copying
+  cp -a path/to/custom-built.rpm droid-local-repo/$DEVICE
 
 To make the devices of your users pull this RPM package in, ensure some other
 package or pattern requires it, then :ref:`test<test_repo>` and
@@ -128,9 +128,10 @@ Updating to the next Sailfish OS release
 If another official Sailfish OS update has been released since you last
 published your HW adaptation update, perform the following:
 
-Update your SDK Target (see how in the last paragraph of :ref:`enter-sfos-sdk`).
+Update your SDK target device build environment (see how in the last paragraph
+of :ref:`enter-sfos-sdk`).
 
-Alternatively, you can remove it and create a new one as per :doc:`scratchbox2`.
+Alternatively, you can remove it and create a new one as per :doc:`build-env`.
 
 Remove or backup your local build repository:
 
