@@ -37,6 +37,7 @@ to devices running Android™ OS.
    middleware
    repos
    naming
+   ha-checklist
 
 .. only:: html
 
