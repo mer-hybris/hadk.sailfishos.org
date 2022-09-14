@@ -59,7 +59,7 @@ This porting guide is using Nexus 5 and CyanogenMod 11.0 version as example:
   sudo mkdir -p $ANDROID_ROOT
   sudo chown -R $USER $ANDROID_ROOT
   cd $ANDROID_ROOT
-  repo init -u git://github.com/mer-hybris/android.git -b hybris-11.0
+  repo init -u https://github.com/mer-hybris/android.git -b hybris-11.0
 
 Device repos
 ------------
