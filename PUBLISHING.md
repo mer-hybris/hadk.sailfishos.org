@@ -17,9 +17,10 @@ git, using commit messages with the following syntax:
 
     hadk: One line only short meaningful description for logs
     
-    [hadk] One line only short meaningful description for logs. JB#XXXXX
     Longer description of what changed and why, in case the one line
     short description was not enough.
+    
+    [hadk] One line only short meaningful description for logs. JB#XXXXX
 
 Once all the changes intended to be published are done, the version
 number in conf.py needs to be updated. At this point it makes sense to
