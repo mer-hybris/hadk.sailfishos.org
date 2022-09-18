@@ -9,7 +9,7 @@ Publishing a new version consists of the following steps.
 HADK porting guide consists of several parts, which are written in
 separate .rst files, using reStructuredText markup. This repository
 contains an RPM spec file, so generating HTML version of the document
-is as easy as `sfdk build`. The resulting document can be then found
+is as easy as `sfdk build`. The resulting document can then be found
 under `_build/singlehtml` directory.
 
 Once you are satisfied with your changes, you should commit them to
@@ -45,15 +45,15 @@ different formats. The PDF format can be generated simply with command
 3. Publishing PDF
 -----------------
 
-The PDF is published in https://sailfishos.org/develop/hadk/. The page
+The PDF is published in https://sailfishos.org/develop/hadk. The page
 itself is hosted in WordPress.
 
 4. Advertising new HADK version
 -------------------------------
 
 Once we have published a new version of HADK, we advertise it to
-porters. This is done on the #sailfishos-porters IRC channel on oftc
-network. You can use e.g. following format:
+porters. This is done on the #sailfishos-porters IRC channel on OFTC
+network. You can use e.g. the following format:
 
     PSA: New HADK released: https://sailfishos.org/develop/hadk
     Change log: https://paste.opensuse.org/...
