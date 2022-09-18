@@ -24,8 +24,8 @@ git, using commit messages with the following syntax:
 Once all the changes intended to be published are done, the version
 number in conf.py needs to be updated. At this point it makes sense to
 check all the Sailfish OS release numbers in the actual documentation
-as well. Hint: grep the previous release number to find places which
-potentially need updating.
+as well. Grep the two previous release numbers to find places which
+potentially need updating, e.g. 4.4.0 and 4.3.0 when updating to 4.5.0.
 
 After your PR has been approved, tag the merge commit using x.y.z tag.
 
