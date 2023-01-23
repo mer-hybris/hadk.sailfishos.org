@@ -46,8 +46,11 @@ different formats. The PDF format can be generated simply with command
 3. Publishing PDF
 -----------------
 
-The PDF is published in https://sailfishos.org/develop/hadk. The page
-itself is hosted in WordPress.
+The PDF is published on the
+[Sailfish OS documentation site](https://docs.sailfishos.org/Develop/HADK/).
+[The page](https://github.com/sailfishos/docs.sailfishos.org/blob/master/Develop/HADK/README.md)
+can be edited by creating a pull request in the repository. The PDF
+itself should be stored in the same directory as the page.
 
 4. Advertising new HADK version
 -------------------------------
