@@ -50,7 +50,7 @@ Setup the Platform SDK
 Instructions are found on Sailfish OS docs ("Quick start" section is enough,
 do not install SDK Targets yet): https://docs.sailfishos.org/Tools/Platform_SDK/Installation/
 
-Afterwards, temporarily leave the PLATFORM_SDK to topup the newly created ``~/.mersdk.profile`` with necessary commands:
+Afterwards, temporarily leave the PLATFORM_SDK to top up your ``~/.bashrc`` with necessary commands:
 
 .. code-block:: console
 
@@ -60,12 +60,18 @@ Afterwards, temporarily leave the PLATFORM_SDK to topup the newly created ``~/.m
 
   HOST $
 
-  cat <<'EOF' >> $HOME/.mersdk.profile
-  function hadk() { source $HOME/.hadk.env; echo "Env setup for $DEVICE"; }
-  hadk
+  cat <<'EOF' >> $HOME/.bashrc
+  if [[ $SAILFISH_SDK ]]; then
+      function hadk() { source $HOME/.hadk.env; echo "Env setup for $DEVICE"; }
+      hadk
+  fi
   EOF
 
   sfossdk
+
+.. warning::
+    With Platform SDK version 4.4.0.58 and olders you need to check the
+    ``MERSDK`` variable instead of ``SAILFISH_SDK`` in the above code snippet.
 
 You'll need some tools which are not installed into the Platform SDK by default:
 
