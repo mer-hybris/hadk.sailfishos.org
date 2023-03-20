@@ -149,7 +149,7 @@ lines starting with ``E/RIL...`` will point to a root cause!
 * Also install ``ofono-tests`` package and run ``/usr/lib/ofono/test/list-modems``
 
 * Try to recompile latest ofono master branch from
-  https://git.sailfishos.org/mer-core/ofono
+  https://github.com/sailfishos/ofono
 
 * If everything else fails, then stop and strace a failing daemon (either RIL or
   ofono) from command line manually
@@ -188,11 +188,11 @@ accesses directly the WLAN driver bypassing wpa_supplicant.
 
 The version of currently used wpa_supplicant can be checked from here:
 
- https://git.sailfishos.org/mer-core/wpa_supplicant
+ https://github.com/sailfishos/wpa_supplicant
 
 The version of used connman can be checked from here:
 
- https://git.sailfishos.org/mer-core/connman
+ https://github.com/sailfishos/connman
 
 Special quirks: WLAN hotspot
 ============================
@@ -201,7 +201,7 @@ On some android WLAN drivers, the whole connectivity stack needs to be reset
 after WLAN hotspot use. For that purpose there is reset service in dsme, please
 see details how to set that up for your adaptation project in here:
 
- https://git.sailfishos.org/mer-core/dsme/commit/c377c349079b470db38ba6394121b6d899004963
+ https://github.com/sailfishos/dsme/commit/c377c349079b470db38ba6394121b6d899004963
 
 NFC
 ***
@@ -230,7 +230,7 @@ Sensors
 *******
 
 Sailfish OS sensor support is based upon Sensor Framework at:
-https://git.sailfishos.org/mer-core/sensorfw
+https://github.com/sailfishos/sensorfw
 
 Hybris based systems can use the hybris sensor adaptor plugins, which uses
 existing android libhardware sensor adaptations to read sensor data and control.
@@ -243,14 +243,14 @@ You can also use any conf file by specifying it on the commandline.
 
 For hybris based platforms, this will be sensord-hybris.conf, and most likely will 
 not have to be modified. A copy of this file is already among default configs:
-https://git.sailfishos.org/mer-core/sensorfw/blob/master/config/sensord-hybris.conf
+https://github.com/sailfishos/sensorfw/blob/master/config/sensord-hybris.conf
 If you do make modifications to it, add the file under
 ``$ANDROID_ROOT/hybris/droid-configs/sparse/etc/sensorfw/primaryuse.conf``
 
 There are already a few device specific conf files to look at if the device needs
 more configuration.
 Example of mixed hybris and evdev configuration
-https://git.sailfishos.org/mer-core/sensorfw/blob/master/config/sensord-tbj.conf
+https://github.com/sailfishos/sensorfw/blob/master/config/sensord-tbj.conf
 
 Generally, if sensors are working on the android/hybris side, they will work in sensorfw
 and up to the Sailfish UI. libhybris comes with /usr/bin/test_sensors which can list
@@ -284,7 +284,7 @@ are working normally.
 The userspace API's for platform applications is exposed via nemo-keepalive
 package. See more details here:
 
- https://git.sailfishos.org/mer-core/nemo-keepalive
+ https://github.com/sailfishos/nemo-keepalive
 
 Watchdog
 ********
