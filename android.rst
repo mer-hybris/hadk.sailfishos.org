@@ -174,6 +174,9 @@ as the Android build scripts are assuming you are running ``bash``).
 You'll probably need to iterate this a few times to spot missing repositories,
 tools, configuration files and others:
 
+Before building it is recommended to read extra Android base specific hints from
+https://github.com/mer-hybris/hadk-faq#android-base-specific-fixes
+
 .. code-block:: console
 
   HABUILD_SDK $

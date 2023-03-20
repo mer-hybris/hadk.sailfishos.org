@@ -122,6 +122,10 @@ components later on.
 Building the droid-hal-device packages
 ``````````````````````````````````````
 
+Before building the packages it is recommended to read extra Android base
+specific hints from
+https://github.com/mer-hybris/hadk-faq#android-base-specific-fixes
+
 The next step has to be carried out in the Platform SDK chroot:
 
 .. code-block:: console
