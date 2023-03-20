@@ -20,6 +20,14 @@ Ensure you have setup your name and e-mail address in your Git configuration:
   git config --global user.name "Your Name"
   git config --global user.email "you@example.com"
 
+Ensure Ubuntu chroot has cpio installed:
+
+.. code-block:: console
+
+  HABUILD_SDK $
+
+  sudo apt-get install cpio
+
 You also need to install the ``repo`` command from the AOSP source
 code repositories, see `Installing repo`_.
 
