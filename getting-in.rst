@@ -86,8 +86,9 @@ Bootloops
 If device bootloops, there might be several reasons:
 
 * If it immediately reboots (and especially if it later boots to recovery mode),
-  SELinux is enabled, and all ports based on Android 4.4 or newer need to disable
-  it. Add ``CONFIG_SECURITY_SELINUX_BOOTPARAM=y`` to your kernel defconfig, and
+  SELinux is enabled, and all ports based on Android 4.4 (hybris-11.0) up to
+  Android 9.0 (hybris-16.0) need to disable it.
+  Add ``CONFIG_SECURITY_SELINUX_BOOTPARAM=y`` to your kernel defconfig, and
   ``selinux=0`` to your kernel command line (usually in ``BOARD_KERNEL_CMDLINE``
   under $ANDROID_ROOT/device/$VENDOR/\*/BoardConfig\*.mk)
 * If it reboots after a minute or so, be quick and telnet into device, then do::
