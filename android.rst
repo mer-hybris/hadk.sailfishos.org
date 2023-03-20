@@ -111,6 +111,7 @@ Add the following content to ``$ANDROID_ROOT/.repo/local_manifests/$DEVICE.xml``
   </manifest>
 
 Time to sync the whole source code, this might take a while:
+Do not use --fetch-submodules parameter on hybris-18.1 or newer Android bases.
 
 .. code-block:: console
 
@@ -280,6 +281,9 @@ Common Pitfalls
 * If ``repo sync --fetch-submodules`` fails with a message like *fatal: duplicate path
   device/samsung/smdk4412-common in /home/nemo/android/.repo/manifest.xml*,
   remove the local manifest with ``rm .repo/local_manifests/roomservice.xml``
+* If ``repo sync --fetch-submodules`` fails with some other error message try
+  running ``repo sync`` to see if it helps. This is usually needed for hybris-18.1 or
+  newer Android bases.
 * If you notice ``git clone`` commands starting to write out *"Forbidden ..."* on
   github repos, you might have hit API rate limit. To solve this, put your github
   credentials into ``~/.netrc``. More info can be found following this link:
