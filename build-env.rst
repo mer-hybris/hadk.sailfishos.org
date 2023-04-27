@@ -11,7 +11,7 @@ your build tools following instructions below.
 
 .. warning::
     To ensure consistency with HADK build scripts, name your tooling
-    ``SailfishOS-4.4.0`` (or whichever release you are building for) instead of
+    ``SailfishOS-4.5.0`` (or whichever release you are building for) instead of
     suggested ``SailfishOS-latest``, and your target as
     ``$VENDOR-$DEVICE-$PORT_ARCH`` (instead of ``SailfishOS-latest-aarch64``).
     Ignore the i486 target.
