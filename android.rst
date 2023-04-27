@@ -148,11 +148,13 @@ in ``hybris/hybris-boot/fixup-mountpoints`` for each device, for all partitions
 -- in this way we are sure to cover them all, because if done manually by
 looking through fstab/rc files, some might get unnoticed.
 
-To get that mapping, you should flash and boot and image of your **Android base**
-and execute ``adb shell`` on your
-host and this: ``ls -l /dev/block/platform/*/by-name/`` on your device. In case
-that yielded no results try ``ls -l /dev/block/platform/*/*/by-name/`` in some
-cases you could also try ``ls -l /dev/block/bootdevice/by-name/``.
+To get that mapping, you should flash and boot an image of your **Android base**
+and execute ``adb shell`` on your host and something like this:
+``ls -l /dev/block/platform/*/by-name/`` on your device. To get the correct path
+you must find Android's fstab in device repository or in device itself and get
+by-name path like: ``block/bootdevice/by-name/userdata``,
+``ls -l /dev/block/platform/*/*/by-name/``or ``block/platform/*/by-name/userdata``
+from it.
 
 Once you've patched ``fixup-mountpoints``, take care if you ever have to run
 ``repo sync --fetch-submodules`` again because it will reset your changes,
