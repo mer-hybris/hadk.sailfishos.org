@@ -19,9 +19,9 @@ MCE configuration
 **/etc/mce/60-doubletap-jolla.ini**
 
 Configures the touchscreen kernel driver sysfs that can be used to disable
-and enable double tap to wake up feature. Example of it's content:
+and enable double tap to wake up feature. Example of its content:
 
-.. code-block:: console
+.. code-block:: ini
 
     # Configuration for doubletap wakeup plugin
     [DoubleTap]
@@ -47,85 +47,124 @@ TODO:
 
 .. _hapticconfiguration:
 
-Configuring haptics
--------------------
+Non-Graphical Feedback Daemon (NGFD)
+---------------------------
 
-Sailfish OS has 2 kinds of feedback methods:
+The `Non-Graphical Feedback Daemon <https://github.com/sailfishos/ngfd>` provides combined audio, haptic, and LED
+feedback for system events and alarms. These events include such things as
+ring tones, message tones, clock alarms, email notifications, etc.
 
-1. **NGFD** - Non-graphical feedback framework **ffmemless** plugin
-2. **QtFeedback** - QtFeedback with direct ffmemless backend
+From here on shortened to NGFD.
 
-The NGFD plugin is for providing feedback for events and alarms, while
-QtFeedback is used for minimum latency haptics and for 3rd party applications.
+TODO: add more detail about configuring NGFD.
 
-Both of these have their own default .ini configuration files with the default
-effects for basic use. The default configurations can be overridden with device
-specific .ini files in your adaptation project's config package. The default
-config files can be seen in:
+Configuring Haptics
+^^^^^^^^^^^^^^^^^^^
 
-* **NGFD**: /usr/share/ngfd/plugins.d/`50-ffmemless.ini <https://github.com/sailfishos/ngfd/blob/master/data/plugins.d/50-ffmemless.ini>`_
-* **QtFeedback**: /usr/lib/qt5/plugins/feedback/`ffmemless.ini <https://github.com/sailfishos/qt-mobility-haptics-ffmemless/blob/master/ffmemless.ini>`_
+Sailfish OS uses **NGFD** to provide haptic feedback. We use a **QtFeedback**
+plugin to bridge it with NGFD.
+The NGFD plugin is for providing feedback for events and alarms, it interfaces directly
+with QtFeedback that can be used by 3rd-party applications.
 
-The default configuration files can be over-ridden with setting environment
-variables NGF_FFMEMLESS_SETTINGS (ngfd) and FF_MEMLESS_SETTINGS (qtfeedback),
-that point to device specifc configuration files.
+When configuring haptics it is important to know if your device uses
+ffmemless or the LED/Droid based vibrator interface.
 
-To set the environment variables add environment config file to your config
-package that installs to (**NOTE**: Replace "**DEVICE**" with your device's
-name. E.g. mako, hammerhead, etc.):
+To determine if your device uses the LED/native interface check for
+`/sys/class/timed_output/vibrator/enable` or `/sys/class/leds/vibrator/activate`.
+The exact path for these might be a little different in some cases, e.g. instead of
+`vibrator` the path could contain `foobar`, `foobar` being the device name in this case.
+Check for down :ref:`below <Non-Graphic Feedback Daemon Native Vibrator Plugin>` for more.
 
- /var/lib/environment/nemo/60-DEVICE-vibra.conf
+If these files are not present it is very likely that your device uses
+ffmemless to control haptics. To verify if your device uses ffmemless
+install the `mce-tools` package and run `evdev\_trace -i`.
+If the listing contains a device with the type `EV_FF` then your device
+uses ffmemless.
 
-And that file should contain 2 lines:
+The **qt5-feedback-haptics-ffmemless** used before **Sailfish OS 4.3** is deprecated in favor of the before mentioned QtFeedback plugin.
 
+When migrating away from **qt5-feedback-haptics-ffmemless** /usr/lib/qt5/plugins/feedback/ffmemless.ini
+can be removed without further intervention.
 
-.. code-block:: console
-
-   FF_MEMLESS_SETTINGS=/usr/lib/qt5/plugins/feedback/qtfeedback-DEVICE.ini
-   NGF_FFMEMLESS_SETTINGS=/usr/share/ngfd/plugins.d/ngf-vibra-DEVICE.ini
-
-Now you can use those 2 files to tune force feedback effects suitable
-specifically for your device. For template to start making your own
-configuration files, just copy-paste the ngfd `50-ffmemless.ini <https://github.com/sailfishos/ngfd/blob/master/data/plugins.d/50-ffmemless.ini>`_ and Qtfeedback `ffmemless.ini <https://github.com/sailfishos/qt-mobility-haptics-ffmemless/blob/master/ffmemless.ini>`_
-default config files as the device specific files and then edit only needed
-bits.
+You can copy the Configuration file of the specific plugin used by your
+device to tune it fit better to your device.
 
 The reason we have possibility for device specific effects is that hardware
 mechanics and the vibra engines differ greatly device-by-device, and single
 settings will not give good effect on all devices.
-
-* **At minimum, you should ALWAYS tune at least KEYPAD effect in qtfeedback-DEVICE.ini for every device separately to make the VKB haptic feel good and punctual.**
 
 Good guideline for VKB haptic is that it should be as short as possible, and
 vibrate at the resonance frequency of the device mechanics when vibra engine
 reaches top magnitude of the vibra effect. It should not feel like vibration,
 but like a single kick.
 
-Non-Graphical Feedback Daemon
----------------------------
-
-The Non-Graphical Feedback Daemon provides combined audio, haptic, and LED
-feedback for system events and alarms. These events include such things as
-ring tones, message tones, clock alarms, email notifications, etc.
-
-* https://github.com/sailfishos/ngfd
-
-TODO: add more detail about configuring NGFD.
-
-Non-Graphic Feedback Daemon PulseAudio Plugin
----------------------------------------------
+NGFD PulseAudio Plugin
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 TODO
 
-Non-Graphic Feedback Daemon Droid ffmemless Plugin
---------------------------------------------------
+NGFD ffmemless Plugin
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-This is the main plugin handling vibra feedback for Sailfish OS. See
-:ref:`hapticconfiguration` for more details.
+This is the main plugin handling vibra feedback for Sailfish OS for devices that use the ffmemless interface.
+
+The default configuration file can be found in `/usr/share/ngfd/plugins.d/50-ffmemless.ini <https://github.com/sailfishos/ngfd/blob/master/data/plugins.d/50-ffmemless.ini>`.
+
+The default configuration files can be over-ridden with setting environment
+variable `NGF_FFMEMLESS_SETTINGS`.
+
+To set the environment variables add environment config file to your config
+package that installs to. Replace with your `<device>` with the name
+of your device. E.g. mako, hammerhead etc.
+
+ /var/lib/environment/nemo/60-<device>-vibra.conf
+
+And that file should look like below:
 
 
-Non-Graphic Feedback Daemon Droid Vibrator Plugin
--------------------------------------------------
+.. code-block:: sh
+
+   NGF_FFMEMLESS_SETTINGS=/usr/share/ngfd/plugins.d/ngf-vibra-<device>.ini
+
+Now you can use the file to tune force feedback effects suitable
+specifically for your device. For template to start making your own
+configuration files, just copy-paste the ngfd `50-ffmemless.ini <https://github.com/sailfishos/ngfd/blob/master/data/plugins.d/50-ffmemless.ini>`
+default config files as the device specific files and then edit only needed
+bits.
+
+An alternative instead of using the environment variable is duplicating
+the `50-ffmemless.ini` in the same folder with a different name such
+as `51-ffmemless.ini`, NGFD will now pickup your configuration file
+instead of the stock configuration file.
+
+This especially affects those devices using ffmemless CUSTOM vibration patterns,
+read the default 50-ffmemless.ini.
+To check if the device uses ffmemless custom vibration patterns check
+if `evdev\_trace` contains a device that contains `FF_CUSTOM`.
+
+
+Non-Graphic Feedback Daemon Native Vibrator Plugin
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+This plugin uses the native kernel interface from the timed output driver or the
+led vibrator interface. The native plugin doesn't require any configuration normally.
+
+It is possible to set the path of the activation and duration controls as shown
+below if the plugin can't find these on its own:
+
+.. code-block:: ini
+
+   [droid-vibrator]
+   native.path          = /sys/class/leds/<device>/duration
+   native.activate_path = /sys/class/leds/<device>/activate
+
+Replace `<device>` with the name of device directory for your vibration
+device.
+
+It is the preferred method if the ffmemless plugin isn't used.
+
+NGFD Droid Vibrator Plugin
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 This is a secondary vibra plugin for demoing and quick ports. It works out
 of the box with android timed output drivers. The feature set is reduced
@@ -133,17 +172,11 @@ compared to ffmemless plugin.
 
 TODO
 
-
 PulseAudio Droid Modules
 ------------------------
 
 TODO - more information about how PA works
 
-
-Qt5 QtFeedback Droid Vibrator Plugin
-------------------------------------
-
-TODO
 
 Qt5 Hardware Composer QPA
 -------------------------
