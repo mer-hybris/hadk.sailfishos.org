@@ -20,6 +20,14 @@ Ensure you have setup your name and e-mail address in your Git configuration:
   git config --global user.name "Your Name"
   git config --global user.email "you@example.com"
 
+Ensure Ubuntu chroot has cpio installed:
+
+.. code-block:: console
+
+  HABUILD_SDK $
+
+  sudo apt-get install cpio
+
 You also need to install the ``repo`` command from the AOSP source
 code repositories, see `Installing repo`_.
 
@@ -103,6 +111,7 @@ Add the following content to ``$ANDROID_ROOT/.repo/local_manifests/$DEVICE.xml``
   </manifest>
 
 Time to sync the whole source code, this might take a while:
+Do not use --fetch-submodules parameter on hybris-18.1 or newer Android bases.
 
 .. code-block:: console
 
@@ -139,11 +148,13 @@ in ``hybris/hybris-boot/fixup-mountpoints`` for each device, for all partitions
 -- in this way we are sure to cover them all, because if done manually by
 looking through fstab/rc files, some might get unnoticed.
 
-To get that mapping, you should flash and boot and image of your **Android base**
-and execute ``adb shell`` on your
-host and this: ``ls -l /dev/block/platform/*/by-name/`` on your device. In case
-that yielded no results try ``ls -l /dev/block/platform/*/*/by-name/`` in some
-cases you could also try ``ls -l /dev/block/bootdevice/by-name/``.
+To get that mapping, you should flash and boot an image of your **Android base**
+and execute ``adb shell`` on your host and something like this:
+``ls -l /dev/block/platform/*/by-name/`` on your device. To get the correct path
+you must find Android's fstab in device repository or in device itself and get
+by-name path like: ``block/bootdevice/by-name/userdata``,
+``ls -l /dev/block/platform/*/*/by-name/``or ``block/platform/*/by-name/userdata``
+from it.
 
 Once you've patched ``fixup-mountpoints``, take care if you ever have to run
 ``repo sync --fetch-submodules`` again because it will reset your changes,
@@ -164,6 +175,9 @@ as the Android build scripts are assuming you are running ``bash``).
 
 You'll probably need to iterate this a few times to spot missing repositories,
 tools, configuration files and others:
+
+Before building it is recommended to read extra Android base specific hints from
+https://github.com/mer-hybris/hadk-faq#android-base-specific-fixes
 
 .. code-block:: console
 
@@ -272,6 +286,9 @@ Common Pitfalls
 * If ``repo sync --fetch-submodules`` fails with a message like *fatal: duplicate path
   device/samsung/smdk4412-common in /home/nemo/android/.repo/manifest.xml*,
   remove the local manifest with ``rm .repo/local_manifests/roomservice.xml``
+* If ``repo sync --fetch-submodules`` fails with some other error message try
+  running ``repo sync`` to see if it helps. This is usually needed for hybris-18.1 or
+  newer Android bases.
 * If you notice ``git clone`` commands starting to write out *"Forbidden ..."* on
   github repos, you might have hit API rate limit. To solve this, put your github
   credentials into ``~/.netrc``. More info can be found following this link:

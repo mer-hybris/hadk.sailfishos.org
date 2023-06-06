@@ -116,87 +116,11 @@ Launch the Camera app. If if shows black screen and becomes non-responsive,
 enable the ``audiosystem-passthrough-dummy-af`` package in the patterns and
 rebuild droid-configs.
 
-When the app is working, it will initially be at its default (low) resolution
-settings and reduced feature set (e.g. no flash or focus mode selection).
-To improve those, install ``gstreamer1.0-droid-tools`` on device (RPM is available
-under ``$ANDROID_ROOT/droid-local-repo/$DEVICE/gst-droid/``) and launch:
-
-.. code-block:: console
-
-    DEVICE $
-
-    devel-su # Set your password in Settings | Developer mode
-    mk-cam-conf 0 /etc/gst-droid/gstdroidcamsrc-0.conf
-    mk-cam-conf 1 /etc/gst-droid/gstdroidcamsrc-1.conf
-
-This creates configs for each, front and back cameras. Transfer them over and
-place under ``$ANDROID_ROOT/hybris/droid-configs/sparse/etc/gst-droid`` for
-persistency (don't forget to git commit+push somewhere safe! :)
-
-Next you'll need to generate the resolutions file. Build the following repo:
-
-.. code-block:: console
-
-    PLATFORM_SDK $
-
-    cd $ANDROID_ROOT
-    rpm/dhd/helpers/build_packages.sh --mw=droid-camres
-
-Install the RPM from ``$ANDROID_ROOT/droid-local-repo/$DEVICE/droid-camres/``
-onto your device and execute:
-
-.. code-block:: console
-
-    DEVICE $
-
-    droid-camres -w
-
-    # It creates a failsafe jolla-camera-hw.txt, manual perfecting is encouraged
-
-    devel-su # Set your password in Settings | Developer mode
-    mv jolla-camera-hw.txt /etc/dconf/db/vendor.d/
-    dconf update
-
-Go to Settings | Apps | Camera and ensure valid ratio and megapixel entries
-appear in both cameras. Reloading Camera app should effectuate the changes.
-
-You can further fix/improve the contents of ``jolla-camera-hw.txt`` by looking
-more closely at the output of ``droid-camres``. Sometimes it chooses an aspect
-ratio which provides sub-optimal resolution, e.g. it prefers 4:3 for the front
-facing camera, yet sensor only supports 1280x960, however switching to 16:9
-would give a far superior 1920x1080 resolution.
-
-This command will list all available parameters for a specific camera from the
-underlying HAL, which will help with tweaking values such as ISO speed, focus
-and flash:
-
-.. code-block:: console
-
-    GST_DEBUG=6 mk-cam-conf 0 /dev/null 2>&1 | grep params_parse | sed -e 's/.*param\s//' | sort -u
-
 If you find some parameters (such as ISO speed or other 3A settings) are
-missing, then it's possible that your camera device is designed to use an older
-version of the Camera HAL than the default. You can try forcing a HAL v1
-connection by adding ``FORCE_HAL:=1`` to ``env.mk`` in droidmedia.
-
-You are encouraged to set all viewfinder resolutions to match that of your
-device's framebuffer. Do check for regressions via ``devel-su dconf update``
-and reloading Camera app as you go.
-
-Preserve ``/etc/dconf/db/vendor.d/jolla-camera-hw.txt`` under version control
-just like you did with ``gstdroidcamsrc-*.conf`` above.
-
-If your device supports flash torch during video recording change
-``flashValues=[2]`` under ``[apps/jolla-camera/primary/video]`` to
-``flashValues=[2, 32]``.
-
-Lastly, check other variants of ``/etc/dconf/db/vendor.d/jolla-camera-hw.txt``
-throughout the range of existing Sailfish OS devices, or consult our developers
-how to obtain e.g. more valid ISO values, focus distance, add other MegaPixel
-values etc.
-
-Ultimately you are the most welcome to improve the ``droid-camres`` tool itself
-by contributing upstream!
+missing from camera app, then it's possible that your camera device is
+designed to use an older version of the Camera HAL than the default. You
+can try forcing a HAL v1 connection by adding ``FORCE_HAL:=1`` to ``env.mk``
+in droidmedia.
 
 Cellular modem
 **************
@@ -225,7 +149,7 @@ lines starting with ``E/RIL...`` will point to a root cause!
 * Also install ``ofono-tests`` package and run ``/usr/lib/ofono/test/list-modems``
 
 * Try to recompile latest ofono master branch from
-  https://git.sailfishos.org/mer-core/ofono
+  https://github.com/sailfishos/ofono
 
 * If everything else fails, then stop and strace a failing daemon (either RIL or
   ofono) from command line manually
@@ -264,11 +188,11 @@ accesses directly the WLAN driver bypassing wpa_supplicant.
 
 The version of currently used wpa_supplicant can be checked from here:
 
- https://git.sailfishos.org/mer-core/wpa_supplicant
+ https://github.com/sailfishos/wpa_supplicant
 
 The version of used connman can be checked from here:
 
- https://git.sailfishos.org/mer-core/connman
+ https://github.com/sailfishos/connman
 
 Special quirks: WLAN hotspot
 ============================
@@ -277,7 +201,7 @@ On some android WLAN drivers, the whole connectivity stack needs to be reset
 after WLAN hotspot use. For that purpose there is reset service in dsme, please
 see details how to set that up for your adaptation project in here:
 
- https://git.sailfishos.org/mer-core/dsme/commit/c377c349079b470db38ba6394121b6d899004963
+ https://github.com/sailfishos/dsme/commit/c377c349079b470db38ba6394121b6d899004963
 
 NFC
 ***
@@ -306,7 +230,7 @@ Sensors
 *******
 
 Sailfish OS sensor support is based upon Sensor Framework at:
-https://git.sailfishos.org/mer-core/sensorfw
+https://github.com/sailfishos/sensorfw
 
 Hybris based systems can use the hybris sensor adaptor plugins, which uses
 existing android libhardware sensor adaptations to read sensor data and control.
@@ -319,14 +243,14 @@ You can also use any conf file by specifying it on the commandline.
 
 For hybris based platforms, this will be sensord-hybris.conf, and most likely will 
 not have to be modified. A copy of this file is already among default configs:
-https://git.sailfishos.org/mer-core/sensorfw/blob/master/config/sensord-hybris.conf
+https://github.com/sailfishos/sensorfw/blob/master/config/sensord-hybris.conf
 If you do make modifications to it, add the file under
 ``$ANDROID_ROOT/hybris/droid-configs/sparse/etc/sensorfw/primaryuse.conf``
 
 There are already a few device specific conf files to look at if the device needs
 more configuration.
 Example of mixed hybris and evdev configuration
-https://git.sailfishos.org/mer-core/sensorfw/blob/master/config/sensord-tbj.conf
+https://github.com/sailfishos/sensorfw/blob/master/config/sensord-tbj.conf
 
 Generally, if sensors are working on the android/hybris side, they will work in sensorfw
 and up to the Sailfish UI. libhybris comes with /usr/bin/test_sensors which can list
@@ -360,7 +284,7 @@ are working normally.
 The userspace API's for platform applications is exposed via nemo-keepalive
 package. See more details here:
 
- https://git.sailfishos.org/mer-core/nemo-keepalive
+ https://github.com/sailfishos/nemo-keepalive
 
 Watchdog
 ********

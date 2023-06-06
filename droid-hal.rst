@@ -64,15 +64,6 @@ appropriate and push to your GitHub home):
  # patterns/jolla-configuration-hammerhead.yaml
  # patterns/jolla-hw-adaptation-hammerhead.yaml
  cd hybris/droid-configs
- COMPOSITOR_CFGS=sparse/var/lib/environment/compositor
- mkdir -p $COMPOSITOR_CFGS
- cat <<EOF >$COMPOSITOR_CFGS/droid-hal-device.conf
- # Config for $VENDOR/$DEVICE
- EGL_PLATFORM=hwcomposer
- QT_QPA_PLATFORM=hwcomposer
- # Determine which node is your touchscreen by checking /dev/input/event*. WRITE ALL IN ONE LINE(:
- LIPSTICK_OPTIONS=-plugin evdevtouch:/dev/input/event0 -plugin evdevkeyboard:keymap=/usr/share/qt5/keymaps/droid.qmap
- EOF
  git add .
  git commit -m "[dcd] Patterns and compositor config"
  git push myname master
@@ -131,6 +122,10 @@ components later on.
 Building the droid-hal-device packages
 ``````````````````````````````````````
 
+Before building the packages it is recommended to read extra Android base
+specific hints from
+https://github.com/mer-hybris/hadk-faq#android-base-specific-fixes
+
 The next step has to be carried out in the Platform SDK chroot:
 
 .. code-block:: console
@@ -162,10 +157,6 @@ Troubleshoot errors from build_packages.sh
  /selinux_version\
  /service_contexts\
  %{nil}
-
-* Then add ``- droid-hal-hammerhead-detritus`` to ``droid-configs/patterns/
-  jolla-hw-adaptation-hammerhead.yaml`` (substitute as appropriate for your
-  device)
 
 * Lastly, re-run ``build_packages.sh --droid-hal``
 
