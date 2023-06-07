@@ -73,7 +73,7 @@ To determine if your device uses the LED/native interface check for
 `/sys/class/timed_output/vibrator/enable` or `/sys/class/leds/vibrator/activate`.
 The exact path for these might be a little different in some cases, e.g. instead of
 `vibrator` the path could contain `foobar`, `foobar` being the device name in this case.
-Check for down :ref:`below <Non-Graphic Feedback Daemon Native Vibrator Plugin>` for more.
+Check for down below :ref:`Non-Graphic Feedback Daemon Native Vibrator Plugin<non-graphic-feedback-daemon-native-vibrator-plugin>` for more.
 
 If these files are not present it is very likely that your device uses
 ffmemless to control haptics. To verify if your device uses ffmemless
@@ -142,6 +142,7 @@ read the default 50-ffmemless.ini.
 To check if the device uses ffmemless custom vibration patterns check
 if `evdev\_trace` contains a device that contains `FF_CUSTOM`.
 
+.. _non-graphic-feedback-daemon-native-vibrator-plugin:
 
 Non-Graphic Feedback Daemon Native Vibrator Plugin
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
