@@ -48,7 +48,7 @@ TODO:
 .. _hapticconfiguration:
 
 Non-Graphical Feedback Daemon (NGFD)
----------------------------
+------------------------------------
 
 The `Non-Graphical Feedback Daemon <https://github.com/sailfishos/ngfd>` provides combined audio, haptic, and LED
 feedback for system events and alarms. These events include such things as
