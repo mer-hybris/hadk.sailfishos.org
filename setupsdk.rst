@@ -14,9 +14,7 @@ its vendor/device pair), and port it using CyanogenMod 11.0 version as the
 rename where appropriate for your ported device/vendor/base.
 
 Now run the following commands on your host operating system fitting for your
-device and setup:
-
-.. code-block:: console
+device and setup::
 
   HOST $
 
@@ -50,9 +48,7 @@ Setup the Platform SDK
 Instructions are found on Sailfish OS docs ("Quick start" section is enough,
 do not install SDK Targets yet): https://docs.sailfishos.org/Tools/Platform_SDK/Installation/
 
-Afterwards, temporarily leave the PLATFORM_SDK to top up your ``~/.bashrc`` with necessary commands:
-
-.. code-block:: console
+Afterwards, temporarily leave the PLATFORM_SDK to top up your ``~/.bashrc`` with necessary commands::
 
   PLATFORM_SDK $
 
@@ -80,7 +76,7 @@ You'll need some tools which are not installed into the Platform SDK by default:
 * **kmod** is needed by mic's qemu to build the image
 * **createrepo_c** is needed when passing local repo to mic
 
-.. code-block:: console
+::
 
   PLATFORM_SDK $
 
@@ -89,9 +85,7 @@ You'll need some tools which are not installed into the Platform SDK by default:
 
 The minimum Platform SDK SFOS version is 4.3.0.15. Use
 ``sdk-assistant`` command to upgrade your build tools, or create from new
-(especially when updating from 2.x to 3.x). To check what release you are on:
-
-.. code-block:: console
+(especially when updating from 2.x to 3.x). To check what release you are on::
 
   PLATFORM_SDK $
 
@@ -111,9 +105,7 @@ In order to maintain build stability, we use a *Ubuntu GNU/Linux*
 ``chroot`` environment from within the Platform SDK to build our Android
 source tree. For Android device ports that require OpenJDK 1.8 or newer,
 the following commands download and unpack the rootfs to
-the appropriate location:
-
-.. code-block:: console
+the appropriate location::
 
   PLATFORM_SDK $
 
@@ -124,9 +116,7 @@ the appropriate location:
   sudo tar --numeric-owner -xjf $TARBALL -C $UBUNTU_CHROOT
 
 In case you find you're not able to gain ``sudo`` privileges inside the Ubuntu
-Chroot, execute the following inside the Platform SDK:
-
-.. code-block:: console
+Chroot, execute the following inside the Platform SDK::
 
   PLATFORM_SDK $
 
@@ -137,7 +127,7 @@ Chroot, execute the following inside the Platform SDK:
 Entering Ubuntu Chroot
 ``````````````````````
 
-.. code-block:: console
+::
 
   PLATFORM_SDK $
 
@@ -160,9 +150,7 @@ Our ubu-chroot environment is based on 20.04 LTS which provides OpenJDK 1.8 or
 newer.
 
 If your Android base build requires an older Java Development Kit, please
-install the legacy ubu-chroot instead:
-
-.. code-block:: console
+install the legacy ubu-chroot instead::
 
   PLATFORM_SDK $
 

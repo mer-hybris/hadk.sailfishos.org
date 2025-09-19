@@ -12,18 +12,22 @@ This consists of:
 
 * **Sailfish Core**: the GNU/Linux userspace core
 * **Android Hardware Adaptation** (HA/HAL), consisting of:
- - Device-specific **Android Kernel**
- * **Android base** which can be:
-  - LineageOS - https://wiki.lineageos.org
-  * AOSP - Android Open Source Project - https://source.android.com
-  * CAF - Code Aurora Forum - https://www.codeaurora.org
-  * Sony Open Devices program - https://developer.sony.com/develop/open-devices
-  * Vendor-specific Android base
- * **Binary device drivers** taken from an **Android base**
- * Hybris patches to the **Android base**
- * The **libhybris interface** built against the binary drivers
- * **Middleware packages** depending on hardware-specific plugins
- * A Qt/Wayland **QPA plugin** utilizing the Android ``hwcomposer``
+
+  * Device-specific **Android Kernel**
+  * **Android base** which can be
+
+    * LineageOS - https://wiki.lineageos.org
+    * AOSP - Android Open Source Project - https://source.android.com
+    * CAF - Code Aurora Forum - https://www.codeaurora.org
+    * Sony Open Devices program - https://developer.sony.com/develop/open-devices
+    * Vendor-specific Android base
+
+  * **Binary device drivers** taken from an **Android base**
+  * Hybris patches to the **Android base**
+  * The **libhybris interface** built against the binary drivers
+  * **Middleware packages** depending on hardware-specific plugins
+  * A Qt/Wayland **QPA plugin** utilizing the Android ``hwcomposer``
+
 * **Sailfish OS** components
 
 
@@ -87,16 +91,18 @@ There are a number of components to build; the lower level and Android related
 components are built in the HA build SDK; the rest are built in the Platform SDK.
 
 * In the **HA build SDK**
- - a kernel
- * a hacking friendly initrd which supports various boot options
- * ``hybris-boot.img`` and ``hybris-recovery.img`` (for booting and debugging)
- * a minimal Android ``/system/`` tree
- * modified Android parts for compatibility with libhybris and Sailfish OS
-   (e.g. Bionic libc, ``logcat``, ``init``, ...)
+
+  * a kernel
+  * a hacking friendly initrd which supports various boot options
+  * ``hybris-boot.img`` and ``hybris-recovery.img`` (for booting and debugging)
+  * a minimal Android ``/system/`` tree
+  * modified Android parts for compatibility with libhybris and Sailfish OS
+    (e.g. Bionic libc, ``logcat``, ``init``, ...)
 
 * In the **Platform SDK**
- - RPM packages containing all the built binaries and extracted configs
- * Hardware-specific middleware and plugins (e.g. Qt QPA plugins, PulseAudio)
+
+  * RPM packages containing all the built binaries and extracted configs
+  * Hardware-specific middleware and plugins (e.g. Qt QPA plugins, PulseAudio)
 
 For distribution, RPM packages are uploaded to a HA-specific repository. With
 this repository, full system images using the ``mic`` utility. The ``mic``
