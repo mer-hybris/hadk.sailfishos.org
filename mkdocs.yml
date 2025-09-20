@@ -1,0 +1,23 @@
+site_name: Sailfish OS Hardware Adaptation Development Kit
+nav:
+  - overview.md
+  - prerequisites.md
+  - preparing.md
+  - setupsdk.md
+  - android.md
+  - build-env.md
+  - droid-hal.md
+  - mic.md
+  - getting-in.md
+  - flashing.md
+  - manual-install.md
+  - ota-updates.md
+  - modifications.md
+  - subsystems.md
+  - middleware.md
+  - repos.md
+  - naming.md
+  - ha-checklist.md
+
+theme:
+  name: material
