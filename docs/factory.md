@@ -38,7 +38,7 @@ Android build, the file snippet below explains how to extract it.
 Create directory `$ANDROID_ROOT/hybris/droid-system/` and create file
 `copy_system.sh` with the following content:
 
-``` bash
+```sh
 #
 # Use this script everytime you receive an updated /system from your ODM.
 #
@@ -138,15 +138,10 @@ And
 `$ANDROID_ROOT/hybris/droid-system/droid-system-device/droid-system.inc`
 with:
 
-::: important
-::: title
-Important
-:::
-
-We shall provide access to Git repo containing this file in due time,
-then you\'ll be able to use it as submodule for maximum code re-use,
-minimising fragmentation.
-:::
+!!!important
+    We shall provide access to Git repo containing this file in due time,
+    then you'll be able to use it as submodule for maximum code re-use,
+    minimising fragmentation.
 
 ``` spec
 %define __find_provides %{nil}
@@ -220,11 +215,11 @@ delete_files tmp/droid-system.files delete_file.list 1
 
 Thereafter, build the package:
 
-> PLATFORM_SDK \$
->
-> cd \$ANDROID_ROOT
->
-> rpm/dhd/helpers/build_packages.sh \--build=hybris/droid-system
+```sh title="PLATFORM SDK"
+
+cd $ANDROID_ROOT
+rpm/dhd/helpers/build_packages.sh --build=hybris/droid-system
+```
 
 And effectively enable our home-grown /system in `$ANDROID_ROOT/rpm`:
 
@@ -237,7 +232,7 @@ diff --git a/droid-hal-$DEVICE.spec b/droid-hal-$DEVICE.spec
 ```
 
 Rebuild dhd via `rpm/dhd/helpers/build_packages.sh --droid-hal` and then
-the whole image (refer to `mic`{.interpreted-text role="doc"}).
+the whole image (refer to [mic](mic.md#building-the-image-with-mic)).
 
 ## Convert `userdata` into the Sailfish OS LVM partition
 
@@ -245,7 +240,7 @@ We want to split `$HOME` and `/` into separate volumes, so we could e.g.
 `/`, or encrypt `$HOME`. For this we\'ll use the whole `userdata` as an
 LVM partition, with fixed size `/` and let `$HOME` take up the rest.
 
-### Package an LVM-enabled bootloader {#package-img-boot}
+### Package an LVM-enabled bootloader
 
 In directory `$ANDROID_ROOT/rpm` apply the following:
 
@@ -285,8 +280,7 @@ with content:
 Initiate git repository with our publicly available `hybris-initrd` as
 submodule; then build dependencies and the new img-boot:
 
-``` console
-PLATFORM_SDK $
+```sh title="PLATFORM SDK"
 
 cd $ANDROID_ROOT/hybris/droid-hal-img-boot
 git init
@@ -311,9 +305,7 @@ sudo fastboot boot ./boot/hybris-recovery.img
 Within `$ANDROID_ROOT/hybris/droid-configs` create the following paths
 and files:
 
-`kickstart/pack/$DEVICE/hybris`
-
-``` bash
+```sh title="kickstart/pack/$DEVICE/hybris"
 pushd $IMG_OUT_DIR
 
 MD5SUMFILE=md5.lst
@@ -410,33 +402,28 @@ rm -r ${RELEASENAME}
 popd
 ```
 
-`kickstart/part/$DEVICE`
-
-``` bash
+```sh title="kickstart/part/$DEVICE"
 part / --fstype="ext4" --size=1800 --label=root
 part /home --fstype="ext4" --size=800 --label=home
 ```
 
-`kickstart/attachment/$DEVICE`
 
-``` bash
+``` title="kickstart/attachment/$DEVICE"
 /boot/hybris-boot.img
 /boot/hybris-recovery.img
 droid-config-hammerhead-out-of-image-files
 /etc/hw-release
 ```
 
-`out-of-image-files.files`
 
-``` bash
+``` title="out-of-image-files.files"
 /boot/flash.sh
 /boot/extracting-README.txt
 /boot/flashing-README.txt
 ```
 
-`sparse/boot/flash.sh`
 
-``` bash
+```sh title="sparse/boot/flash.sh"
 #!/bin/bash
 
 # Contact: Marko Saukko <marko.saukko@jollamobile.com>
@@ -608,9 +595,8 @@ done
 echo "Flashing completed. Choose "Start" with Volume buttons then press Power."
 ```
 
-`sparse/boot/flashing-README.txt`
 
-``` text
+```text title="sparse/boot/flashing-README.txt"
 = FLASHING =
 
 Before starting flashing on any host turn off the device. After this follow the
@@ -653,9 +639,8 @@ If you want to compile fastboot binary for your distro you can compile version
 https://github.com/mer-qa/qa-droid-tools
 ```
 
-`sparse/boot/extracting-README.txt`
 
-``` text
+```text title="sparse/boot/extracting-README.txt"
 Step1: Download the image
 
 The image name is usually in following format SailfishOS-FLAVOUR-VERSION-DEVICE.tar.bz2
@@ -675,7 +660,7 @@ Step3: Read the flashing-README.txt from the extracted directory for further ins
 Add recovery to patterns and provide flashing script and instructions
 out of the image:
 
-``` diff
+```diff
 diff --git a/patterns/jolla-hw-adaptation-$DEVICE.yaml b/patterns/jolla-hw-adaptation-$DEVICE.yaml
  - droid-hal-tk7001-img-boot
 +- droid-hal-tk7001-img-recovery
@@ -686,16 +671,15 @@ diff --git a/rpm/droid-config-$DEVICE.spec v/rpm/droid-config-$DEVICE.spec
  %include droid-configs-device/droid-configs.inc
 ```
 
-### Flashing LVM-enabled image {#flashing-lvm}
+### Flashing LVM-enabled image
 
 Rebuild configs via `rpm/dhd/helpers/build_packages.sh --droid-configs`,
 add LVM tools to PLATFORM_SDK `sudo zypper in lvm2 atruncate`, and
-lastly rebuild the whole image (refer to `mic`{.interpreted-text
-role="doc"}), but use `loop` instead of `fs` within `mic create` as well
-as drop the `--pack-to` parameter.
+lastly rebuild the whole image (refer to [Creating the Sailfish OS Root Filesystem](mic.md)),
+but use `loop` instead of `fs` within `mic create` as well as drop the `--pack-to` parameter.
 
 You may also want to change `EXTRA_NAME` to preserve the non-LVM
-version, yet to ever go back to that you\'d need to format userdata
+version, yet to ever go back to that you'd need to format userdata
 partition as `ext3` or `ext4`.
 
 `mic` will produce a tarball and place extracting-README.txt next to it,
@@ -703,10 +687,9 @@ simply follow instructions how to flash to your device.
 
 ## Enable Sailfish OS recovery mode
 
-Our recovery mode is already provided by the
-`droid-hal-$DEVICE-img-boot` (see section
-`package-img-boot`{.interpreted-text role="ref"}), and flashed to device
-together with the LVM image.
+Our recovery mode is already provided by the `droid-hal-$DEVICE-img-boot`
+(see section [Package an LVM-enabled bootloader](#package-an-lvm-enabled-bootloader)),
+and flashed to device together with the LVM image.
 
 To enter recovery on Nexus 5, press Volume Down and Power buttons
 simultaneously, this enter fastboot mode (bootloader). Using Volume
@@ -716,7 +699,7 @@ Follow instructions on screen to `telnet` and perform desired actions.
 
 ## Enable factory reset support
 
-Whilst packaging up LVM images, we\'ll also place `root.img` and
+Whilst packaging up LVM images, we'll also place `root.img` and
 `home.img` to `system` partition, since we are packaging `/system`
 ourselves.
 
@@ -770,8 +753,8 @@ diff --git a/sparse/boot/flash.sh b/sparse/boot/flash.sh
 +
 ```
 
-Repeat the flashing process as outlined in
-`flashing-lvm`{.interpreted-text role="ref"}, boot the device, go to
+Repeat the flashing process as outlined in 
+[flashing instructions](#flashing-lvm-enabled-image), boot the device, go to
 `Settings | Reset device`, and perform reset.
 
 Device will reboot into recovery and you will see the spinner image with

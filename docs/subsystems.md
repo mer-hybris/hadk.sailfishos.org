@@ -25,13 +25,13 @@ In order to utilize the standard input framework force feedback features
 of Sailfish OS, the android timed output vibrator kernel driver needs to
 be converted to a ffmemless driver. The main tasks for this are:
 
--   Enable CONFIG_INPUT_FF_MEMLESS kernel config option
--   Disable CONFIG_ANDROID_TIMED_OUTPUT kernel config option
--   Change maximum amount of ffmemless effects to **64** by patching
-    ff-memless.c:
-    -   <http://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git/tree/drivers/input/ff-memless.c#n41>
+- Enable CONFIG_INPUT_FF_MEMLESS kernel config option
+- Disable CONFIG_ANDROID_TIMED_OUTPUT kernel config option
+- Change maximum amount of ffmemless effects to **64** by patching
+  ff-memless.c:
+    - <http://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git/tree/drivers/input/ff-memless.c#n41>
 
-``` diff
+```diff
 diff --git a/drivers/input/ff-memless.c b/drivers/input/ff-memless.c
 index 117a59a..fa53611 100644
 --- a/drivers/input/ff-memless.c
@@ -47,10 +47,10 @@ index 117a59a..fa53611 100644
  #define FF_ENVELOPE_INTERVAL   50
 ```
 
--   Optionally you can decrease ff-memless control interval so that fade
-    and attack envelopes can be used in short haptic effects as well:
+- Optionally you can decrease ff-memless control interval so that fade
+  and attack envelopes can be used in short haptic effects as well:
 
-``` diff
+```diff
 diff --git a/drivers/input/ff-memless.c b/drivers/input/ff-memless.c
 index 89d3a3d..33eee2e 100644
 --- a/drivers/input/ff-memless.c
@@ -66,30 +66,28 @@ index 89d3a3d..33eee2e 100644
  #define FF_EFFECT_STARTED      0
 ```
 
--   If your platform happens to already support a ffmemless based vibra
-    driver, just enable it and fix any issues that you see. Otherwise go
-    through the rest of the points below.
--   Convert the android timed output vibra driver to support to
-    ffmemless
-    -   add \"#include \<linux/input.h\>\"
-    -   Create a ffmemless play function.
-    -   Examples of ffmemless play functions / ffmemless drivers:
-        -   <http://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git/tree/drivers/input/misc/arizona-haptics.c#n110>
-        -   <http://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git/tree/drivers/input/misc/max8997_haptic.c#n231>
-        -   <http://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git/tree/drivers/input/misc/pm8xxx-vibrator.c#n130>
-    -   At probe, create a ffmemless device with
-        **input_ff_create_memless**
-        -   <http://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git/tree/include/linux/input.h#n531>
-    -   And register the resulting device with input_device_register.
-    -   Remember to clean up the input device structure at driver exit
-    -   The example ffmemless drivers above can be used for reference
+- If your platform happens to already support a ffmemless based vibra
+  driver, just enable it and fix any issues that you see. Otherwise go
+  through the rest of the points below.
+- Convert the android timed output vibra driver to support to
+  ffmemless
+    - add `#include <linux/input.h>`
+    - Create a ffmemless play function.
+    - Examples of ffmemless play functions / ffmemless drivers:
+        - <http://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git/tree/drivers/input/misc/arizona-haptics.c#n110>
+        - <http://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git/tree/drivers/input/misc/max8997_haptic.c#n231>
+        - <http://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git/tree/drivers/input/misc/pm8xxx-vibrator.c#n130>
+    - At probe, create a ffmemless device with **input_ff_create_memless**
+        - <http://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git/tree/include/linux/input.h#n531>
+    - And register the resulting device with input_device_register.
+    - Remember to clean up the input device structure at driver exit
+    - The example ffmemless drivers above can be used for reference
 
 The userspace configuration haptic feedback and effects is handled with
 ngfd configuration files, see more details in
+[Middleware / NGFD](middleware.md#non-graphical-feedback-daemon-ngfd)
 
--   `hapticconfiguration`{.interpreted-text role="ref"}
-
-## GStreamer v1.0 {#gst-droid}
+## GStreamer v1.0
 
 Sailfish OS 2.0 introduces GStreamer v1.0 with hardware-accelerated
 video and audio encoding and decoding in Camera, Gallery and Browser,
@@ -98,63 +96,63 @@ and deprecates GStreamer v0.10.
 The GStreamer-droid bridge is part of the integral build process. If you
 need to modify its source code, then rebuild it via:
 
-    PLATFORM_SDK $
+```sh title="PLATFORM SDK"
 
-    cd $ANDROID_ROOT
-    rpm/dhd/helpers/build_packages.sh --gg
+cd $ANDROID_ROOT
+rpm/dhd/helpers/build_packages.sh --gg
+```
 
-## Camera {#camera-adaptation}
+## Camera
 
 Launch the Camera app. If if shows black screen and becomes
 non-responsive, enable the `audiosystem-passthrough-dummy-af` package in
 the patterns and rebuild droid-configs.
 
 If you find some parameters (such as ISO speed or other 3A settings) are
-missing from camera app, then it\'s possible that your camera device is
+missing from camera app, then it's possible that your camera device is
 designed to use an older version of the Camera HAL than the default. You
 can try forcing a HAL v1 connection by adding `FORCE_HAL:=1` to `env.mk`
 in droidmedia.
 
 ## Cellular modem
 
--   Ensure Android\'s RIL running `ps ax | grep rild` (expect one or two
-    `/system/bin/rild`)
+- Ensure Android's RIL running `ps ax | grep rild` (expect one or two
+  `/system/bin/rild`)
 
--   If RIL is not running, check why it is not launched from /init\*.rc
-    scripts
+- If RIL is not running, check why it is not launched from `/init*.rc`
+  scripts
 
--   If it\'s launched, check where it fails with
-    `/usr/libexec/droid-hybris/system/bin/logcat -b radio`
+- If it's launched, check where it fails with
+  `/usr/libexec/droid-hybris/system/bin/logcat -b radio`
 
--   Errors in RIL might look like this:
+- Errors in RIL might look like this:
+  ```
+  RIL[0][main] qcril_qmi_modem_power_process_bootup: ESOC node is not available
+  ```
+  After online search this suggests firmware loading issues on
+  Motorola Moto G. Compare with a healthy radio logcat after booting
+  back into CM, not all lines starting with `E/RIL...` will point to a
+  root cause!
 
-        RIL[0][main] qcril_qmi_modem_power_process_bootup: ESOC node is not available
+- If it's firmware loading problem, trace all needed daemons in CM
+  and their loading order as well as all mounted firmware, modem, and
+  baseband partitions.
 
-    After online search this suggests firmware loading issues on
-    Motorola Moto G. Compare with a healthy radio logcat after booting
-    back into CM, not all lines starting with `E/RIL...` will point to a
-    root cause!
+- Once RIL is happy, then ofono can be launched. Unmask it if it was
+  previously masked due to causing reboots in
+  [bootloops](getting-in.md#bootloops).
 
--   If it\'s firmware loading problem, trace all needed daemons in CM
-    and their loading order as well as all mounted firmware, modem, and
-    baseband partitions.
+- If you still get no signal indicator in UI, remove SIM PIN and retry
 
--   Once RIL is happy, then ofono can be launched. Unmask it if it was
-    previously masked due to causing reboots in
-    `bootloops`{.interpreted-text role="ref"}.
+- Also install `ofono-tests` package and run `/usr/lib/ofono/test/list-modems`
 
--   If you still get no signal indicator in UI, remove SIM PIN and retry
+- Try to recompile latest ofono master branch from
+  <https://github.com/sailfishos/ofono>
 
--   Also install `ofono-tests` package and run
-    `/usr/lib/ofono/test/list-modems`
+- If everything else fails, then stop and strace a failing daemon
+  (either RIL or ofono) from command line manually
 
--   Try to recompile latest ofono master branch from
-    <https://github.com/sailfishos/ofono>
-
--   If everything else fails, then stop and strace a failing daemon
-    (either RIL or ofono) from command line manually
-
-### Phone calls don\'t work (but SMS and mobile data works)
+### Phone calls don't work (but SMS and mobile data works)
 
 If the calling parties cannot hear one another, then the
 `audiosystem-passthrough-dummy-af` middleware package is required, which
@@ -164,9 +162,9 @@ should be enabled in the patterns.
 
 For bluetooth Sailfish OS uses BlueZ stack from linux.
 
-TODO: bluetooth adaptation guide.
-
-TODO: add detail about audio routing.
+!!!todo
+    - bluetooth adaptation guide.
+    - add detail about audio routing.
 
 ## WLAN
 
@@ -183,11 +181,11 @@ Sailfish) accesses directly the WLAN driver bypassing wpa_supplicant.
 
 The version of currently used wpa_supplicant can be checked from here:
 
-> <https://github.com/sailfishos/wpa_supplicant>
+- <https://github.com/sailfishos/wpa_supplicant>
 
 The version of used connman can be checked from here:
 
-> <https://github.com/sailfishos/connman>
+- <https://github.com/sailfishos/connman>
 
 ### Special quirks: WLAN hotspot
 
@@ -196,7 +194,7 @@ reset after WLAN hotspot use. For that purpose there is reset service in
 dsme, please see details how to set that up for your adaptation project
 in here:
 
-> <https://github.com/sailfishos/dsme/commit/c377c349079b470db38ba6394121b6d899004963>
+- <https://github.com/sailfishos/dsme/commit/c377c349079b470db38ba6394121b6d899004963>
 
 ## NFC
 
@@ -215,8 +213,8 @@ The necessary middleware is already built for you, just add
 For audio, Sailfish OS uses PulseAudio as the main mixer. For audio
 routing ohmd is used.
 
-TODO: Add info about audio routing configuration TODO: Add more info in
-general.
+!!!todo
+    Add info about audio routing configuration TODO: Add more info in general.
 
 ## Sensors
 
@@ -230,12 +228,12 @@ and control.
 It can also be configured for standard linux sysfs and evdev sensor
 interfaces.
 
-It should be configured at /etc/sensorfw/primaryuse.conf, which links to
+It should be configured at `/etc/sensorfw/primaryuse.conf`, which links to
 a device specific conf file. Historically named
-sensord-\<BOARDNAME\>.conf. You can also use any conf file by specifying
+`sensord-<BOARDNAME>.conf`. You can also use any conf file by specifying
 it on the commandline.
 
-For hybris based platforms, this will be sensord-hybris.conf, and most
+For hybris based platforms, this will be `sensord-hybris.conf`, and most
 likely will not have to be modified. A copy of this file is already
 among default configs:
 <https://github.com/sailfishos/sensorfw/blob/master/config/sensord-hybris.conf>
@@ -260,12 +258,10 @@ For Sailfish Core based systems, the QtSensors source code is at:
 <https://github.com/mer-qt/qtsensors>
 
 Debugging output of sensorfwd can be increased one level during runtime
-by sending (as root) USR1 signal like so: kill -USR1 [pgrep
-sensorfwd]{.title-ref} or specified on the commandline for startup
-debugging.
+by sending (as root) USR1 signal like so: `pkill -USR1 sensorfwd` or specified
+on the commandline for startup debugging.
 
-Sending kill -USR2 [pgrep sensorfwd]{.title-ref} will output a current
-status report.
+Sending `pkill -USR2 sensorfwd` will output a current status report.
 
 ## Power management
 
@@ -274,15 +270,15 @@ is no need to change anything in the kernel side (assuming it works fine
 with android) for the power management to work, as long as all the
 device drivers are working normally.
 
-The userspace API\'s for platform applications is exposed via
+The userspace API's for platform applications is exposed via
 nemo-keepalive package. See more details here:
 
-> <https://github.com/sailfishos/nemo-keepalive>
+- <https://github.com/sailfishos/nemo-keepalive>
 
 ## Watchdog
 
-A standard linux kernel [watchdog core
-driver](http://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git/tree/Documentation/watchdog/watchdog-kernel-api.txt)
+A standard linux kernel [watchdog core driver](
+http://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git/tree/Documentation/watchdog/watchdog-kernel-api.txt)
 support is expected. The device node should be in /dev/watchdog. It
 should be configured with following kernel options:
 
@@ -290,11 +286,13 @@ should be configured with following kernel options:
     CONFIG_WATCHDOG_CORE=y
     CONFIG_WATCHDOG_NOWAYOUT=y
 
--   **NOTE 1**: Please note that watchdog driver should disable itself
-    during suspend.
--   **NOTE 2**: Normally the watchdog period is programmed
-    automatically, but if your driver does not support programming the
-    period, the default kicking period is 20 seconds.
+!!!note
+    Please note that watchdog driver should disable itself during suspend.
+
+!!!note
+    Normally the watchdog period is programmed automatically, but if your
+    driver does not support programming the period, the default kicking period
+    is 20 seconds.
 
 ## Touch
 
@@ -305,24 +303,22 @@ To do this the best way is to set up a udev rule that checks the devices
 with evcap script and creates the link once first valid one is found.
 See more details for evcap here:
 
-> <https://github.com/mer-hybris/evcap>
+- <https://github.com/mer-hybris/evcap>
 
-The udev rule can be put to file
-
-> /lib/udev/rules.d/61-touchscreen.rules
+The udev rule can be put to file `/lib/udev/rules.d/61-touchscreen.rules`
 
 The reason this is not done by default is that typically driver authors
 mark bit varying capabilities as supported and there could be multiple
 touch controllers on a device, so the final rule is best to be written
 in a device specific configs package.
 
-NOTE: if you still have problems with touch, please check that lipstick
-environment has correct touch device parameter:
-
-> cat /var/lib/environment/compositor/droid-hal-device.conf
-
--   **LIPSTICK_OPTIONS** should have **\"-plugin
-    evdevtouch:/dev/touchscreen\"**
+!!!note
+    if you still have problems with touch, please check that lipstick
+    environment has correct touch device parameter:
+    ```
+    cat /var/lib/environment/compositor/droid-hal-device.conf
+    ```
+    **LIPSTICK_OPTIONS** should have **"-plugin evdevtouch:/dev/touchscreen"**
 
 ### Special feature: double tap to wake up
 
@@ -337,4 +333,4 @@ users skin, some sysfs should be exported to allow disabling the touch
 screen. The feature requires that the device has a working proximity
 sensor that can wake up the system when it is suspended (to be able to
 update touch screen state according to need). To configure MCE that
-handles this see `mceconfiguration`{.interpreted-text role="ref"}
+handles this see [MCE configuration](middleware.md#mce-configuration)

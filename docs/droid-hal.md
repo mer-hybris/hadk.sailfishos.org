@@ -1,7 +1,7 @@
 # Packaging Droid HAL
 
 In this chapter, we will package the build results of
-`android`{.interpreted-text role="doc"} as RPM packages and create a
+[building the Android HAL](android.md) as RPM packages and create a
 local RPM repository. From there, the RPM packages can be added to a
 local target and used to build libhybris and the QPA plugin. They can
 also be used to build the rootfs.
@@ -13,8 +13,7 @@ If the folders
 exist yet, create them as follows (example is for Nexus 5, adjust as
 appropriate and push to your GitHub home):
 
-``` console
-PLATFORM_SDK $
+```sh title="PLATFORM SDK"
 
 cd $ANDROID_ROOT
 mkdir rpm
@@ -89,10 +88,11 @@ git push myname master
 ```
 
 Now to complete you local manifest, this is how it would be done for
-Nexus 5. Do it for your device by renaming accordingly:
+Nexus 5. Do it for your device by renaming accordingly.
 
-``` console
-# add the next 3 entries into .repo/local_manifests/hammerhead.xml
+Add the next 3 entries into `.repo/local_manifests/hammerhead.xml`
+
+```xml
 
 <project path="rpm/"
          name="myname/droid-hal-hammerhead" revision="master" />
@@ -115,7 +115,7 @@ the hardware adaptation. It also builds a development package (ends with
 -devel) that contains libraries and headers, which are used when
 building middleware components later on.
 
-### Building the droid-hal-device packages {#build-rpms}
+### Building the droid-hal-device packages
 
 Before building the packages it is recommended to read extra Android
 base specific hints from
@@ -123,8 +123,7 @@ base specific hints from
 
 The next step has to be carried out in the Platform SDK chroot:
 
-``` console
-PLATFORM_SDK $
+```sh title="PLATFORM SDK"
 
 cd $ANDROID_ROOT
 
@@ -141,18 +140,17 @@ appropriate part.
 
 ### Troubleshoot errors from build_packages.sh
 
--   **Installed (but unpackaged) file(s) found**: Add those files to
-    straggler section in your rpm/droid-hal-\$DEVICE.spec before the
-    `%include ...` line, for example:
+- **Installed (but unpackaged) file(s) found**: Add those files to
+  straggler section in your `rpm/droid-hal-$DEVICE.spec` before the
+  `%include ...` line, for example:
+  ```
+  %define straggler_files \
+  /init.mmi.boot.sh\
+  /init.mmi.touch.sh\
+  /init.qcom.ssr.sh\
+  /selinux_version\
+  /service_contexts\
+  %{nil}
+  ```
 
-``` console
-%define straggler_files \
-/init.mmi.boot.sh\
-/init.mmi.touch.sh\
-/init.qcom.ssr.sh\
-/selinux_version\
-/service_contexts\
-%{nil}
-```
-
--   Lastly, re-run `build_packages.sh --droid-hal`
+- Lastly, re-run `build_packages.sh --droid-hal`

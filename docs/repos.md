@@ -1,6 +1,6 @@
 # List of Repositories
 
-**droid-hal-\$DEVICE**
+**droid-hal-$DEVICE**
 
 :   Contains RPM packaging and conversion scripts for converting the
     results of the Android HAL build process to RPM packages and systemd

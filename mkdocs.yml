@@ -24,6 +24,12 @@ copyright: Copyright &copy; 2025 Jolla Mobile Ltd
 markdown_extensions:
   - toc:
       permalink: '#'
+  - admonition
+  - def_list
+  - footnotes
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.snippets
 
 theme:
   name: material

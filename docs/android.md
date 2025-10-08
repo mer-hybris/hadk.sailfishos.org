@@ -1,17 +1,16 @@
 # Building the Android HAL
 
-## Checking out Source of the Android base {#checkout-cm-source}
+## Checking out Source of the Android base
 
 Our build process is based around the Android source tree, but where
-needed we\'ve modified some projects, in order to apply patches required
+needed we've modified some projects, in order to apply patches required
 to make libhybris function correctly, and to minimise the built-in
 actions and services in the `init.*.rc` files.
 
 Ensure you have setup your name and e-mail address in your Git
 configuration:
 
-``` console
-HABUILD_SDK $
+```sh title="HABUILD SDK"
 
 git config --global user.name "Your Name"
 git config --global user.email "you@example.com"
@@ -19,27 +18,20 @@ git config --global user.email "you@example.com"
 
 Ensure Ubuntu chroot has cpio installed:
 
-``` console
-HABUILD_SDK $
+```sh title="HABUILD SDK"
 
 sudo apt-get install cpio
 ```
 
 You also need to install the `repo` command from the AOSP source code
-repositories, see [Installing
-repo](https://source.android.com/setup/develop#installing-repo).
+repositories, see
+[Installing repo](https://source.android.com/setup/develop#installing-repo).
 
-::: note
-::: title
-Note
-:::
+!!! note
+    [If your port requires openjdk 17 or older](setupsdk.md#if-your-port-requires-openjdk-17-or-older), use the
+    [older repo tool for legacy Python 2 systems](https://source.android.com/setup/develop#old-repo-python2).
 
-`older-ubu-chroot`{.interpreted-text role="ref"}, use the [older repo
-tool for legacy Python 2
-systems](https://source.android.com/setup/develop#old-repo-python2).
-:::
-
-After you\'ve installed the `repo` command, a set of commands below will
+After you have installed the `repo` command, a set of commands below will
 download the required projects for building the modified parts of the
 **Android base** used in Sailfish OS hardware adaptations.
 
@@ -52,7 +44,7 @@ Alternatively, you can patch an **Android base** of your choosing (e.g.
 be it CAF or AOSP or another).
 
 The result of your Sailfish OS port will be an installable ZIP file.
-Before deploying it onto your device, you\'ll have to flash a
+Before deploying it onto your device, you'll have to flash a
 corresponding version of the **Android base**, so Sailfish OS can re-use
 its Android HAL shared objects.
 
@@ -64,8 +56,7 @@ Sailfish OS.
 This porting guide is using Nexus 5 and CyanogenMod 11.0 version as
 example:
 
-``` console
-HABUILD_SDK $
+```sh title="HABUILD SDK"
 
 sudo mkdir -p $ANDROID_ROOT
 sudo chown -R $USER $ANDROID_ROOT
@@ -81,18 +72,17 @@ well as for the mer-hybris builds.
 If your device has already been ported, its codes properly placed on
 GitHub, you should check this repository:
 <https://github.com/mer-hybris/local_manifests> (choose the branch of
-hybris-\* that your are porting to), and use \$DEVICE.xml file instead
+hybris-* that your are porting to), and use $DEVICE.xml file instead
 of creating a new one in this chapter.
 
 Create directory at first:
 
-``` console
-HABUILD_SDK $
+```sh title="HABUILD SDK"
 
 mkdir $ANDROID_ROOT/.repo/local_manifests
 ```
 
-If your are working on a new port, you\'ll have to create the local
+If your are working on a new port, you'll have to create the local
 manifest yourself, which contains at least two repos: one for the
 kernel, another for the device configuration. Find those in the
 LineageOS device wiki, for Nexus 5 it would be
@@ -104,7 +94,8 @@ in Nexus 5 case).
 Add the following content to
 `$ANDROID_ROOT/.repo/local_manifests/$DEVICE.xml`:
 
-``` console
+```xml
+
 <?xml version="1.0" encoding="UTF-8"?>
 <manifest>
   <project path="device/lge/hammerhead"
@@ -117,10 +108,9 @@ Add the following content to
 ```
 
 Time to sync the whole source code, this might take a while: Do not use
-\--fetch-submodules parameter on hybris-18.1 or newer Android bases.
+`--fetch-submodules` parameter on hybris-18.1 or newer Android bases.
 
-``` console
-HABUILD_SDK $
+```sh title="HABUILD SDK"
 
 repo sync --fetch-submodules
 ```
@@ -140,10 +130,10 @@ In `initrd` we then have to specify hardcoded `/dev/mmcblkXpY` nodes for
 `/boot` and `/data` partitions.
 
 After `initrd`, `systemd` needs to mount all other required partitions
-(such as `/system`, `/firmware`, `/persist`, `/config`, \...) for the
+(such as `/system`, `/firmware`, `/persist`, `/config`, ...) for the
 HAL layer to work. The required partitions are read from `*.fstab` and
 `init*.rc` files, disabled there, and respective `.mount` units created
-\-- all done by `$ANDROID_ROOT/rpm (droid-hal-device)`.
+-- all done by `$ANDROID_ROOT/rpm (droid-hal-device)`.
 
 Unfortunately, `systemd` cannot recognise named partition paths in
 `.mount` units, because of the same late start of `udev`, even though
@@ -152,42 +142,41 @@ or `/dev/block/platform/*/*/by-name`.
 
 To work around this, we need to create a map between partition names and
 numbers in `hybris/hybris-boot/fixup-mountpoints` for each device, for
-all partitions \-- in this way we are sure to cover them all, because if
+all partitions -- in this way we are sure to cover them all, because if
 done manually by looking through fstab/rc files, some might get
 unnoticed.
 
 To get that mapping, you should flash and boot an image of your
 **Android base** and execute `adb shell` on your host and something like
 this: `ls -l /dev/block/platform/*/by-name/` on your device. To get the
-correct path you must find Android\'s fstab in device repository or in
+correct path you must find Android's fstab in device repository or in
 device itself and get by-name path like:
 `block/bootdevice/by-name/userdata`,
 `ls -l /dev/block/platform/*/*/by-name/`or
 `block/platform/*/by-name/userdata` from it.
 
-Once you\'ve patched `fixup-mountpoints`, take care if you ever have to
+Once you've patched `fixup-mountpoints`, take care if you ever have to
 run `repo sync --fetch-submodules` again because it will reset your
 changes, unless the file `.repo/local_manifests/$DEVICE.xml` is pointing
 `hybris-boot` to your fork with the needed fixup-mountpoints changes.
 
-Then when you get to boot to the Sailfish OS UI, please don\'t forget to
+Then when you get to boot to the Sailfish OS UI, please don't forget to
 upstream your `fixup-mountpoints` patch.
 
-## Building Relevant Bits of your Android base {#build-cm-bits}
+## Building Relevant Bits of your Android base
 
 In the Android build tree, run the following in a `bash` shell (if you
 are using e.g. `zsh`, you need to run these commands in a `bash` shell,
 as the Android build scripts are assuming you are running `bash`).
 
-You\'ll probably need to iterate this a few times to spot missing
+You'll probably need to iterate this a few times to spot missing
 repositories, tools, configuration files and others:
 
 Before building it is recommended to read extra Android base specific
 hints from
 <https://github.com/mer-hybris/hadk-faq#android-base-specific-fixes>
 
-``` console
-HABUILD_SDK $
+```sh title="HABUILD SDK"
 
 source build/envsetup.sh
 export USE_CCACHE=1
@@ -200,9 +189,9 @@ make -j$(nproc --all) hybris-hal droidmedia
 The relevant output bits will be in `out/target/product/$DEVICE/`, in
 particular:
 
--   `hybris-boot.img`: Kernel and initrd
--   `hybris-recovery.img`: Recovery boot image
--   `system/` and `root/`: HAL system libraries and binaries
+* `hybris-boot.img`: Kernel and initrd
+* `hybris-recovery.img`: Recovery boot image
+* `system/` and `root/`: HAL system libraries and binaries
 
 The approximate size of the output directory `out/` after
 `make hybris-hal` is **10 GB** (as of 2019-03-14,
@@ -213,8 +202,7 @@ hybris-sony-aosp-8.1.0_r52-20190206 branch).
 Once the kernel has built you can check the kernel config. You can use
 the Mer kernel config checker:
 
-``` console
-HABUILD_SDK $
+```sh title="HABUILD SDK"
 
 cd $ANDROID_ROOT
 
@@ -223,19 +211,21 @@ hybris/mer-kernel-check/mer_verify_kernel_config \
 ```
 
 Apply listed modifications to the defconfig file that your **Android
-base** is using. Which one? It\'s different for every device, most
+base** is using. Which one? It's different for every device, most
 likely first:
 
--   Check the value of `TARGET_KERNEL_CONFIG` under
-    \$ANDROID_ROOT/device/\$VENDOR/\*/BoardConfig\*.mk
--   Examine the output of [make bootimage]{.title-ref} for which
-    defconfig is taken when you\'re building kernel, e.g.:
-    `make  -C kernel/lge/hammerhead ... cyanogenmod_hammerhead_defconfig`
--   Check your **Android base** kernel\'s commit history for the
-    `arch/arm*/configs` folder, look for defconfig
+- Check the value of `TARGET_KERNEL_CONFIG` under
+  `$ANDROID_ROOT/device/$VENDOR/*/BoardConfig*.mk`
+- Examine the output of `make bootimage` for which defconfig is taken when
+  you're building kernel, e.g.:
 
-If you are in a rush, get rid only of `ERROR` cases first, but don\'t
-forget to come back to the `WARNING` ones too. After you\'ll have
+        make  -C kernel/lge/hammerhead ... cyanogenmod_hammerhead_defconfig
+
+- Check your **Android base** kernel's commit history for the
+  `arch/arm*/configs` folder, look for defconfig
+
+If you are in a rush, get rid only of `ERROR` cases first, but don't
+forget to come back to the `WARNING` ones too. After you'll have
 applied the needed changes, re-run `make hybris-boot` and re-verify.
 Lather, rinse, repeat :) Run also `make hybris-recovery` in the end when
 no more errors.
@@ -248,8 +238,7 @@ doc).
 For Nexus 5 with CM 11.0 as base, the next action would be (rename where
 appropriate to match your device/branch):
 
-``` console
-HABUILD_SDK $
+```sh title="HABUILD SDK"
 
 cd kernel/lge/hammerhead
 git checkout -b hybris-11.0
@@ -264,11 +253,12 @@ git push myname hybris-11.0
 ```
 
 Create PR to the forked kernel repo under github/mer-hybris. Ask a
-mer-hybris admin to create one, if it isn\'t there.
+mer-hybris admin to create one, if it isn't there.
 
 Adjust your `.repo/local_manifests/$DEVICE.xml` by replacing the line
 
-``` console
+```xml
+
 <project path="kernel/lge/hammerhead"
   name="CyanogenMod/android_kernel_lge_hammerhead"
   revision="stable/cm-11.0-XNG3C" />
@@ -276,7 +266,8 @@ Adjust your `.repo/local_manifests/$DEVICE.xml` by replacing the line
 
 with
 
-``` console
+```xml
+
 <project path="kernel/lge/hammerhead"
   name="myname/android_kernel_lge_hammerhead"
   revision="hybris-11.0" />
@@ -284,42 +275,40 @@ with
 
 ## Common Pitfalls
 
--   If `repo sync --fetch-submodules` fails with a message like *fatal:
-    duplicate path device/samsung/smdk4412-common in
-    /home/nemo/android/.repo/manifest.xml*, remove the local manifest
-    with `rm .repo/local_manifests/roomservice.xml`
--   If `repo sync --fetch-submodules` fails with some other error
-    message try running `repo sync` to see if it helps. This is usually
-    needed for hybris-18.1 or newer Android bases.
--   If you notice `git clone` commands starting to write out
-    *\"Forbidden \...\"* on github repos, you might have hit API rate
-    limit. To solve this, put your github credentials into `~/.netrc`.
-    More info can be found following this link: [Perm.auth. with Git
-    repositories](https://confluence.atlassian.com/display/STASH/Permanently+authenticating+with+Git+repositories#PermanentlyauthenticatingwithGitrepositories-Usingthe.netrcfile)
--   *error: Cannot fetch \... (GitError: \--force-sync not enabled;
-    cannot overwrite a local work tree.*, usually happens if
-    `repo sync --fetch-submodules` gets interrupted. It is a bug of the
-    repo tool. Ensure all your changes have been safely stowed (check
-    with `repo status`), and then workaround by:
+- If `repo sync --fetch-submodules` fails with a message like
+  ```
+  fatal: duplicate path device/samsung/smdk4412-common in /home/nemo/android/.repo/manifest.xml
+  ```
+  remove the local manifest with `rm .repo/local_manifests/roomservice.xml`
 
-``` console
-HABUILD_SDK $
+- If `repo sync --fetch-submodules` fails with some other error message, try
+  running `repo sync` to see if it helps. This is usually needed for
+  hybris-18.1 or newer Android bases.
 
-repo sync --force-sync
+- If you notice `git clone` commands starting to write out *"Forbidden ..."*
+  on github repos, you might have hit API rate limit. To solve this, put your
+  github credentials into `~/.netrc`.
+  More info can be found following this link:
+  [Perm.auth. with Git repositories](https://confluence.atlassian.com/display/STASH/Permanently+authenticating+with+Git+repositories#PermanentlyauthenticatingwithGitrepositories-Usingthe.netrcfile)
+- `error: Cannot fetch ... (GitError: --force-sync not enabled; cannot overwrite a local work tree.`
+  usually happens if `repo sync --fetch-submodules` gets interrupted.
+  It is a bug of the repo tool. Ensure all your changes have been safely stowed
+  (check with `repo status`), and then workaround by:
+  ```sh title="HABUILD SDK"
 
-repo sync --fetch-submodules
-```
+  repo sync --force-sync
+  repo sync --fetch-submodules
+  ```
 
--   In some cases (with parallel builds), the build can fail, in this
-    case, use `make -j1 ...` to retry with a non-parallel build and see
-    the error message without output from parallel jobs. The build
-    usually ends with the following output:
 
-``` console
-HABUILD_SDK $
+- In some cases (with parallel builds), the build can fail, in this
+  case, use `make -j1 ...` to retry with a non-parallel build and see
+  the error message without output from parallel jobs. The build
+  usually ends with the following output:
+  ```sh title="HABUILD SDK"
 
-...
-Install: .../out/target/product/$DEVICE/hybris-recovery.img
-...
-Install: .../out/target/product/$DEVICE/hybris-boot.img
-```
+  ...
+  Install: .../out/target/product/$DEVICE/hybris-recovery.img
+  ...
+  Install: .../out/target/product/$DEVICE/hybris-boot.img
+  ```

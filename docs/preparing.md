@@ -21,30 +21,25 @@ download).
 Use Android Recovery (e.g. TWRP or ClockworkMod) to:
 
 1.  Backup to SD card: system, data, boot and recovery partitions
-2.  Test restoring the backup (important)
+2.  **Test restoring the backup (important)**
 
-::: warning
-::: title
-Warning
-:::
+!!! warning
 
-While backing up to internal device storage is possible for some
-devices, if during porting you end up overwriting that partition, your
-backups will be gone. In that case (and in case of devices without SD
-card slots), it\'s better to also copy the backup data to your
-development machine (e.g. via `adb pull` in recovery). Recent versions
-of `adb` support full-device backups to a host computer using the
-`adb backup` feature.
-:::
+    While backing up to internal device storage is possible for some
+    devices, if during porting you end up overwriting that partition, your
+    backups will be gone. In that case (and in case of devices without SD
+    card slots), it's better to also copy the backup data to your
+    development machine (e.g. via `adb pull` in recovery). Recent versions
+    of `adb` support full-device backups to a host computer using the
+    `adb backup` feature.
 
-See the [ClockworkMod
-Instructions](https://forum.xda-developers.com/wiki/ClockworkMod_Recovery)
+See the [ClockworkMod Instructions](https://forum.xda-developers.com/wiki/ClockworkMod_Recovery)
 for additional help.
 
 ## Flash and Test your Android base image
 
 Flash an image that you built or obtained of your **Android base**,
-whether it\'s LineageOS, CAF, AOSP, or another.
+whether it's LineageOS, CAF, AOSP, or another.
 
 The official LineageOS flashing instructions can be found on this
 [LineageOS wiki page](https://wiki.lineageos.org/devices).
@@ -58,43 +53,41 @@ Sailfish OS build results with.
 
 You should at least check the following features:
 
--   **OpenGL ES 2.0**: Use e.g. [Gears for
-    Android](http://www.jeffboody.net/gears4android.php) to test (the hz
-    you will get there will be max refresh rate).
--   **WLAN connectivity**: Connect to an AP, ad-hoc or set up a mobile
-    access point with your device.
--   **Audio**: Headset detection, earpiece speaker, loudspeakers, etc.
--   **Bluetooth**: Connect to bluetooth headsets, verify
-    discoverability, send files.
--   **NFC**: Check if NFC tags can be detected, read and/or written by
-    the device.
--   **SD/MicroSD**: Use a file manager app to see if inserted SD cards
-    can be detected.
--   **USB**: MTP, mass storage (if available) and `adb` access.
--   **Telephony**: 2G/3G/LTE calls + data connectivity.
--   **GPS**: Using [GPS
-    Test](https://play.google.com/store/apps/details?id=com.chartcross.gpstest),
-    check GLONASS too; typical time to fix; AGPS.
--   **Sensors**: Using
-    [AndroSensor](https://play.google.com/store/apps/details?id=com.fivasim.androsenso):
-    Accelerometer, Proximity Sensor, Ambient Light Sensor, Gyroscope,
-    Magnetometer (Compass), Hall (flip case), \...
--   **LEDs**: If your device has notification LEDs or keypad backlights.
--   **Camera** (front and back): Also test functionality of zoom, flash,
-    etc..
--   **Buttons**: Volume up, volume down, power, camera shutter, etc..
--   **Video out**: HDMI / MHL connectivity if you have the necessary
-    adapters. TV out.
--   **Screen backlight**: Suspend and backlight control, minimum and
-    maximum brightness.
--   **Battery meter**: Charge level, battery health, charging via USB
-    (wall charger and host PC).
--   **Vibration motor**: Intensity, patterns.
--   **HW composer version**: check `dumpsys SurfaceFlinger` through ADB
-    (see [SF Layer
-    Debugging](http://bamboopuppy.com/dumpsys-surfaceflinger-layer-debugging/)).
--   **Fingerprint sensor**
--   **FM Radio**
+- **OpenGL ES 2.0**: Use e.g.
+  [Gears for Android](http://www.jeffboody.net/gears4android.php)
+  to test (the hz you will get there will be max refresh rate).
+- **WLAN connectivity**: Connect to an AP, ad-hoc or set up a mobile access
+  point with your device.
+- **Audio**: Headset detection, earpiece speaker, loudspeakers, etc.
+- **Bluetooth**: Connect to bluetooth headsets, verify discoverability,
+  send files.
+- **NFC**: Check if NFC tags can be detected, read and/or written by the device.
+- **SD/MicroSD**: Use a file manager app to see if inserted SD cards can be
+  detected.
+- **USB**: MTP, mass storage (if available) and `adb` access.
+- **Telephony**: 2G/3G/LTE calls + data connectivity.
+- **GPS**: Using
+  [GPS Test](https://play.google.com/store/apps/details?id=com.chartcross.gpstest),
+  check GLONASS too; typical time to fix; AGPS.
+- **Sensors**: Using
+  [AndroSensor](https://play.google.com/store/apps/details?id=com.fivasim.androsenso):
+  Accelerometer, Proximity Sensor, Ambient Light Sensor, Gyroscope, 
+  Magnetometer (Compass), Hall (flip case), ...
+- **LEDs**: If your device has notification LEDs or keypad backlights.
+- **Camera** (front and back): Also test functionality of zoom, flash, etc..
+- **Buttons**: Volume up, volume down, power, camera shutter, etc..
+- **Video out**: HDMI / MHL connectivity if you have the necessary adapters.
+  TV out.
+- **Screen backlight**: Suspend and backlight control, minimum and maximum
+  brightness.
+- **Battery meter**: Charge level, battery health, charging via USB
+  (wall charger and host PC).
+- **Vibration motor**: Intensity, patterns.
+- **HW composer version**: check `dumpsys SurfaceFlinger` through ADB (see
+  [SF Layer Debugging](http://bamboopuppy.com/dumpsys-surfaceflinger-layer-debugging/)).
+
+- **Fingerprint sensor**
+- **FM Radio**
 
 We recommend that you write down the results of these tests, so you can
 always remember them.

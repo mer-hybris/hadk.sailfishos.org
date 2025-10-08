@@ -4,7 +4,7 @@ This assumes you are booted into the **Android base** on your device,
 can `adb shell` to it to get a root shell and have your boot image and
 rootfs tarball ready.
 
-Some of these approaches also work in Android Recovery (there\'s an
+Some of these approaches also work in Android Recovery (there's an
 `adbd` running).
 
 ## Extracting the rootfs via adb
@@ -12,8 +12,7 @@ Some of these approaches also work in Android Recovery (there\'s an
 Replace `sailfishos-devel-hammerhead.tar.bz2` with the name of your
 rootfs tarball:
 
-``` bash
-PLATFORM_SDK $
+```sh title="PLATFORM SDK"
 
 adb push sailfishos-devel-hammerhead.tar.bz2 /sdcard/
 adb shell
@@ -28,8 +27,7 @@ tar --numeric-owner -xvf /sdcard/sailfishos-devel-hammerhead.tar.bz2 \
 The following example is for `hammerhead`, for other devices the output
 partition and filename is obviously different:
 
-``` console
-PLATFORM_SDK $
+```sh title="PLATFORM SDK"
 
 cd $ANDROID_ROOT
 adb push out/target/product/hammerhead/hybris-boot.img /sdcard/
@@ -40,8 +38,7 @@ dd if=/sdcard/hybris-boot.img of=/dev/block/mmcblk0p19
 
 ## Flashing or booting the boot image via fastboot
 
-``` console
-PLATFORM_SDK $
+```sh title="PLATFORM SDK"
 
 cd $ANDROID_ROOT
 # to smoke test a boot image without flashing it:
@@ -61,8 +58,7 @@ system. You have to have your rootfs already installed/extracted. You
 can use Android\'s WLAN connectivity to connect to the Internet and
 download updates:
 
-``` console
-PLATFORM_SDK $
+```sh title="PLATFORM_SDK"
 
 adb shell
 su

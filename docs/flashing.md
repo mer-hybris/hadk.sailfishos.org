@@ -7,10 +7,10 @@ the next reboot.
 
 ## Prerequisites
 
--   Android Recovery flashed to your device
--   The stock firmware image (for your version and device)
--   The **Android base** release (for your version and device)
--   A Sailfish OS rootfs update .zip, created by `mic`
+- Android Recovery flashed to your device
+- The stock firmware image (for your version and device)
+- The **Android base** release (for your version and device)
+- A Sailfish OS rootfs update .zip, created by `mic`
 
 ## Flashing back to Stock Android
 
@@ -31,26 +31,24 @@ the firmware bits are matching the CM version.
 If you do not flash the right stock version (and therefore firmware),
 there might be some issues when booting into Sailfish OS:
 
--   Problems accessing `/sdcard/` in recovery (e.g. `adb push` does not
-    work)
--   WLAN, sensors, audio and other hardware not working
+- Problems accessing `/sdcard/` in recovery (e.g. `adb push` does not work)
+- WLAN, sensors, audio and other hardware not working
 
 If you experience such issues, please make sure you first flash the
 stock system, ROM, followed by the **Android base** image, and finally
-the Sailfish OS update. Please also note that you can\'t just take the
+the Sailfish OS update. Please also note that you can't just take the
 latest stock ROM and/or **Android base** ROM - both versions have to
 match the Android version against which the Sailfish OS adaptation was
 built.
 
 ## Flashing using Android Recovery
 
-1.  Boot into Android Recovery
-2.  Upload the CM release: `adb push cm-10.1.3-$DEVICE.zip /sdcard/`
-3.  Upload Sailfish OS:
-    `adb push sailfishos-$DEVICE-devel-1.2.3.4.zip /sdcard/`
-4.  In the Recovery on the device:
-
-> 1.  Clear data and cache (factory reset)
-> 2.  Install the CM release by picking the CM image
-> 3.  Install Sailfish OS by picking the SFOS image
-> 4.  Reboot the device
+1. Boot into Android Recovery
+2. Upload the CM release: `adb push cm-10.1.3-$DEVICE.zip /sdcard/`
+3. Upload Sailfish OS:
+   `adb push sailfishos-$DEVICE-devel-1.2.3.4.zip /sdcard/`
+4. In the Recovery on the device:
+    1. Clear data and cache (factory reset)
+    2. Install the CM release by picking the CM image
+    3. Install Sailfish OS by picking the SFOS image
+    4. Reboot the device
