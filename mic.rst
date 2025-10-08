@@ -47,9 +47,7 @@ To make an extra modification to a pattern, edit its respective file under
 ``hybris/droid-configs/patterns/``. Take care and always use ``git status/stash``
 commands. Once happy, commit to your GitHub home and eventually PR upstream.
 
-For patterns to take effect on the image, run the following:
-
-.. code-block:: console
+For patterns to take effect on the image, run the following::
 
     PLATFORM_SDK $
 
@@ -72,12 +70,10 @@ You need to choose a `Sailfish OS version`_ you want to build.
    E.g., if target's ``ssu lr`` versions begin with ``4.5.0.``, build Sailfish OS update
    4.5.0.19 (check for the latest, non "Early Access" `Sailfish OS version`_)
 
-Build a rootfs using RPM repositories and a kickstart file (NB: all errors are
-non-critical as long as you end up with a generated .zip image):
-
 .. _Sailfish OS version: http://en.wikipedia.org/wiki/Sailfish_OS#Version_history
 
-.. code-block:: console
+Build a rootfs using RPM repositories and a kickstart file (NB: all errors are
+non-critical as long as you end up with a generated .zip image)::
 
   PLATFORM_SDK $
 

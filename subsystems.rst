@@ -29,9 +29,10 @@ converted to a ffmemless driver. The main tasks for this are:
 * Enable CONFIG_INPUT_FF_MEMLESS kernel config option
 * Disable CONFIG_ANDROID_TIMED_OUTPUT kernel config option
 * Change maximum amount of ffmemless effects to **64** by patching ff-memless.c:
- * http://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git/tree/drivers/input/ff-memless.c#n41
+ 
+  * http://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git/tree/drivers/input/ff-memless.c#n41
 
-.. code-block:: c
+.. code-block:: diff
 
  diff --git a/drivers/input/ff-memless.c b/drivers/input/ff-memless.c
  index 117a59a..fa53611 100644
@@ -50,7 +51,7 @@ converted to a ffmemless driver. The main tasks for this are:
 * Optionally you can decrease ff-memless control interval so that fade and
   attack envelopes can be used in short haptic effects as well:
 
-.. code-block:: c
+.. code-block:: diff
 
  diff --git a/drivers/input/ff-memless.c b/drivers/input/ff-memless.c
  index 89d3a3d..33eee2e 100644
@@ -71,17 +72,22 @@ converted to a ffmemless driver. The main tasks for this are:
   just enable it and fix any issues that you see. Otherwise go through the rest
   of the points below.
 * Convert the android timed output vibra driver to support to ffmemless
- * add "#include <linux/input.h>"
- * Create a ffmemless play function.
- * Examples of ffmemless play functions / ffmemless drivers:
-  * http://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git/tree/drivers/input/misc/arizona-haptics.c#n110
-  * http://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git/tree/drivers/input/misc/max8997_haptic.c#n231
-  * http://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git/tree/drivers/input/misc/pm8xxx-vibrator.c#n130
- * At probe, create a ffmemless device with **input_ff_create_memless**
-  * http://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git/tree/include/linux/input.h#n531
- * And register the resulting device with input_device_register.
- * Remember to clean up the input device structure at driver exit
- * The example ffmemless drivers above can be used for reference
+
+  * add "#include <linux/input.h>"
+  * Create a ffmemless play function.
+  * Examples of ffmemless play functions / ffmemless drivers:
+
+    * http://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git/tree/drivers/input/misc/arizona-haptics.c#n110
+    * http://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git/tree/drivers/input/misc/max8997_haptic.c#n231
+    * http://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git/tree/drivers/input/misc/pm8xxx-vibrator.c#n130
+
+  * At probe, create a ffmemless device with **input_ff_create_memless**
+
+    * http://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git/tree/include/linux/input.h#n531
+
+  * And register the resulting device with input_device_register.
+  * Remember to clean up the input device structure at driver exit
+  * The example ffmemless drivers above can be used for reference
 
 The userspace configuration haptic feedback and effects is handled with ngfd
 configuration files, see more details in
@@ -98,9 +104,7 @@ audio encoding and decoding in Camera, Gallery and Browser, and deprecates
 GStreamer v0.10.
 
 The GStreamer-droid bridge is part of the integral build process. If you need to
-modify its source code, then rebuild it via:
-
-.. code-block:: console
+modify its source code, then rebuild it via::
 
     PLATFORM_SDK $
 
@@ -133,10 +137,12 @@ Cellular modem
   ``/usr/libexec/droid-hybris/system/bin/logcat -b radio``
 
 * Errors in RIL might look like this::
- RIL[0][main] qcril_qmi_modem_power_process_bootup: ESOC node is not available
-After online search this suggests firmware loading issues on Motorola Moto G.
-Compare with a healthy radio logcat after booting back into CM, not all
-lines starting with ``E/RIL...`` will point to a root cause!
+
+    RIL[0][main] qcril_qmi_modem_power_process_bootup: ESOC node is not available
+
+  After online search this suggests firmware loading issues on Motorola Moto G.
+  Compare with a healthy radio logcat after booting back into CM, not all
+  lines starting with ``E/RIL...`` will point to a root cause!
 
 * If it's firmware loading problem, trace all needed daemons in CM and their
   loading order as well as all mounted firmware, modem, and baseband partitions.
@@ -291,9 +297,7 @@ Watchdog
 
 A standard linux kernel `watchdog core driver <http://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git/tree/Documentation/watchdog/watchdog-kernel-api.txt>`_ support is expected. The
 device node should be in /dev/watchdog. It should be configured with following
-kernel options:
-
-.. code-block:: console
+kernel options::
 
    CONFIG_WATCHDOG=y
    CONFIG_WATCHDOG_CORE=y

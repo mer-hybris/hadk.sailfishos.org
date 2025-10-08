@@ -7,7 +7,7 @@ packages can be added to a local target and used to build libhybris and the
 QPA plugin. They can also be used to build the rootfs.
 
 Creating Repositories for a New Device
--------------------------------------
+--------------------------------------
 
 If the folders ``rpm, hybris/droid-configs, hybris-droid-hal-version-$DEVICE``
 do not exist yet, create them as follows (example is for Nexus 5, adjust as
@@ -105,7 +105,7 @@ Do it for your device by renaming accordingly:
 Once all these 3 repositories get upstreamed under https://github.com/mer-hybris
 create PR into an appropriate branch of the file
 ``.repo/local_manifests/hammerhead.xml`` to the
- https://github.com/mer-hybris/local_manifests repository.
+https://github.com/mer-hybris/local_manifests repository.
 
 
 Packaging ``droid-hal-device``
@@ -148,6 +148,7 @@ Troubleshoot errors from build_packages.sh
 
 * **Installed (but unpackaged) file(s) found**: Add those files to straggler section
   in your rpm/droid-hal-$DEVICE.spec before the ``%include ...`` line, for example:
+
 .. code-block:: console
 
  %define straggler_files \

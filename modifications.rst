@@ -19,26 +19,31 @@ Droid System
 In order to work with ``libhybris``, some parts of the lower levels of
 Android need to be modified:
 
-* **bionic/**
- - Pass ``errno`` from bionic to libhybris (``libdsyscalls.so``)
- * Rename ``/dev/log/`` to ``/dev/alog/``
- * TLS slots need to be re-assigned to not conflict with glibc
- * Support for ``HYBRIS_LD_LIBRARY_PATH`` in the linker
- * Add ``/usr/libexec/droid-hybris/system/lib`` to the linker search path
-* **external/busybox/**: Busybox is used in the normal and recovery boot images. We need
-   some additional features like ``mdev`` and ``udhcpd``
-* **system/core/**
- - Make ``cutils`` and ``logcat`` aware of the new log location
-   (``/dev/alog/``)
- * Add ``/usr/libexec/droid-hybris/lib-dev-alog/``
-   to the ``LD_LIBRARY_PATH``
- * Force SELinux OFF since hybris does not utilise the relevant Android parts,
-   and leaving SELinux support ON would then cause device to reboot to recovery
- * Remove various ``init`` and ``init.rc`` settings and operations that
-   are handled by ``systemd`` and/or Hybris on a Sailfish OS system
-* **frameworks/base/**: Only build ``servicemanager``, ``bootanimation`` and ``androidfw``
-   to make the minimal Droid HAL build smaller (no Java content)
-* **libcore/**: Don't include ``JavaLibrary.mk``, as Java won't be available
+**bionic/**
+  * Pass ``errno`` from bionic to libhybris (``libdsyscalls.so``)
+  * Rename ``/dev/log/`` to ``/dev/alog/``
+  * TLS slots need to be re-assigned to not conflict with glibc
+  * Support for ``HYBRIS_LD_LIBRARY_PATH`` in the linker
+  * Add ``/usr/libexec/droid-hybris/system/lib`` to the linker search path
+
+**external/busybox/**:
+  * Busybox is used in the normal and recovery boot images.
+    We need some additional features like ``mdev`` and ``udhcpd``
+
+**system/core/**
+  * Make ``cutils`` and ``logcat`` aware of the new log location (``/dev/alog/``)
+  * Add ``/usr/libexec/droid-hybris/lib-dev-alog/`` to the ``LD_LIBRARY_PATH``
+  * Force SELinux OFF since hybris does not utilise the relevant Android parts,
+    and leaving SELinux support ON would then cause device to reboot to recovery
+  * Remove various ``init`` and ``init.rc`` settings and operations that
+    are handled by ``systemd`` and/or Hybris on a Sailfish OS system
+
+**frameworks/base/**
+  * Only build ``servicemanager``, ``bootanimation`` and ``androidfw``
+    to make the minimal Droid HAL build smaller (no Java content)
+
+**libcore/**
+  * Don't include ``JavaLibrary.mk``, as Java won't be available
 
 All these modifications have already been done in the **mer-hybris** GitHub
 organisation of forks from various Android sources. If its ``android``
