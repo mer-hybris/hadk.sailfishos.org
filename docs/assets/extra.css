@@ -1,0 +1,14 @@
+.md-header--shadow {
+    box-shadow: none;
+}
+.md-header__inner {
+    padding: 0;
+    border-bottom: 1px solid gray;
+}
+.md-header__button.md-logo {
+  margin: 0;
+  padding: 0;
+}
+.md-header__button.md-logo img, .md-header__button.md-logo svg {
+  height: 100%;
+}

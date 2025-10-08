@@ -19,5 +19,22 @@ nav:
   - naming.md
   - ha-checklist.md
 
+copyright: Copyright &copy; 2025 Jolla Mobile Ltd
+
+markdown_extensions:
+  - toc:
+      permalink: '#'
+
 theme:
   name: material
+  logo: assets/sailfish_os_logo.svg
+  favicon: assets/sailfish_os_favico.svg
+  palette:
+    primary: white
+    accent: teal
+  features:
+    - navigation.footer
+
+extra_css:
+  - assets/extra.css
+
