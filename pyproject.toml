@@ -3,6 +3,7 @@ name = "sailfish-docs-hadk"
 version = "0.1.0"
 requires-python = ">=3.13"
 dependencies = [
+    "click==8.2.1", # https://github.com/mkdocs/mkdocs/issues/4032
     "mkdocs~=1.6",
     "mkdocs-material~=9.6",
 ]
