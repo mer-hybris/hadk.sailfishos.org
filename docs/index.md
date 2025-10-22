@@ -10,9 +10,3 @@ devices running Android™ OS.
     security breaches, or other damage, and therefore must be done entirely
     at your own risk. No one affiliated with this project is responsible for
     your actions but yourself. Good luck.
-
-# License
-
-```
---8<-- "LICENSE.txt"
-```
