@@ -1,4 +1,8 @@
 site_name: Sailfish OS Hardware Adaptation Development Kit
+site_url: https://hadk.sailfishos.org
+repo_url: https://github.com/mer-hybris/hadk.sailfishos.org
+edit_uri: edit/main/docs/
+
 nav:
   - overview.md
   - prerequisites.md
@@ -42,6 +46,7 @@ theme:
     accent: teal
   features:
     - navigation.footer
+    - content.action.edit
 
 extra_css:
   - assets/extra.css
