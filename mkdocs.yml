@@ -1,0 +1,53 @@
+site_name: Sailfish OS Hardware Adaptation Development Kit
+nav:
+  - overview.md
+  - prerequisites.md
+  - preparing.md
+  - setupsdk.md
+  - android.md
+  - build-env.md
+  - droid-hal.md
+  - mic.md
+  - getting-in.md
+  - flashing.md
+  - manual-install.md
+  - ota-updates.md
+  - modifications.md
+  - subsystems.md
+  - middleware.md
+  - repos.md
+  - naming.md
+  - ha-checklist.md
+
+license: CC BY-NC-SA 4.0
+copyright: Copyright &copy; 2025 Jolla Mobile Ltd
+
+markdown_extensions:
+  - toc:
+      permalink: '#'
+  - admonition
+  - def_list
+  - footnotes
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.snippets
+
+theme:
+  name: material
+  custom_dir: overrides
+  logo: assets/sailfish_os_logo.svg
+  favicon: assets/sailfish_os_favico.svg
+  palette:
+    primary: white
+    accent: teal
+  features:
+    - navigation.footer
+
+extra_css:
+  - assets/extra.css
+
+plugins:
+  - offline:
+      enabled: !ENV [OFFLINE, false]
+  - search:
+      enabled: true
