@@ -1,0 +1,912 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../naming/">
+      
+      
+      
+      <link rel="icon" href="../assets/sailfish_os_favico.svg">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.21">
+    
+    
+      
+        <title>Hardware Adaptation Checklist - Sailfish OS Hardware Adaptation Development Kit</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.2a3383ac.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/extra.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="white" data-md-color-accent="teal">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#hardware-adaptation-checklist" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Sailfish OS Hardware Adaptation Development Kit" class="md-header__button md-logo" aria-label="Sailfish OS Hardware Adaptation Development Kit" data-md-component="logo">
+      
+  <img src="../assets/sailfish_os_logo.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Sailfish OS Hardware Adaptation Development Kit
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Hardware Adaptation Checklist
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Sailfish OS Hardware Adaptation Development Kit" class="md-nav__button md-logo" aria-label="Sailfish OS Hardware Adaptation Development Kit" data-md-component="logo">
+      
+  <img src="../assets/sailfish_os_logo.svg" alt="logo">
+
+    </a>
+    Sailfish OS Hardware Adaptation Development Kit
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../prerequisites/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Prerequisites
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../preparing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Preparing Your Device
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../setupsdk/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Setting up the SDKs
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../android/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Building the Android HAL
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../build-env/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Installing Build Tools for Your Device
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../droid-hal/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Packaging Droid HAL
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mic/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Creating the Sailfish OS Root Filesystem
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../getting-in/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Getting In
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../flashing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Flashing the rootfs image
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../manual-install/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Manual Installation and Maintenance
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ota-updates/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    OTA (Over-the-Air) Updates
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../modifications/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Modifications and Patches
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../subsystems/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Detailed subsystem adaptation guides
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../middleware/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Middleware
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../repos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    List of Repositories
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../naming/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Package Naming Policy
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Hardware Adaptation Checklist
+    
+  </span>
+  
+
+      </a>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="hardware-adaptation-checklist">Hardware Adaptation Checklist<a class="headerlink" href="#hardware-adaptation-checklist" title="Permanent link">#</a></h1>
+<p>Before publishing the adaptation, at least the following features should
+be checked.</p>
+<ul>
+<li>
+<p><strong>Thermal sensor configuration for dsme</strong></p>
+<ul>
+<li>Even if we do not enforce any limits, CSD<sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup> gets temperature
+  info from dsme</li>
+<li>Quick test:
+  <div class="highlight"><pre><span></span><code>dbus-send --system --print-reply --dest=com.nokia.thermalmanager \
+   /com/nokia/thermalmanager com.nokia.thermalmanager.battery_temperature
+</code></pre></div></li>
+</ul>
+</li>
+<li>
+<p><strong>memnotify patch to kernel + config for mce</strong></p>
+<ul>
+<li>Memory pressure normalcritical affects for example browser</li>
+<li>Quick test:
+  <div class="highlight"><pre><span></span><code>ls /etc/mce/*memnot*
+</code></pre></div></li>
+</ul>
+</li>
+<li>
+<p><strong>Watchdog driver in kernel + verify it works with dsme</strong></p>
+<ul>
+<li>We want the device to reboot if userspace gets hopelessly stuck</li>
+<li>Some android kernels use hardware watchdog for kernel stuck detection</li>
+<li>Quick test:
+  <div class="highlight"><pre><span></span><code>journalctl -b | grep &#39;dsme.*watchdog&#39;
+</code></pre></div></li>
+</ul>
+</li>
+<li>
+<p><strong>usb-moded works</strong></p>
+<ul>
+<li>Detects charger and PC correctly</li>
+</ul>
+</li>
+<li>
+<p><strong>USB diag mode works (optional)</strong></p>
+<ul>
+<li>Only needed for factory releases, and not even always for those</li>
+</ul>
+</li>
+<li>
+<p><strong>USB gadget driver in kernel + verify it works with buteo-mtp</strong></p>
+<ul>
+<li>Android has some MTP logic imlemented at kernel and thus some
+  FFS stuff we need is typically missing</li>
+</ul>
+</li>
+<li>
+<p><strong>ssu config files</strong></p>
+<ul>
+<li>Verify ssu &amp; ssu-sysinfo agree on results</li>
+</ul>
+</li>
+<li>
+<p><strong>Vibra driver in kernel</strong></p>
+<ul>
+<li>Patterns choose android vibra, LED vibra or ff-memless
+  (memoryless force-feedback devices)</li>
+<li>ff-memless needs adding kernel driver</li>
+</ul>
+</li>
+<li>
+<p><strong>Suspend works</strong></p>
+<ul>
+<li>If the device does not suspend, standby time will drop considerably</li>
+<li>There is a CSD test for this (Hardware tests-&gt;All tests-&gt;System state)</li>
+</ul>
+</li>
+<li>
+<p><strong>Resume via iphb works</strong></p>
+<ul>
+<li>Only "official" way we have for scheduled wakeups from suspend</li>
+</ul>
+</li>
+<li>
+<p><strong>Volume key probing &amp; policy works</strong></p>
+<ul>
+<li>Display off -&gt; no ringing volume change should happen</li>
+<li>Display off -&gt; audio playback volume should change</li>
+<li>Both vol keys down -&gt; UI snapshot should happen</li>
+</ul>
+</li>
+<li>
+<p><strong>Power key works</strong></p>
+<ul>
+<li>Long press power key menu</li>
+<li>Double presses</li>
+<li>Loooong press shutdown in dsme</li>
+<li>False double press reporting from a single press</li>
+</ul>
+</li>
+<li>
+<p><strong>Proximity sensor works in suspend</strong></p>
+<ul>
+<li>We have built in assumption of having up-to-date p-sensor state</li>
+<li>NB: If device does not have PS -&gt; that must be configured</li>
+</ul>
+</li>
+<li>
+<p><strong>Ambient light sensor works</strong></p>
+<ul>
+<li>Long sensor power up time -&gt; can break display power on brightness</li>
+<li>Kernel side filtering / odd delta reporting -&gt; breaks auto adjustments</li>
+<li>Total darkness should report "zero lux"</li>
+</ul>
+</li>
+<li>
+<p><strong>LED works</strong></p>
+<ul>
+<li>Check the accuracy of colours and brightness</li>
+<li>Blocking at sysfs write can make mce unresponsive</li>
+<li>All but RGB LEDs probably require custom pattern config</li>
+</ul>
+</li>
+<li>
+<p><strong>Proximity blanking during active call works</strong></p>
+<ul>
+<li>Some ports have weird problems here</li>
+</ul>
+</li>
+<li>
+<p><strong>CSD config</strong></p>
+<ul>
+<li>HW features</li>
+<li>Factory test set</li>
+<li>Run-in test set</li>
+<li>Masked/blacklisted tests</li>
+</ul>
+</li>
+<li>
+<p><strong>abootsettings etc. when applicable</strong></p>
+</li>
+<li>
+<p><strong>Double tap works</strong></p>
+<ul>
+<li>There has been many devices where gestures are supported but
+  touch driver uses odd concepts</li>
+</ul>
+</li>
+<li>
+<p><strong>zram in kernel</strong></p>
+</li>
+<li>
+<p><strong>Look out for suspicious logging during bootup / shutdown</strong></p>
+<ul>
+<li>Faster/slower/just different -&gt; odd things can/will happen</li>
+</ul>
+</li>
+<li>
+<p><strong>usb-moded vs Android USB stuff in /*.rc</strong></p>
+<ul>
+<li>Device serial number is assumed to come from Android side logic</li>
+<li>Otherwise Android stuff should preferably not touch USB in any way</li>
+</ul>
+</li>
+<li>
+<p><strong>Touch reporting</strong></p>
+<ul>
+<li>Seems many Android kernels have issues around display power cycling &amp;
+  finger on screen</li>
+</ul>
+</li>
+<li>
+<p><strong>Act dead mode</strong></p>
+<ul>
+<li>What Android services are needed varies from one device to another</li>
+<li>Act dead alarms need to be verified too</li>
+</ul>
+</li>
+<li>
+<p><strong>Extra filesystems enabled in kernel where possible</strong></p>
+<ul>
+<li>BTRFS, F2FS, UDF, NFS, CIFS etc.</li>
+</ul>
+</li>
+</ul>
+<div class="footnote">
+<hr />
+<ol>
+<li id="fn:1">
+<p>You can start the CSD tool either via command line (<code>csd</code>) or via
+Settings app: Go to "About Product" and tap five times on the
+Build entry&#160;<a class="footnote-backref" href="#fnref:1" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+</ol>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../naming/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Package Naming Policy">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Package Naming Policy
+              </div>
+            </div>
+          </a>
+        
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      
+<div class="md-copyright">Copyright &copy; 2025 Jolla Mobile Ltd</div>
+
+
+
+<div class="md-copyright">
+Content licensed under <a href="../LICENSE.txt">CC BY-NC-SA 4.0</a></li>
+</div>
+
+
+<div class="md-copyright">
+Made with <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">Material for MkDocs</a>
+</div>
+
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "..", "features": ["navigation.footer"], "search": "../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.f55a23d4.min.js"></script>
+      
+    
+  </body>
+</html>

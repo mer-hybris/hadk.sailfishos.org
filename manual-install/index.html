@@ -1,0 +1,900 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../flashing/">
+      
+      
+        <link rel="next" href="../ota-updates/">
+      
+      
+      <link rel="icon" href="../assets/sailfish_os_favico.svg">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.21">
+    
+    
+      
+        <title>Manual Installation and Maintenance - Sailfish OS Hardware Adaptation Development Kit</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.2a3383ac.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/extra.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="white" data-md-color-accent="teal">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#manual-installation-and-maintenance" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Sailfish OS Hardware Adaptation Development Kit" class="md-header__button md-logo" aria-label="Sailfish OS Hardware Adaptation Development Kit" data-md-component="logo">
+      
+  <img src="../assets/sailfish_os_logo.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Sailfish OS Hardware Adaptation Development Kit
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Manual Installation and Maintenance
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Sailfish OS Hardware Adaptation Development Kit" class="md-nav__button md-logo" aria-label="Sailfish OS Hardware Adaptation Development Kit" data-md-component="logo">
+      
+  <img src="../assets/sailfish_os_logo.svg" alt="logo">
+
+    </a>
+    Sailfish OS Hardware Adaptation Development Kit
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../prerequisites/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Prerequisites
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../preparing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Preparing Your Device
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../setupsdk/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Setting up the SDKs
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../android/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Building the Android HAL
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../build-env/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Installing Build Tools for Your Device
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../droid-hal/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Packaging Droid HAL
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mic/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Creating the Sailfish OS Root Filesystem
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../getting-in/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Getting In
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../flashing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Flashing the rootfs image
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Manual Installation and Maintenance
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Manual Installation and Maintenance
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#extracting-the-rootfs-via-adb" class="md-nav__link">
+    <span class="md-ellipsis">
+      Extracting the rootfs via adb
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#flashing-the-boot-image-via-adb" class="md-nav__link">
+    <span class="md-ellipsis">
+      Flashing the boot image via adb
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#flashing-or-booting-the-boot-image-via-fastboot" class="md-nav__link">
+    <span class="md-ellipsis">
+      Flashing or booting the boot image via fastboot
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#interacting-with-the-rootfs-via-adb-from-android" class="md-nav__link">
+    <span class="md-ellipsis">
+      Interacting with the rootfs via adb from Android
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ota-updates/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    OTA (Over-the-Air) Updates
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../modifications/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Modifications and Patches
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../subsystems/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Detailed subsystem adaptation guides
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../middleware/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Middleware
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../repos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    List of Repositories
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../naming/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Package Naming Policy
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ha-checklist/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Hardware Adaptation Checklist
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#extracting-the-rootfs-via-adb" class="md-nav__link">
+    <span class="md-ellipsis">
+      Extracting the rootfs via adb
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#flashing-the-boot-image-via-adb" class="md-nav__link">
+    <span class="md-ellipsis">
+      Flashing the boot image via adb
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#flashing-or-booting-the-boot-image-via-fastboot" class="md-nav__link">
+    <span class="md-ellipsis">
+      Flashing or booting the boot image via fastboot
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#interacting-with-the-rootfs-via-adb-from-android" class="md-nav__link">
+    <span class="md-ellipsis">
+      Interacting with the rootfs via adb from Android
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="manual-installation-and-maintenance">Manual Installation and Maintenance<a class="headerlink" href="#manual-installation-and-maintenance" title="Permanent link">#</a></h1>
+<p>This assumes you are booted into the <strong>Android base</strong> on your device,
+can <code>adb shell</code> to it to get a root shell and have your boot image and
+rootfs tarball ready.</p>
+<p>Some of these approaches also work in Android Recovery (there's an
+<code>adbd</code> running).</p>
+<h2 id="extracting-the-rootfs-via-adb">Extracting the rootfs via adb<a class="headerlink" href="#extracting-the-rootfs-via-adb" title="Permanent link">#</a></h2>
+<p>Replace <code>sailfishos-devel-hammerhead.tar.bz2</code> with the name of your
+rootfs tarball:</p>
+<div class="highlight"><span class="filename">PLATFORM SDK</span><pre><span></span><code>adb<span class="w"> </span>push<span class="w"> </span>sailfishos-devel-hammerhead.tar.bz2<span class="w"> </span>/sdcard/
+adb<span class="w"> </span>shell
+su
+mkdir<span class="w"> </span>-p<span class="w"> </span>/data/.stowaways/sailfishos
+tar<span class="w"> </span>--numeric-owner<span class="w"> </span>-xvf<span class="w"> </span>/sdcard/sailfishos-devel-hammerhead.tar.bz2<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-C<span class="w"> </span>/data/.stowaways/sailfishos
+</code></pre></div>
+<h2 id="flashing-the-boot-image-via-adb">Flashing the boot image via adb<a class="headerlink" href="#flashing-the-boot-image-via-adb" title="Permanent link">#</a></h2>
+<p>The following example is for <code>hammerhead</code>, for other devices the output
+partition and filename is obviously different:</p>
+<div class="highlight"><span class="filename">PLATFORM SDK</span><pre><span></span><code><span class="nb">cd</span><span class="w"> </span><span class="nv">$ANDROID_ROOT</span>
+adb<span class="w"> </span>push<span class="w"> </span>out/target/product/hammerhead/hybris-boot.img<span class="w"> </span>/sdcard/
+adb<span class="w"> </span>shell
+su
+dd<span class="w"> </span><span class="k">if</span><span class="o">=</span>/sdcard/hybris-boot.img<span class="w"> </span><span class="nv">of</span><span class="o">=</span>/dev/block/mmcblk0p19
+</code></pre></div>
+<h2 id="flashing-or-booting-the-boot-image-via-fastboot">Flashing or booting the boot image via fastboot<a class="headerlink" href="#flashing-or-booting-the-boot-image-via-fastboot" title="Permanent link">#</a></h2>
+<div class="highlight"><span class="filename">PLATFORM SDK</span><pre><span></span><code><span class="nb">cd</span><span class="w"> </span><span class="nv">$ANDROID_ROOT</span>
+<span class="c1"># to smoke test a boot image without flashing it:</span>
+fastboot<span class="w"> </span>boot<span class="w"> </span>out/target/product/<span class="nv">$DEVICE</span>/hybris-boot.img
+<span class="c1"># to permanently flash an image to boot partition:</span>
+fastboot<span class="w"> </span>flash<span class="w"> </span>boot<span class="w"> </span>out/target/product/<span class="nv">$DEVICE</span>/hybris-boot.img
+adb<span class="w"> </span>shell
+su
+dd<span class="w"> </span><span class="k">if</span><span class="o">=</span>/sdcard/hybris-boot.img<span class="w"> </span><span class="nv">of</span><span class="o">=</span>/dev/block/mmcblk0p19
+</code></pre></div>
+<h2 id="interacting-with-the-rootfs-via-adb-from-android">Interacting with the rootfs via adb from Android<a class="headerlink" href="#interacting-with-the-rootfs-via-adb-from-android" title="Permanent link">#</a></h2>
+<p>You can interact with the Sailfish OS rootfs and carry out maintenance
+(editing files, installing packages, etc..) when booted into an Android
+system. You have to have your rootfs already installed/extracted. You
+can use Android\'s WLAN connectivity to connect to the Internet and
+download updates:</p>
+<div class="highlight"><span class="filename">PLATFORM_SDK</span><pre><span></span><code>adb<span class="w"> </span>shell
+su
+mount<span class="w"> </span>-o<span class="w"> </span><span class="nb">bind</span><span class="w"> </span>/dev<span class="w"> </span>/data/.stowaways/sailfishos/dev
+mount<span class="w"> </span>-o<span class="w"> </span><span class="nb">bind</span><span class="w"> </span>/proc<span class="w"> </span>/data/.stowaways/sailfishos/proc
+mount<span class="w"> </span>-o<span class="w"> </span><span class="nb">bind</span><span class="w"> </span>/sys<span class="w"> </span>/data/.stowaways/sailfishos/sys
+chroot<span class="w"> </span>/data/.stowaways/sailfishos/<span class="w"> </span>/bin/su<span class="w"> </span>-
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;nameserver 8.8.8.8&quot;</span><span class="w"> </span>&gt;/etc/resolv.conf
+...
+</code></pre></div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../flashing/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Flashing the rootfs image">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Flashing the rootfs image
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../ota-updates/" class="md-footer__link md-footer__link--next" aria-label="Next: OTA (Over-the-Air) Updates">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                OTA (Over-the-Air) Updates
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      
+<div class="md-copyright">Copyright &copy; 2025 Jolla Mobile Ltd</div>
+
+
+
+<div class="md-copyright">
+Content licensed under <a href="../LICENSE.txt">CC BY-NC-SA 4.0</a></li>
+</div>
+
+
+<div class="md-copyright">
+Made with <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">Material for MkDocs</a>
+</div>
+
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "..", "features": ["navigation.footer"], "search": "../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.f55a23d4.min.js"></script>
+      
+    
+  </body>
+</html>

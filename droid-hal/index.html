@@ -1,0 +1,999 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../build-env/">
+      
+      
+        <link rel="next" href="../mic/">
+      
+      
+      <link rel="icon" href="../assets/sailfish_os_favico.svg">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.21">
+    
+    
+      
+        <title>Packaging Droid HAL - Sailfish OS Hardware Adaptation Development Kit</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.2a3383ac.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/extra.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="white" data-md-color-accent="teal">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#packaging-droid-hal" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Sailfish OS Hardware Adaptation Development Kit" class="md-header__button md-logo" aria-label="Sailfish OS Hardware Adaptation Development Kit" data-md-component="logo">
+      
+  <img src="../assets/sailfish_os_logo.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Sailfish OS Hardware Adaptation Development Kit
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Packaging Droid HAL
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Sailfish OS Hardware Adaptation Development Kit" class="md-nav__button md-logo" aria-label="Sailfish OS Hardware Adaptation Development Kit" data-md-component="logo">
+      
+  <img src="../assets/sailfish_os_logo.svg" alt="logo">
+
+    </a>
+    Sailfish OS Hardware Adaptation Development Kit
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../prerequisites/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Prerequisites
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../preparing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Preparing Your Device
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../setupsdk/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Setting up the SDKs
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../android/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Building the Android HAL
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../build-env/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Installing Build Tools for Your Device
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Packaging Droid HAL
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Packaging Droid HAL
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#creating-repositories-for-a-new-device" class="md-nav__link">
+    <span class="md-ellipsis">
+      Creating Repositories for a New Device
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#packaging-droid-hal-device" class="md-nav__link">
+    <span class="md-ellipsis">
+      Packaging droid-hal-device
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Packaging droid-hal-device">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#building-the-droid-hal-device-packages" class="md-nav__link">
+    <span class="md-ellipsis">
+      Building the droid-hal-device packages
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#troubleshoot-errors-from-build_packagessh" class="md-nav__link">
+    <span class="md-ellipsis">
+      Troubleshoot errors from build_packages.sh
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mic/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Creating the Sailfish OS Root Filesystem
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../getting-in/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Getting In
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../flashing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Flashing the rootfs image
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../manual-install/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Manual Installation and Maintenance
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ota-updates/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    OTA (Over-the-Air) Updates
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../modifications/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Modifications and Patches
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../subsystems/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Detailed subsystem adaptation guides
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../middleware/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Middleware
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../repos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    List of Repositories
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../naming/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Package Naming Policy
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ha-checklist/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Hardware Adaptation Checklist
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#creating-repositories-for-a-new-device" class="md-nav__link">
+    <span class="md-ellipsis">
+      Creating Repositories for a New Device
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#packaging-droid-hal-device" class="md-nav__link">
+    <span class="md-ellipsis">
+      Packaging droid-hal-device
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Packaging droid-hal-device">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#building-the-droid-hal-device-packages" class="md-nav__link">
+    <span class="md-ellipsis">
+      Building the droid-hal-device packages
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#troubleshoot-errors-from-build_packagessh" class="md-nav__link">
+    <span class="md-ellipsis">
+      Troubleshoot errors from build_packages.sh
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="packaging-droid-hal">Packaging Droid HAL<a class="headerlink" href="#packaging-droid-hal" title="Permanent link">#</a></h1>
+<p>In this chapter, we will package the build results of
+<a href="../android/">building the Android HAL</a> as RPM packages and create a
+local RPM repository. From there, the RPM packages can be added to a
+local target and used to build libhybris and the QPA plugin. They can
+also be used to build the rootfs.</p>
+<h2 id="creating-repositories-for-a-new-device">Creating Repositories for a New Device<a class="headerlink" href="#creating-repositories-for-a-new-device" title="Permanent link">#</a></h2>
+<p>If the folders
+<code>rpm, hybris/droid-configs, hybris-droid-hal-version-$DEVICE</code> do not
+exist yet, create them as follows (example is for Nexus 5, adjust as
+appropriate and push to your GitHub home):</p>
+<div class="highlight"><span class="filename">PLATFORM SDK</span><pre><span></span><code><span class="nb">cd</span><span class="w"> </span><span class="nv">$ANDROID_ROOT</span>
+mkdir<span class="w"> </span>rpm
+<span class="nb">cd</span><span class="w"> </span>rpm
+git<span class="w"> </span>init
+git<span class="w"> </span>submodule<span class="w"> </span>add<span class="w"> </span>https://github.com/mer-hybris/droid-hal-device<span class="w"> </span>dhd
+<span class="c1"># Rename &#39;hammerhead&#39; and other values as appropriate</span>
+sed<span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;s/@DEVICE@/hammerhead/&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-e<span class="w"> </span><span class="s2">&quot;s/@VENDOR@/lge/&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-e<span class="w"> </span><span class="s2">&quot;s/@DEVICE_PRETTY@/Nexus 5/&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-e<span class="w"> </span><span class="s2">&quot;s/@VENDOR_PRETTY@/LG/&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>dhd/droid-hal-@DEVICE@.spec.template<span class="w"> </span>&gt;<span class="w"> </span>droid-hal-hammerhead.spec
+<span class="c1"># Please review droid-hal-hammerhead.spec before committing!</span>
+git<span class="w"> </span>add<span class="w"> </span>.
+git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;[dhd] Initial content&quot;</span>
+<span class="c1"># Create this repository under your GitHub home</span>
+git<span class="w"> </span>remote<span class="w"> </span>add<span class="w"> </span>myname<span class="w"> </span>https://github.com/myname/droid-hal-hammerhead.git
+git<span class="w"> </span>push<span class="w"> </span>myname<span class="w"> </span>master
+<span class="nb">cd</span><span class="w"> </span>-
+
+mkdir<span class="w"> </span>-p<span class="w"> </span>hybris/droid-configs
+<span class="nb">cd</span><span class="w"> </span>hybris/droid-configs
+git<span class="w"> </span>init
+git<span class="w"> </span>submodule<span class="w"> </span>add<span class="w"> </span>https://github.com/mer-hybris/droid-hal-configs<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>droid-configs-device
+mkdir<span class="w"> </span>rpm
+sed<span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;s/@DEVICE@/hammerhead/&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-e<span class="w"> </span><span class="s2">&quot;s/@VENDOR@/lge/&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-e<span class="w"> </span><span class="s2">&quot;s/@DEVICE_PRETTY@/Nexus 5/&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-e<span class="w"> </span><span class="s2">&quot;s/@VENDOR_PRETTY@/LG/&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>droid-configs-device/droid-config-@DEVICE@.spec.template<span class="w"> </span>&gt;<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>rpm/droid-config-hammerhead.spec
+<span class="c1"># Please review rpm/droid-config-hammerhead.spec before committing!</span>
+git<span class="w"> </span>add<span class="w"> </span>.
+git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;[dcd] Initial content&quot;</span>
+<span class="c1"># Create this repository under your GitHub home</span>
+git<span class="w"> </span>remote<span class="w"> </span>add<span class="w"> </span>myname<span class="w"> </span>https://github.com/myname/droid-config-hammerhead.git
+git<span class="w"> </span>push<span class="w"> </span>myname<span class="w"> </span>master
+<span class="nb">cd</span><span class="w"> </span>-
+
+rpm/dhd/helpers/add_new_device.sh
+<span class="c1"># On Nexus 5 the output of the last command is:</span>
+<span class="c1"># Creating the following nodes:</span>
+<span class="c1"># sparse/</span>
+<span class="c1"># patterns/</span>
+<span class="c1"># patterns/jolla-configuration-hammerhead.yaml</span>
+<span class="c1"># patterns/jolla-hw-adaptation-hammerhead.yaml</span>
+<span class="nb">cd</span><span class="w"> </span>hybris/droid-configs
+git<span class="w"> </span>add<span class="w"> </span>.
+git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;[dcd] Patterns and compositor config&quot;</span>
+git<span class="w"> </span>push<span class="w"> </span>myname<span class="w"> </span>master
+<span class="nb">cd</span><span class="w"> </span>-
+
+mkdir<span class="w"> </span>-p<span class="w"> </span>hybris/droid-hal-version-hammerhead
+<span class="nb">cd</span><span class="w"> </span>hybris/droid-hal-version-hammerhead
+git<span class="w"> </span>init
+git<span class="w"> </span>submodule<span class="w"> </span>add<span class="w"> </span>https://github.com/mer-hybris/droid-hal-version
+mkdir<span class="w"> </span>rpm
+sed<span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;s/@DEVICE@/hammerhead/&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-e<span class="w"> </span><span class="s2">&quot;s/@VENDOR@/lge/&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-e<span class="w"> </span><span class="s2">&quot;s/@DEVICE_PRETTY@/Nexus 5/&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-e<span class="w"> </span><span class="s2">&quot;s/@VENDOR_PRETTY@/LG/&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>droid-hal-version/droid-hal-version-@DEVICE@.spec.template<span class="w"> </span>&gt;<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>rpm/droid-hal-version-hammerhead.spec
+<span class="c1"># Please review rpm/droid-hal-version-hammerhead.spec before committing!</span>
+git<span class="w"> </span>add<span class="w"> </span>.
+git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;[dvd] Initial content&quot;</span>
+<span class="c1"># Create this repository under your GitHub home</span>
+git<span class="w"> </span>remote<span class="w"> </span>add<span class="w"> </span>myname<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>https://github.com/myname/droid-hal-version-hammerhead.git
+git<span class="w"> </span>push<span class="w"> </span>myname<span class="w"> </span>master
+</code></pre></div>
+<p>Now to complete you local manifest, this is how it would be done for
+Nexus 5. Do it for your device by renaming accordingly.</p>
+<p>Add the next 3 entries into <code>.repo/local_manifests/hammerhead.xml</code></p>
+<div class="highlight"><pre><span></span><code><span class="nt">&lt;project</span><span class="w"> </span><span class="na">path=</span><span class="s">&quot;rpm/&quot;</span>
+<span class="w">         </span><span class="na">name=</span><span class="s">&quot;myname/droid-hal-hammerhead&quot;</span><span class="w"> </span><span class="na">revision=</span><span class="s">&quot;master&quot;</span><span class="w"> </span><span class="nt">/&gt;</span>
+<span class="nt">&lt;project</span><span class="w"> </span><span class="na">path=</span><span class="s">&quot;hybris/droid-configs&quot;</span>
+<span class="w">         </span><span class="na">name=</span><span class="s">&quot;myname/droid-config-hammerhead&quot;</span><span class="w"> </span><span class="na">revision=</span><span class="s">&quot;master&quot;</span><span class="w"> </span><span class="nt">/&gt;</span>
+<span class="nt">&lt;project</span><span class="w"> </span><span class="na">path=</span><span class="s">&quot;hybris/droid-hal-version-hammerhead&quot;</span>
+<span class="w">         </span><span class="na">name=</span><span class="s">&quot;myname/droid-hal-version-hammerhead&quot;</span><span class="w"> </span><span class="na">revision=</span><span class="s">&quot;master&quot;</span><span class="w"> </span><span class="nt">/&gt;</span>
+</code></pre></div>
+<p>Once all these 3 repositories get upstreamed under
+<a href="https://github.com/mer-hybris">https://github.com/mer-hybris</a> create PR into an appropriate branch of
+the file <code>.repo/local_manifests/hammerhead.xml</code> to the
+<a href="https://github.com/mer-hybris/local_manifests">https://github.com/mer-hybris/local_manifests</a> repository.</p>
+<h2 id="packaging-droid-hal-device">Packaging <code>droid-hal-device</code><a class="headerlink" href="#packaging-droid-hal-device" title="Permanent link">#</a></h2>
+<p>The <code>$ANDROID_ROOT/rpm/</code> dir contains the needed <code>.spec</code> file to make a
+set of RPM packages that form the core Droid hardware adaptation part of
+the hardware adaptation. It also builds a development package (ends with
+-devel) that contains libraries and headers, which are used when
+building middleware components later on.</p>
+<h3 id="building-the-droid-hal-device-packages">Building the droid-hal-device packages<a class="headerlink" href="#building-the-droid-hal-device-packages" title="Permanent link">#</a></h3>
+<p>Before building the packages it is recommended to read extra Android
+base specific hints from
+<a href="https://github.com/mer-hybris/hadk-faq#android-base-specific-fixes">https://github.com/mer-hybris/hadk-faq#android-base-specific-fixes</a></p>
+<p>The next step has to be carried out in the Platform SDK chroot:</p>
+<div class="highlight"><span class="filename">PLATFORM SDK</span><pre><span></span><code><span class="nb">cd</span><span class="w"> </span><span class="nv">$ANDROID_ROOT</span>
+
+rpm/dhd/helpers/build_packages.sh<span class="w"> </span>--droid-hal
+rpm/dhd/helpers/build_packages.sh<span class="w"> </span>--configs
+rpm/dhd/helpers/build_packages.sh<span class="w"> </span>--mw
+rpm/dhd/helpers/build_packages.sh<span class="w"> </span>--gg
+rpm/dhd/helpers/build_packages.sh<span class="w"> </span>--version
+</code></pre></div>
+<p>This will compile all the needed packages, patterns, middleware and put
+them under local repository. If anything gets modified, just re-run the
+appropriate part.</p>
+<h3 id="troubleshoot-errors-from-build_packagessh">Troubleshoot errors from build_packages.sh<a class="headerlink" href="#troubleshoot-errors-from-build_packagessh" title="Permanent link">#</a></h3>
+<ul>
+<li>
+<p><strong>Installed (but unpackaged) file(s) found</strong>: Add those files to
+  straggler section in your <code>rpm/droid-hal-$DEVICE.spec</code> before the
+  <code>%include ...</code> line, for example:
+  <div class="highlight"><pre><span></span><code>%define straggler_files \
+/init.mmi.boot.sh\
+/init.mmi.touch.sh\
+/init.qcom.ssr.sh\
+/selinux_version\
+/service_contexts\
+%{nil}
+</code></pre></div></p>
+</li>
+<li>
+<p>Lastly, re-run <code>build_packages.sh --droid-hal</code></p>
+</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../build-env/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Installing Build Tools for Your Device">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Installing Build Tools for Your Device
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../mic/" class="md-footer__link md-footer__link--next" aria-label="Next: Creating the Sailfish OS Root Filesystem">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Creating the Sailfish OS Root Filesystem
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      
+<div class="md-copyright">Copyright &copy; 2025 Jolla Mobile Ltd</div>
+
+
+
+<div class="md-copyright">
+Content licensed under <a href="../LICENSE.txt">CC BY-NC-SA 4.0</a></li>
+</div>
+
+
+<div class="md-copyright">
+Made with <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">Material for MkDocs</a>
+</div>
+
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "..", "features": ["navigation.footer"], "search": "../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.f55a23d4.min.js"></script>
+      
+    
+  </body>
+</html>

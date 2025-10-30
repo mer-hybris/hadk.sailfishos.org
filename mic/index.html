@@ -1,0 +1,1085 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../droid-hal/">
+      
+      
+        <link rel="next" href="../getting-in/">
+      
+      
+      <link rel="icon" href="../assets/sailfish_os_favico.svg">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.21">
+    
+    
+      
+        <title>Creating the Sailfish OS Root Filesystem - Sailfish OS Hardware Adaptation Development Kit</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.2a3383ac.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/extra.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="white" data-md-color-accent="teal">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#creating-the-sailfish-os-root-filesystem" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Sailfish OS Hardware Adaptation Development Kit" class="md-header__button md-logo" aria-label="Sailfish OS Hardware Adaptation Development Kit" data-md-component="logo">
+      
+  <img src="../assets/sailfish_os_logo.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Sailfish OS Hardware Adaptation Development Kit
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Creating the Sailfish OS Root Filesystem
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Sailfish OS Hardware Adaptation Development Kit" class="md-nav__button md-logo" aria-label="Sailfish OS Hardware Adaptation Development Kit" data-md-component="logo">
+      
+  <img src="../assets/sailfish_os_logo.svg" alt="logo">
+
+    </a>
+    Sailfish OS Hardware Adaptation Development Kit
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../prerequisites/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Prerequisites
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../preparing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Preparing Your Device
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../setupsdk/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Setting up the SDKs
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../android/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Building the Android HAL
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../build-env/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Installing Build Tools for Your Device
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../droid-hal/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Packaging Droid HAL
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Creating the Sailfish OS Root Filesystem
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Creating the Sailfish OS Root Filesystem
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#additional-packages-for-hardware-adaptation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Additional Packages for Hardware Adaptation
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#allowed-content-in-your-sailfish-os-image" class="md-nav__link">
+    <span class="md-ellipsis">
+      Allowed Content in Your Sailfish OS Image
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#patterns" class="md-nav__link">
+    <span class="md-ellipsis">
+      Patterns
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Patterns">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#modifying-a-pattern" class="md-nav__link">
+    <span class="md-ellipsis">
+      Modifying a pattern
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#building-the-image-with-mic" class="md-nav__link">
+    <span class="md-ellipsis">
+      Building the Image with MIC
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      Troubleshooting
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Troubleshooting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#devnull-permission-denied-while-using-mic" class="md-nav__link">
+    <span class="md-ellipsis">
+      /dev/null - Permission denied (while using mic)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#executing-commands-in-the-build-environment" class="md-nav__link">
+    <span class="md-ellipsis">
+      Executing commands in the build environment
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../getting-in/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Getting In
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../flashing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Flashing the rootfs image
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../manual-install/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Manual Installation and Maintenance
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ota-updates/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    OTA (Over-the-Air) Updates
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../modifications/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Modifications and Patches
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../subsystems/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Detailed subsystem adaptation guides
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../middleware/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Middleware
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../repos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    List of Repositories
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../naming/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Package Naming Policy
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ha-checklist/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Hardware Adaptation Checklist
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#additional-packages-for-hardware-adaptation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Additional Packages for Hardware Adaptation
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#allowed-content-in-your-sailfish-os-image" class="md-nav__link">
+    <span class="md-ellipsis">
+      Allowed Content in Your Sailfish OS Image
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#patterns" class="md-nav__link">
+    <span class="md-ellipsis">
+      Patterns
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Patterns">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#modifying-a-pattern" class="md-nav__link">
+    <span class="md-ellipsis">
+      Modifying a pattern
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#building-the-image-with-mic" class="md-nav__link">
+    <span class="md-ellipsis">
+      Building the Image with MIC
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      Troubleshooting
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Troubleshooting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#devnull-permission-denied-while-using-mic" class="md-nav__link">
+    <span class="md-ellipsis">
+      /dev/null - Permission denied (while using mic)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#executing-commands-in-the-build-environment" class="md-nav__link">
+    <span class="md-ellipsis">
+      Executing commands in the build environment
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="creating-the-sailfish-os-root-filesystem">Creating the Sailfish OS Root Filesystem<a class="headerlink" href="#creating-the-sailfish-os-root-filesystem" title="Permanent link">#</a></h1>
+<h2 id="additional-packages-for-hardware-adaptation">Additional Packages for Hardware Adaptation<a class="headerlink" href="#additional-packages-for-hardware-adaptation" title="Permanent link">#</a></h2>
+<p>See <a href="../middleware/">middleware</a> for a list of all
+middleware components (not all middleware components are used by every
+device adaptation). Most of them will have already been built by the
+<code>build_packages.sh --mw</code> script, but if you need an extra one, rebuild
+with <code>rpm/dhd/helpers/build_packages.sh --mw=GIT_URL</code>.</p>
+<p>Via the flexible system of patterns, you will be able to select only
+working/needed functions for your device.</p>
+<h2 id="allowed-content-in-your-sailfish-os-image">Allowed Content in Your Sailfish OS Image<a class="headerlink" href="#allowed-content-in-your-sailfish-os-image" title="Permanent link">#</a></h2>
+<p>The default set of packages results in a minimal and functional root
+filesystem.</p>
+<p>It is forbidden to add proprietary/commercial packages to your image,
+because royalty fees need to be paid or licence constraints are not
+allowing to redistribute them. Examples:</p>
+<ul>
+<li>jolla-xt9 (predictive text input)</li>
+<li>sailfish-eas (Microsoft Exchange support)</li>
+<li>aliendalvik (Android™ App Support)</li>
+<li>sailfish-maps</li>
+<li>Any non-free audio/video codecs, etc.</li>
+</ul>
+<h2 id="patterns">Patterns<a class="headerlink" href="#patterns" title="Permanent link">#</a></h2>
+<p>The selection of packages for each hardware adaptation has to be put
+into a pattern file, so that creating the image as well as any system
+updates in the future can pull in and upgrade all packages related to
+the hardware adaptation.</p>
+<h3 id="modifying-a-pattern">Modifying a pattern<a class="headerlink" href="#modifying-a-pattern" title="Permanent link">#</a></h3>
+<p>To make an extra modification to a pattern, edit its respective file
+under <code>hybris/droid-configs/patterns/</code>. Take care and always use
+<code>git status/stash</code> commands. Once happy, commit to your GitHub home and
+eventually PR upstream.</p>
+<p>For patterns to take effect on the image, run the following:</p>
+<div class="highlight"><span class="filename">PLATFORM SDK</span><pre><span></span><code><span class="nb">cd</span><span class="w"> </span><span class="nv">$ANDROID_ROOT</span>
+rpm/dhd/helpers/build_packages.sh<span class="w"> </span>--configs
+</code></pre></div>
+<h2 id="building-the-image-with-mic">Building the Image with MIC<a class="headerlink" href="#building-the-image-with-mic" title="Permanent link">#</a></h2>
+<p>You need to choose a <a href="https://docs.sailfishos.org/Support/Releases/">Sailfish OS version</a> you
+want to build.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Avoid building older releases unless you know what you\'re doing - we do
+not guarantee backwards compatibility for old Sailfish OS versions!
+E.g., expect patterns to break as new HA packages get introduced etc.</p>
+<p>Ensure you pick the same release as your target was in <a href="../build-env/">build-env</a>
+E.g., if target's <code>ssu lr</code> versions begin with <code>4.5.0.</code>, build Sailfish OS
+update 4.5.0.19 (check for the latest, non "Early Access"
+<a href="https://docs.sailfishos.org/Support/Releases/">Sailfish OS version</a>)</p>
+</div>
+<p>Build a rootfs using RPM repositories and a kickstart file (NB: all
+errors are non-critical as long as you end up with a generated .zip image):</p>
+<div class="highlight"><span class="filename">PLATFORM SDK</span><pre><span></span><code><span class="c1"># Set the version of your choosing, latest is strongly preferred</span>
+<span class="c1"># (check with &quot;Sailfish OS version&quot; link above)</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">RELEASE</span><span class="o">=</span><span class="m">4</span>.5.0.19
+<span class="c1"># EXTRA_NAME adds your custom tag. It doesn&#39;t support &#39;.&#39; dots in it!</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">EXTRA_NAME</span><span class="o">=</span>-my1
+rpm/dhd/helpers/build_packages.sh<span class="w"> </span>--mic
+</code></pre></div>
+<p>Once obtained the <code>.zip</code> file, sideload via your device's recovery
+mode, or examine other particular ways of deploying to your device.</p>
+<p>Jolla Store functionality can be enabled only if your device identifies
+itself uniquely - either via IMEI or (for non-cellular devices) WLAN/BT
+MAC address. Consult us on #sailfishos-porters IRC channel on oftc.net
+about details.</p>
+<p>If creation fails due to absence of a package required by pattern, note
+down the package name.</p>
+<p>If that package is critical (e.g. <code>libhybris</code>, <code>qt5-qpa-hwcomposer-plugin</code>
+etc.), build and add it to the local repo as explained in
+<a href="#additional-packages-for-hardware-adaptation">additional packages section</a>.
+Afterwards perform:</p>
+<ul>
+<li><a href="#modifying-a-pattern">Modifying a pattern</a></li>
+<li><a href="#building-the-image-with-mic">Building the image with MIC</a></li>
+</ul>
+<p>Otherwise if a package is not critical, and you accept to have less
+functionality (or even unbootable) image, you can temporarily comment it
+out from patterns in <code>hybris/droid-configs/patterns</code> and orderly
+perform:</p>
+<ul>
+<li><a href="#modifying-a-pattern">Modifying a pattern</a></li>
+<li><a href="#building-the-image-with-mic">Building the image with MIC</a></li>
+</ul>
+<p>Alternatively (or if you can't find it among patterns) provide a line
+beginning with dash (e.g. <code>-jolla-camera</code>) indicating explicit removal
+of package, to your .ks <code>%packages</code> section (remember that regenerating
+.ks will overwrite this modification).</p>
+<h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">#</a></h2>
+<h3 id="devnull-permission-denied-while-using-mic">/dev/null - Permission denied (while using <code>mic</code>)<a class="headerlink" href="#devnull-permission-denied-while-using-mic" title="Permanent link">#</a></h3>
+<p>Most likely the partition your Platform SDK resides in, is mounted with
+<code>nodev</code> option. Remove that option from mount rules.</p>
+<h3 id="executing-commands-in-the-build-environment">Executing commands in the build environment<a class="headerlink" href="#executing-commands-in-the-build-environment" title="Permanent link">#</a></h3>
+<p>You can execute commands to build and install packages under the build
+environment, inspect and debug any issues. The syntax is shown in
+<a href="../build-env/">Installing Build Tools for Your Device</a>.</p>
+<p>Note that <code>mb2</code> uses a working copy of your original build target, which
+means you can experiment with <code>mb2 build-shell</code> at will, but once you
+have found a desired fix, make it permanent by recording the changes in
+your source code (e.g. do not leave installed packages with <code>zypper in</code>
+lying around, but add them to your .spec's <code>BuildRequires</code>).</p>
+<p>If you break your build environment via <code>mb2 build-shell</code>, you can reset
+it back to its clean state via
+<code>mb2 -t $VENDOR-$DEVICE-$PORT_ARCH build-requires reset</code>. This happens
+implicitly after re-running <code>build_packages.sh</code><sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup>.</p>
+<p>Use <code>mb2 ... build-requires diff</code> if you want to know what you have done
+to your build environment with <code>mb2</code> in terms of installed/removed
+packages<sup id="fnref:2"><a class="footnote-ref" href="#fn:2">2</a></sup>.</p>
+<p><code>mb2 ... build-shell</code> is limited to launch only from directories where
+you previously ran commands like <code>mb2 ... build</code> or
+<code>mb2 ... build-init</code><sup id="fnref:3"><a class="footnote-ref" href="#fn:3">3</a></sup>. Such commands are run under <code>$ANDROID_ROOT</code>
+during the build of dhd, so you can run <code>mb2 build-shell</code> from
+<code>$ANDROID_ROOT</code> if you find no better place.</p>
+<div class="footnote">
+<hr />
+<ol>
+<li id="fn:1">
+<p>As long as your original build target does not change, <code>mb2</code> keeps
+using the same working copy ("snapshot" in mb2's speech) of your
+build target in subsequent executions, preserving any changes you
+make to it. When your original build target changes, <code>mb2</code> will
+reset the working copy to match the updated state of your original
+target next time it is invoked. This happens e.g. when you use
+<code>build_packages.sh</code>, which intentionally works directly on your
+original build target. Factors that are regarded as a change in the
+original build target are: RPM DB change, SSU configuration, and few
+other things.&#160;<a class="footnote-backref" href="#fnref:1" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+<li id="fn:2">
+<p>If you need to make permanent changes to the original build
+environment (not recommended), add <code>--no-snapshot=force</code> option at
+the beginning of <code>mb2</code> command line (it is a global option).&#160;<a class="footnote-backref" href="#fnref:2" title="Jump back to footnote 2 in the text">&#8617;</a></p>
+</li>
+<li id="fn:3">
+<p><code>mb2</code> looks for a directory named <code>.mb2</code>, where it stores some of
+its state. It is created implicitly by <code>mb2 ... build</code> and you can
+also create it explicitly with
+<code>mb2 -t $VENDOR-$DEVICE-$PORT_ARCH build-init</code>.&#160;<a class="footnote-backref" href="#fnref:3" title="Jump back to footnote 3 in the text">&#8617;</a></p>
+</li>
+</ol>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../droid-hal/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Packaging Droid HAL">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Packaging Droid HAL
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../getting-in/" class="md-footer__link md-footer__link--next" aria-label="Next: Getting In">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Getting In
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      
+<div class="md-copyright">Copyright &copy; 2025 Jolla Mobile Ltd</div>
+
+
+
+<div class="md-copyright">
+Content licensed under <a href="../LICENSE.txt">CC BY-NC-SA 4.0</a></li>
+</div>
+
+
+<div class="md-copyright">
+Made with <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">Material for MkDocs</a>
+</div>
+
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "..", "features": ["navigation.footer"], "search": "../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.f55a23d4.min.js"></script>
+      
+    
+  </body>
+</html>

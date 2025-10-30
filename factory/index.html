@@ -1,0 +1,1447 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+      
+      
+      <link rel="icon" href="../assets/sailfish_os_favico.svg">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.21">
+    
+    
+      
+        <title>Addendum: Factory Productisation - Sailfish OS Hardware Adaptation Development Kit</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.2a3383ac.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/extra.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="white" data-md-color-accent="teal">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#addendum-factory-productisation" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Sailfish OS Hardware Adaptation Development Kit" class="md-header__button md-logo" aria-label="Sailfish OS Hardware Adaptation Development Kit" data-md-component="logo">
+      
+  <img src="../assets/sailfish_os_logo.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Sailfish OS Hardware Adaptation Development Kit
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Addendum: Factory Productisation
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Sailfish OS Hardware Adaptation Development Kit" class="md-nav__button md-logo" aria-label="Sailfish OS Hardware Adaptation Development Kit" data-md-component="logo">
+      
+  <img src="../assets/sailfish_os_logo.svg" alt="logo">
+
+    </a>
+    Sailfish OS Hardware Adaptation Development Kit
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../prerequisites/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Prerequisites
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../preparing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Preparing Your Device
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../setupsdk/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Setting up the SDKs
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../android/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Building the Android HAL
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../build-env/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Installing Build Tools for Your Device
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../droid-hal/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Packaging Droid HAL
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mic/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Creating the Sailfish OS Root Filesystem
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../getting-in/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Getting In
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../flashing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Flashing the rootfs image
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../manual-install/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Manual Installation and Maintenance
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ota-updates/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    OTA (Over-the-Air) Updates
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../modifications/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Modifications and Patches
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../subsystems/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Detailed subsystem adaptation guides
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../middleware/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Middleware
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../repos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    List of Repositories
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../naming/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Package Naming Policy
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ha-checklist/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Hardware Adaptation Checklist
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#package-system-partition" class="md-nav__link">
+    <span class="md-ellipsis">
+      Package system partition
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#convert-userdata-into-the-sailfish-os-lvm-partition" class="md-nav__link">
+    <span class="md-ellipsis">
+      Convert userdata into the Sailfish OS LVM partition
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Convert userdata into the Sailfish OS LVM partition">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#package-an-lvm-enabled-bootloader" class="md-nav__link">
+    <span class="md-ellipsis">
+      Package an LVM-enabled bootloader
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configuring-the-lvm-packaging" class="md-nav__link">
+    <span class="md-ellipsis">
+      Configuring the LVM packaging
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#flashing-lvm-enabled-image" class="md-nav__link">
+    <span class="md-ellipsis">
+      Flashing LVM-enabled image
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#enable-sailfish-os-recovery-mode" class="md-nav__link">
+    <span class="md-ellipsis">
+      Enable Sailfish OS recovery mode
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#enable-factory-reset-support" class="md-nav__link">
+    <span class="md-ellipsis">
+      Enable factory reset support
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="addendum-factory-productisation">Addendum: Factory Productisation<a class="headerlink" href="#addendum-factory-productisation" title="Permanent link">#</a></h1>
+<p>This chapter explains the next steps towards the mass-production of a
+product, after all HW peripheral functions are in working order.</p>
+<p>This includes:</p>
+<ul>
+<li>Package <code>system</code> partition content as RPM</li>
+<li>Flash Sailfish OS to use the whole <code>userdata</code> partition as LVM</li>
+<li>Enable Sailfish OS recovery mode</li>
+<li>Enable factory reset support</li>
+<li>Provide flashing tools</li>
+<li>Modify bootloader, splash screen, and other partitions</li>
+<li>Optimising size and layout of partitions</li>
+<li>Provide a raw image for factory testing and flashing</li>
+</ul>
+<h2 id="package-system-partition">Package <code>system</code> partition<a class="headerlink" href="#package-system-partition" title="Permanent link">#</a></h2>
+<p>Sailfish OS needs a mounted <code>system</code> partition under <code>/system</code> to use
+the underlying Android parts.</p>
+<p>However to provide BSP updates that an ODM may give, its content needs
+to be packaged as RPM and deployed in <code>userdata</code> together with the rest
+of our rootfs.</p>
+<p>In this way we get to win free space by removing unused files, and use
+<code>system</code> partition for e.g. flashing the factory reset image.</p>
+<p>At first create a tarball of the original <code>/system</code> contents from the
+<strong>Android base</strong> image flashed to your device (we are using Nexus 5 in
+this guide).</p>
+<p>Transfer the tarball to your host and extract it.</p>
+<p>Alternatively you may have a ready-built <code>system.img</code> from the original
+Android build, the file snippet below explains how to extract it.</p>
+<p>Create directory <code>$ANDROID_ROOT/hybris/droid-system/</code> and create file
+<code>copy_system.sh</code> with the following content:</p>
+<div class="highlight"><pre><span></span><code><span class="c1">#</span>
+<span class="c1"># Use this script everytime you receive an updated /system from your ODM.</span>
+<span class="c1">#</span>
+<span class="c1"># Before running this script please extract raw system image</span>
+<span class="c1"># and mount loop image to some mount point. Give that mount point</span>
+<span class="c1"># parameter for this script.</span>
+<span class="c1">#</span>
+<span class="c1"># 1. &quot;simg2img system.img system.raw&quot; (Run inside Platform SDK target)</span>
+<span class="c1"># 2. &quot;mkdir ~/system&quot;</span>
+<span class="c1"># 3. &quot;sudo mount -t ext4 -o loop system.raw ~/system&quot;</span>
+<span class="c1"># 4. &quot;./copy_system.sh ~/system&quot;</span>
+
+<span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span>-z<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">&quot;</span><span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">  </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;No argument supplied, try </span><span class="nv">$0</span><span class="s2"> ~/path/to/system&quot;</span>
+<span class="w">  </span><span class="nb">exit</span>
+<span class="k">fi</span>
+
+<span class="nv">SYSTEM_SPARSE</span><span class="o">=</span><span class="s2">&quot;sparse/system&quot;</span>
+<span class="nv">SYSTEM_MOUNT</span><span class="o">=</span><span class="nv">$1</span>
+
+<span class="c1"># Add read permission for some binaries under system mount</span>
+sudo<span class="w"> </span>chmod<span class="w"> </span>a+r<span class="w"> </span><span class="nv">$SYSTEM_MOUNT</span>/bin/netcfg
+sudo<span class="w"> </span>chmod<span class="w"> </span>a+r<span class="w"> </span><span class="nv">$SYSTEM_MOUNT</span>/bin/run-as
+sudo<span class="w"> </span>chmod<span class="w"> </span>a+r<span class="w"> </span><span class="nv">$SYSTEM_MOUNT</span>/bin/uncrypt
+sudo<span class="w"> </span>chmod<span class="w"> </span>a+r<span class="w"> </span><span class="nv">$SYSTEM_MOUNT</span>/bin/install-recovery.sh
+sudo<span class="w"> </span>chmod<span class="w"> </span>a+r<span class="w"> </span><span class="nv">$SYSTEM_MOUNT</span>/etc/dhcpcd/dhcpcd-run-hooks
+
+<span class="c1"># Remove current sparse and create it again</span>
+rm<span class="w"> </span>-rf<span class="w"> </span><span class="nv">$SYSTEM_SPARSE</span>
+mkdir<span class="w"> </span>-p<span class="w"> </span><span class="nv">$SYSTEM_SPARSE</span>
+
+<span class="c1"># Copy content</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Copy </span><span class="nv">$SYSTEM_MOUNT</span><span class="s2">/* to </span><span class="nv">$SYSTEM_SPARSE</span><span class="s2">&quot;</span>
+cp<span class="w"> </span>-r<span class="w"> </span><span class="nv">$SYSTEM_MOUNT</span>/*<span class="w"> </span><span class="nv">$SYSTEM_SPARSE</span>
+
+<span class="c1"># Remove unused directories and files</span>
+rm<span class="w"> </span>-rf<span class="w"> </span><span class="nv">$SYSTEM_SPARSE</span>/app/
+rm<span class="w"> </span>-rf<span class="w"> </span><span class="nv">$SYSTEM_SPARSE</span>/priv-app/
+rm<span class="w"> </span>-rf<span class="w"> </span><span class="nv">$SYSTEM_SPARSE</span>/media/
+rm<span class="w"> </span>-rf<span class="w"> </span><span class="nv">$SYSTEM_SPARSE</span>/lib/modules/
+rm<span class="w"> </span>-rf<span class="w"> </span><span class="nv">$SYSTEM_SPARSE</span>/framework/
+rm<span class="w"> </span>-rf<span class="w"> </span><span class="nv">$SYSTEM_SPARSE</span>/fonts/
+rm<span class="w"> </span>-rf<span class="w"> </span><span class="nv">$SYSTEM_SPARSE</span>/usr/keylayout/
+rm<span class="w"> </span>-rf<span class="w"> </span><span class="nv">$SYSTEM_SPARSE</span>/vendor/app
+rm<span class="w"> </span>-rf<span class="w"> </span><span class="nv">$SYSTEM_SPARSE</span>/vendor/speccfg
+rm<span class="w"> </span>-rf<span class="w"> </span><span class="nv">$SYSTEM_SPARSE</span>/vendor/Default/system/media
+rm<span class="w"> </span>-rf<span class="w"> </span><span class="nv">$SYSTEM_SPARSE</span>/bin/install-recovery.sh
+rm<span class="w"> </span>-rf<span class="w"> </span><span class="nv">$SYSTEM_SPARSE</span>/recovery-from-boot.p
+rm<span class="w"> </span>-rf<span class="w"> </span><span class="nv">$SYSTEM_SPARSE</span>/etc/install_apk.sh
+rm<span class="w"> </span>-rf<span class="w"> </span><span class="nv">$SYSTEM_SPARSE</span>/etc/cdrom_install.iso
+rm<span class="w"> </span>-rf<span class="w"> </span><span class="nv">$SYSTEM_SPARSE</span>/etc/mmi/fonts.ttf
+rm<span class="w"> </span>-rf<span class="w"> </span><span class="nv">$SYSTEM_SPARSE</span>/build.prop.bakforspec
+rm<span class="w"> </span>-rf<span class="w"> </span><span class="nv">$SYSTEM_SPARSE</span>/lib/libchromium_client.so
+rm<span class="w"> </span>-rf<span class="w"> </span><span class="nv">$SYSTEM_SPARSE</span>/lib/libswenetxt_plugin.so
+rm<span class="w"> </span>-rf<span class="w"> </span><span class="nv">$SYSTEM_SPARSE</span>/lib/libswewebviewchromium.so
+rm<span class="w"> </span>-rf<span class="w"> </span><span class="nv">$SYSTEM_SPARSE</span>/lib/libwebviewchromium.so
+rm<span class="w"> </span>-rf<span class="w"> </span><span class="nv">$SYSTEM_SPARSE</span>/lib/libwebviewchromium_loader.so
+rm<span class="w"> </span>-rf<span class="w"> </span><span class="nv">$SYSTEM_SPARSE</span>/lib/libwebviewchromium_plat_support.so
+rm<span class="w"> </span>-rf<span class="w"> </span><span class="nv">$SYSTEM_SPARSE</span>/lib/libWnnJpnDic.so
+rm<span class="w"> </span>-rf<span class="w"> </span><span class="nv">$SYSTEM_SPARSE</span>/lib/libWnnEngDic.so
+rm<span class="w"> </span>-rf<span class="w"> </span><span class="nv">$SYSTEM_SPARSE</span>/lib/libpac.so
+rm<span class="w"> </span>-rf<span class="w"> </span><span class="nv">$SYSTEM_SPARSE</span>/lib/libjni_pacprocessor.so
+rm<span class="w"> </span>-rf<span class="w"> </span><span class="nv">$SYSTEM_SPARSE</span>/lib/libswev8.so
+rm<span class="w"> </span>-rf<span class="w"> </span><span class="nv">$SYSTEM_SPARSE</span>/lib/libsweskia.so
+rm<span class="w"> </span>-rf<span class="w"> </span><span class="nv">$SYSTEM_SPARSE</span>/usr/qfipsverify/bootimg.hmac
+rm<span class="w"> </span>-rf<span class="w"> </span><span class="nv">$SYSTEM_SPARSE</span>/etc/recovery-resource.dat
+rm<span class="w"> </span>-rf<span class="w"> </span><span class="nv">$SYSTEM_SPARSE</span>/etc/security/otacerts.zip
+rm<span class="w"> </span>-rf<span class="w"> </span><span class="nv">$SYSTEM_SPARSE</span>/vendor/bin/slim_ap_daemon
+
+<span class="c1"># If you want to make customisations to your /system, create ./patches</span>
+<span class="c1"># directory and apply them below, e.g.:</span>
+<span class="c1">#echo &quot;Patch Jolla changes on top of ODM&#39;s delivery:&quot;</span>
+<span class="c1">#patch -p1 &lt; patches/0001-bug-Don-t-use-GPS-Sensor-Assisted-Positioning.patch</span>
+</code></pre></div>
+<p>Afterwards execute <code>copy_system.sh ~/path/to/system</code> ensuring you point
+to files within directory as opposed to a path that contains <code>system/</code>
+directory itself.</p>
+<p>Now you have a reduced yet functional (tested on Nexus 5, Jolla C/Aqua
+Fish, and Turing Phone) <code>system</code> under <code>./sparse/system</code> that will be
+packaged as follows:</p>
+<p>Create path and file
+<code>$ANDROID_ROOT/hybris/droid-system/rpm/droid-system-hammerhead.spec</code>
+with content:</p>
+<div class="highlight"><pre><span></span><code><span class="cp">%define device hammerhead</span>
+
+<span class="cp">%define dsd_path ./</span>
+
+%include<span class="w"> </span>droid-system-device/droid-system.inc
+</code></pre></div>
+<p>And
+<code>$ANDROID_ROOT/hybris/droid-system/droid-system-device/droid-system.inc</code>
+with:</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>We shall provide access to Git repo containing this file in due time,
+then you'll be able to use it as submodule for maximum code re-use,
+minimising fragmentation.</p>
+</div>
+<div class="highlight"><pre><span></span><code><span class="cp">%define __find_provides %{nil}</span>
+<span class="cp">%define __find_requires %{nil}</span>
+<span class="cp">%define __strip /bin/true</span>
+<span class="cp">%define __provides_exclude_from ^/system/.*$</span>
+<span class="cp">%define __requires_exclude ^.*$</span>
+%global<span class="w"> </span>debug_package<span class="w"> </span><span class="kc">%{nil}</span>
+
+<span class="cp">%if</span> 0%{!?rpm_device:1}
+<span class="cp">%define rpm_device %{device}</span>
+<span class="cp">%endif</span>
+
+<span class="gh">Name</span><span class="p">:</span><span class="w">       </span>droid-system-<span class="kc">%{rpm_device}</span>
+<span class="gh">Provides</span><span class="p">:</span><span class="w">   </span>droid-system
+<span class="gh">Summary</span><span class="p">:</span><span class="w">    </span>System<span class="w"> </span>package<span class="w"> </span>for<span class="w"> </span>Droid<span class="w"> </span>HAL<span class="w"> </span>adaptations
+<span class="gh">Version</span><span class="p">:</span><span class="w">    </span>1
+<span class="gh">Release</span><span class="p">:</span><span class="w">    </span>1
+<span class="gh">Group</span><span class="p">:</span><span class="w">      </span>Development/Tools
+<span class="gh">License</span><span class="p">:</span><span class="w">    </span>Proprietary
+<span class="gh">Source0</span><span class="p">:</span><span class="w">    </span><span class="kc">%{name}</span>-<span class="kc">%{version}</span>.tar.bz2
+<span class="nd">%description</span>
+%{summary}.
+
+<span class="nd">%prep</span>
+<span class="cp">%if</span> 0%{?_obs_build_project:1}
+<span class="c"># For OBS builds we need to have tarball extracted after tar_git packaging it</span>
+<span class="k">%setup</span><span class="w"> </span>-q<span class="w"> </span>-n<span class="w"> </span><span class="kc">%{name}</span>-<span class="kc">%{version}</span>
+<span class="cp">%endif</span>
+
+<span class="nd">%install</span>
+rm<span class="w"> </span>-rf<span class="w"> </span><span class="kc">%{buildroot}</span>
+mkdir<span class="w"> </span>-p<span class="w"> </span><span class="kc">%{buildroot}</span>
+
+<span class="c"># Retain permissions:</span>
+rm<span class="w"> </span>-rf<span class="w"> </span>tmp/
+mkdir<span class="w"> </span>-p<span class="w"> </span>tmp/
+echo<span class="w"> </span><span class="s2">&quot;%defattr(-,root,root,-)&quot;</span><span class="w"> </span>&gt;<span class="w"> </span>tmp/droid-system.files
+
+<span class="c"># Prefer files from sparse/ in the HA specific</span>
+<span class="c"># area over sparse/ in the dsd area</span>
+copy_files_from()<span class="w"> </span>{
+<span class="w">  </span>source_dir=$1
+<span class="w">  </span>if<span class="w"> </span>[<span class="w"> </span>-d<span class="w"> </span>$source_dir<span class="w"> </span>];<span class="w"> </span>then
+<span class="w">    </span>(cd<span class="w"> </span>$source_dir;<span class="w"> </span>find<span class="w"> </span>.<span class="w"> </span>\(<span class="w"> </span>-type<span class="w"> </span>f<span class="w"> </span>-or<span class="w"> </span>-type<span class="w"> </span>l<span class="w"> </span>\)<span class="w"> </span>-print<span class="w"> </span>)<span class="w"> </span>|<span class="w"> </span>sed<span class="w"> </span><span class="s1">&#39;s/^.//&#39;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>tmp/droid-system.files
+<span class="w">    </span>cp<span class="w"> </span>-R<span class="w"> </span>$source_dir/*<span class="w"> </span><span class="vg">$RPM_BUILD_ROOT</span>/
+<span class="w">  </span>fi
+}
+
+delete_files()<span class="w"> </span>{
+<span class="w">  </span>files=$1
+<span class="w">  </span>deletelist=$2
+<span class="w">  </span>dorm=$3
+<span class="w">  </span>if<span class="w"> </span>[<span class="w"> </span>-e<span class="w"> </span>$deletelist<span class="w"> </span>];<span class="w"> </span>then
+<span class="w">    </span>egrep<span class="w"> </span>-v<span class="w"> </span><span class="s1">&#39;^#&#39;</span><span class="w"> </span>$deletelist<span class="w"> </span>|<span class="w"> </span>(
+<span class="w">      </span>while<span class="w"> </span>read<span class="w"> </span>file;<span class="w"> </span>do
+<span class="w">        </span>[<span class="w"> </span><span class="s2">&quot;x$dorm&quot;</span><span class="w"> </span>==<span class="w"> </span><span class="s2">&quot;x1&quot;</span><span class="w"> </span>]<span class="w"> </span>&amp;&amp;<span class="w"> </span>rm<span class="w"> </span><span class="vg">$RPM_BUILD_ROOT</span>/$file
+<span class="w">        </span>grep<span class="w"> </span>-vE<span class="w"> </span><span class="s2">&quot;$file&quot;</span><span class="w"> </span>$files<span class="w"> </span>&gt;<span class="w"> </span>tmp/$$.files
+<span class="w">        </span>mv<span class="w"> </span>tmp/$$.files<span class="w"> </span>$files
+<span class="w">      </span>done)
+<span class="w">  </span>fi
+}
+
+<span class="c"># Copy from sparse; erase any we don&#39;t want</span>
+copy_files_from<span class="w"> </span><span class="kc">%{dsd_path}</span>/sparse
+delete_files<span class="w"> </span>tmp/droid-system.files<span class="w"> </span>delete_file.list<span class="w"> </span>1
+
+<span class="nd">%files</span> -f tmp/droid-system.files
+<span class="k">%defattr</span>(-,root,root,-)
+</code></pre></div>
+<p>Thereafter, build the package:</p>
+<div class="highlight"><span class="filename">PLATFORM SDK</span><pre><span></span><code><span class="nb">cd</span><span class="w"> </span><span class="nv">$ANDROID_ROOT</span>
+rpm/dhd/helpers/build_packages.sh<span class="w"> </span>--build<span class="o">=</span>hybris/droid-system
+</code></pre></div>
+<p>And effectively enable our home-grown /system in <code>$ANDROID_ROOT/rpm</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="gh">diff --git a/droid-hal-$DEVICE.spec b/droid-hal-$DEVICE.spec</span>
+<span class="gi">+%define makefstab_skip_entries /system</span>
+<span class="gi">+Requires: droid-system</span>
+<span class="gi">+</span>
+<span class="w"> </span>%include rpm/dhd/droid-hal-device.inc
+</code></pre></div>
+<p>Rebuild dhd via <code>rpm/dhd/helpers/build_packages.sh --droid-hal</code> and then
+the whole image (refer to <a href="../mic/#building-the-image-with-mic">mic</a>).</p>
+<h2 id="convert-userdata-into-the-sailfish-os-lvm-partition">Convert <code>userdata</code> into the Sailfish OS LVM partition<a class="headerlink" href="#convert-userdata-into-the-sailfish-os-lvm-partition" title="Permanent link">#</a></h2>
+<p>We want to split <code>$HOME</code> and <code>/</code> into separate volumes, so we could e.g.
+<code>/</code>, or encrypt <code>$HOME</code>. For this we\'ll use the whole <code>userdata</code> as an
+LVM partition, with fixed size <code>/</code> and let <code>$HOME</code> take up the rest.</p>
+<h3 id="package-an-lvm-enabled-bootloader">Package an LVM-enabled bootloader<a class="headerlink" href="#package-an-lvm-enabled-bootloader" title="Permanent link">#</a></h3>
+<p>In directory <code>$ANDROID_ROOT/rpm</code> apply the following:</p>
+<div class="highlight"><pre><span></span><code><span class="gh">diff --git a/droid-hal-$DEVICE.spec b/droid-hal-$DEVICE.spec</span>
+<span class="gd">-%define installable_zip 1</span>
+<span class="gi">+%define have_custom_img_boot 1</span>
+<span class="gi">+%define have_custom_img_recovery 1</span>
+</code></pre></div>
+<p>And rebuild droid-hal <code>rpm/dhd/helpers/build_packages.sh --droid-hal</code>.</p>
+<p>Then create path and file
+<code>$ANDROID_ROOT/hybris/droid-hal-img-boot/rpm/droid-hal-hammerhead-img-boot.spec</code>
+with content:</p>
+<div class="highlight"><pre><span></span><code><span class="cp">%define device hammerhead</span>
+
+<span class="c"># Retrieve mkbootimg_cmd contents from</span>
+<span class="c"># $ANDROID_ROOT/device/$VENDOR/$DEVICE/BoardConfig.mk and/or from make output.</span>
+<span class="c"># NOTE: taken from the userdebug build, check after switching to user build!</span>
+<span class="c"># If your Android adaptation produces a separate device tree, it should be</span>
+<span class="c"># packaged within droid-hal-$DEVICE-kernel .rpm as ./boot/dt.img, add this to</span>
+<span class="c"># mkbootimg_cmd: --dt %{devicetree}</span>
+<span class="cp">%define mkbootimg_cmd mkbootimg --ramdisk %{initrd} --kernel %{kernel} --base 0x00000000 --pagesize 2048 --ramdisk_offset 0x02900000 --tags_offset 0x02700000 --cmdline &quot;androidboot.hardware=hammerhead user_debug=31 msm_watchdog_v2.enable=1 selinux=0&quot;  --output</span>
+
+<span class="cp">%define root_part_label userdata</span>
+<span class="cp">%define factory_part_label system</span>
+
+<span class="cp">%define display_brightness_path /sys/class/leds/lcd-backlight/brightness</span>
+<span class="cp">%define display_brightness 16</span>
+
+%include<span class="w"> </span>initrd/droid-hal-device-img-boot.inc
+</code></pre></div>
+<p>Initiate git repository with our publicly available <code>hybris-initrd</code> as
+submodule; then build dependencies and the new img-boot:</p>
+<div class="highlight"><span class="filename">PLATFORM SDK</span><pre><span></span><code><span class="nb">cd</span><span class="w"> </span><span class="nv">$ANDROID_ROOT</span>/hybris/droid-hal-img-boot
+git<span class="w"> </span>init
+git<span class="w"> </span>submodule<span class="w"> </span>add<span class="w"> </span>https://github.com/mer-hybris/hybris-initrd<span class="w"> </span>initrd
+
+<span class="nb">cd</span><span class="w"> </span><span class="nv">$ANDROID_ROOT</span>
+sdk-assistant<span class="w"> </span>maintain<span class="w"> </span><span class="nv">$VENDOR</span>-<span class="nv">$DEVICE</span>-<span class="nv">$PORT_ARCH</span><span class="w"> </span>zypper<span class="w"> </span><span class="k">in</span><span class="w"> </span>droid-hal-<span class="nv">$DEVICE</span>-kernel<span class="w"> </span>droid-hal-<span class="nv">$DEVICE</span>-kernel-modules
+rpm/dhd/helpers/build_packages.sh<span class="w"> </span>--build<span class="o">=</span>hybris/droid-hal-img-boot/
+
+<span class="c1"># Test the success by booting our recovery image (boot image would not boot</span>
+<span class="c1"># without LVM yet):</span>
+rpm2cpio<span class="w"> </span>droid-local-repo/<span class="nv">$DEVICE</span>/droid-hal-img-boot/droid-hal-<span class="nv">$DEVICE</span>-img-recovery-*.armv7hl.rpm<span class="w"> </span><span class="p">|</span><span class="w"> </span>cpio<span class="w"> </span>-idv
+<span class="c1"># Set your device into fastboot mode:</span>
+sudo<span class="w"> </span>fastboot<span class="w"> </span>boot<span class="w"> </span>./boot/hybris-recovery.img
+
+<span class="c1"># Shortly you should see instructions on device screen on how to telnet in,</span>
+<span class="c1"># however avoid testing factory reset, as it is not ready at this stage.</span>
+</code></pre></div>
+<h3 id="configuring-the-lvm-packaging">Configuring the LVM packaging<a class="headerlink" href="#configuring-the-lvm-packaging" title="Permanent link">#</a></h3>
+<p>Within <code>$ANDROID_ROOT/hybris/droid-configs</code> create the following paths
+and files:</p>
+<div class="highlight"><span class="filename">kickstart/pack/$DEVICE/hybris</span><pre><span></span><code><span class="nb">pushd</span><span class="w"> </span><span class="nv">$IMG_OUT_DIR</span>
+
+<span class="nv">MD5SUMFILE</span><span class="o">=</span>md5.lst
+
+<span class="nv">DEVICE_VERSION_FILE</span><span class="o">=</span>./hw-release
+
+<span class="nv">EXTRA_NAME</span><span class="o">=</span><span class="s2">&quot;&quot;</span>
+
+<span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span>-n<span class="w"> </span><span class="s2">&quot;@EXTRA_NAME@&quot;</span><span class="w"> </span><span class="o">]</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="s2">&quot;@EXTRA_NAME@&quot;</span><span class="w"> </span>!<span class="o">=</span><span class="w"> </span>@<span class="s2">&quot;EXTRA_NAME&quot;</span>@<span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">  </span><span class="nv">EXTRA_NAME</span><span class="o">=</span><span class="s2">&quot;@EXTRA_NAME@-&quot;</span>
+<span class="k">fi</span>
+
+<span class="nv">DEVICE</span><span class="o">=</span><span class="s2">&quot;&quot;</span>
+<span class="nv">DEVICE_VERSION</span><span class="o">=</span><span class="s2">&quot;&quot;</span>
+
+<span class="k">if</span><span class="w"> </span><span class="o">[[</span><span class="w"> </span>-a<span class="w"> </span><span class="nv">$DEVICE_VERSION_FILE</span><span class="w"> </span><span class="o">]]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">  </span><span class="nb">source</span><span class="w"> </span><span class="nv">$DEVICE_VERSION_FILE</span>
+<span class="w">  </span><span class="nv">DEVICE</span><span class="o">=</span><span class="nv">$MER_HA_DEVICE</span>
+<span class="w">  </span><span class="nv">DEVICE_VERSION</span><span class="o">=</span>-<span class="nv">$VERSION_ID</span>
+<span class="k">fi</span>
+
+<span class="nb">source</span><span class="w"> </span>./sailfish-release
+<span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$SSU_RELEASE_TYPE</span><span class="s2">&quot;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;rnd&quot;</span><span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">  </span><span class="nv">RELEASENAME</span><span class="o">=</span><span class="nv">$NAME</span>-<span class="si">${</span><span class="nv">EXTRA_NAME</span><span class="p">// /_</span><span class="si">}</span><span class="nv">$SAILFISH_FLAVOUR</span>-<span class="nv">$VERSION_ID</span>-<span class="nv">$DEVICE$DEVICE_VERSION</span>
+<span class="k">else</span>
+<span class="w">  </span><span class="nv">RELEASENAME</span><span class="o">=</span><span class="nv">$NAME</span>-<span class="si">${</span><span class="nv">EXTRA_NAME</span><span class="p">// /_</span><span class="si">}</span><span class="nv">$VERSION_ID</span>-<span class="nv">$DEVICE$DEVICE_VERSION</span>
+<span class="k">fi</span>
+
+<span class="c1"># Setup LVM image</span>
+dd<span class="w"> </span><span class="k">if</span><span class="o">=</span>/dev/zero<span class="w"> </span><span class="nv">bs</span><span class="o">=</span><span class="m">1</span><span class="w"> </span><span class="nv">count</span><span class="o">=</span><span class="m">0</span><span class="w"> </span><span class="nv">of</span><span class="o">=</span>temp.img<span class="w"> </span><span class="nv">seek</span><span class="o">=</span>3000M
+<span class="nv">LVM_LOOP</span><span class="o">=</span><span class="k">$(</span>/sbin/losetup<span class="w"> </span>-f<span class="k">)</span>
+/sbin/losetup<span class="w"> </span><span class="nv">$LVM_LOOP</span><span class="w"> </span>temp.img
+/usr/sbin/pvcreate<span class="w"> </span><span class="nv">$LVM_LOOP</span>
+/usr/sbin/vgcreate<span class="w"> </span>sailfish<span class="w"> </span><span class="nv">$LVM_LOOP</span>
+
+<span class="c1"># Resize root and home to minimum</span>
+<span class="nv">ROOT_LOOP</span><span class="o">=</span><span class="k">$(</span>/sbin/losetup<span class="w"> </span>-f<span class="k">)</span>
+/sbin/losetup<span class="w"> </span><span class="nv">$ROOT_LOOP</span><span class="w"> </span>root.img
+/sbin/e2fsck<span class="w"> </span>-f<span class="w"> </span>-y<span class="w"> </span><span class="nv">$ROOT_LOOP</span>
+<span class="nv">BLOCKS</span><span class="o">=</span><span class="k">$(</span>/sbin/resize2fs<span class="w"> </span>-M<span class="w"> </span><span class="nv">$ROOT_LOOP</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>/bin/grep<span class="w"> </span><span class="s2">&quot;The filesystem on&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>/bin/cut<span class="w"> </span>-d<span class="w"> </span><span class="s1">&#39; &#39;</span><span class="w"> </span>-f<span class="w"> </span><span class="m">7</span><span class="k">)</span>
+<span class="nb">echo</span><span class="w"> </span>We<span class="w"> </span>got<span class="w"> </span>ourselves<span class="w"> </span>root<span class="w"> </span>blocks<span class="w"> </span>_<span class="w"> </span><span class="nv">$BLOCKS</span><span class="w"> </span>_
+<span class="nv">SIZE</span><span class="o">=</span><span class="k">$(</span>/usr/bin/expr<span class="w"> </span><span class="nv">$BLOCKS</span><span class="w"> </span><span class="se">\*</span><span class="w"> </span><span class="m">4096</span><span class="k">)</span>
+<span class="nb">echo</span><span class="w"> </span>after<span class="w"> </span>maths<span class="w"> </span>size<span class="w"> </span>_<span class="w"> </span><span class="nv">$SIZE</span><span class="w"> </span>_
+/usr/sbin/lvcreate<span class="w"> </span>-L<span class="w"> </span><span class="si">${</span><span class="nv">SIZE</span><span class="si">}</span>B<span class="w"> </span>--name<span class="w"> </span>root<span class="w"> </span>sailfish
+/bin/sync
+/sbin/losetup<span class="w"> </span>-d<span class="w"> </span><span class="nv">$ROOT_LOOP</span>
+/usr/sbin/vgchange<span class="w"> </span>-a<span class="w"> </span>y
+dd<span class="w"> </span><span class="k">if</span><span class="o">=</span>root.img<span class="w"> </span><span class="nv">bs</span><span class="o">=</span><span class="m">4096</span><span class="w"> </span><span class="nv">count</span><span class="o">=</span><span class="nv">$BLOCKS</span><span class="w"> </span><span class="nv">of</span><span class="o">=</span>/dev/sailfish/root
+
+
+<span class="nv">HOME_LOOP</span><span class="o">=</span><span class="k">$(</span>/sbin/losetup<span class="w"> </span>-f<span class="k">)</span>
+/sbin/losetup<span class="w"> </span><span class="nv">$HOME_LOOP</span><span class="w"> </span>home.img
+/sbin/e2fsck<span class="w"> </span>-f<span class="w"> </span>-y<span class="w"> </span><span class="nv">$HOME_LOOP</span>
+<span class="nv">BLOCKS</span><span class="o">=</span><span class="k">$(</span>/sbin/resize2fs<span class="w"> </span>-M<span class="w"> </span><span class="nv">$HOME_LOOP</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>/bin/grep<span class="w"> </span><span class="s2">&quot;The filesystem on&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>/bin/cut<span class="w"> </span>-d<span class="w"> </span><span class="s1">&#39; &#39;</span><span class="w"> </span>-f<span class="w"> </span><span class="m">7</span><span class="k">)</span>
+<span class="nb">echo</span><span class="w"> </span>We<span class="w"> </span>got<span class="w"> </span>ourselves<span class="w"> </span>home<span class="w"> </span>size<span class="w"> </span>_<span class="w"> </span><span class="nv">$BLOCKS</span><span class="w"> </span>_
+<span class="nv">SIZE</span><span class="o">=</span><span class="k">$(</span>/usr/bin/expr<span class="w"> </span><span class="nv">$BLOCKS</span><span class="w"> </span><span class="se">\*</span><span class="w"> </span><span class="m">4096</span><span class="k">)</span>
+
+/usr/sbin/lvcreate<span class="w"> </span>-L<span class="w"> </span><span class="si">${</span><span class="nv">SIZE</span><span class="si">}</span>B<span class="w"> </span>--name<span class="w"> </span>home<span class="w"> </span>sailfish
+/bin/sync
+/sbin/losetup<span class="w"> </span>-d<span class="w"> </span><span class="nv">$HOME_LOOP</span>
+/usr/sbin/vgchange<span class="w"> </span>-a<span class="w"> </span>y
+dd<span class="w"> </span><span class="k">if</span><span class="o">=</span>home.img<span class="w"> </span><span class="nv">bs</span><span class="o">=</span><span class="m">4096</span><span class="w"> </span><span class="nv">count</span><span class="o">=</span><span class="nv">$BLOCKS</span><span class="w"> </span><span class="nv">of</span><span class="o">=</span>/dev/sailfish/home
+
+/usr/sbin/vgchange<span class="w"> </span>-a<span class="w"> </span>n<span class="w"> </span>sailfish
+
+rm<span class="w"> </span>home.img<span class="w"> </span>root.img
+
+/sbin/losetup<span class="w"> </span>-d<span class="w"> </span><span class="nv">$LVM_LOOP</span>
+
+mv<span class="w"> </span>temp.img<span class="w"> </span>sailfish.img
+
+/usr/bin/atruncate<span class="w"> </span>sailfish.img
+
+chmod<span class="w"> </span><span class="m">755</span><span class="w"> </span>flash.*
+
+<span class="nv">FILES</span><span class="o">=</span><span class="s2">&quot;flash* *.img* *-release&quot;</span>
+<span class="nv">FILES_TO_COPY</span><span class="o">=</span><span class="s2">&quot;*.urls&quot;</span>
+
+mkdir<span class="w"> </span>-p<span class="w"> </span><span class="si">${</span><span class="nv">RELEASENAME</span><span class="si">}</span>
+cp<span class="w"> </span><span class="si">${</span><span class="nv">FILES_TO_COPY</span><span class="si">}</span><span class="w"> </span><span class="si">${</span><span class="nv">RELEASENAME</span><span class="si">}</span>/
+mv<span class="w"> </span><span class="si">${</span><span class="nv">FILES</span><span class="si">}</span><span class="w"> </span><span class="si">${</span><span class="nv">RELEASENAME</span><span class="si">}</span>/
+
+<span class="c1"># Calculate md5sums of files included to the tarball</span>
+<span class="nb">cd</span><span class="w"> </span><span class="si">${</span><span class="nv">RELEASENAME</span><span class="si">}</span>
+md5sum<span class="w"> </span>*<span class="w"> </span>&gt;<span class="w"> </span><span class="nv">$MD5SUMFILE</span>
+<span class="nb">cd</span><span class="w"> </span>..
+
+<span class="c1"># Package stuff back to tarball</span>
+tar<span class="w"> </span>-cjf<span class="w"> </span><span class="si">${</span><span class="nv">RELEASENAME</span><span class="si">}</span>.tar.bz2<span class="w"> </span><span class="nv">$RELEASENAME</span>
+
+<span class="c1"># Remove the files from the output directory</span>
+rm<span class="w"> </span>-r<span class="w"> </span><span class="si">${</span><span class="nv">RELEASENAME</span><span class="si">}</span>
+
+<span class="nb">popd</span>
+</code></pre></div>
+<div class="highlight"><span class="filename">kickstart/part/$DEVICE</span><pre><span></span><code>part<span class="w"> </span>/<span class="w"> </span>--fstype<span class="o">=</span><span class="s2">&quot;ext4&quot;</span><span class="w"> </span>--size<span class="o">=</span><span class="m">1800</span><span class="w"> </span>--label<span class="o">=</span>root
+part<span class="w"> </span>/home<span class="w"> </span>--fstype<span class="o">=</span><span class="s2">&quot;ext4&quot;</span><span class="w"> </span>--size<span class="o">=</span><span class="m">800</span><span class="w"> </span>--label<span class="o">=</span>home
+</code></pre></div>
+<div class="highlight"><span class="filename">kickstart/attachment/$DEVICE</span><pre><span></span><code>/boot/hybris-boot.img
+/boot/hybris-recovery.img
+droid-config-hammerhead-out-of-image-files
+/etc/hw-release
+</code></pre></div>
+<div class="highlight"><span class="filename">out-of-image-files.files</span><pre><span></span><code>/boot/flash.sh
+/boot/extracting-README.txt
+/boot/flashing-README.txt
+</code></pre></div>
+<div class="highlight"><span class="filename">sparse/boot/flash.sh</span><pre><span></span><code><span class="ch">#!/bin/bash</span>
+
+<span class="c1"># Contact: Marko Saukko &lt;marko.saukko@jollamobile.com&gt;</span>
+<span class="c1">#</span>
+<span class="c1"># Copyright (c) 2016, Jolla Ltd.</span>
+<span class="c1"># All rights reserved.</span>
+<span class="c1">#</span>
+<span class="c1"># Redistribution and use in source and binary forms, with or without</span>
+<span class="c1"># modification, are permitted provided that the following conditions are met:</span>
+<span class="c1"># * Redistributions of source code must retain the above copyright</span>
+<span class="c1"># notice, this list of conditions and the following disclaimer.</span>
+<span class="c1"># * Redistributions in binary form must reproduce the above copyright</span>
+<span class="c1"># notice, this list of conditions and the following disclaimer in the</span>
+<span class="c1"># documentation and/or other materials provided with the distribution.</span>
+<span class="c1"># * Neither the name of the &lt;organization&gt; nor the</span>
+<span class="c1"># names of its contributors may be used to endorse or promote products</span>
+<span class="c1"># derived from this software without specific prior written permission.</span>
+<span class="c1">#</span>
+<span class="c1"># THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS &quot;AS IS&quot; AND</span>
+<span class="c1"># ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED</span>
+<span class="c1"># WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE</span>
+<span class="c1"># DISCLAIMED. IN NO EVENT SHALL &lt;COPYRIGHT HOLDER&gt; BE LIABLE FOR ANY</span>
+<span class="c1"># DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES</span>
+<span class="c1"># (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;</span>
+<span class="c1"># LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND</span>
+<span class="c1"># ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT</span>
+<span class="c1"># (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS</span>
+<span class="c1"># SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</span>
+
+<span class="nb">set</span><span class="w"> </span>-e
+
+<span class="k">function</span><span class="w"> </span>check_fastboot<span class="w"> </span><span class="o">{</span>
+<span class="w">  </span><span class="nv">FASTBOOT_BIN_NAME</span><span class="o">=</span><span class="nv">$1</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span>-f<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$FASTBOOT_BIN_NAME</span><span class="s2">&quot;</span><span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">    </span>chmod<span class="w"> </span><span class="m">755</span><span class="w"> </span><span class="nv">$FASTBOOT_BIN_NAME</span>
+<span class="w">    </span><span class="c1"># Ensure that the binary that is found can be executed fine</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span>./<span class="nv">$FASTBOOT_BIN_NAME</span><span class="w"> </span><span class="nb">help</span><span class="w"> </span><span class="p">&amp;</span>&gt;/dev/null<span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">      </span><span class="nv">FASTBOOT_BIN_PATH</span><span class="o">=</span><span class="s2">&quot;./&quot;</span>
+<span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="m">0</span>
+<span class="w">    </span><span class="k">fi</span>
+<span class="w">  </span><span class="k">fi</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="m">1</span>
+<span class="o">}</span>
+
+
+<span class="c1"># Do not need root for fastboot on Mac OS X</span>
+<span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="s2">&quot;</span><span class="k">$(</span>uname<span class="k">)</span><span class="s2">&quot;</span><span class="w"> </span>!<span class="o">=</span><span class="w"> </span><span class="s2">&quot;Darwin&quot;</span><span class="w"> </span>-a<span class="w"> </span><span class="k">$(</span>id<span class="w"> </span>-u<span class="k">)</span><span class="w"> </span>-ne<span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">  </span><span class="nb">exec</span><span class="w"> </span>sudo<span class="w"> </span>-E<span class="w"> </span>bash<span class="w"> </span><span class="nv">$0</span>
+<span class="k">fi</span>
+
+<span class="nv">UNAME</span><span class="o">=</span><span class="k">$(</span>uname<span class="k">)</span>
+<span class="nv">OS_VERSION</span><span class="o">=</span>
+
+<span class="k">case</span><span class="w"> </span><span class="nv">$UNAME</span><span class="w"> </span><span class="k">in</span>
+<span class="w">  </span>Linux<span class="o">)</span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Detected Linux&quot;</span>
+<span class="w">    </span><span class="p">;;</span>
+<span class="w">  </span>Darwin<span class="o">)</span>
+<span class="w">    </span><span class="nv">IFS</span><span class="o">=</span><span class="s1">&#39;.&#39;</span><span class="w"> </span><span class="nb">read</span><span class="w"> </span>-r<span class="w"> </span>major<span class="w"> </span>minor<span class="w"> </span>patch<span class="w"> </span><span class="o">&lt;&lt;&lt;</span><span class="w"> </span><span class="k">$(</span>sw_vers<span class="w"> </span>-productVersion<span class="k">)</span>
+<span class="w">    </span><span class="nv">OS_VERSION</span><span class="o">=</span><span class="nv">$major</span>-<span class="nv">$minor</span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Detected Mac OS X - Version: </span><span class="nv">$OS_VERSION</span><span class="s2">&quot;</span>
+<span class="w">    </span><span class="p">;;</span>
+<span class="w">  </span>*<span class="o">)</span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Failed to detect operating system!&quot;</span>
+<span class="w">    </span><span class="nb">exit</span><span class="w"> </span><span class="m">1</span>
+<span class="w">    </span><span class="p">;;</span>
+<span class="k">esac</span>
+
+<span class="nv">VENDORIDLIST</span><span class="o">=(</span>
+<span class="s2">&quot;18d1&quot;</span>
+<span class="o">)</span>
+
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Searching device to flash..&quot;</span>
+<span class="nv">IFS</span><span class="o">=</span><span class="s1">$&#39;\n&#39;</span>
+<span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$UNAME</span><span class="s2">&quot;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Darwin&quot;</span><span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">  </span><span class="c1"># Mac OS X: Use System Profiler, get only the Vendor IDs and</span>
+<span class="w">  </span><span class="c1"># append a colon at the end to make the lsusb-specific grep</span>
+<span class="w">  </span><span class="c1"># from below work the same way as on Linux.</span>
+<span class="w">  </span><span class="nv">LSUSB</span><span class="o">=(</span><span class="w"> </span><span class="k">$(</span>system_profiler<span class="w"> </span>SPUSBDataType<span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="se">\</span>
+<span class="w">      </span>grep<span class="w"> </span>-o<span class="w"> </span><span class="s1">&#39;Vendor ID: [x0-9a-f]*&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="se">\</span>
+<span class="w">      </span>sed<span class="w"> </span>-e<span class="w"> </span><span class="s1">&#39;s/$/:/&#39;</span><span class="k">)</span><span class="w"> </span><span class="o">)</span>
+<span class="k">else</span>
+<span class="w">  </span><span class="c1"># Linux</span>
+<span class="w">  </span><span class="nv">LSUSB</span><span class="o">=(</span><span class="w"> </span><span class="k">$(</span>lsusb<span class="k">)</span><span class="w"> </span><span class="o">)</span>
+<span class="k">fi</span>
+<span class="nb">unset</span><span class="w"> </span>IFS
+
+<span class="nv">VENDORIDFOUND</span><span class="o">=</span>
+
+<span class="k">for</span><span class="w"> </span>USB<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">LSUSB</span><span class="p">[@]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">;</span><span class="w"> </span><span class="k">do</span>
+<span class="w">  </span><span class="k">for</span><span class="w"> </span>VENDORID<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="si">${</span><span class="nv">VENDORIDLIST</span><span class="p">[@]</span><span class="si">}</span><span class="p">;</span><span class="w"> </span><span class="k">do</span>
+<span class="w">    </span><span class="c1"># : after vendor id is to make sure we don&#39;t select based on product id.</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="o">[[</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$USB</span><span class="s2">&quot;</span><span class="w"> </span><span class="o">=</span>~<span class="w"> </span><span class="nv">$VENDORID</span>:<span class="w"> </span><span class="o">]]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">      </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Found device with vendor id &#39;</span><span class="nv">$VENDORID</span><span class="s2">&#39;: </span><span class="nv">$USB</span><span class="s2">&quot;</span>
+<span class="w">      </span><span class="nv">VENDORIDFOUND</span><span class="o">=</span><span class="nv">$VENDORID</span>
+<span class="w">    </span><span class="k">fi</span>
+<span class="w">  </span><span class="k">done</span>
+<span class="k">done</span>
+
+<span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span>-z<span class="w"> </span><span class="nv">$VENDORIDFOUND</span><span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">  </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;No device that can be flashed found. Please connect device to fastboot mode before running this script.&quot;</span>
+<span class="w">  </span><span class="nb">exit</span><span class="w"> </span><span class="m">1</span>
+<span class="k">fi</span>
+
+<span class="nv">FASTBOOT_BIN_PATH</span><span class="o">=</span>
+<span class="nv">FASTBOOT_BIN_NAME</span><span class="o">=</span>
+
+<span class="k">if</span><span class="w"> </span>!<span class="w"> </span>check_fastboot<span class="w"> </span><span class="s2">&quot;fastboot-</span><span class="nv">$UNAME</span><span class="s2">-</span><span class="nv">$OS_VERSION</span><span class="s2">&quot;</span><span class="w"> </span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span>!<span class="w"> </span>check_fastboot<span class="w"> </span><span class="s2">&quot;fastboot-</span><span class="nv">$UNAME</span><span class="s2">&quot;</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">    </span><span class="c1"># In case we didn&#39;t provide functional fastboot binary to the system</span>
+<span class="w">    </span><span class="c1"># lets check that one is found from the system.</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span>!<span class="w"> </span>which<span class="w"> </span>fastboot<span class="w"> </span><span class="p">&amp;</span>&gt;/dev/null<span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">      </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;No &#39;fastboot&#39; found in \$PATH. To install, use:&quot;</span>
+<span class="w">      </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;&quot;</span>
+<span class="w">      </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;    Debian/Ubuntu/.deb distros:  apt-get install android-tools-fastboot&quot;</span>
+<span class="w">      </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;    Fedora:  yum install android-tools&quot;</span>
+<span class="w">      </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;    OS X:    brew install android-sdk&quot;</span>
+<span class="w">      </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;&quot;</span>
+<span class="w">      </span><span class="nb">exit</span><span class="w"> </span><span class="m">1</span>
+<span class="w">    </span><span class="k">else</span>
+<span class="w">      </span><span class="nv">FASTBOOT_BIN_NAME</span><span class="o">=</span>fastboot
+<span class="w">    </span><span class="k">fi</span>
+<span class="w">  </span><span class="k">fi</span>
+<span class="k">fi</span>
+
+<span class="c1"># TODO: There are cases where the fastboot provided by the system is too old and doesn support</span>
+<span class="c1"># for example the erase command below.</span>
+
+<span class="nv">FASTBOOTCMD</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">FASTBOOT_BIN_PATH</span><span class="si">}${</span><span class="nv">FASTBOOT_BIN_NAME</span><span class="si">}</span><span class="s2"> -i 0x</span><span class="nv">$VENDORIDFOUND</span><span class="s2"> </span><span class="nv">$FASTBOOTEXTRAOPTS</span><span class="s2">&quot;</span>
+
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Fastboot command: </span><span class="nv">$FASTBOOTCMD</span><span class="s2">&quot;</span>
+
+<span class="nv">FLASHCMD</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$FASTBOOTCMD</span><span class="s2"> flash&quot;</span>
+<span class="nv">ERASECMD</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$FASTBOOTCMD</span><span class="s2"> erase&quot;</span>
+<span class="nv">ABOOTREBOOTCMD</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$FASTBOOTCMD</span><span class="s2"> reboot-bootloader&quot;</span>
+
+<span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span>-z<span class="w"> </span><span class="si">${</span><span class="nv">BINARY_PATH</span><span class="si">}</span><span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">  </span><span class="nv">BINARY_PATH</span><span class="o">=</span>./
+<span class="k">fi</span>
+
+<span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span>-z<span class="w"> </span><span class="si">${</span><span class="nv">SAILFISH_IMAGE_PATH</span><span class="si">}</span><span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">  </span><span class="nv">SAILFISH_IMAGE_PATH</span><span class="o">=</span>./
+<span class="k">fi</span>
+
+<span class="nv">IMAGES</span><span class="o">=(</span>
+<span class="s2">&quot;boot </span><span class="si">${</span><span class="nv">SAILFISH_IMAGE_PATH</span><span class="si">}</span><span class="s2">hybris-boot.img&quot;</span>
+<span class="s2">&quot;recovery </span><span class="si">${</span><span class="nv">SAILFISH_IMAGE_PATH</span><span class="si">}</span><span class="s2">hybris-recovery.img&quot;</span>
+<span class="o">)</span>
+
+<span class="k">for</span><span class="w"> </span>IMAGE<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">IMAGES</span><span class="p">[@]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">;</span><span class="w"> </span><span class="k">do</span>
+<span class="w">  </span><span class="nb">read</span><span class="w"> </span>partition<span class="w"> </span>ifile<span class="w"> </span><span class="o">&lt;&lt;&lt;</span><span class="w"> </span><span class="nv">$IMAGE</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span>!<span class="w"> </span>-e<span class="w"> </span><span class="si">${</span><span class="nv">ifile</span><span class="si">}</span><span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Image binary missing: </span><span class="si">${</span><span class="nv">ifile</span><span class="si">}</span><span class="s2">.&quot;</span>
+<span class="w">    </span><span class="nb">exit</span><span class="w"> </span><span class="m">1</span>
+<span class="w">  </span><span class="k">fi</span>
+<span class="k">done</span>
+
+<span class="k">for</span><span class="w"> </span>IMAGE<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">IMAGES</span><span class="p">[@]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">;</span><span class="w"> </span><span class="k">do</span>
+<span class="w">  </span><span class="nb">read</span><span class="w"> </span>partition<span class="w"> </span>ifile<span class="w"> </span><span class="o">&lt;&lt;&lt;</span><span class="w"> </span><span class="nv">$IMAGE</span>
+<span class="w">  </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Flashing </span><span class="nv">$partition</span><span class="s2"> partition..&quot;</span>
+<span class="w">  </span><span class="nv">$FLASHCMD</span><span class="w"> </span><span class="nv">$partition</span><span class="w"> </span><span class="nv">$ifile</span>
+<span class="k">done</span>
+
+<span class="c1"># Flashing to userdata..</span>
+<span class="k">for</span><span class="w"> </span>x<span class="w"> </span><span class="k">in</span><span class="w"> </span>sailfish.img*<span class="p">;</span><span class="w"> </span><span class="k">do</span>
+<span class="w">  </span><span class="nv">$FLASHCMD</span><span class="w"> </span>userdata<span class="w"> </span><span class="nv">$x</span>
+<span class="k">done</span>
+
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Flashing completed. Choose &quot;</span>Start<span class="s2">&quot; with Volume buttons then press Power.&quot;</span>
+</code></pre></div>
+<div class="highlight"><span class="filename">sparse/boot/flashing-README.txt</span><pre><span></span><code>= FLASHING =
+
+Before starting flashing on any host turn off the device. After this follow the
+instructions given for your host PC operating system.
+
+By this point of time you should already have the .tar.bz2 file that contains
+the image as this flashing instructions file that you are reading at the moment
+is inside that .tar.bz2 file. As a general note the flashing can take a long
+time (&gt;10 minutes) and it flashes image with similar name multiple times in the
+end which is expected behaviour.
+
+
+== LINUX ==
+
+Open terminal application and go to the folder where the image is extracted.
+
+Next:
+* Connect device to computer with USB-cable while holding volume down button
+* When you feel vibra from device you can release the volume down button
+* Next start flashing script by entering following command:
+
+  bash ./flash.sh
+
+* Enter your password if requested to gain root access for flashing the device
+* Once flashing is completed you will see text:
+
+  &quot;Flashing completed. Detact usb cable, press and hold the powerkey to reboot.&quot;
+
+* After following the guidance from script device should boot up to new Sailfish OS
+
+NOTE: If flashing does not succeed, you might have missing fastboot binary or
+it is too old. Many distros include andoid-tools package, but that might not
+be new enough to support tk7001 flashing.
+
+Installation commands for some linux distributions:
+* Ubuntu: sudo apt-get install android-tools-fastboot
+
+If you want to compile fastboot binary for your distro you can compile version
+5.0.0 release 7 or newer from:
+https://github.com/mer-qa/qa-droid-tools
+</code></pre></div>
+<div class="highlight"><span class="filename">sparse/boot/extracting-README.txt</span><pre><span></span><code>Step1: Download the image
+
+The image name is usually in following format SailfishOS-FLAVOUR-VERSION-DEVICE.tar.bz2
+which you need to download.
+
+Step2: Extract the image
+
+= Linux =
+
+Following command line extracts the image to the current working directory (pwd):
+
+$ tar -xvf SailfishOS-FLAVOUR-VERSION-DEVICE.tar.bz2
+
+Step3: Read the flashing-README.txt from the extracted directory for further instructions
+</code></pre></div>
+<p>Add recovery to patterns and provide flashing script and instructions
+out of the image:</p>
+<div class="highlight"><pre><span></span><code><span class="gh">diff --git a/patterns/jolla-hw-adaptation-$DEVICE.yaml b/patterns/jolla-hw-adaptation-$DEVICE.yaml</span>
+<span class="w"> </span>- droid-hal-tk7001-img-boot
+<span class="gi">+- droid-hal-tk7001-img-recovery</span>
+<span class="w"> </span>- droid-hal-tk7001-kernel-modules
+
+<span class="gh">diff --git a/rpm/droid-config-$DEVICE.spec v/rpm/droid-config-$DEVICE.spec</span>
+<span class="gi">+%define out_of_image_files 1</span>
+<span class="w"> </span>%include droid-configs-device/droid-configs.inc
+</code></pre></div>
+<h3 id="flashing-lvm-enabled-image">Flashing LVM-enabled image<a class="headerlink" href="#flashing-lvm-enabled-image" title="Permanent link">#</a></h3>
+<p>Rebuild configs via <code>rpm/dhd/helpers/build_packages.sh --droid-configs</code>,
+add LVM tools to PLATFORM_SDK <code>sudo zypper in lvm2 atruncate</code>, and
+lastly rebuild the whole image (refer to <a href="../mic/">Creating the Sailfish OS Root Filesystem</a>),
+but use <code>loop</code> instead of <code>fs</code> within <code>mic create</code> as well as drop the <code>--pack-to</code> parameter.</p>
+<p>You may also want to change <code>EXTRA_NAME</code> to preserve the non-LVM
+version, yet to ever go back to that you'd need to format userdata
+partition as <code>ext3</code> or <code>ext4</code>.</p>
+<p><code>mic</code> will produce a tarball and place extracting-README.txt next to it,
+simply follow instructions how to flash to your device.</p>
+<h2 id="enable-sailfish-os-recovery-mode">Enable Sailfish OS recovery mode<a class="headerlink" href="#enable-sailfish-os-recovery-mode" title="Permanent link">#</a></h2>
+<p>Our recovery mode is already provided by the <code>droid-hal-$DEVICE-img-boot</code>
+(see section <a href="#package-an-lvm-enabled-bootloader">Package an LVM-enabled bootloader</a>),
+and flashed to device together with the LVM image.</p>
+<p>To enter recovery on Nexus 5, press Volume Down and Power buttons
+simultaneously, this enter fastboot mode (bootloader). Using Volume
+Up/Down buttons select <code>Recovery mode</code> and press Power key to enter it.</p>
+<p>Follow instructions on screen to <code>telnet</code> and perform desired actions.</p>
+<h2 id="enable-factory-reset-support">Enable factory reset support<a class="headerlink" href="#enable-factory-reset-support" title="Permanent link">#</a></h2>
+<p>Whilst packaging up LVM images, we'll also place <code>root.img</code> and
+<code>home.img</code> to <code>system</code> partition, since we are packaging <code>/system</code>
+ourselves.</p>
+<p>Within <code>$ANDROID_ROOT/hybris/droid-configs</code> patch the following files:</p>
+<div class="highlight"><pre><span></span><code><span class="gh">diff --git a/kickstart/part/$DEVICE b/kickstart/part/$DEVICE</span>
+<span class="w"> </span>part / --fstype=&quot;ext4&quot; --size=1800 --label=root
+<span class="w"> </span>part /home --fstype=&quot;ext4&quot; --size=800 --label=home
+<span class="gi">+part /fimage --fstype=&quot;ext4&quot; --size=10 --label=fimage</span>
+
+<span class="gh">diff --git a/kickstart/pack/$DEVICE/hybris b/kickstart/pack/$DEVICE/hybris</span>
+<span class="w"> </span>/usr/sbin/vgchange -a n sailfish
+<span class="gd">-rm home.img root.img</span>
+<span class="gi">+# Temporary dir for making factory image backups.</span>
+<span class="gi">+FIMAGE_TEMP=$(mktemp -d -p $(pwd))</span>
+<span class="gi">+</span>
+<span class="gi">+# For some reason loop files created by imager don&#39;t shrink properly when</span>
+<span class="gi">+# running resize2fs -M on them. Hence manually growing the loop file here</span>
+<span class="gi">+# to make the shrinking work once we have the image populated.</span>
+<span class="gi">+dd if=/dev/zero bs=1 seek=1400000000 count=1 of=fimage.img</span>
+<span class="gi">+/sbin/e2fsck -f -y fimage.img</span>
+<span class="gi">+/sbin/resize2fs -f fimage.img</span>
+<span class="gi">+</span>
+<span class="gi">+pigz -7 root.img</span>
+<span class="gi">+md5sum -b root.img.gz &gt; root.img.gz.md5</span>
+<span class="gi">+</span>
+<span class="gi">+pigz -7 home.img</span>
+<span class="gi">+md5sum -b home.img.gz &gt; home.img.gz.md5</span>
+<span class="gi">+</span>
+<span class="gi">+mount -o loop fimage.img $FIMAGE_TEMP</span>
+<span class="gi">+mkdir -p $FIMAGE_TEMP/${RELEASENAME}</span>
+<span class="gi">+mv root.img.gz* $FIMAGE_TEMP/${RELEASENAME}</span>
+<span class="gi">+mv home.img.gz* $FIMAGE_TEMP/${RELEASENAME}</span>
+<span class="gi">+umount $FIMAGE_TEMP</span>
+<span class="gi">+rmdir $FIMAGE_TEMP</span>
+<span class="gi">+</span>
+<span class="gi">+/sbin/e2fsck -f -y fimage.img</span>
+<span class="gi">+/sbin/resize2fs -f -M fimage.img</span>
+<span class="gi">+</span>
+<span class="w"> </span>/sbin/losetup -d $LVM_LOOP
+
+<span class="gh">diff --git a/sparse/boot/flash.sh b/sparse/boot/flash.sh</span>
+<span class="w"> </span>  $FLASHCMD userdata $x
+<span class="w"> </span>done
+
+<span class="gi">+# Flashing fimage to system partition</span>
+<span class="gi">+for x in fimage.img*; do</span>
+<span class="gi">+  $FLASHCMD system $x</span>
+<span class="gi">+done</span>
+<span class="gi">+</span>
+</code></pre></div>
+<p>Repeat the flashing process as outlined in 
+<a href="#flashing-lvm-enabled-image">flashing instructions</a>, boot the device, go to
+<code>Settings | Reset device</code>, and perform reset.</p>
+<p>Device will reboot into recovery and you will see the spinner image with
+status.</p>
+<p>Afterwards device will power off (unless you ticked <code>Reboot after reset</code>
+earlier), power it back on and it will boot as new.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      
+<div class="md-copyright">Copyright &copy; 2025 Jolla Mobile Ltd</div>
+
+
+
+<div class="md-copyright">
+Content licensed under <a href="../LICENSE.txt">CC BY-NC-SA 4.0</a></li>
+</div>
+
+
+<div class="md-copyright">
+Made with <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">Material for MkDocs</a>
+</div>
+
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "..", "features": ["navigation.footer"], "search": "../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.f55a23d4.min.js"></script>
+      
+    
+  </body>
+</html>

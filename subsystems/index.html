@@ -1,0 +1,1408 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../modifications/">
+      
+      
+        <link rel="next" href="../middleware/">
+      
+      
+      <link rel="icon" href="../assets/sailfish_os_favico.svg">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.21">
+    
+    
+      
+        <title>Detailed subsystem adaptation guides - Sailfish OS Hardware Adaptation Development Kit</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.2a3383ac.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/extra.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="white" data-md-color-accent="teal">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#detailed-subsystem-adaptation-guides" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Sailfish OS Hardware Adaptation Development Kit" class="md-header__button md-logo" aria-label="Sailfish OS Hardware Adaptation Development Kit" data-md-component="logo">
+      
+  <img src="../assets/sailfish_os_logo.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Sailfish OS Hardware Adaptation Development Kit
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Detailed subsystem adaptation guides
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Sailfish OS Hardware Adaptation Development Kit" class="md-nav__button md-logo" aria-label="Sailfish OS Hardware Adaptation Development Kit" data-md-component="logo">
+      
+  <img src="../assets/sailfish_os_logo.svg" alt="logo">
+
+    </a>
+    Sailfish OS Hardware Adaptation Development Kit
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../prerequisites/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Prerequisites
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../preparing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Preparing Your Device
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../setupsdk/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Setting up the SDKs
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../android/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Building the Android HAL
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../build-env/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Installing Build Tools for Your Device
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../droid-hal/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Packaging Droid HAL
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mic/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Creating the Sailfish OS Root Filesystem
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../getting-in/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Getting In
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../flashing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Flashing the rootfs image
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../manual-install/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Manual Installation and Maintenance
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ota-updates/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    OTA (Over-the-Air) Updates
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../modifications/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Modifications and Patches
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Detailed subsystem adaptation guides
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Detailed subsystem adaptation guides
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#vibration-force-feedback" class="md-nav__link">
+    <span class="md-ellipsis">
+      Vibration / force feedback
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#gstreamer-v10" class="md-nav__link">
+    <span class="md-ellipsis">
+      GStreamer v1.0
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#camera" class="md-nav__link">
+    <span class="md-ellipsis">
+      Camera
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cellular-modem" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cellular modem
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Cellular modem">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#phone-calls-dont-work-but-sms-and-mobile-data-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      Phone calls don't work (but SMS and mobile data works)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bluetooth" class="md-nav__link">
+    <span class="md-ellipsis">
+      Bluetooth
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wlan" class="md-nav__link">
+    <span class="md-ellipsis">
+      WLAN
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="WLAN">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#special-quirks-wlan-hotspot" class="md-nav__link">
+    <span class="md-ellipsis">
+      Special quirks: WLAN hotspot
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#nfc" class="md-nav__link">
+    <span class="md-ellipsis">
+      NFC
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#gps" class="md-nav__link">
+    <span class="md-ellipsis">
+      GPS
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#audio" class="md-nav__link">
+    <span class="md-ellipsis">
+      Audio
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sensors" class="md-nav__link">
+    <span class="md-ellipsis">
+      Sensors
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#power-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      Power management
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#watchdog" class="md-nav__link">
+    <span class="md-ellipsis">
+      Watchdog
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#touch" class="md-nav__link">
+    <span class="md-ellipsis">
+      Touch
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Touch">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#special-feature-double-tap-to-wake-up" class="md-nav__link">
+    <span class="md-ellipsis">
+      Special feature: double tap to wake up
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../middleware/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Middleware
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../repos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    List of Repositories
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../naming/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Package Naming Policy
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ha-checklist/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Hardware Adaptation Checklist
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#vibration-force-feedback" class="md-nav__link">
+    <span class="md-ellipsis">
+      Vibration / force feedback
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#gstreamer-v10" class="md-nav__link">
+    <span class="md-ellipsis">
+      GStreamer v1.0
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#camera" class="md-nav__link">
+    <span class="md-ellipsis">
+      Camera
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cellular-modem" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cellular modem
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Cellular modem">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#phone-calls-dont-work-but-sms-and-mobile-data-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      Phone calls don't work (but SMS and mobile data works)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bluetooth" class="md-nav__link">
+    <span class="md-ellipsis">
+      Bluetooth
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wlan" class="md-nav__link">
+    <span class="md-ellipsis">
+      WLAN
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="WLAN">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#special-quirks-wlan-hotspot" class="md-nav__link">
+    <span class="md-ellipsis">
+      Special quirks: WLAN hotspot
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#nfc" class="md-nav__link">
+    <span class="md-ellipsis">
+      NFC
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#gps" class="md-nav__link">
+    <span class="md-ellipsis">
+      GPS
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#audio" class="md-nav__link">
+    <span class="md-ellipsis">
+      Audio
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sensors" class="md-nav__link">
+    <span class="md-ellipsis">
+      Sensors
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#power-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      Power management
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#watchdog" class="md-nav__link">
+    <span class="md-ellipsis">
+      Watchdog
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#touch" class="md-nav__link">
+    <span class="md-ellipsis">
+      Touch
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Touch">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#special-feature-double-tap-to-wake-up" class="md-nav__link">
+    <span class="md-ellipsis">
+      Special feature: double tap to wake up
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="detailed-subsystem-adaptation-guides">Detailed subsystem adaptation guides<a class="headerlink" href="#detailed-subsystem-adaptation-guides" title="Permanent link">#</a></h1>
+<p>Sailfish OS uses some kernel interfaces directly, bypassing the android
+HAL. Mainly this is used in places where the kernel API is stable enough
+and also used by Android. The other reasons for using kernel APIs
+directly include better features offered by standard kernel frameworks,
+differing middleware between Sailfish OS linux and Android, and lastly
+special features of Sailfish OS.</p>
+<h2 id="vibration-force-feedback">Vibration / force feedback<a class="headerlink" href="#vibration-force-feedback" title="Permanent link">#</a></h2>
+<p>The default vibra framework that is used in full featured productized
+Sailfish OS devices is the force feedback API in kernel input framework.
+The kernel drivers should either use the ffmemless framework OR provide
+FF_PERIODIC and FF_RUMBLE support via as a normal input driver. In this
+chapter we go through the ff-memless aproach of adapting your kernel for
+Sailfish OS</p>
+<p>This is a different method than what is used in community Sailfish OS
+ports, which utilize the android vibrator / timed-output API. The
+android vibrator plugins in Sailfish OS middleware have very reduced
+feature set, and are not recommended for commercial products.</p>
+<p>In order to utilize the standard input framework force feedback features
+of Sailfish OS, the android timed output vibrator kernel driver needs to
+be converted to a ffmemless driver. The main tasks for this are:</p>
+<ul>
+<li>Enable CONFIG_INPUT_FF_MEMLESS kernel config option</li>
+<li>Disable CONFIG_ANDROID_TIMED_OUTPUT kernel config option</li>
+<li>Change maximum amount of ffmemless effects to <strong>64</strong> by patching
+  ff-memless.c:<ul>
+<li><a href="http://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git/tree/drivers/input/ff-memless.c#n41">http://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git/tree/drivers/input/ff-memless.c#n41</a></li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="gh">diff --git a/drivers/input/ff-memless.c b/drivers/input/ff-memless.c</span>
+<span class="gh">index 117a59a..fa53611 100644</span>
+<span class="gd">--- a/drivers/input/ff-memless.c</span>
+<span class="gi">+++ b/drivers/input/ff-memless.c</span>
+<span class="gu">@@ -39,7 +39,7 @@ MODULE_AUTHOR(&quot;Anssi Hannula &lt;anssi.hannula@gmail.com&gt;&quot;);</span>
+<span class="w"> </span>MODULE_DESCRIPTION(&quot;Force feedback support for memoryless devices&quot;);
+
+<span class="w"> </span>/* Number of effects handled with memoryless devices */
+<span class="gd">-#define FF_MEMLESS_EFFECTS     16</span>
+<span class="gi">+#define FF_MEMLESS_EFFECTS     64</span>
+
+<span class="w"> </span>/* Envelope update interval in ms */
+<span class="w"> </span>#define FF_ENVELOPE_INTERVAL   50
+</code></pre></div>
+<ul>
+<li>Optionally you can decrease ff-memless control interval so that fade
+  and attack envelopes can be used in short haptic effects as well:</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="gh">diff --git a/drivers/input/ff-memless.c b/drivers/input/ff-memless.c</span>
+<span class="gh">index 89d3a3d..33eee2e 100644</span>
+<span class="gd">--- a/drivers/input/ff-memless.c</span>
+<span class="gi">+++ b/drivers/input/ff-memless.c</span>
+<span class="gu">@@ -41,7 +41,7 @@ MODULE_DESCRIPTION(&quot;Force feedback support for memoryless devi</span>
+<span class="w"> </span>#define FF_MEMLESS_EFFECTS     64
+
+<span class="w"> </span>/* Envelope update interval in ms */
+<span class="gd">-static int ff_envelope_interval = 50;</span>
+<span class="gi">+static int ff_envelope_interval = 10;</span>
+<span class="w"> </span>module_param(ff_envelope_interval, int, S_IWUSR | S_IRUGO);
+
+<span class="w"> </span>#define FF_EFFECT_STARTED      0
+</code></pre></div>
+<ul>
+<li>If your platform happens to already support a ffmemless based vibra
+  driver, just enable it and fix any issues that you see. Otherwise go
+  through the rest of the points below.</li>
+<li>Convert the android timed output vibra driver to support to
+  ffmemless<ul>
+<li>add <code>#include &lt;linux/input.h&gt;</code></li>
+<li>Create a ffmemless play function.</li>
+<li>Examples of ffmemless play functions / ffmemless drivers:<ul>
+<li><a href="http://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git/tree/drivers/input/misc/arizona-haptics.c#n110">http://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git/tree/drivers/input/misc/arizona-haptics.c#n110</a></li>
+<li><a href="http://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git/tree/drivers/input/misc/max8997_haptic.c#n231">http://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git/tree/drivers/input/misc/max8997_haptic.c#n231</a></li>
+<li><a href="http://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git/tree/drivers/input/misc/pm8xxx-vibrator.c#n130">http://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git/tree/drivers/input/misc/pm8xxx-vibrator.c#n130</a></li>
+</ul>
+</li>
+<li>At probe, create a ffmemless device with <strong>input_ff_create_memless</strong><ul>
+<li><a href="http://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git/tree/include/linux/input.h#n531">http://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git/tree/include/linux/input.h#n531</a></li>
+</ul>
+</li>
+<li>And register the resulting device with input_device_register.</li>
+<li>Remember to clean up the input device structure at driver exit</li>
+<li>The example ffmemless drivers above can be used for reference</li>
+</ul>
+</li>
+</ul>
+<p>The userspace configuration haptic feedback and effects is handled with
+ngfd configuration files, see more details in
+<a href="../middleware/#non-graphical-feedback-daemon-ngfd">Middleware / NGFD</a></p>
+<h2 id="gstreamer-v10">GStreamer v1.0<a class="headerlink" href="#gstreamer-v10" title="Permanent link">#</a></h2>
+<p>Sailfish OS 2.0 introduces GStreamer v1.0 with hardware-accelerated
+video and audio encoding and decoding in Camera, Gallery and Browser,
+and deprecates GStreamer v0.10.</p>
+<p>The GStreamer-droid bridge is part of the integral build process. If you
+need to modify its source code, then rebuild it via:</p>
+<div class="highlight"><span class="filename">PLATFORM SDK</span><pre><span></span><code><span class="nb">cd</span><span class="w"> </span><span class="nv">$ANDROID_ROOT</span>
+rpm/dhd/helpers/build_packages.sh<span class="w"> </span>--gg
+</code></pre></div>
+<h2 id="camera">Camera<a class="headerlink" href="#camera" title="Permanent link">#</a></h2>
+<p>Launch the Camera app. If if shows black screen and becomes
+non-responsive, enable the <code>audiosystem-passthrough-dummy-af</code> package in
+the patterns and rebuild droid-configs.</p>
+<p>If you find some parameters (such as ISO speed or other 3A settings) are
+missing from camera app, then it's possible that your camera device is
+designed to use an older version of the Camera HAL than the default. You
+can try forcing a HAL v1 connection by adding <code>FORCE_HAL:=1</code> to <code>env.mk</code>
+in droidmedia.</p>
+<h2 id="cellular-modem">Cellular modem<a class="headerlink" href="#cellular-modem" title="Permanent link">#</a></h2>
+<ul>
+<li>
+<p>Ensure Android's RIL running <code>ps ax | grep rild</code> (expect one or two
+  <code>/system/bin/rild</code>)</p>
+</li>
+<li>
+<p>If RIL is not running, check why it is not launched from <code>/init*.rc</code>
+  scripts</p>
+</li>
+<li>
+<p>If it's launched, check where it fails with
+  <code>/usr/libexec/droid-hybris/system/bin/logcat -b radio</code></p>
+</li>
+<li>
+<p>Errors in RIL might look like this:
+  <div class="highlight"><pre><span></span><code>RIL[0][main] qcril_qmi_modem_power_process_bootup: ESOC node is not available
+</code></pre></div>
+  After online search this suggests firmware loading issues on
+  Motorola Moto G. Compare with a healthy radio logcat after booting
+  back into CM, not all lines starting with <code>E/RIL...</code> will point to a
+  root cause!</p>
+</li>
+<li>
+<p>If it's firmware loading problem, trace all needed daemons in CM
+  and their loading order as well as all mounted firmware, modem, and
+  baseband partitions.</p>
+</li>
+<li>
+<p>Once RIL is happy, then ofono can be launched. Unmask it if it was
+  previously masked due to causing reboots in
+  <a href="../getting-in/#bootloops">bootloops</a>.</p>
+</li>
+<li>
+<p>If you still get no signal indicator in UI, remove SIM PIN and retry</p>
+</li>
+<li>
+<p>Also install <code>ofono-tests</code> package and run <code>/usr/lib/ofono/test/list-modems</code></p>
+</li>
+<li>
+<p>Try to recompile latest ofono master branch from
+  <a href="https://github.com/sailfishos/ofono">https://github.com/sailfishos/ofono</a></p>
+</li>
+<li>
+<p>If everything else fails, then stop and strace a failing daemon
+  (either RIL or ofono) from command line manually</p>
+</li>
+</ul>
+<h3 id="phone-calls-dont-work-but-sms-and-mobile-data-works">Phone calls don't work (but SMS and mobile data works)<a class="headerlink" href="#phone-calls-dont-work-but-sms-and-mobile-data-works" title="Permanent link">#</a></h3>
+<p>If the calling parties cannot hear one another, then the
+<code>audiosystem-passthrough-dummy-af</code> middleware package is required, which
+should be enabled in the patterns.</p>
+<h2 id="bluetooth">Bluetooth<a class="headerlink" href="#bluetooth" title="Permanent link">#</a></h2>
+<p>For bluetooth Sailfish OS uses BlueZ stack from linux.</p>
+<div class="admonition todo">
+<p class="admonition-title">Todo</p>
+<ul>
+<li>bluetooth adaptation guide.</li>
+<li>add detail about audio routing.</li>
+</ul>
+</div>
+<h2 id="wlan">WLAN<a class="headerlink" href="#wlan" title="Permanent link">#</a></h2>
+<p>Typically WLAN drivers are external kernel modules in android
+adaptations. To set up WLAN for such devices, a systemd service file
+needs to be created that loads the kernel module at boot. In addition to
+this you need to check that firmware files and possible HW tuning files
+are installed in correct locations on the filesystem.</p>
+<p>Sailfish OS WLAN adaptation assumes the driver is compatible with WPA
+supplicant. This means the WLAN device driver has to support cfg80211
+interface. In some cases connman (the higher level connection manager in
+Sailfish) accesses directly the WLAN driver bypassing wpa_supplicant.</p>
+<p>The version of currently used wpa_supplicant can be checked from here:</p>
+<ul>
+<li><a href="https://github.com/sailfishos/wpa_supplicant">https://github.com/sailfishos/wpa_supplicant</a></li>
+</ul>
+<p>The version of used connman can be checked from here:</p>
+<ul>
+<li><a href="https://github.com/sailfishos/connman">https://github.com/sailfishos/connman</a></li>
+</ul>
+<h3 id="special-quirks-wlan-hotspot">Special quirks: WLAN hotspot<a class="headerlink" href="#special-quirks-wlan-hotspot" title="Permanent link">#</a></h3>
+<p>On some android WLAN drivers, the whole connectivity stack needs to be
+reset after WLAN hotspot use. For that purpose there is reset service in
+dsme, please see details how to set that up for your adaptation project
+in here:</p>
+<ul>
+<li><a href="https://github.com/sailfishos/dsme/commit/c377c349079b470db38ba6394121b6d899004963">https://github.com/sailfishos/dsme/commit/c377c349079b470db38ba6394121b6d899004963</a></li>
+</ul>
+<h2 id="nfc">NFC<a class="headerlink" href="#nfc" title="Permanent link">#</a></h2>
+<p>Currently there is no NFC middleware in Sailfish OS. Android HAL API
+support should be enough for future compatibility.</p>
+<h2 id="gps">GPS<a class="headerlink" href="#gps" title="Permanent link">#</a></h2>
+<p>Ensure the <code>test_gps</code> command gets a fix after a while.</p>
+<p>The necessary middleware is already built for you, just add
+<code>geoclue-provider-hybris</code> package into your patterns.</p>
+<h2 id="audio">Audio<a class="headerlink" href="#audio" title="Permanent link">#</a></h2>
+<p>For audio, Sailfish OS uses PulseAudio as the main mixer. For audio
+routing ohmd is used.</p>
+<div class="admonition todo">
+<p class="admonition-title">Todo</p>
+<p>Add info about audio routing configuration TODO: Add more info in general.</p>
+</div>
+<h2 id="sensors">Sensors<a class="headerlink" href="#sensors" title="Permanent link">#</a></h2>
+<p>Sailfish OS sensor support is based upon Sensor Framework at:
+<a href="https://github.com/sailfishos/sensorfw">https://github.com/sailfishos/sensorfw</a></p>
+<p>Hybris based systems can use the hybris sensor adaptor plugins, which
+uses existing android libhardware sensor adaptations to read sensor data
+and control.</p>
+<p>It can also be configured for standard linux sysfs and evdev sensor
+interfaces.</p>
+<p>It should be configured at <code>/etc/sensorfw/primaryuse.conf</code>, which links to
+a device specific conf file. Historically named
+<code>sensord-&lt;BOARDNAME&gt;.conf</code>. You can also use any conf file by specifying
+it on the commandline.</p>
+<p>For hybris based platforms, this will be <code>sensord-hybris.conf</code>, and most
+likely will not have to be modified. A copy of this file is already
+among default configs:
+<a href="https://github.com/sailfishos/sensorfw/blob/master/config/sensord-hybris.conf">https://github.com/sailfishos/sensorfw/blob/master/config/sensord-hybris.conf</a>
+If you do make modifications to it, add the file under
+<code>$ANDROID_ROOT/hybris/droid-configs/sparse/etc/sensorfw/primaryuse.conf</code></p>
+<p>There are already a few device specific conf files to look at if the
+device needs more configuration. Example of mixed hybris and evdev
+configuration
+<a href="https://github.com/sailfishos/sensorfw/blob/master/config/sensord-tbj.conf">https://github.com/sailfishos/sensorfw/blob/master/config/sensord-tbj.conf</a></p>
+<p>Generally, if sensors are working on the android/hybris side, they will
+work in sensorfw and up to the Sailfish UI. libhybris comes with
+/usr/bin/test_sensors which can list those Android sensors found.</p>
+<p>Above Sensor Framework is QtSensors, which requires a configuration file
+at /etc/xdg/QtProject/Sensors.conf which is supplied with the sensorfw
+backend plugin in QtSensors and a copy of it is already among your
+default configs.</p>
+<p>For Sailfish Core based systems, the QtSensors source code is at:
+<a href="https://github.com/mer-qt/qtsensors">https://github.com/mer-qt/qtsensors</a></p>
+<p>Debugging output of sensorfwd can be increased one level during runtime
+by sending (as root) USR1 signal like so: <code>pkill -USR1 sensorfwd</code> or specified
+on the commandline for startup debugging.</p>
+<p>Sending <code>pkill -USR2 sensorfwd</code> will output a current status report.</p>
+<h2 id="power-management">Power management<a class="headerlink" href="#power-management" title="Permanent link">#</a></h2>
+<p>Under the hood, Sailfish OS uses the android wake locks. Typically there
+is no need to change anything in the kernel side (assuming it works fine
+with android) for the power management to work, as long as all the
+device drivers are working normally.</p>
+<p>The userspace API's for platform applications is exposed via
+nemo-keepalive package. See more details here:</p>
+<ul>
+<li><a href="https://github.com/sailfishos/nemo-keepalive">https://github.com/sailfishos/nemo-keepalive</a></li>
+</ul>
+<h2 id="watchdog">Watchdog<a class="headerlink" href="#watchdog" title="Permanent link">#</a></h2>
+<p>A standard linux kernel <a href="http://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git/tree/Documentation/watchdog/watchdog-kernel-api.txt">watchdog core driver</a>
+support is expected. The device node should be in /dev/watchdog. It
+should be configured with following kernel options:</p>
+<pre><code>CONFIG_WATCHDOG=y
+CONFIG_WATCHDOG_CORE=y
+CONFIG_WATCHDOG_NOWAYOUT=y
+</code></pre>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Please note that watchdog driver should disable itself during suspend.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Normally the watchdog period is programmed automatically, but if your
+driver does not support programming the period, the default kicking period
+is 20 seconds.</p>
+</div>
+<h2 id="touch">Touch<a class="headerlink" href="#touch" title="Permanent link">#</a></h2>
+<p>Sailfish OS is compatible with standard kernel multitouch input
+framework drivers. Protocol A is preferred. The main configuration
+needed is to symlink the correct event device node to /dev/touchscreen.
+To do this the best way is to set up a udev rule that checks the devices
+with evcap script and creates the link once first valid one is found.
+See more details for evcap here:</p>
+<ul>
+<li><a href="https://github.com/mer-hybris/evcap">https://github.com/mer-hybris/evcap</a></li>
+</ul>
+<p>The udev rule can be put to file <code>/lib/udev/rules.d/61-touchscreen.rules</code></p>
+<p>The reason this is not done by default is that typically driver authors
+mark bit varying capabilities as supported and there could be multiple
+touch controllers on a device, so the final rule is best to be written
+in a device specific configs package.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>if you still have problems with touch, please check that lipstick
+environment has correct touch device parameter:
+<div class="highlight"><pre><span></span><code>cat /var/lib/environment/compositor/droid-hal-device.conf
+</code></pre></div>
+<strong>LIPSTICK_OPTIONS</strong> should have <strong>"-plugin evdevtouch:/dev/touchscreen"</strong></p>
+</div>
+<h3 id="special-feature-double-tap-to-wake-up">Special feature: double tap to wake up<a class="headerlink" href="#special-feature-double-tap-to-wake-up" title="Permanent link">#</a></h3>
+<p>Sailfish OS supports waking up the device from suspend (unblanking the
+screen) via double tap gesture to the touchscreen. The touchscreen
+driver should either emulate KEY_POWER press / release or post a
+EV_MSC/MSC_GESTURE event with value 0x4 when double tap gesture is
+detected when waking up from suspend.</p>
+<p>In order to avoid excess power drain when device is in pocket facing
+users skin, some sysfs should be exported to allow disabling the touch
+screen. The feature requires that the device has a working proximity
+sensor that can wake up the system when it is suspended (to be able to
+update touch screen state according to need). To configure MCE that
+handles this see <a href="../middleware/#mce-configuration">MCE configuration</a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../modifications/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Modifications and Patches">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Modifications and Patches
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../middleware/" class="md-footer__link md-footer__link--next" aria-label="Next: Middleware">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Middleware
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      
+<div class="md-copyright">Copyright &copy; 2025 Jolla Mobile Ltd</div>
+
+
+
+<div class="md-copyright">
+Content licensed under <a href="../LICENSE.txt">CC BY-NC-SA 4.0</a></li>
+</div>
+
+
+<div class="md-copyright">
+Made with <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">Material for MkDocs</a>
+</div>
+
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "..", "features": ["navigation.footer"], "search": "../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.f55a23d4.min.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,1171 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../setupsdk/">
+      
+      
+        <link rel="next" href="../build-env/">
+      
+      
+      <link rel="icon" href="../assets/sailfish_os_favico.svg">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.21">
+    
+    
+      
+        <title>Building the Android HAL - Sailfish OS Hardware Adaptation Development Kit</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.2a3383ac.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/extra.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="white" data-md-color-accent="teal">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#building-the-android-hal" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Sailfish OS Hardware Adaptation Development Kit" class="md-header__button md-logo" aria-label="Sailfish OS Hardware Adaptation Development Kit" data-md-component="logo">
+      
+  <img src="../assets/sailfish_os_logo.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Sailfish OS Hardware Adaptation Development Kit
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Building the Android HAL
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Sailfish OS Hardware Adaptation Development Kit" class="md-nav__button md-logo" aria-label="Sailfish OS Hardware Adaptation Development Kit" data-md-component="logo">
+      
+  <img src="../assets/sailfish_os_logo.svg" alt="logo">
+
+    </a>
+    Sailfish OS Hardware Adaptation Development Kit
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../prerequisites/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Prerequisites
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../preparing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Preparing Your Device
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../setupsdk/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Setting up the SDKs
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Building the Android HAL
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Building the Android HAL
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#checking-out-source-of-the-android-base" class="md-nav__link">
+    <span class="md-ellipsis">
+      Checking out Source of the Android base
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#device-repos" class="md-nav__link">
+    <span class="md-ellipsis">
+      Device repos
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configure-mountpoint-information" class="md-nav__link">
+    <span class="md-ellipsis">
+      Configure Mountpoint Information
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#building-relevant-bits-of-your-android-base" class="md-nav__link">
+    <span class="md-ellipsis">
+      Building Relevant Bits of your Android base
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Building Relevant Bits of your Android base">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#kernel-config" class="md-nav__link">
+    <span class="md-ellipsis">
+      Kernel config
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Kernel config">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#contribute-your-mods-back" class="md-nav__link">
+    <span class="md-ellipsis">
+      Contribute your mods back
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#common-pitfalls" class="md-nav__link">
+    <span class="md-ellipsis">
+      Common Pitfalls
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../build-env/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Installing Build Tools for Your Device
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../droid-hal/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Packaging Droid HAL
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mic/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Creating the Sailfish OS Root Filesystem
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../getting-in/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Getting In
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../flashing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Flashing the rootfs image
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../manual-install/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Manual Installation and Maintenance
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ota-updates/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    OTA (Over-the-Air) Updates
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../modifications/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Modifications and Patches
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../subsystems/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Detailed subsystem adaptation guides
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../middleware/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Middleware
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../repos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    List of Repositories
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../naming/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Package Naming Policy
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ha-checklist/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Hardware Adaptation Checklist
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#checking-out-source-of-the-android-base" class="md-nav__link">
+    <span class="md-ellipsis">
+      Checking out Source of the Android base
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#device-repos" class="md-nav__link">
+    <span class="md-ellipsis">
+      Device repos
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configure-mountpoint-information" class="md-nav__link">
+    <span class="md-ellipsis">
+      Configure Mountpoint Information
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#building-relevant-bits-of-your-android-base" class="md-nav__link">
+    <span class="md-ellipsis">
+      Building Relevant Bits of your Android base
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Building Relevant Bits of your Android base">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#kernel-config" class="md-nav__link">
+    <span class="md-ellipsis">
+      Kernel config
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Kernel config">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#contribute-your-mods-back" class="md-nav__link">
+    <span class="md-ellipsis">
+      Contribute your mods back
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#common-pitfalls" class="md-nav__link">
+    <span class="md-ellipsis">
+      Common Pitfalls
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="building-the-android-hal">Building the Android HAL<a class="headerlink" href="#building-the-android-hal" title="Permanent link">#</a></h1>
+<h2 id="checking-out-source-of-the-android-base">Checking out Source of the Android base<a class="headerlink" href="#checking-out-source-of-the-android-base" title="Permanent link">#</a></h2>
+<p>Our build process is based around the Android source tree, but where
+needed we've modified some projects, in order to apply patches required
+to make libhybris function correctly, and to minimise the built-in
+actions and services in the <code>init.*.rc</code> files.</p>
+<p>Ensure you have setup your name and e-mail address in your Git
+configuration:</p>
+<div class="highlight"><span class="filename">HABUILD SDK</span><pre><span></span><code>git<span class="w"> </span>config<span class="w"> </span>--global<span class="w"> </span>user.name<span class="w"> </span><span class="s2">&quot;Your Name&quot;</span>
+git<span class="w"> </span>config<span class="w"> </span>--global<span class="w"> </span>user.email<span class="w"> </span><span class="s2">&quot;you@example.com&quot;</span>
+</code></pre></div>
+<p>Ensure Ubuntu chroot has cpio installed:</p>
+<div class="highlight"><span class="filename">HABUILD SDK</span><pre><span></span><code>sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>cpio
+</code></pre></div>
+<p>You also need to install the <code>repo</code> command from the AOSP source code
+repositories, see
+<a href="https://source.android.com/setup/develop#installing-repo">Installing repo</a>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><a href="../setupsdk/#if-your-port-requires-openjdk-17-or-older">If your port requires openjdk 17 or older</a>, use the
+<a href="https://source.android.com/setup/develop#old-repo-python2">older repo tool for legacy Python 2 systems</a>.</p>
+</div>
+<p>After you have installed the <code>repo</code> command, a set of commands below will
+download the required projects for building the modified parts of the
+<strong>Android base</strong> used in Sailfish OS hardware adaptations.</p>
+<p>All available <strong>Android base</strong> variants and versions that you can port
+on can be seen here: <a href="https://github.com/mer-hybris/android/branches">https://github.com/mer-hybris/android/branches</a></p>
+<p>Choose a version which has the best hardware support for your device.</p>
+<p>Alternatively, you can patch an <strong>Android base</strong> of your choosing (e.g.
+be it CAF or AOSP or another).</p>
+<p>The result of your Sailfish OS port will be an installable ZIP file.
+Before deploying it onto your device, you'll have to flash a
+corresponding version of the <strong>Android base</strong>, so Sailfish OS can re-use
+its Android HAL shared objects.</p>
+<p>If your primary ROM does not match your <strong>Android base</strong> or its version,
+and you would like to keep it on your device, then look for MultiROM
+support for it. Starting with its version v28, it supports booting
+Sailfish OS.</p>
+<p>This porting guide is using Nexus 5 and CyanogenMod 11.0 version as
+example:</p>
+<div class="highlight"><span class="filename">HABUILD SDK</span><pre><span></span><code>sudo<span class="w"> </span>mkdir<span class="w"> </span>-p<span class="w"> </span><span class="nv">$ANDROID_ROOT</span>
+sudo<span class="w"> </span>chown<span class="w"> </span>-R<span class="w"> </span><span class="nv">$USER</span><span class="w"> </span><span class="nv">$ANDROID_ROOT</span>
+<span class="nb">cd</span><span class="w"> </span><span class="nv">$ANDROID_ROOT</span>
+repo<span class="w"> </span>init<span class="w"> </span>-u<span class="w"> </span>https://github.com/mer-hybris/android.git<span class="w"> </span>-b<span class="w"> </span>hybris-11.0
+</code></pre></div>
+<h2 id="device-repos">Device repos<a class="headerlink" href="#device-repos" title="Permanent link">#</a></h2>
+<p>The local manifest contains device-specific repositories, for Android as
+well as for the mer-hybris builds.</p>
+<p>If your device has already been ported, its codes properly placed on
+GitHub, you should check this repository:
+<a href="https://github.com/mer-hybris/local_manifests">https://github.com/mer-hybris/local_manifests</a> (choose the branch of
+hybris-* that your are porting to), and use $DEVICE.xml file instead
+of creating a new one in this chapter.</p>
+<p>Create directory at first:</p>
+<div class="highlight"><span class="filename">HABUILD SDK</span><pre><span></span><code>mkdir<span class="w"> </span><span class="nv">$ANDROID_ROOT</span>/.repo/local_manifests
+</code></pre></div>
+<p>If your are working on a new port, you'll have to create the local
+manifest yourself, which contains at least two repos: one for the
+kernel, another for the device configuration. Find those in the
+LineageOS device wiki, for Nexus 5 it would be
+<a href="https://wiki.lineageos.org/devices/hammerhead/build#initialize-the-lineageos-source-repository">https://wiki.lineageos.org/devices/hammerhead/build#initialize-the-lineageos-source-repository</a>
+Local manifest below will also need pointing to correct branches -
+identify which one matches the default manifest branch (<code>stable/cm-11.0</code>
+in Nexus 5 case).</p>
+<p>Add the following content to
+<code>$ANDROID_ROOT/.repo/local_manifests/$DEVICE.xml</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span>
+<span class="nt">&lt;manifest&gt;</span>
+<span class="w">  </span><span class="nt">&lt;project</span><span class="w"> </span><span class="na">path=</span><span class="s">&quot;device/lge/hammerhead&quot;</span>
+<span class="w">    </span><span class="na">name=</span><span class="s">&quot;CyanogenMod/android_device_lge_hammerhead&quot;</span>
+<span class="w">    </span><span class="na">revision=</span><span class="s">&quot;stable/cm-11.0&quot;</span><span class="w"> </span><span class="nt">/&gt;</span>
+<span class="w">  </span><span class="nt">&lt;project</span><span class="w"> </span><span class="na">path=</span><span class="s">&quot;kernel/lge/hammerhead&quot;</span>
+<span class="w">    </span><span class="na">name=</span><span class="s">&quot;CyanogenMod/android_kernel_lge_hammerhead&quot;</span>
+<span class="w">    </span><span class="na">revision=</span><span class="s">&quot;stable/cm-11.0&quot;</span><span class="w"> </span><span class="nt">/&gt;</span>
+<span class="nt">&lt;/manifest&gt;</span>
+</code></pre></div>
+<p>Time to sync the whole source code, this might take a while: Do not use
+<code>--fetch-submodules</code> parameter on hybris-18.1 or newer Android bases.</p>
+<div class="highlight"><span class="filename">HABUILD SDK</span><pre><span></span><code>repo<span class="w"> </span>sync<span class="w"> </span>--fetch-submodules
+</code></pre></div>
+<p>The expected disk usage for the source tree after the sync is <strong>13 GB</strong>
+(as of 2015-09-09, hybris-11.0 branch). Depending on your connection,
+this might take some time. In the mean time, make yourself familiar with
+the rest of this guide.</p>
+<h2 id="configure-mountpoint-information">Configure Mountpoint Information<a class="headerlink" href="#configure-mountpoint-information" title="Permanent link">#</a></h2>
+<p>Currently in Sailfish OS, <code>udev</code> starts after <code>initrd</code>, which leaves us
+not being able to use generic partition names (independent of partition
+number).</p>
+<p>In <code>initrd</code> we then have to specify hardcoded <code>/dev/mmcblkXpY</code> nodes for
+<code>/boot</code> and <code>/data</code> partitions.</p>
+<p>After <code>initrd</code>, <code>systemd</code> needs to mount all other required partitions
+(such as <code>/system</code>, <code>/firmware</code>, <code>/persist</code>, <code>/config</code>, ...) for the
+HAL layer to work. The required partitions are read from <code>*.fstab</code> and
+<code>init*.rc</code> files, disabled there, and respective <code>.mount</code> units created
+-- all done by <code>$ANDROID_ROOT/rpm (droid-hal-device)</code>.</p>
+<p>Unfortunately, <code>systemd</code> cannot recognise named partition paths in
+<code>.mount</code> units, because of the same late start of <code>udev</code>, even though
+one can see already created nodes under <code>/dev/block/platform/*/by-name/</code>
+or <code>/dev/block/platform/*/*/by-name</code>.</p>
+<p>To work around this, we need to create a map between partition names and
+numbers in <code>hybris/hybris-boot/fixup-mountpoints</code> for each device, for
+all partitions -- in this way we are sure to cover them all, because if
+done manually by looking through fstab/rc files, some might get
+unnoticed.</p>
+<p>To get that mapping, you should flash and boot an image of your
+<strong>Android base</strong> and execute <code>adb shell</code> on your host and something like
+this: <code>ls -l /dev/block/platform/*/by-name/</code> on your device. To get the
+correct path you must find Android's fstab in device repository or in
+device itself and get by-name path like:
+<code>block/bootdevice/by-name/userdata</code>,
+<code>ls -l /dev/block/platform/*/*/by-name/</code>or
+<code>block/platform/*/by-name/userdata</code> from it.</p>
+<p>Once you've patched <code>fixup-mountpoints</code>, take care if you ever have to
+run <code>repo sync --fetch-submodules</code> again because it will reset your
+changes, unless the file <code>.repo/local_manifests/$DEVICE.xml</code> is pointing
+<code>hybris-boot</code> to your fork with the needed fixup-mountpoints changes.</p>
+<p>Then when you get to boot to the Sailfish OS UI, please don't forget to
+upstream your <code>fixup-mountpoints</code> patch.</p>
+<h2 id="building-relevant-bits-of-your-android-base">Building Relevant Bits of your Android base<a class="headerlink" href="#building-relevant-bits-of-your-android-base" title="Permanent link">#</a></h2>
+<p>In the Android build tree, run the following in a <code>bash</code> shell (if you
+are using e.g. <code>zsh</code>, you need to run these commands in a <code>bash</code> shell,
+as the Android build scripts are assuming you are running <code>bash</code>).</p>
+<p>You'll probably need to iterate this a few times to spot missing
+repositories, tools, configuration files and others:</p>
+<p>Before building it is recommended to read extra Android base specific
+hints from
+<a href="https://github.com/mer-hybris/hadk-faq#android-base-specific-fixes">https://github.com/mer-hybris/hadk-faq#android-base-specific-fixes</a></p>
+<div class="highlight"><span class="filename">HABUILD SDK</span><pre><span></span><code><span class="nb">source</span><span class="w"> </span>build/envsetup.sh
+<span class="nb">export</span><span class="w"> </span><span class="nv">USE_CCACHE</span><span class="o">=</span><span class="m">1</span>
+
+breakfast<span class="w"> </span><span class="nv">$DEVICE</span>
+
+make<span class="w"> </span>-j<span class="k">$(</span>nproc<span class="w"> </span>--all<span class="k">)</span><span class="w"> </span>hybris-hal<span class="w"> </span>droidmedia
+</code></pre></div>
+<p>The relevant output bits will be in <code>out/target/product/$DEVICE/</code>, in
+particular:</p>
+<ul>
+<li><code>hybris-boot.img</code>: Kernel and initrd</li>
+<li><code>hybris-recovery.img</code>: Recovery boot image</li>
+<li><code>system/</code> and <code>root/</code>: HAL system libraries and binaries</li>
+</ul>
+<p>The approximate size of the output directory <code>out/</code> after
+<code>make hybris-hal</code> is <strong>10 GB</strong> (as of 2019-03-14,
+hybris-sony-aosp-8.1.0_r52-20190206 branch).</p>
+<h3 id="kernel-config">Kernel config<a class="headerlink" href="#kernel-config" title="Permanent link">#</a></h3>
+<p>Once the kernel has built you can check the kernel config. You can use
+the Mer kernel config checker:</p>
+<div class="highlight"><span class="filename">HABUILD SDK</span><pre><span></span><code><span class="nb">cd</span><span class="w"> </span><span class="nv">$ANDROID_ROOT</span>
+
+hybris/mer-kernel-check/mer_verify_kernel_config<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>./out/target/product/<span class="nv">$DEVICE</span>/obj/KERNEL_OBJ/.config
+</code></pre></div>
+<p>Apply listed modifications to the defconfig file that your <strong>Android
+base</strong> is using. Which one? It's different for every device, most
+likely first:</p>
+<ul>
+<li>Check the value of <code>TARGET_KERNEL_CONFIG</code> under
+  <code>$ANDROID_ROOT/device/$VENDOR/*/BoardConfig*.mk</code></li>
+<li>
+<p>Examine the output of <code>make bootimage</code> for which defconfig is taken when
+  you're building kernel, e.g.:</p>
+<pre><code>make  -C kernel/lge/hammerhead ... cyanogenmod_hammerhead_defconfig
+</code></pre>
+</li>
+<li>
+<p>Check your <strong>Android base</strong> kernel's commit history for the
+  <code>arch/arm*/configs</code> folder, look for defconfig</p>
+</li>
+</ul>
+<p>If you are in a rush, get rid only of <code>ERROR</code> cases first, but don't
+forget to come back to the <code>WARNING</code> ones too. After you'll have
+applied the needed changes, re-run <code>make hybris-boot</code> and re-verify.
+Lather, rinse, repeat :) Run also <code>make hybris-recovery</code> in the end when
+no more errors.</p>
+<h4 id="contribute-your-mods-back">Contribute your mods back<a class="headerlink" href="#contribute-your-mods-back" title="Permanent link">#</a></h4>
+<p>Fork the kernel repo to your GitHub home (indicated by <code>myname</code> in this
+doc).</p>
+<p>For Nexus 5 with CM 11.0 as base, the next action would be (rename where
+appropriate to match your device/branch):</p>
+<div class="highlight"><span class="filename">HABUILD SDK</span><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>kernel/lge/hammerhead
+git<span class="w"> </span>checkout<span class="w"> </span>-b<span class="w"> </span>hybris-11.0
+
+<span class="nv">DEFCONFIG</span><span class="o">=</span>arch/arm/configs/cyanogenmod_hammerhead_defconfig
+
+git<span class="w"> </span>add<span class="w"> </span><span class="nv">$DEFCONFIG</span>
+
+git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;Hybris-friendly defconfig&quot;</span>
+git<span class="w"> </span>remote<span class="w"> </span>add<span class="w"> </span>myname<span class="w"> </span>https://github.com/myname/android_kernel_lge_hammerhead
+git<span class="w"> </span>push<span class="w"> </span>myname<span class="w"> </span>hybris-11.0
+</code></pre></div>
+<p>Create PR to the forked kernel repo under github/mer-hybris. Ask a
+mer-hybris admin to create one, if it isn't there.</p>
+<p>Adjust your <code>.repo/local_manifests/$DEVICE.xml</code> by replacing the line</p>
+<div class="highlight"><pre><span></span><code><span class="nt">&lt;project</span><span class="w"> </span><span class="na">path=</span><span class="s">&quot;kernel/lge/hammerhead&quot;</span>
+<span class="w">  </span><span class="na">name=</span><span class="s">&quot;CyanogenMod/android_kernel_lge_hammerhead&quot;</span>
+<span class="w">  </span><span class="na">revision=</span><span class="s">&quot;stable/cm-11.0-XNG3C&quot;</span><span class="w"> </span><span class="nt">/&gt;</span>
+</code></pre></div>
+<p>with</p>
+<div class="highlight"><pre><span></span><code><span class="nt">&lt;project</span><span class="w"> </span><span class="na">path=</span><span class="s">&quot;kernel/lge/hammerhead&quot;</span>
+<span class="w">  </span><span class="na">name=</span><span class="s">&quot;myname/android_kernel_lge_hammerhead&quot;</span>
+<span class="w">  </span><span class="na">revision=</span><span class="s">&quot;hybris-11.0&quot;</span><span class="w"> </span><span class="nt">/&gt;</span>
+</code></pre></div>
+<h2 id="common-pitfalls">Common Pitfalls<a class="headerlink" href="#common-pitfalls" title="Permanent link">#</a></h2>
+<ul>
+<li>
+<p>If <code>repo sync --fetch-submodules</code> fails with a message like
+  <div class="highlight"><pre><span></span><code>fatal: duplicate path device/samsung/smdk4412-common in /home/nemo/android/.repo/manifest.xml
+</code></pre></div>
+  remove the local manifest with <code>rm .repo/local_manifests/roomservice.xml</code></p>
+</li>
+<li>
+<p>If <code>repo sync --fetch-submodules</code> fails with some other error message, try
+  running <code>repo sync</code> to see if it helps. This is usually needed for
+  hybris-18.1 or newer Android bases.</p>
+</li>
+<li>
+<p>If you notice <code>git clone</code> commands starting to write out <em>"Forbidden ..."</em>
+  on github repos, you might have hit API rate limit. To solve this, put your
+  github credentials into <code>~/.netrc</code>.
+  More info can be found following this link:
+  <a href="https://confluence.atlassian.com/display/STASH/Permanently+authenticating+with+Git+repositories#PermanentlyauthenticatingwithGitrepositories-Usingthe.netrcfile">Perm.auth. with Git repositories</a></p>
+</li>
+<li>
+<p><code>error: Cannot fetch ... (GitError: --force-sync not enabled; cannot overwrite a local work tree.</code>
+  usually happens if <code>repo sync --fetch-submodules</code> gets interrupted.
+  It is a bug of the repo tool. Ensure all your changes have been safely stowed
+  (check with <code>repo status</code>), and then workaround by:
+  <div class="highlight"><span class="filename">HABUILD SDK</span><pre><span></span><code>repo<span class="w"> </span>sync<span class="w"> </span>--force-sync
+repo<span class="w"> </span>sync<span class="w"> </span>--fetch-submodules
+</code></pre></div></p>
+</li>
+<li>
+<p>In some cases (with parallel builds), the build can fail, in this
+  case, use <code>make -j1 ...</code> to retry with a non-parallel build and see
+  the error message without output from parallel jobs. The build
+  usually ends with the following output:
+  <div class="highlight"><span class="filename">HABUILD SDK</span><pre><span></span><code>...
+Install:<span class="w"> </span>.../out/target/product/<span class="nv">$DEVICE</span>/hybris-recovery.img
+...
+Install:<span class="w"> </span>.../out/target/product/<span class="nv">$DEVICE</span>/hybris-boot.img
+</code></pre></div></p>
+</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../setupsdk/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Setting up the SDKs">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Setting up the SDKs
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../build-env/" class="md-footer__link md-footer__link--next" aria-label="Next: Installing Build Tools for Your Device">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Installing Build Tools for Your Device
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      
+<div class="md-copyright">Copyright &copy; 2025 Jolla Mobile Ltd</div>
+
+
+
+<div class="md-copyright">
+Content licensed under <a href="../LICENSE.txt">CC BY-NC-SA 4.0</a></li>
+</div>
+
+
+<div class="md-copyright">
+Made with <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">Material for MkDocs</a>
+</div>
+
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "..", "features": ["navigation.footer"], "search": "../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.f55a23d4.min.js"></script>
+      
+    
+  </body>
+</html>

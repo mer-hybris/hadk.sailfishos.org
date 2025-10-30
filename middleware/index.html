@@ -1,0 +1,1275 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../subsystems/">
+      
+      
+        <link rel="next" href="../repos/">
+      
+      
+      <link rel="icon" href="../assets/sailfish_os_favico.svg">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.21">
+    
+    
+      
+        <title>Middleware - Sailfish OS Hardware Adaptation Development Kit</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.2a3383ac.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/extra.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="white" data-md-color-accent="teal">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#middleware" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Sailfish OS Hardware Adaptation Development Kit" class="md-header__button md-logo" aria-label="Sailfish OS Hardware Adaptation Development Kit" data-md-component="logo">
+      
+  <img src="../assets/sailfish_os_logo.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Sailfish OS Hardware Adaptation Development Kit
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Middleware
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Sailfish OS Hardware Adaptation Development Kit" class="md-nav__button md-logo" aria-label="Sailfish OS Hardware Adaptation Development Kit" data-md-component="logo">
+      
+  <img src="../assets/sailfish_os_logo.svg" alt="logo">
+
+    </a>
+    Sailfish OS Hardware Adaptation Development Kit
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../prerequisites/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Prerequisites
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../preparing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Preparing Your Device
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../setupsdk/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Setting up the SDKs
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../android/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Building the Android HAL
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../build-env/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Installing Build Tools for Your Device
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../droid-hal/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Packaging Droid HAL
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mic/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Creating the Sailfish OS Root Filesystem
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../getting-in/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Getting In
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../flashing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Flashing the rootfs image
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../manual-install/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Manual Installation and Maintenance
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ota-updates/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    OTA (Over-the-Air) Updates
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../modifications/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Modifications and Patches
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../subsystems/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Detailed subsystem adaptation guides
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Middleware
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Middleware
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#mce-libhybris-plugin" class="md-nav__link">
+    <span class="md-ellipsis">
+      MCE libhybris Plugin
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mce-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      MCE configuration
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#non-graphical-feedback-daemon-ngfd" class="md-nav__link">
+    <span class="md-ellipsis">
+      Non-Graphical Feedback Daemon (NGFD)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Non-Graphical Feedback Daemon (NGFD)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#configuring-haptics" class="md-nav__link">
+    <span class="md-ellipsis">
+      Configuring Haptics
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ngfd-pulseaudio-plugin" class="md-nav__link">
+    <span class="md-ellipsis">
+      NGFD PulseAudio Plugin
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ngfd-ffmemless-plugin" class="md-nav__link">
+    <span class="md-ellipsis">
+      NGFD ffmemless Plugin
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#non-graphic-feedback-daemon-native-vibrator-plugin" class="md-nav__link">
+    <span class="md-ellipsis">
+      Non-Graphic Feedback Daemon Native Vibrator Plugin
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ngfd-droid-vibrator-plugin" class="md-nav__link">
+    <span class="md-ellipsis">
+      NGFD Droid Vibrator Plugin
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pulseaudio-droid-modules" class="md-nav__link">
+    <span class="md-ellipsis">
+      PulseAudio Droid Modules
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#qt5-hardware-composer-qpa" class="md-nav__link">
+    <span class="md-ellipsis">
+      Qt5 Hardware Composer QPA
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sensorfw-qt-5-libhybris-plugin" class="md-nav__link">
+    <span class="md-ellipsis">
+      SensorFW Qt 5 / libhybris Plugin
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#build-ha-middleware-packages" class="md-nav__link">
+    <span class="md-ellipsis">
+      Build HA Middleware Packages
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Build HA Middleware Packages">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#all-other-packages" class="md-nav__link">
+    <span class="md-ellipsis">
+      All other packages
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../repos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    List of Repositories
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../naming/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Package Naming Policy
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ha-checklist/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Hardware Adaptation Checklist
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#mce-libhybris-plugin" class="md-nav__link">
+    <span class="md-ellipsis">
+      MCE libhybris Plugin
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mce-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      MCE configuration
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#non-graphical-feedback-daemon-ngfd" class="md-nav__link">
+    <span class="md-ellipsis">
+      Non-Graphical Feedback Daemon (NGFD)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Non-Graphical Feedback Daemon (NGFD)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#configuring-haptics" class="md-nav__link">
+    <span class="md-ellipsis">
+      Configuring Haptics
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ngfd-pulseaudio-plugin" class="md-nav__link">
+    <span class="md-ellipsis">
+      NGFD PulseAudio Plugin
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ngfd-ffmemless-plugin" class="md-nav__link">
+    <span class="md-ellipsis">
+      NGFD ffmemless Plugin
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#non-graphic-feedback-daemon-native-vibrator-plugin" class="md-nav__link">
+    <span class="md-ellipsis">
+      Non-Graphic Feedback Daemon Native Vibrator Plugin
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ngfd-droid-vibrator-plugin" class="md-nav__link">
+    <span class="md-ellipsis">
+      NGFD Droid Vibrator Plugin
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pulseaudio-droid-modules" class="md-nav__link">
+    <span class="md-ellipsis">
+      PulseAudio Droid Modules
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#qt5-hardware-composer-qpa" class="md-nav__link">
+    <span class="md-ellipsis">
+      Qt5 Hardware Composer QPA
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sensorfw-qt-5-libhybris-plugin" class="md-nav__link">
+    <span class="md-ellipsis">
+      SensorFW Qt 5 / libhybris Plugin
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#build-ha-middleware-packages" class="md-nav__link">
+    <span class="md-ellipsis">
+      Build HA Middleware Packages
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Build HA Middleware Packages">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#all-other-packages" class="md-nav__link">
+    <span class="md-ellipsis">
+      All other packages
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="middleware">Middleware<a class="headerlink" href="#middleware" title="Permanent link">#</a></h1>
+<p>This chapter contains some background information about the middleware
+parts that are part of the Hardware Adapation. Using this info, it
+should be possible to customize and build the middleware parts for a
+given device.</p>
+<h2 id="mce-libhybris-plugin">MCE libhybris Plugin<a class="headerlink" href="#mce-libhybris-plugin" title="Permanent link">#</a></h2>
+<div class="admonition todo">
+<p class="admonition-title">Todo</p>
+</div>
+<h2 id="mce-configuration">MCE configuration<a class="headerlink" href="#mce-configuration" title="Permanent link">#</a></h2>
+<dl>
+<dt><strong>/etc/mce/60-doubletap-jolla.ini</strong></dt>
+<dd>
+<p>Configures the touchscreen kernel driver sysfs that can be used to
+disable and enable double tap to wake up feature. Example of its
+content:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Configuration for doubletap wakeup plugin</span>
+<span class="k">[DoubleTap]</span>
+<span class="c1"># Path to doubletap wakeup control file</span>
+<span class="na">ControlPath</span><span class="o">=</span><span class="s">/sys/bus/i2c/drivers/touch_synaptics/3-0020/double_tap_enable</span>
+<span class="c1"># Value to write when enabling doubletap wakeups</span>
+<span class="na">EnableValue</span><span class="o">=</span><span class="s">1</span>
+<span class="c1"># Value to write when Disabling doubletap wakeups</span>
+<span class="na">DisableValue</span><span class="o">=</span><span class="s">0</span>
+</code></pre></div>
+</dd>
+</dl>
+<div class="admonition todo">
+<p class="admonition-title">Todo</p>
+<p><strong>/etc/mce/60-mce-cpu-scaling-governor.ini</strong></p>
+<p><strong>/etc/mce/60-mce-display-blank-timeout.conf</strong></p>
+<p><strong>/etc/mce/60-mce-display-brightness.conf</strong></p>
+<p><strong>/etc/mce/60-mce-possible-display-dim-timeouts.conf</strong></p>
+<p><strong>/etc/mce/60-memnotify-jolla.conf</strong></p>
+</div>
+<h2 id="non-graphical-feedback-daemon-ngfd">Non-Graphical Feedback Daemon (NGFD)<a class="headerlink" href="#non-graphical-feedback-daemon-ngfd" title="Permanent link">#</a></h2>
+<p>The <a href="https://github.com/sailfishos/ngfd">Non-Graphical Feedback Daemon</a>
+provides combined audio, haptic, and LED feedback for system events and alarms.
+These events include such things as ring tones, message tones, clock alarms,
+email notifications, etc.</p>
+<p>From here on shortened to NGFD.</p>
+<div class="admonition todo">
+<p class="admonition-title">Todo</p>
+<p>add more detail about configuring NGFD.</p>
+</div>
+<h3 id="configuring-haptics">Configuring Haptics<a class="headerlink" href="#configuring-haptics" title="Permanent link">#</a></h3>
+<p>Sailfish OS uses <strong>NGFD</strong> to provide haptic feedback. We use a
+<strong>QtFeedback</strong> plugin to bridge it with NGFD. The NGFD plugin is for
+providing feedback for events and alarms, it interfaces directly with
+QtFeedback that can be used by 3rd-party applications.</p>
+<p>When configuring haptics it is important to know if your device uses
+ffmemless or the LED/Droid based vibrator interface.</p>
+<p>To determine if your device uses the LED/native interface check for
+<code>/sys/class/timed_output/vibrator/enable</code> or
+<code>/sys/class/leds/vibrator/activate</code>.
+The exact path for these might be a little different in some cases, e.g.
+instead of <code>vibrator</code> the path could contain <code>foobar</code>, <code>foobar</code> being
+the device name in this case. Check for down below
+<a href="#non-graphic-feedback-daemon-native-vibrator-plugin">Non-Graphic Feedback Daemon Native Vibrator Plugin</a>
+for more.</p>
+<p>If these files are not present it is very likely that your device uses
+ffmemless to control haptics. To verify if your device uses ffmemless
+install the <code>mce-tools</code> package and run <code>evdev_trace -i</code>.
+If the listing contains a device with the type <code>EV_FF</code>, then your device uses
+ffmemless.</p>
+<p>The <strong>qt5-feedback-haptics-ffmemless</strong> used before <strong>Sailfish OS 4.3</strong>
+is deprecated in favor of the before mentioned QtFeedback plugin.</p>
+<p>When migrating away from <strong>qt5-feedback-haptics-ffmemless</strong>
+/usr/lib/qt5/plugins/feedback/ffmemless.ini can be removed without
+further intervention.</p>
+<p>You can copy the Configuration file of the specific plugin used by your
+device to tune it fit better to your device.</p>
+<p>The reason we have possibility for device specific effects is that
+hardware mechanics and the vibra engines differ greatly
+device-by-device, and single settings will not give good effect on all
+devices.</p>
+<p>Good guideline for VKB haptic is that it should be as short as possible,
+and vibrate at the resonance frequency of the device mechanics when
+vibra engine reaches top magnitude of the vibra effect. It should not
+feel like vibration, but like a single kick.</p>
+<h3 id="ngfd-pulseaudio-plugin">NGFD PulseAudio Plugin<a class="headerlink" href="#ngfd-pulseaudio-plugin" title="Permanent link">#</a></h3>
+<div class="admonition todo">
+<p class="admonition-title">Todo</p>
+</div>
+<h3 id="ngfd-ffmemless-plugin">NGFD ffmemless Plugin<a class="headerlink" href="#ngfd-ffmemless-plugin" title="Permanent link">#</a></h3>
+<p>This is the main plugin handling vibra feedback for Sailfish OS for
+devices that use the ffmemless interface.</p>
+<p>The default configuration file can be found in
+<a href="https://github.com/sailfishos/ngfd/blob/master/data/plugins.d/50-ffmemless.ini">/usr/share/ngfd/plugins.d/50-ffmemless.ini</a>.</p>
+<p>The default configuration files can be over-ridden with setting
+environment variable <code>NGF_FFMEMLESS_SETTINGS</code>.</p>
+<p>To set the environment variables add environment config file to your
+config package that installs to <code>/var/lib/environment/nemo/60-&lt;device&gt;-vibra.conf</code>.
+Replace with your <code>&lt;device&gt;</code> with the name of your device. E.g. mako, hammerhead etc.</p>
+<p>And that file should look like below:</p>
+<div class="highlight"><pre><span></span><code><span class="nv">NGF_FFMEMLESS_SETTINGS</span><span class="o">=</span>/usr/share/ngfd/plugins.d/ngf-vibra-&lt;device&gt;.ini
+</code></pre></div>
+<p>Now you can use the file to tune force feedback effects suitable
+specifically for your device. For template to start making your own
+configuration files, just copy-paste the ngfd
+<a href="https://github.com/sailfishos/ngfd/blob/master/data/plugins.d/50-ffmemless.ini">50-ffmemless.ini</a>
+default config files as the device specific files and then edit only
+needed bits.</p>
+<p>An alternative instead of using the environment variable is duplicating
+the <code>50-ffmemless.ini</code> in the same folder with a different name such as
+<code>51-ffmemless.ini</code>, NGFD will now pickup your configuration file instead of
+the stock configuration file.</p>
+<p>This especially affects those devices using ffmemless CUSTOM vibration
+patterns, read the default 50-ffmemless.ini. To check if the device uses
+ffmemless custom vibration patterns check if <code>evdev_trace</code>
+contains a device that contains <code>FF_CUSTOM</code></p>
+<h3 id="non-graphic-feedback-daemon-native-vibrator-plugin">Non-Graphic Feedback Daemon Native Vibrator Plugin<a class="headerlink" href="#non-graphic-feedback-daemon-native-vibrator-plugin" title="Permanent link">#</a></h3>
+<p>This plugin uses the native kernel interface from the timed output
+driver or the led vibrator interface. The native plugin doesn't require
+any configuration normally.</p>
+<p>It is possible to set the path of the activation and duration controls
+as shown below if the plugin can't find these on its own:</p>
+<div class="highlight"><pre><span></span><code><span class="k">[droid-vibrator]</span>
+<span class="na">native.path</span><span class="w">          </span><span class="o">=</span><span class="w"> </span><span class="s">/sys/class/leds/&lt;device&gt;/duration</span>
+<span class="na">native.activate_path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">/sys/class/leds/&lt;device&gt;/activate</span>
+</code></pre></div>
+<p>Replace <code>&lt;device&gt;</code> with the name of device directory for your vibration device.</p>
+<p>It is the preferred method if the ffmemless plugin isn\'t used.</p>
+<h3 id="ngfd-droid-vibrator-plugin">NGFD Droid Vibrator Plugin<a class="headerlink" href="#ngfd-droid-vibrator-plugin" title="Permanent link">#</a></h3>
+<p>This is a secondary vibra plugin for demoing and quick ports. It works
+out of the box with android timed output drivers. The feature set is
+reduced compared to ffmemless plugin.</p>
+<div class="admonition todo">
+<p class="admonition-title">Todo</p>
+</div>
+<h2 id="pulseaudio-droid-modules">PulseAudio Droid Modules<a class="headerlink" href="#pulseaudio-droid-modules" title="Permanent link">#</a></h2>
+<div class="admonition todo">
+<p class="admonition-title">Todo</p>
+<p>more information about how PA works</p>
+</div>
+<h2 id="qt5-hardware-composer-qpa">Qt5 Hardware Composer QPA<a class="headerlink" href="#qt5-hardware-composer-qpa" title="Permanent link">#</a></h2>
+<p>This Qt Platform Abstraction plugin makes use of the libhardware
+hwcomposer API to send rendered frames from the Wayland Compositor to
+the actual framebuffer. While for some older devices, just flipping the
+fbdev was enough, more recent devices actually require using hwcomposer
+to request flipping and for vsync integration.</p>
+<p>The important environment variables are:</p>
+<dl>
+<dt><code>EGL_PLATFORM</code></dt>
+<dd>For the Wayland Compositor, this needs to be set
+to <code>fbdev</code> on devices with older hwcomposer versions, and to
+<code>hwcomposer</code> for hwcomposer version 1.1 and newer. For best
+results, first try <code>fbdev</code>, and if it doesn't work, try
+<code>hwcomposer</code> instead. For the Wayland Clients, this always needs
+to be set to <code>wayland</code>.</dd>
+<dt><code>QT_QPA_PLATFORM</code></dt>
+<dd>For the Wayland Compositor, this needs to be
+set to <code>hwcomposer</code> to use the plugin. Previously, <code>eglfs</code> was
+used, but the <code>hwcomposer</code> module replaces the old plugin on
+Sailfish OS on Droid. For Wayland Clients, this always needs to be
+set to <code>wayland</code>.</dd>
+</dl>
+<p>When starting up an application (e.g. the Wayland Compositor,
+<code>lipstick</code>), the systemd journal (<code>journalctl -fa</code> as user root) will
+show some details about the detected screen metrics, which will come
+from the framebuffer device:</p>
+<div class="highlight"><pre><span></span><code>HwComposerScreenInfo:251 - EGLFS: Screen Info
+HwComposerScreenInfo:252 -  - Physical size: QSizeF(57, 100)
+HwComposerScreenInfo:253 -  - Screen size: QSize(540, 960)
+HwComposerScreenInfo:254 -  - Screen depth: 32
+</code></pre></div>
+<p>Also, it will print information about the hwcomposer module and the
+device. In this specific case, the hwcomposer version is 0.3:</p>
+<div class="highlight"><pre><span></span><code>== hwcomposer module ==
+* Address: 0x40132000
+* Module API Version: 2
+* HAL API Version: 0
+* Identifier: hwcomposer
+* Name: Qualcomm Hardware Composer Module
+* Author: CodeAurora Forum
+== hwcomposer module ==
+== hwcomposer device ==
+* Version: 3 (interpreted as 30001)
+* Module: 0x40132000
+== hwcomposer device ==
+</code></pre></div>
+<p>The source tree contains different implementations of hwcomposer
+backends, each one for a different hwcomposer API version (see
+<code>hwcomposer/hwcomposer_backend.cpp</code>). Based on that detection, one of
+the existing implementations is used. Right now, the following
+implementations exist:</p>
+<dl>
+<dt>hwcomposer_backend_v0</dt>
+<dd>Version 0.x (e.g. 0.3) of the hwcomposer
+API. It can handle swapping of an EGL surface to the display,
+doesn't use any additional hardware layers at the moment and can
+support switching the screen off. The VSync period is queried from
+the hwcomposer device, but it will fall back to 60 Hz if the
+information cannot be determined via the libhardware APIs.
+(<code>EGL_PLATFORM=fbdev</code>)</dd>
+<dt>hwcomposer_backend_v10</dt>
+<dd>Version 1.0 of the hwcomposer API. It
+supports one display device, handles VSync explicitly and uses a
+single hardware layer that will be drawn via EGL (and not composed
+via hwcomposer). Swapping is done by waiting for VSync and uses
+libsync-based synchronization of posting buffers. Switching the
+screen off is also supported, and sleeping the screen disables VSync
+events. Also, the same VSync period algorithm is used (try to query
+from libhardware, fall back to 60 Hz if detection fails).
+(<code>EGL_PLATFORM=fbdev</code>)</dd>
+<dt>hwcomposer_backend_v11</dt>
+<dd>Version 1.1, 1.2, 1.3, 1.4, and 1.5 of the
+hwcomposer API. Versions higher or equal than 1.3 only support
+physical displays, whereas 1.1 and 1.2 support also virtual
+displays. This requires libsync and hwcomposer-egl from libhybris.
+Most of the hwcomposer 1.0 API properties apply, with the exception
+that frame posting and synchronization happens with the help of
+libhybris' hwcomposer EGL platform. (<code>EGL_PLATFORM=hwcomposer</code>)</dd>
+</dl>
+<p>Instead of running the Wayland Compositor (lipstick) on top of the
+hwcomposer QPA plugin, one can also run all other Qt 5-based
+applications, but the application can only open a single window
+(multiple windows are not supported, and will cause an application
+abort). For multiple windows, Wayland is used. This means that for
+testing, it is possible to run a simple, single-window Qt 5 application
+on the framebuffer (without any Wayland Compositor in between) by
+setting the environment variables <code>EGL_PLATFORM</code> and <code>QT_QPA_PLATFORM</code>
+according to the above.</p>
+<h2 id="sensorfw-qt-5-libhybris-plugin">SensorFW Qt 5 / libhybris Plugin<a class="headerlink" href="#sensorfw-qt-5-libhybris-plugin" title="Permanent link">#</a></h2>
+<div class="admonition todo">
+<p class="admonition-title">Todo</p>
+</div>
+<h2 id="build-ha-middleware-packages">Build HA Middleware Packages<a class="headerlink" href="#build-ha-middleware-packages" title="Permanent link">#</a></h2>
+<p><code>rpm/dhd/helpers/build_packages.sh</code> now is taking care of
+builds/rebuilds/local repo preparation and patterns.</p>
+<h4 id="all-other-packages">All other packages<a class="headerlink" href="#all-other-packages" title="Permanent link">#</a></h4>
+<p>Please compile any other required packages should a build/mic process
+indicate a dependency on them. Feel free to add/remove those packages
+to/from patterns to suit your port\'s needs.</p>
+<p>Follow the exact same compilation approach as with above packages. Known
+packages are:</p>
+<ul>
+<li><a href="https://github.com/mer-hybris/unblank-restart-sensors">https://github.com/mer-hybris/unblank-restart-sensors</a> - needed only by mako</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../subsystems/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Detailed subsystem adaptation guides">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Detailed subsystem adaptation guides
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../repos/" class="md-footer__link md-footer__link--next" aria-label="Next: List of Repositories">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                List of Repositories
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      
+<div class="md-copyright">Copyright &copy; 2025 Jolla Mobile Ltd</div>
+
+
+
+<div class="md-copyright">
+Content licensed under <a href="../LICENSE.txt">CC BY-NC-SA 4.0</a></li>
+</div>
+
+
+<div class="md-copyright">
+Made with <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">Material for MkDocs</a>
+</div>
+
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "..", "features": ["navigation.footer"], "search": "../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.f55a23d4.min.js"></script>
+      
+    
+  </body>
+</html>
