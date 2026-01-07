@@ -13,7 +13,7 @@ be checked.
       ```
 
 -   **memnotify patch to kernel + config for mce**
-    - Memory pressure normalcritical affects for example browser
+    - Memory pressure normal | warning | critical affects for example browser
     - Quick test:
       ```
       ls /etc/mce/*memnot*
