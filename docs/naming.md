@@ -7,6 +7,12 @@ As in the other chapters of this guide, `$DEVICE` should be replaced
 with the device codename (e.g. `mako` for Nexus 4), and the asterisk
 (*) is used as wildcard / placeholder.
 
+!!!note
+    Use lower-case codename as `$DEVICE` even if your device uses
+    upper-case letters in Android codename. Details on handling
+    codenames with upper-case letter are given in chapter
+    [Packaging Droid HAL](droid-hal.md).
+
 ## List of naming rules
 
 Packages that are arch-specific (e.g. `aarch64`), device-specific and
