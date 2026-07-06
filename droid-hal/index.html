@@ -799,6 +799,10 @@
 local RPM repository. From there, the RPM packages can be added to a
 local target and used to build libhybris and the QPA plugin. They can
 also be used to build the rootfs.</p>
+<p>If your device uses upper-case letters in Android codename use the
+Android codename as codename in the droid-hal spec creation and add
+<code>%define rpm_device lower_case_codename</code> next to the
+<code>%define device android_codename</code> line to the droid-hal spec.</p>
 <h2 id="creating-repositories-for-a-new-device">Creating Repositories for a New Device<a class="headerlink" href="#creating-repositories-for-a-new-device" title="Permanent link">#</a></h2>
 <p>If the folders
 <code>rpm, hybris/droid-configs, hybris-droid-hal-version-$DEVICE</code> do not

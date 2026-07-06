@@ -983,6 +983,12 @@ are using e.g. <code>zsh</code>, you need to run these commands in a <code>bash<
 as the Android build scripts are assuming you are running <code>bash</code>).</p>
 <p>You'll probably need to iterate this a few times to spot missing
 repositories, tools, configuration files and others:</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If your device uses upper-case letters in Android codename you need
+use <code>breakfast $HABUILD_DEVICE</code> in the following instructions instead
+of <code>breakfast $DEVICE</code>.</p>
+</div>
 <p>Before building it is recommended to read extra Android base specific
 hints from
 <a href="https://github.com/mer-hybris/hadk-faq#android-base-specific-fixes">https://github.com/mer-hybris/hadk-faq#android-base-specific-fixes</a></p>

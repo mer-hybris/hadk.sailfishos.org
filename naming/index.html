@@ -751,6 +751,13 @@ packages have to be named after a certain pattern.</p>
 <p>As in the other chapters of this guide, <code>$DEVICE</code> should be replaced
 with the device codename (e.g. <code>mako</code> for Nexus 4), and the asterisk
 (*) is used as wildcard / placeholder.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Use lower-case codename as <code>$DEVICE</code> even if your device uses
+upper-case letters in Android codename. Details on handling
+codenames with upper-case letter are given in chapter
+<a href="../droid-hal/">Packaging Droid HAL</a>.</p>
+</div>
 <h2 id="list-of-naming-rules">List of naming rules<a class="headerlink" href="#list-of-naming-rules" title="Permanent link">#</a></h2>
 <p>Packages that are arch-specific (e.g. <code>aarch64</code>), device-specific and
 contain <code>$DEVICE</code> in their name:</p>

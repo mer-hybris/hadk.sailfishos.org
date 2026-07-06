@@ -840,6 +840,13 @@ for its vendor/device pair), and port it using CyanogenMod 11.0 version
 as the "Android base".</strong> Thus ensure you read the code snippets
 carefully and rename where appropriate for your ported
 device/vendor/base.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Use lower-case codename as <code>$DEVICE</code> even if your device uses
+upper-case letters in Android codename. Details on handling
+codenames with upper-case letter are given in chapter
+<a href="../droid-hal/">Packaging Droid HAL</a>.</p>
+</div>
 <p>Now run the following commands on your host operating system fitting for
 your device and setup:</p>
 <div class="highlight"><span class="filename">HOST</span><pre><span></span><code>cat<span class="w"> </span><span class="s">&lt;&lt;&#39;EOF&#39; &gt; $HOME/.hadk.env</span>
@@ -858,6 +865,12 @@ cat<span class="w"> </span><span class="s">&lt;&lt;&#39;EOF&#39; &gt;&gt; $HOME/
 <span class="s">hadk</span>
 <span class="s">EOF</span>
 </code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If your device uses upper-case letters in Android codename you need
+to add <code>export HABUILD_DEVICE=android_codename</code> to <code>$HOME/.hadk.env</code>
+file.</p>
+</div>
 <p>This ensures that the environment is setup correctly when you use the
 <code>ubu-chroot</code> command to enter the Android SDK.</p>
 <p>It also creates a function <code>hadk</code> that you can use to set or reset the
