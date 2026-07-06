@@ -12,6 +12,12 @@ as the "Android base".** Thus ensure you read the code snippets
 carefully and rename where appropriate for your ported
 device/vendor/base.
 
+!!!note
+    Use lower-case codename as `$DEVICE` even if your device uses
+    upper-case letters in Android codename. Details on handling
+    codenames with upper-case letter are given in chapter
+    [Packaging Droid HAL](droid-hal.md).
+
 Now run the following commands on your host operating system fitting for
 your device and setup:
 
@@ -33,6 +39,11 @@ export PS1="HABUILD_SDK [\${DEVICE}] $PS1"
 hadk
 EOF
 ```
+
+!!!note
+    If your device uses upper-case letters in Android codename you need
+    to add `export HABUILD_DEVICE=android_codename` to `$HOME/.hadk.env`
+    file.
 
 This ensures that the environment is setup correctly when you use the
 `ubu-chroot` command to enter the Android SDK.
