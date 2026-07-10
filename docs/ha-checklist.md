@@ -13,7 +13,7 @@ be checked.
       ```
 
 -   **memnotify patch to kernel + config for mce**
-    - Memory pressure normalcritical affects for example browser
+    - Memory pressure normal | warning | critical affects for example browser
     - Quick test:
       ```
       ls /etc/mce/*memnot*
@@ -92,7 +92,11 @@ be checked.
     - There has been many devices where gestures are supported but
       touch driver uses odd concepts
 
-- **zram in kernel**
+- **zram in kernel & systemd**
+    - Quick test:
+      ```
+      ls /usr/lib/systemd/system/zram.service
+      ```
 
 - **Look out for suspicious logging during bootup / shutdown**
     - Faster/slower/just different -> odd things can/will happen
